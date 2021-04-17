@@ -6,9 +6,7 @@ namespace System.CommandLine.Rendering.Views
     public class StackLayoutView : LayoutView<View>
     {
         public StackLayoutView()
-                : this(Orientation.Vertical)
-        {
-        }
+            : this(Orientation.Vertical) { }
 
         public StackLayoutView(Orientation orientation)
         {
@@ -17,8 +15,10 @@ namespace System.CommandLine.Rendering.Views
 
         public Orientation Orientation { get; }
 
-        public override void Render(ConsoleRenderer renderer, Region region = null)
-        {
+        public override void Render(
+            ConsoleRenderer renderer,
+            Region region = null
+        ) {
             switch (Orientation)
             {
                 case Orientation.Vertical:
@@ -42,7 +42,10 @@ namespace System.CommandLine.Rendering.Views
                 {
                     break;
                 }
-                var size = child.Measure(renderer, new Size(region.Width, height));
+                var size = child.Measure(
+                    renderer,
+                    new Size(region.Width, height)
+                );
                 int renderHeight = Math.Min(height, size.Height);
                 var r = new Region(left, top, size.Width, renderHeight);
                 child.Render(renderer, r);
@@ -63,7 +66,10 @@ namespace System.CommandLine.Rendering.Views
                 {
                     break;
                 }
-                var size = child.Measure(renderer, new Size(width, region.Height));
+                var size = child.Measure(
+                    renderer,
+                    new Size(width, region.Height)
+                );
                 var r = new Region(left, top, width, size.Height);
                 child.Render(renderer, r);
                 left += size.Width;
@@ -80,12 +86,16 @@ namespace System.CommandLine.Rendering.Views
                 case Orientation.Horizontal:
                     return GetAdjustedSizeHorizontal(renderer, maxSize);
                 default:
-                    throw new InvalidOperationException($"Orientation {Orientation} is not implemented");
+                    throw new InvalidOperationException(
+                        $"Orientation {Orientation} is not implemented"
+                    );
             }
         }
 
-        private Size GetAdjustedSizeVertical(ConsoleRenderer renderer, Size maxSize)
-        {
+        private Size GetAdjustedSizeVertical(
+            ConsoleRenderer renderer,
+            Size maxSize
+        ) {
             var maxWidth = 0;
             var totHeight = 0;
 
@@ -97,7 +107,10 @@ namespace System.CommandLine.Rendering.Views
                 {
                     break;
                 }
-                var size = child.Measure(renderer, new Size(maxSize.Width, height));
+                var size = child.Measure(
+                    renderer,
+                    new Size(maxSize.Width, height)
+                );
                 height -= size.Height;
                 totHeight += size.Height;
                 maxWidth = Math.Max(maxWidth, size.Width);
@@ -106,8 +119,10 @@ namespace System.CommandLine.Rendering.Views
             return new Size(maxWidth, totHeight);
         }
 
-        private Size GetAdjustedSizeHorizontal(ConsoleRenderer renderer, Size maxSize)
-        {
+        private Size GetAdjustedSizeHorizontal(
+            ConsoleRenderer renderer,
+            Size maxSize
+        ) {
             var maxHeight = 0;
             var totalWidth = 0;
 
@@ -119,7 +134,10 @@ namespace System.CommandLine.Rendering.Views
                 {
                     break;
                 }
-                var size = child.Measure(renderer, new Size(width, maxSize.Height));
+                var size = child.Measure(
+                    renderer,
+                    new Size(width, maxSize.Height)
+                );
                 width -= size.Width;
                 totalWidth += size.Width;
                 maxHeight = Math.Max(maxHeight, size.Height);

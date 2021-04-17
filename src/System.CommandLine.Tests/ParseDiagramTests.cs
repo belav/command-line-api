@@ -15,61 +15,59 @@ namespace System.CommandLine.Tests
         {
             var parser = new Parser(
                 new Command(
-                    "the-command")
-                  {
-                        new Option("-x", arity: ArgumentArity.ExactlyOne),
-                        new Option("-y"),
-                        new Argument
-                        {
-                            Arity = ArgumentArity.ZeroOrMore
-                        }
-                    });
+                    "the-command"
+                )
+                {
+                    new Option("-x", arity: ArgumentArity.ExactlyOne),
+                    new Option("-y"),
+                    new Argument { Arity = ArgumentArity.ZeroOrMore }
+                }
+            );
 
             var result = parser.Parse("the-command -x one -y two three");
 
             result.Diagram()
-                  .Should()
-                  .Be("[ the-command [ -x <one> ] [ -y ] <two> <three> ]");
+                .Should()
+                .Be("[ the-command [ -x <one> ] [ -y ] <two> <three> ]");
         }
 
         [Fact]
         public void Parse_result_diagram_displays_unmatched_tokens()
         {
-            var command = new Command("command")
+            var command = new Command(
+                "command"
+            )
             {
                 new Option<string>("-x").FromAmong("arg1", "arg2", "arg3")
             };
 
             var result = command.Parse("command -x ar");
 
-            result.Diagram()
-                  .Should()
-                  .Be("[ command ![ -x <ar> ] ]");
+            result.Diagram().Should().Be("[ command ![ -x <ar> ] ]");
         }
 
         [Fact]
         public void Parse_diagram_shows_type_conversion_errors()
         {
-            var command = new RootCommand
-            {
-                new Option<int>("-f")
-            };
+            var command = new RootCommand { new Option<int>("-f") };
 
             var result = command.Parse("-f not-an-int");
 
             result.Diagram()
-                  .Should()
-                  .Be($"[ {RootCommand.ExecutableName} [ -f !<not-an-int> ] ]");
+                .Should()
+                .Be($"[ {RootCommand.ExecutableName} [ -f !<not-an-int> ] ]");
         }
 
         [Fact]
-        public void Parse_diagram_identifies_options_where_default_values_have_been_applied()
-        {
+        public void Parse_diagram_identifies_options_where_default_values_have_been_applied() {
             var rootCommand = new RootCommand
             {
                 new Option<int>(new[] { "-h", "--height" }, () => 10),
                 new Option<int>(new[] { "-w", "--width" }, () => 15),
-                new Option<ConsoleColor>(new[] { "-c", "--color" }, () => ConsoleColor.Cyan)
+                new Option<ConsoleColor>(
+                    new[] { "-c", "--color" },
+                    () => ConsoleColor.Cyan
+                )
             };
 
             var result = rootCommand.Parse("-w 9000");
@@ -77,13 +75,16 @@ namespace System.CommandLine.Tests
             var diagram = result.Diagram();
 
             diagram.Should()
-                   .Be($"[ {RootCommand.ExecutableName} [ -w <9000> ] *[ --height <10> ] *[ --color <Cyan> ] ]");
+                .Be(
+                    $"[ {RootCommand.ExecutableName} [ -w <9000> ] *[ --height <10> ] *[ --color <Cyan> ] ]"
+                );
         }
 
         [Fact]
-        public void Parse_diagram_indicates_which_tokens_were_applied_to_which_command_argument()
-        {
-            var command = new Command("the-command")
+        public void Parse_diagram_indicates_which_tokens_were_applied_to_which_command_argument() {
+            var command = new Command(
+                "the-command"
+            )
             {
                 new Argument<string> { Name = "first" },
                 new Argument<string> { Name = "second" },
@@ -93,14 +94,17 @@ namespace System.CommandLine.Tests
             var result = command.Parse("one two three four five");
 
             result.Diagram()
-                  .Should()
-                  .Be("[ the-command [ first <one> ] [ second <two> ] [ third <three> <four> <five> ] ]");
+                .Should()
+                .Be(
+                    "[ the-command [ first <one> ] [ second <two> ] [ third <three> <four> <five> ] ]"
+                );
         }
-        
+
         [Fact]
-        public void Parse_diagram_indicates_which_tokens_were_applied_to_which_command_argument_for_sequences_of_complex_types()
-        {
-            var command = new Command("the-command")
+        public void Parse_diagram_indicates_which_tokens_were_applied_to_which_command_argument_for_sequences_of_complex_types() {
+            var command = new Command(
+                "the-command"
+            )
             {
                 new Argument<FileInfo> { Name = "first" },
                 new Argument<FileInfo> { Name = "second" },
@@ -110,8 +114,10 @@ namespace System.CommandLine.Tests
             var result = command.Parse("one two three four five");
 
             result.Diagram()
-                  .Should()
-                  .Be("[ the-command [ first <one> ] [ second <two> ] [ third <three> <four> <five> ] ]");
+                .Should()
+                .Be(
+                    "[ the-command [ first <one> ] [ second <two> ] [ third <three> <four> <five> ] ]"
+                );
         }
     }
 }

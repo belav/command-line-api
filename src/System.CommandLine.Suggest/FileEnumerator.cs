@@ -7,10 +7,11 @@ using System.Linq;
 
 namespace System.CommandLine.Suggest
 {
-    public static class  FileEnumerator
+    public static class FileEnumerator
     {
-        public static IEnumerable<string> EnumerateFilesWithoutExtension(DirectoryInfo path)
-        {
+        public static IEnumerable<string> EnumerateFilesWithoutExtension(
+            DirectoryInfo path
+        ) {
             if (path == null || !path.Exists)
             {
                 return Array.Empty<string>();

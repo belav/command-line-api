@@ -22,8 +22,10 @@ namespace System.CommandLine.Tests
             var rootCommand = new RootCommand();
             rootCommand.Name = "custom";
 
-            rootCommand.Aliases.Should().BeEquivalentTo("custom", RootCommand.ExecutableName);
-            rootCommand.Aliases.Should().BeEquivalentTo("custom", RootCommand.ExecutableName);
+            rootCommand.Aliases.Should()
+                .BeEquivalentTo("custom", RootCommand.ExecutableName);
+            rootCommand.Aliases.Should()
+                .BeEquivalentTo("custom", RootCommand.ExecutableName);
         }
     }
 }

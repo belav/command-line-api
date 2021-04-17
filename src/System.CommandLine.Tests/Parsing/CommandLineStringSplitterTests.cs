@@ -11,7 +11,8 @@ namespace System.CommandLine.Tests.Parsing
 {
     public class CommandLineStringSplitterTests
     {
-        private readonly CommandLineStringSplitter _splitter = CommandLineStringSplitter.Instance;
+        private readonly CommandLineStringSplitter _splitter =
+            CommandLineStringSplitter.Instance;
 
         [Theory]
         [InlineData("one two three four")]
@@ -22,8 +23,8 @@ namespace System.CommandLine.Tests.Parsing
         public void It_splits_strings_based_on_whitespace(string commandLine)
         {
             _splitter.Split(commandLine)
-                     .Should()
-                     .BeEquivalentSequenceTo("one", "two", "three", "four");
+                .Should()
+                .BeEquivalentSequenceTo("one", "two", "three", "four");
         }
 
         [Fact]
@@ -32,8 +33,8 @@ namespace System.CommandLine.Tests.Parsing
             var commandLine = @"rm -r ""c:\temp files\""";
 
             _splitter.Split(commandLine)
-                     .Should()
-                     .BeEquivalentSequenceTo("rm", "-r", @"c:\temp files\");
+                .Should()
+                .BeEquivalentSequenceTo("rm", "-r", @"c:\temp files\");
         }
 
         [Theory]
@@ -45,35 +46,44 @@ namespace System.CommandLine.Tests.Parsing
         [InlineData("/", ':')]
         public void It_does_not_split_double_quote_delimited_values_when_a_non_whitespace_argument_delimiter_is_used(
             string prefix,
-            char delimiter)
-        {
-            var optionAndArgument = $@"{prefix}the-option{delimiter}""c:\temp files\""";
+            char delimiter
+        ) {
+            var optionAndArgument =
+                $@"{prefix}the-option{delimiter}""c:\temp files\""";
 
             var commandLine = $"the-command {optionAndArgument}";
 
             _splitter.Split(commandLine)
-                     .Should()
-                     .BeEquivalentSequenceTo("the-command", optionAndArgument.Replace("\"", ""));
+                .Should()
+                .BeEquivalentSequenceTo(
+                    "the-command",
+                    optionAndArgument.Replace("\"", "")
+                );
         }
 
         [Fact]
         public void It_handles_multiple_options_with_quoted_arguments()
         {
             var source = Directory.GetCurrentDirectory();
-            var destination = Path.Combine(Directory.GetCurrentDirectory(), ".trash");
+            var destination = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                ".trash"
+            );
 
-            var commandLine = $"move --from \"{source}\" --to \"{destination}\" --verbose";
+            var commandLine =
+                $"move --from \"{source}\" --to \"{destination}\" --verbose";
 
             var tokenized = _splitter.Split(commandLine);
 
             tokenized.Should()
-                     .BeEquivalentSequenceTo(
-                         "move",
-                         "--from",
-                         source,
-                         "--to",
-                         destination,
-                         "--verbose");
+                .BeEquivalentSequenceTo(
+                    "move",
+                    "--from",
+                    source,
+                    "--to",
+                    destination,
+                    "--verbose"
+                );
         }
     }
 }

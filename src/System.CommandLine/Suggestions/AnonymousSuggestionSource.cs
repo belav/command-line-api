@@ -12,11 +12,14 @@ namespace System.CommandLine.Suggestions
 
         public AnonymousSuggestionSource(SuggestDelegate suggest)
         {
-            _suggest = suggest ?? throw new ArgumentNullException(nameof(suggest));
+            _suggest = suggest
+            ?? throw new ArgumentNullException(nameof(suggest));
         }
 
-        public IEnumerable<string> GetSuggestions(ParseResult? parseResult = null, string? textToMatch = null)
-        {
+        public IEnumerable<string> GetSuggestions(
+            ParseResult? parseResult = null,
+            string? textToMatch = null
+        ) {
             return _suggest(parseResult, textToMatch);
         }
     }

@@ -8,9 +8,11 @@ namespace System.CommandLine.Binding
         public bool TryGetValue(
             IValueDescriptor valueDescriptor,
             BindingContext? bindingContext,
-            out object? boundValue)
-        {
-            boundValue = bindingContext?.ServiceProvider.GetService(valueDescriptor.ValueType);
+            out object? boundValue
+        ) {
+            boundValue = bindingContext?.ServiceProvider.GetService(
+                valueDescriptor.ValueType
+            );
             return true;
         }
     }

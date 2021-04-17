@@ -9,8 +9,7 @@ namespace System.CommandLine.Rendering.Tests
     public class AnsiControlCodeTests
     {
         [Fact]
-        public void Control_codes_with_equivalent_content_have_the_same_hash_code()
-        {
+        public void Control_codes_with_equivalent_content_have_the_same_hash_code() {
             var one = new AnsiControlCode($"{Ansi.Esc}[s");
             var two = new AnsiControlCode($"{Ansi.Esc}[s");
 
@@ -23,13 +22,11 @@ namespace System.CommandLine.Rendering.Tests
             var one = new AnsiControlCode($"{Ansi.Esc}[s");
             var two = new AnsiControlCode($"{Ansi.Esc}[s");
 
-            one.Equals(two)
-               .Should()
-               .BeTrue();
+            one.Equals(two).Should().BeTrue();
 
             one.Invoking(code => code.Equals(null))
-               .Should()
-               .NotThrow<NullReferenceException>();
+                .Should()
+                .NotThrow<NullReferenceException>();
         }
 
         [Fact]
@@ -38,32 +35,30 @@ namespace System.CommandLine.Rendering.Tests
             var one = new AnsiControlCode($"{Ansi.Esc}[s");
             var two = new AnsiControlCode($"{Ansi.Esc}[u");
 
-            one.Equals(two)
-               .Should()
-               .BeFalse();
+            one.Equals(two).Should().BeFalse();
         }
 
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void Control_codes_respect_ConsoleFormatInfo(bool supportsAnsiCodes)
-        {
+        public void Control_codes_respect_ConsoleFormatInfo(
+            bool supportsAnsiCodes
+        ) {
             IFormattable code = new AnsiControlCode($"{Ansi.Esc}[s");
 
-            IFormatProvider provider = new ConsoleFormatInfo() { SupportsAnsiCodes = supportsAnsiCodes };
+            IFormatProvider provider = new ConsoleFormatInfo()
+            {
+                SupportsAnsiCodes = supportsAnsiCodes
+            };
             string output = code.ToString(null, provider);
 
             if (supportsAnsiCodes)
             {
-                output
-                    .Should()
-                    .Contain(Ansi.Esc);
+                output.Should().Contain(Ansi.Esc);
             }
             else
             {
-                output
-                    .Should()
-                    .BeEmpty();
+                output.Should().BeEmpty();
             }
         }
     }

@@ -27,11 +27,11 @@ namespace Binding
                     case string s:
                         sb.AppendLine($"{obj} ({obj.GetType()})");
                         break;
-
                     case FileSystemInfo fsi:
-                        sb.AppendLine($"{fsi} ({fsi.GetType()})\nExists? {fsi.Exists}");
+                        sb.AppendLine(
+                            $"{fsi} ({fsi.GetType()})\nExists? {fsi.Exists}"
+                        );
                         break;
-
                     case ParseResult parseResult:
                         if (parseResult.Errors.Any())
                         {
@@ -44,19 +44,20 @@ namespace Binding
                         {
                             sb.AppendLine(parseResult.ToString());
                         }
-
                         break;
-
                     default:
 
                         foreach (var property in obj.GetType()
-                                                    .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                                                    .Where(p => p.CanRead)
-                                                    .OrderBy(p => p.Name))
-                        {
-                            sb.AppendLine($"{property.Name}: {property.GetValue(obj)} ({property.PropertyType})");
+                            .GetProperties(
+                                BindingFlags.Instance | BindingFlags.Public
+                            )
+                            .Where(p => p.CanRead)
+                            .OrderBy(p => p.Name)
+                        ) {
+                            sb.AppendLine(
+                                $"{property.Name}: {property.GetValue(obj)} ({property.PropertyType})"
+                            );
                         }
-
                         break;
                 }
             }

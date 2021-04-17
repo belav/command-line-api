@@ -16,13 +16,18 @@ namespace System.CommandLine.Tests
         public CommandTests()
         {
             _parser = new Parser(
-                new Command("outer")
+                new Command(
+                    "outer"
+                )
                 {
-                    new Command("inner")
+                    new Command(
+                        "inner"
+                    )
                     {
                         new Option("--option", arity: ArgumentArity.ExactlyOne)
                     }
-                });
+                }
+            );
         }
 
         [Fact]
@@ -30,12 +35,7 @@ namespace System.CommandLine.Tests
         {
             var result = _parser.Parse("outer inner --option argument1");
 
-            result
-                .RootCommandResult
-                .Symbol
-                .Name
-                .Should()
-                .Be("outer");
+            result.RootCommandResult.Symbol.Name.Should().Be("outer");
         }
 
         [Fact]
@@ -43,13 +43,7 @@ namespace System.CommandLine.Tests
         {
             var result = _parser.Parse("outer inner --option argument1");
 
-            result
-                .CommandResult
-                .Parent
-                .Symbol
-                .Name
-                .Should()
-                .Be("outer");
+            result.CommandResult.Parent.Symbol.Name.Should().Be("outer");
         }
 
         [Fact]
@@ -57,11 +51,7 @@ namespace System.CommandLine.Tests
         {
             var result = _parser.Parse("outer inner --option argument1");
 
-            result.CommandResult
-                  .Symbol
-                  .Name
-                  .Should()
-                  .Be("inner");
+            result.CommandResult.Symbol.Name.Should().Be("inner");
         }
 
         [Fact]
@@ -69,13 +59,9 @@ namespace System.CommandLine.Tests
         {
             var result = _parser.Parse("outer inner --option argument1");
 
-            result.CommandResult
-                  .Children
-                  .ElementAt(0)
-                  .Symbol
-                  .Name
-                  .Should()
-                  .Be("option");
+            result.CommandResult.Children.ElementAt(0)
+                .Symbol.Name.Should()
+                .Be("option");
         }
 
         [Fact]
@@ -83,50 +69,41 @@ namespace System.CommandLine.Tests
         {
             var result = _parser.Parse("outer inner --option argument1");
 
-            result.CommandResult
-                  .Children
-                  .ElementAt(0)
-                  .Tokens
-                  .Select(t => t.Value)
-                  .Should()
-                  .BeEquivalentTo("argument1");
+            result.CommandResult.Children.ElementAt(0)
+                .Tokens.Select(t => t.Value)
+                .Should()
+                .BeEquivalentTo("argument1");
         }
 
         [Fact]
         public void Commands_at_multiple_levels_can_have_their_own_arguments()
         {
-            var outer = new Command("outer")
+            var outer = new Command(
+                "outer"
+            )
             {
-                new Argument
-                {
-                    Arity = ArgumentArity.ExactlyOne
-                }
+                new Argument { Arity = ArgumentArity.ExactlyOne }
             };
             outer.AddCommand(
-                new Command("inner")
+                new Command(
+                    "inner"
+                )
                 {
-                    new Argument
-                    {
-                        Arity = ArgumentArity.ZeroOrMore
-                    }
-                });
+                    new Argument { Arity = ArgumentArity.ZeroOrMore }
+                }
+            );
 
             var parser = new Parser(outer);
 
             var result = parser.Parse("outer arg1 inner arg2 arg3");
 
-            result.CommandResult
-                  .Parent
-                  .Tokens
-                  .Select(t => t.Value)
-                  .Should()
-                  .BeEquivalentTo("arg1");
+            result.CommandResult.Parent.Tokens.Select(t => t.Value)
+                .Should()
+                .BeEquivalentTo("arg1");
 
-            result.CommandResult
-                  .Tokens
-                  .Select(t => t.Value)
-                  .Should()
-                  .BeEquivalentTo("arg2", "arg3");
+            result.CommandResult.Tokens.Select(t => t.Value)
+                .Should()
+                .BeEquivalentTo("arg2", "arg3");
         }
 
         [Fact]
@@ -140,22 +117,21 @@ namespace System.CommandLine.Tests
             command.HasAlias("added").Should().BeTrue();
         }
 
-
         [Theory]
         [InlineData("aa ")]
         [InlineData(" aa")]
         [InlineData("aa aa")]
         public void When_a_command_is_created_with_an_alias_that_contains_whitespace_then_an_informative_error_is_returned(
-            string alias)
-        {
+            string alias
+        ) {
             Action create = () => new Command(alias);
 
             create.Should()
-                  .Throw<ArgumentException>()
-                  .Which
-                  .Message
-                  .Should()
-                  .Contain($"Command alias cannot contain whitespace: \"{alias}\"");
+                .Throw<ArgumentException>()
+                .Which.Message.Should()
+                .Contain(
+                    $"Command alias cannot contain whitespace: \"{alias}\""
+                );
         }
 
         [Theory]
@@ -163,19 +139,18 @@ namespace System.CommandLine.Tests
         [InlineData(" aa")]
         [InlineData("aa aa")]
         public void When_a_command_alias_is_added_and_contains_whitespace_then_an_informative_error_is_returned(
-            string alias)
-        {
+            string alias
+        ) {
             var command = new Command("-x");
 
             Action addAlias = () => command.AddAlias(alias);
 
-            addAlias
-                .Should()
+            addAlias.Should()
                 .Throw<ArgumentException>()
-                .Which
-                .Message
-                .Should()
-                .Contain($"Command alias cannot contain whitespace: \"{alias}\"");
+                .Which.Message.Should()
+                .Contain(
+                    $"Command alias cannot contain whitespace: \"{alias}\""
+                );
         }
 
         [Theory]
@@ -189,14 +164,15 @@ namespace System.CommandLine.Tests
         [InlineData("outer inner arg inner-er", "inner-er")]
         [InlineData("outer inner arg inner-er arg", "inner-er")]
         [InlineData("outer arg inner arg inner-er arg", "inner-er")]
-        public void ParseResult_Command_identifies_innermost_command(string input, string expectedCommand)
-        {
-            var outer = new Command("outer")
+        public void ParseResult_Command_identifies_innermost_command(
+            string input,
+            string expectedCommand
+        ) {
+            var outer = new Command(
+                "outer"
+            )
             {
-                new Command("inner")
-                {
-                    new Command("inner-er")
-                },
+                new Command("inner") { new Command("inner-er") },
                 new Command("sibling")
             };
 
@@ -224,8 +200,10 @@ namespace System.CommandLine.Tests
         {
             var command = new RootCommand();
             command.AddAlias("that");
-            command.Aliases.Should().BeEquivalentTo(RootCommand.ExecutableName, "that");
-            command.Aliases.Should().BeEquivalentTo(RootCommand.ExecutableName, "that");
+            command.Aliases.Should()
+                .BeEquivalentTo(RootCommand.ExecutableName, "that");
+            command.Aliases.Should()
+                .BeEquivalentTo(RootCommand.ExecutableName, "that");
 
             var result = command.Parse("that");
 
@@ -239,10 +217,7 @@ namespace System.CommandLine.Tests
             var subcommand = new Command("this");
             subcommand.AddAlias("that");
 
-            var rootCommand = new RootCommand
-            {
-                subcommand
-            };
+            var rootCommand = new RootCommand { subcommand };
 
             var result = rootCommand.Parse("that");
 
@@ -253,62 +228,45 @@ namespace System.CommandLine.Tests
         [Fact]
         public void It_retains_argument_name_when_it_is_provided()
         {
-            var command = new Command("-alias")
+            var command = new Command(
+                "-alias"
+            )
             {
-                new Argument
-                {
-                    Name = "arg", Arity = ArgumentArity.ZeroOrOne
-                }
+                new Argument { Name = "arg", Arity = ArgumentArity.ZeroOrOne }
             };
 
             command.Arguments.Single().Name.Should().Be("arg");
         }
-  
+
         [Fact]
-        public void When_multiple_arguments_are_configured_then_they_must_differ_by_name()
-        {
-            var command = new Command("the-command")
+        public void When_multiple_arguments_are_configured_then_they_must_differ_by_name() {
+            var command = new Command(
+                "the-command"
+            )
             {
-                new Argument<string>
-                {
-                    Name = "same"
-                }
+                new Argument<string> { Name = "same" }
             };
 
-            command
-                .Invoking(c => c.Add(new Argument<string>
-                {
-                    Name = "same"
-                }))
+            command.Invoking(c => c.Add(new Argument<string> { Name = "same" }))
                 .Should()
                 .Throw<ArgumentException>()
-                .And
-                .Message
-                .Should()
+                .And.Message.Should()
                 .Be("Alias 'same' is already in use.");
         }
 
         [Fact]
-        public void When_multiple_options_are_configured_then_they_must_differ_by_name()
-        {
-            var command = new Command("the-command")
-            {
-                new Option("--same")
-            };
+        public void When_multiple_options_are_configured_then_they_must_differ_by_name() {
+            var command = new Command("the-command") { new Option("--same") };
 
-            command
-                .Invoking(c => c.Add(new Option("--same")))
+            command.Invoking(c => c.Add(new Option("--same")))
                 .Should()
                 .Throw<ArgumentException>()
-                .And
-                .Message
-                .Should()
+                .And.Message.Should()
                 .Be("Alias '--same' is already in use.");
         }
 
         [Fact]
-        public void When_Name_is_set_to_its_current_value_then_it_is_not_removed_from_aliases()
-        {
+        public void When_Name_is_set_to_its_current_value_then_it_is_not_removed_from_aliases() {
             var command = new Command("name");
 
             command.Name = "name";
@@ -319,141 +277,87 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_argument_of_string_defaults_to_empty_when_not_specified()
-        {
+        public void Command_argument_of_string_defaults_to_empty_when_not_specified() {
             var argument = new Argument<string>();
-            var command = new Command("mycommand")
-            {
-                argument
-            };
+            var command = new Command("mycommand") { argument };
 
             var result = command.Parse("mycommand");
-            result.ValueForArgument(argument)
-                .Should()
-                .BeEmpty();
+            result.ValueForArgument(argument).Should().BeEmpty();
         }
 
         [Fact]
-        public void Command_argument_of_IEnumerable_of_T_defaults_to_empty_when_not_specified()
-        {
+        public void Command_argument_of_IEnumerable_of_T_defaults_to_empty_when_not_specified() {
             var argument = new Argument<IEnumerable<string>>();
-            var command = new Command("mycommand")
-            {
-                argument
-            };
+            var command = new Command("mycommand") { argument };
 
             var result = command.Parse("mycommand");
-            result.ValueForArgument(argument)
-                .Should()
-                .BeEmpty();
+            result.ValueForArgument(argument).Should().BeEmpty();
         }
 
         [Fact]
-        public void Command_argument_of_Array_defaults_to_empty_when_not_specified()
-        {
+        public void Command_argument_of_Array_defaults_to_empty_when_not_specified() {
             var argument = new Argument<string[]>();
-            var command = new Command("mycommand")
-            {
-                argument
-            };
+            var command = new Command("mycommand") { argument };
 
             var result = command.Parse("mycommand");
-            result.ValueForArgument(argument)
-                .Should()
-                .BeEmpty();
+            result.ValueForArgument(argument).Should().BeEmpty();
         }
 
         [Fact]
-        public void Command_argument_of_List_defaults_to_empty_when_not_specified()
-        {
+        public void Command_argument_of_List_defaults_to_empty_when_not_specified() {
             var argument = new Argument<List<string>>();
-            var command = new Command("mycommand")
-            {
-                argument
-            };
+            var command = new Command("mycommand") { argument };
 
             var result = command.Parse("mycommand");
-            result.ValueForArgument(argument)
-                .Should()
-                .BeEmpty();
+            result.ValueForArgument(argument).Should().BeEmpty();
         }
 
         [Fact]
-        public void Command_argument_of_IList_of_T_defaults_to_empty_when_not_specified()
-        {
+        public void Command_argument_of_IList_of_T_defaults_to_empty_when_not_specified() {
             var argument = new Argument<IList<string>>();
-            var command = new Command("mycommand")
-            {
-                argument
-            };
+            var command = new Command("mycommand") { argument };
 
             var result = command.Parse("mycommand");
-            result.ValueForArgument(argument)
-                .Should()
-                .BeEmpty();
+            result.ValueForArgument(argument).Should().BeEmpty();
         }
 
         [Fact]
-        public void Command_argument_of_IList_defaults_to_empty_when_not_specified()
-        {
+        public void Command_argument_of_IList_defaults_to_empty_when_not_specified() {
             var argument = new Argument<System.Collections.IList>();
-            var command = new Command("mycommand")
-            {
-                argument
-            };
+            var command = new Command("mycommand") { argument };
 
             var result = command.Parse("mycommand");
-            result.ValueForArgument(argument)
-                .Should()
-                .BeEmpty();
+            result.ValueForArgument(argument).Should().BeEmpty();
         }
 
         [Fact]
-        public void Command_argument_of_ICollection_defaults_to_empty_when_not_specified()
-        {
+        public void Command_argument_of_ICollection_defaults_to_empty_when_not_specified() {
             var argument = new Argument<System.Collections.ICollection>();
-            var command = new Command("mycommand")
-            {
-                argument
-            };
+            var command = new Command("mycommand") { argument };
 
             var result = command.Parse("mycommand");
-            result.ValueForArgument(argument)
-                .Should()
-                .BeEmpty();
+            result.ValueForArgument(argument).Should().BeEmpty();
         }
 
         [Fact]
-        public void Command_argument_of_IEnumerable_defaults_to_empty_when_not_specified()
-        {
+        public void Command_argument_of_IEnumerable_defaults_to_empty_when_not_specified() {
             var argument = new Argument<System.Collections.IEnumerable>();
-            var command = new Command("mycommand")
-            {
-                argument
-            };
+            var command = new Command("mycommand") { argument };
 
             var result = command.Parse("mycommand");
-            result.ValueForArgument(argument)
-                .Should()
-                .BeEmpty();
+            result.ValueForArgument(argument).Should().BeEmpty();
         }
 
         [Fact]
-        public void Command_argument_of_ICollection_of_T_defaults_to_empty_when_not_specified()
-        {
+        public void Command_argument_of_ICollection_of_T_defaults_to_empty_when_not_specified() {
             var argument = new Argument<ICollection<string>>();
-            var command = new Command("mycommand")
-            {
-                argument
-            };
+            var command = new Command("mycommand") { argument };
 
             var result = command.Parse("mycommand");
-            result.ValueForArgument(argument)
-                .Should()
-                .BeEmpty();
+            result.ValueForArgument(argument).Should().BeEmpty();
         }
 
-
-        protected override Symbol CreateSymbol(string name) => new Command(name);
+        protected override Symbol CreateSymbol(string name) =>
+            new Command(name);
     }
 }

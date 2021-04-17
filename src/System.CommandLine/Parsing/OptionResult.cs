@@ -13,10 +13,12 @@ namespace System.CommandLine.Parsing
         internal OptionResult(
             IOption option,
             Token? token = null,
-            CommandResult? parent = null) :
-            base(option ?? throw new ArgumentNullException(nameof(option)),
-                 parent)
-        {
+            CommandResult? parent = null
+        )
+            : base(
+                option ?? throw new ArgumentNullException(nameof(option)),
+                parent
+            ) {
             Option = option;
             Token = token;
         }
@@ -48,18 +50,18 @@ namespace System.CommandLine.Parsing
             {
                 if (_argumentConversionResult is null)
                 {
-                    var results = Children
-                                  .OfType<ArgumentResult>()
-                                  .Select(r => r.GetArgumentConversionResult());
+                    var results = Children.OfType<ArgumentResult>()
+                        .Select(r => r.GetArgumentConversionResult());
 
-                    _argumentConversionResult = results.SingleOrDefault() ??
-                                                ArgumentConversionResult.None(Option.Argument);
+                    _argumentConversionResult = results.SingleOrDefault()
+                    ?? ArgumentConversionResult.None(Option.Argument);
                 }
 
                 return _argumentConversionResult;
             }
         }
 
-        internal override bool UseDefaultValueFor(IArgument argument) => IsImplicit;
+        internal override bool UseDefaultValueFor(IArgument argument) =>
+            IsImplicit;
     }
 }

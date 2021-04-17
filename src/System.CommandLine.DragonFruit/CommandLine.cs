@@ -31,8 +31,8 @@ namespace System.CommandLine.DragonFruit
             string[] args,
             string entryPointFullTypeName,
             string xmlDocsFilePath = null,
-            IConsole console = null)
-        {
+            IConsole console = null
+        ) {
             if (entryAssembly == null)
             {
                 throw new ArgumentNullException(nameof(entryAssembly));
@@ -41,10 +41,19 @@ namespace System.CommandLine.DragonFruit
             args = args ?? Array.Empty<string>();
             entryPointFullTypeName = entryPointFullTypeName?.Trim();
 
-            MethodInfo entryMethod = EntryPointDiscoverer.FindStaticEntryMethod(entryAssembly, entryPointFullTypeName);
+            MethodInfo entryMethod = EntryPointDiscoverer.FindStaticEntryMethod(
+                entryAssembly,
+                entryPointFullTypeName
+            );
 
             //TODO The xml docs file name and location can be customized using <DocumentationFile> project property.
-            return await InvokeMethodAsync(args, entryMethod, xmlDocsFilePath, null, console);
+            return await InvokeMethodAsync(
+                args,
+                entryMethod,
+                xmlDocsFilePath,
+                null,
+                console
+            );
         }
 
         /// <summary>
@@ -61,8 +70,8 @@ namespace System.CommandLine.DragonFruit
             string[] args,
             string entryPointFullTypeName,
             string xmlDocsFilePath = null,
-            IConsole console = null)
-        {
+            IConsole console = null
+        ) {
             if (entryAssembly == null)
             {
                 throw new ArgumentNullException(nameof(entryAssembly));
@@ -71,10 +80,19 @@ namespace System.CommandLine.DragonFruit
             args = args ?? Array.Empty<string>();
             entryPointFullTypeName = entryPointFullTypeName?.Trim();
 
-            MethodInfo entryMethod = EntryPointDiscoverer.FindStaticEntryMethod(entryAssembly, entryPointFullTypeName);
+            MethodInfo entryMethod = EntryPointDiscoverer.FindStaticEntryMethod(
+                entryAssembly,
+                entryPointFullTypeName
+            );
 
             //TODO The xml docs file name and location can be customized using <DocumentationFile> project property.
-            return InvokeMethod(args, entryMethod, xmlDocsFilePath, null, console);
+            return InvokeMethod(
+                args,
+                entryMethod,
+                xmlDocsFilePath,
+                null,
+                console
+            );
         }
 
         public static async Task<int> InvokeMethodAsync(
@@ -82,8 +100,8 @@ namespace System.CommandLine.DragonFruit
             MethodInfo method,
             string xmlDocsFilePath = null,
             object target = null,
-            IConsole console = null)
-        {
+            IConsole console = null
+        ) {
             Parser parser = BuildParser(method, xmlDocsFilePath, target);
 
             return await parser.InvokeAsync(args, console);
@@ -94,31 +112,34 @@ namespace System.CommandLine.DragonFruit
             MethodInfo method,
             string xmlDocsFilePath = null,
             object target = null,
-            IConsole console = null)
-        {
+            IConsole console = null
+        ) {
             Parser parser = BuildParser(method, xmlDocsFilePath, target);
 
             return parser.Invoke(args, console);
         }
 
-        private static Parser BuildParser(MethodInfo method,
+        private static Parser BuildParser(
+            MethodInfo method,
             string xmlDocsFilePath,
-            object target)
-        {
-            var builder = new CommandLineBuilder()
-                .ConfigureRootCommandFromMethod(method, target)
+            object target
+        ) {
+            var builder = new CommandLineBuilder().ConfigureRootCommandFromMethod(
+                    method,
+                    target
+                )
                 .ConfigureHelpFromXmlComments(method, xmlDocsFilePath)
                 .UseDefaults()
                 .UseAnsiTerminalWhenAvailable();
 
-            return  builder.Build();
+            return builder.Build();
         }
 
         public static CommandLineBuilder ConfigureRootCommandFromMethod(
             this CommandLineBuilder builder,
             MethodInfo method,
-            object target = null)
-        {
+            object target = null
+        ) {
             if (builder == null)
             {
                 throw new ArgumentNullException(nameof(builder));
@@ -134,8 +155,7 @@ namespace System.CommandLine.DragonFruit
             return builder;
         }
 
-        private static readonly string[] _argumentParameterNames =
-        {
+        private static readonly string[] _argumentParameterNames = {
             "arguments",
             "argument",
             "args"
@@ -144,8 +164,8 @@ namespace System.CommandLine.DragonFruit
         public static void ConfigureFromMethod(
             this Command command,
             MethodInfo method,
-            object target = null)
-        {
+            object target = null
+        ) {
             if (command == null)
             {
                 throw new ArgumentNullException(nameof(command));
@@ -161,9 +181,12 @@ namespace System.CommandLine.DragonFruit
                 command.AddOption(option);
             }
 
-            if (method.GetParameters()
-                      .FirstOrDefault(p => _argumentParameterNames.Contains(p.Name)) is ParameterInfo argsParam)
-            {
+            if (
+                method.GetParameters()
+                    .FirstOrDefault(
+                        p => _argumentParameterNames.Contains(p.Name)
+                    ) is ParameterInfo argsParam
+            ) {
                 var argument = new Argument
                 {
                     ArgumentType = argsParam.ParameterType,
@@ -191,8 +214,8 @@ namespace System.CommandLine.DragonFruit
         public static CommandLineBuilder ConfigureHelpFromXmlComments(
             this CommandLineBuilder builder,
             MethodInfo method,
-            string xmlDocsFilePath)
-        {
+            string xmlDocsFilePath
+        ) {
             if (builder == null)
             {
                 throw new ArgumentNullException(nameof(builder));
@@ -203,19 +226,32 @@ namespace System.CommandLine.DragonFruit
                 throw new ArgumentNullException(nameof(method));
             }
 
-            if (XmlDocReader.TryLoad(xmlDocsFilePath ?? GetDefaultXmlDocsFileLocation(method.DeclaringType.Assembly), out var xmlDocs))
-            {
-                if (xmlDocs.TryGetMethodDescription(method, out CommandHelpMetadata metadata) &&
-                    metadata.Description != null)
-                {
+            if (
+                XmlDocReader.TryLoad(
+                    xmlDocsFilePath
+                    ?? GetDefaultXmlDocsFileLocation(
+                        method.DeclaringType.Assembly
+                    ),
+                    out var xmlDocs
+                )
+            ) {
+                if (
+                    xmlDocs.TryGetMethodDescription(
+                        method,
+                        out CommandHelpMetadata metadata
+                    )
+                    && metadata.Description != null
+                ) {
                     builder.Command.Description = metadata.Description;
                     var options = builder.Options.ToArray();
 
-                    foreach (var parameterDescription in metadata.ParameterDescriptions)
-                    {
+                    foreach (var parameterDescription in metadata.ParameterDescriptions
+                    ) {
                         var kebabCasedParameterName = parameterDescription.Key.ToKebabCase();
 
-                        var option = options.FirstOrDefault(o => o.HasAliasIgnorePrefix(kebabCasedParameterName));
+                        var option = options.FirstOrDefault(
+                            o => o.HasAliasIgnorePrefix(kebabCasedParameterName)
+                        );
 
                         if (option != null)
                         {
@@ -223,14 +259,19 @@ namespace System.CommandLine.DragonFruit
                         }
                         else
                         {
-                            for (var i = 0; i < builder.Command.Arguments.Count; i++)
-                            {
+                            for (
+                                var i = 0;
+                                i < builder.Command.Arguments.Count;
+                                i++
+                            ) {
                                 var argument = builder.Command.Arguments[i];
-                                if (string.Equals(
-                                    argument.Name,
-                                    kebabCasedParameterName,
-                                    StringComparison.OrdinalIgnoreCase))
-                                {
+                                if (
+                                    string.Equals(
+                                        argument.Name,
+                                        kebabCasedParameterName,
+                                        StringComparison.OrdinalIgnoreCase
+                                    )
+                                ) {
                                     argument.Description = parameterDescription.Value;
                                 }
                             }
@@ -258,32 +299,36 @@ namespace System.CommandLine.DragonFruit
         {
             if (String.IsNullOrWhiteSpace(parameterName))
             {
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(parameterName));
+                throw new ArgumentException(
+                    "Value cannot be null or whitespace.",
+                    nameof(parameterName)
+                );
             }
 
             return parameterName.Length > 1
-                       ? $"--{parameterName.ToKebabCase()}"
-                       : $"-{parameterName.ToLowerInvariant()}";
+                ? $"--{parameterName.ToKebabCase()}"
+                : $"-{parameterName.ToLowerInvariant()}";
         }
 
         public static IEnumerable<Option> BuildOptions(this MethodInfo method)
         {
             var descriptor = HandlerDescriptor.FromMethodInfo(method);
 
-            var omittedTypes = new[]
-                               {
-                                   typeof(IConsole),
-                                   typeof(InvocationContext),
-                                   typeof(BindingContext),
-                                   typeof(ParseResult),
-                                   typeof(CancellationToken),
-                               };
+            var omittedTypes =
+                new[] {
+                    typeof(IConsole),
+                    typeof(InvocationContext),
+                    typeof(BindingContext),
+                    typeof(ParseResult),
+                    typeof(CancellationToken),
+                };
 
-            foreach (var option in descriptor.ParameterDescriptors
-                                             .Where(d => !omittedTypes.Contains (d.ValueType))
-                                             .Where(d => !_argumentParameterNames.Contains(d.ValueName))
-                                             .Select(p => p.BuildOption()))
-            {
+            foreach (var option in descriptor.ParameterDescriptors.Where(
+                    d => !omittedTypes.Contains(d.ValueType)
+                )
+                .Where(d => !_argumentParameterNames.Contains(d.ValueName))
+                .Select(p => p.BuildOption())
+            ) {
                 yield return option;
             }
         }
@@ -299,7 +344,8 @@ namespace System.CommandLine.DragonFruit
                 parameter.BuildAlias(),
                 parameter.ValueName,
                 parameter.ValueType,
-                getDefaultValue);
+                getDefaultValue
+            );
         }
 
         private static string GetDefaultXmlDocsFileLocation(Assembly assembly)
@@ -308,19 +354,21 @@ namespace System.CommandLine.DragonFruit
             {
                 return Path.Combine(
                     Path.GetDirectoryName(assembly.Location),
-                    Path.GetFileNameWithoutExtension(assembly.Location) + ".xml");
+                    Path.GetFileNameWithoutExtension(assembly.Location) + ".xml"
+                );
             }
 
             // Assembly.Location is empty for bundled (i.e, single-file) assemblies, but we can't be confident
             // that whenever Assembly.Location is empty the corresponding assembly is bundled.
             //
             // Provisionally assume that the entry-assembly is bundled. If this query is for something other
-            // than the entry-assembly, then return nothing. 
+            // than the entry-assembly, then return nothing.
             if (assembly == Assembly.GetEntryAssembly())
             {
                 return Path.Combine(
                     AppContext.BaseDirectory,
-                    assembly.GetName().Name + ".xml");
+                    assembly.GetName().Name + ".xml"
+                );
             }
 
             return string.Empty;

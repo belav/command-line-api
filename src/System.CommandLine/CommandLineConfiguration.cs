@@ -36,11 +36,13 @@ namespace System.CommandLine
             bool enablePosixBundling = true,
             bool enableDirectives = true,
             Resources? validationMessages = null,
-            ResponseFileHandling responseFileHandling = ResponseFileHandling.ParseArgsAsLineSeparated,
-            IReadOnlyCollection<InvocationMiddleware>? middlewarePipeline = null,
+            ResponseFileHandling responseFileHandling =
+                ResponseFileHandling.ParseArgsAsLineSeparated,
+            IReadOnlyCollection<InvocationMiddleware>? middlewarePipeline =
+                null,
             Func<BindingContext, IHelpBuilder>? helpBuilderFactory = null,
-            Action<IHelpBuilder>? configureHelp = null)
-        {
+            Action<IHelpBuilder>? configureHelp = null
+        ) {
             if (symbols is null)
             {
                 throw new ArgumentNullException(nameof(symbols));
@@ -48,21 +50,23 @@ namespace System.CommandLine
 
             if (symbols.Count == 0)
             {
-                throw new ArgumentException("You must specify at least one option or command.");
+                throw new ArgumentException(
+                    "You must specify at least one option or command."
+                );
             }
-          
-            if (symbols.Count == 1 &&
-                symbols[0] is Command rootCommand)
+
+            if (symbols.Count == 1 && symbols[0] is Command rootCommand)
             {
                 RootCommand = rootCommand;
             }
             else
             {
                 // Reuse existing auto-generated root command, if one is present, to prevent repeated mutations
-                RootCommand? parentRootCommand = 
-                    symbols.SelectMany(s => s.Parents)
-                           .OfType<RootCommand>()
-                           .FirstOrDefault();
+                RootCommand? parentRootCommand = symbols.SelectMany(
+                        s => s.Parents
+                    )
+                    .OfType<RootCommand>()
+                    .FirstOrDefault();
 
                 if (parentRootCommand is null)
                 {
@@ -86,7 +90,8 @@ namespace System.CommandLine
             ValidationMessages = validationMessages ?? Resources.Instance;
             ResponseFileHandling = responseFileHandling;
             Middleware = middlewarePipeline ?? new List<InvocationMiddleware>();
-            HelpBuilderFactory = helpBuilderFactory ?? (context => 
+            HelpBuilderFactory = helpBuilderFactory
+            ?? (context =>
             {
                 int maxWidth = int.MaxValue;
                 if (context.Console is SystemConsole systemConsole)
@@ -109,17 +114,25 @@ namespace System.CommandLine
 
         private void AddGlobalOptionsToChildren(Command parentCommand)
         {
-            for (var childIndex = 0; childIndex < parentCommand.Children.Count; childIndex++)
-            {
+            for (
+                var childIndex = 0;
+                childIndex < parentCommand.Children.Count;
+                childIndex++
+            ) {
                 var child = parentCommand.Children[childIndex];
 
                 if (child is Command childCommand)
                 {
                     var globalOptions = parentCommand.GlobalOptions;
 
-                    for (var globalOptionIndex = 0; globalOptionIndex < globalOptions.Count; globalOptionIndex++)
-                    {
-                        childCommand.TryAddGlobalOption(globalOptions[globalOptionIndex]);
+                    for (
+                        var globalOptionIndex = 0;
+                        globalOptionIndex < globalOptions.Count;
+                        globalOptionIndex++
+                    ) {
+                        childCommand.TryAddGlobalOption(
+                            globalOptions[globalOptionIndex]
+                        );
                     }
 
                     AddGlobalOptionsToChildren(childCommand);

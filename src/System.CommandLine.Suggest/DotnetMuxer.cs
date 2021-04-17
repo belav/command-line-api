@@ -16,20 +16,21 @@ namespace System.CommandLine.Suggest
             var fxDepsFile = GetDataFromAppDomain("FX_DEPS_FILE");
 
             if (string.IsNullOrEmpty(fxDepsFile))
-
             {
                 return;
             }
 
-            var muxerDir = new FileInfo(fxDepsFile).Directory?.Parent?.Parent?.Parent;
+            var muxerDir =
+                new FileInfo(fxDepsFile).Directory?.Parent?.Parent?.Parent;
 
             if (muxerDir == null)
             {
                 return;
-
             }
 
-            var muxerCandidate = new FileInfo(System.IO.Path.Combine(muxerDir.FullName, muxerFileName));
+            var muxerCandidate = new FileInfo(
+                System.IO.Path.Combine(muxerDir.FullName, muxerFileName)
+            );
 
             if (muxerCandidate.Exists)
             {

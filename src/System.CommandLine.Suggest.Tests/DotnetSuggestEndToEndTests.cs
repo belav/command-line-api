@@ -18,7 +18,8 @@ namespace System.CommandLine.Suggest.Tests
         private readonly FileInfo _endToEndTestApp;
         private readonly FileInfo _dotnetSuggest;
         private readonly (string, string)[] _environmentVariables;
-        private readonly DirectoryInfo _dotnetHostDir = DotnetMuxer.Path.Directory;
+        private readonly DirectoryInfo _dotnetHostDir =
+            DotnetMuxer.Path.Directory;
         private static string _testRoot;
 
         public DotnetSuggestEndToEndTests(ITestOutputHelper output)
@@ -26,7 +27,12 @@ namespace System.CommandLine.Suggest.Tests
             _output = output;
 
             // delete sentinel files for EndToEndTestApp in order to trigger registration when it's run
-            var sentinelsDir = new DirectoryInfo(Path.Combine(Path.GetTempPath(), "system-commandline-sentinel-files"));
+            var sentinelsDir = new DirectoryInfo(
+                Path.Combine(
+                    Path.GetTempPath(),
+                    "system-commandline-sentinel-files"
+                )
+            );
 
             if (sentinelsDir.Exists)
             {
@@ -40,21 +46,25 @@ namespace System.CommandLine.Suggest.Tests
 
             var currentDirectory = Path.Combine(
                 Directory.GetCurrentDirectory(),
-                "TestAssets");
+                "TestAssets"
+            );
 
-            _endToEndTestApp = new DirectoryInfo(currentDirectory)
-                               .GetFiles("EndToEndTestApp".ExecutableName())
-                               .SingleOrDefault();
+            _endToEndTestApp = new DirectoryInfo(currentDirectory).GetFiles(
+                    "EndToEndTestApp".ExecutableName()
+                )
+                .SingleOrDefault();
 
-            _dotnetSuggest = new DirectoryInfo(currentDirectory)
-                             .GetFiles("dotnet-suggest".ExecutableName())
-                             .SingleOrDefault();
+            _dotnetSuggest = new DirectoryInfo(currentDirectory).GetFiles(
+                    "dotnet-suggest".ExecutableName()
+                )
+                .SingleOrDefault();
 
             PrepareTestHomeDirectoryToAvoidPolluteBuildMachineHome();
 
             _environmentVariables = new[] {
                 ("DOTNET_ROOT", _dotnetHostDir.FullName),
-                ("INTERNAL_TEST_DOTNET_SUGGEST_HOME", _testRoot)};
+                ("INTERNAL_TEST_DOTNET_SUGGEST_HOME", _testRoot)
+            };
         }
 
         public void Dispose()
@@ -65,9 +75,11 @@ namespace System.CommandLine.Suggest.Tests
             }
         }
 
-        private static void PrepareTestHomeDirectoryToAvoidPolluteBuildMachineHome()
-        {
-            _testRoot = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+        private static void PrepareTestHomeDirectoryToAvoidPolluteBuildMachineHome() {
+            _testRoot = Path.Combine(
+                Path.GetTempPath(),
+                Path.GetRandomFileName()
+            );
             Directory.CreateDirectory(_testRoot);
         }
 
@@ -80,11 +92,12 @@ namespace System.CommandLine.Suggest.Tests
                 _endToEndTestApp.FullName,
                 "[suggest:1] \"a\"",
                 stdOut: value => stdOut.AppendLine(value),
-                environmentVariables: _environmentVariables);
+                environmentVariables: _environmentVariables
+            );
 
             stdOut.ToString()
-                  .Should()
-                  .Be($"--apple{NewLine}--banana{NewLine}--durian{NewLine}");
+                .Should()
+                .Be($"--apple{NewLine}--banana{NewLine}--durian{NewLine}");
         }
 
         [ReleaseBuildOnlyFact]
@@ -96,7 +109,8 @@ namespace System.CommandLine.Suggest.Tests
                 "-h",
                 stdOut: s => _output.WriteLine(s),
                 stdErr: s => _output.WriteLine(s),
-                environmentVariables: _environmentVariables);
+                environmentVariables: _environmentVariables
+            );
 
             var stdOut = new StringBuilder();
             var stdErr = new StringBuilder();
@@ -108,30 +122,29 @@ namespace System.CommandLine.Suggest.Tests
                 $"get -e \"{_endToEndTestApp.FullName}\" --position {commandLineToComplete.Length} -- \"{commandLineToComplete}\"",
                 stdOut: value => stdOut.AppendLine(value),
                 stdErr: value => stdErr.AppendLine(value),
-                environmentVariables: _environmentVariables);
+                environmentVariables: _environmentVariables
+            );
 
             _output.WriteLine($"stdOut:{NewLine}{stdOut}{NewLine}");
             _output.WriteLine($"stdErr:{NewLine}{stdErr}{NewLine}");
 
-            stdErr.ToString()
-                  .Should()
-                  .BeEmpty();
+            stdErr.ToString().Should().BeEmpty();
 
             stdOut.ToString()
-                  .Should()
-                  .Be($"--apple{NewLine}--banana{NewLine}--durian{NewLine}");
+                .Should()
+                .Be($"--apple{NewLine}--banana{NewLine}--durian{NewLine}");
         }
 
         [ReleaseBuildOnlyFact]
-        public async Task Dotnet_suggest_provides_suggestions_for_app_with_only_commandname()
-        {
+        public async Task Dotnet_suggest_provides_suggestions_for_app_with_only_commandname() {
             // run once to trigger a call to dotnet-suggest register
             await ExecuteAsync(
                 _endToEndTestApp.FullName,
                 "-h",
                 stdOut: s => _output.WriteLine(s),
                 stdErr: s => _output.WriteLine(s),
-                environmentVariables: _environmentVariables);
+                environmentVariables: _environmentVariables
+            );
 
             var stdOut = new StringBuilder();
             var stdErr = new StringBuilder();
@@ -143,18 +156,19 @@ namespace System.CommandLine.Suggest.Tests
                 $"get -e \"{_endToEndTestApp.FullName}\" --position {commandLineToComplete.Length} -- \"{commandLineToComplete}\"",
                 stdOut: value => stdOut.AppendLine(value),
                 stdErr: value => stdErr.AppendLine(value),
-                environmentVariables: _environmentVariables);
+                environmentVariables: _environmentVariables
+            );
 
             _output.WriteLine($"stdOut:{NewLine}{stdOut}{NewLine}");
             _output.WriteLine($"stdErr:{NewLine}{stdErr}{NewLine}");
 
-            stdErr.ToString()
-                .Should()
-                .BeEmpty();
+            stdErr.ToString().Should().BeEmpty();
 
             stdOut.ToString()
                 .Should()
-                .Be($"--apple{NewLine}--banana{NewLine}--cherry{NewLine}--durian{NewLine}--help{NewLine}--version{NewLine}-?{NewLine}-h{NewLine}/?{NewLine}/h{NewLine}");
+                .Be(
+                    $"--apple{NewLine}--banana{NewLine}--cherry{NewLine}--durian{NewLine}--help{NewLine}--version{NewLine}-?{NewLine}-h{NewLine}/?{NewLine}/h{NewLine}"
+                );
         }
 
         private static async Task ExecuteAsync(
@@ -162,8 +176,8 @@ namespace System.CommandLine.Suggest.Tests
             string args,
             Action<string> stdOut = null,
             Action<string> stdErr = null,
-            params (string key, string value)[] environmentVariables)
-        {
+            params (string key, string value)[] environmentVariables
+        ) {
             args ??= "";
 
             var process = new Diagnostics.Process

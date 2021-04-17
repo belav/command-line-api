@@ -5,7 +5,8 @@ using FluentAssertions.Primitives;
 
 namespace System.CommandLine.Tests.Utility
 {
-    public class ConsoleAssertions : ReferenceTypeAssertions<IConsole, ConsoleAssertions>
+    public class ConsoleAssertions
+        : ReferenceTypeAssertions<IConsole, ConsoleAssertions>
     {
         public ConsoleAssertions(IConsole console)
         {

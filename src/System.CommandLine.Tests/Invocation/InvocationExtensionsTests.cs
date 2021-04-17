@@ -12,8 +12,7 @@ namespace System.CommandLine.Tests.Invocation
     public class InvocationExtensionsTests
     {
         [Fact]
-        public async Task Command_InvokeAsync_uses_default_pipeline_by_default()
-        {
+        public async Task Command_InvokeAsync_uses_default_pipeline_by_default() {
             var command = new Command("the-command");
             var theHelpText = "the help text";
             command.Description = theHelpText;
@@ -22,10 +21,7 @@ namespace System.CommandLine.Tests.Invocation
 
             await command.InvokeAsync("-h", console);
 
-            console.Out
-                   .ToString()
-                   .Should()
-                   .Contain(theHelpText);
+            console.Out.ToString().Should().Contain(theHelpText);
         }
 
         [Fact]
@@ -39,15 +35,11 @@ namespace System.CommandLine.Tests.Invocation
 
             command.Invoke("-h", console);
 
-            console.Out
-                   .ToString()
-                   .Should()
-                   .Contain(theHelpText);
+            console.Out.ToString().Should().Contain(theHelpText);
         }
 
         [Fact]
-        public async Task RootCommand_InvokeAsync_returns_0_when_handler_is_successful()
-        {
+        public async Task RootCommand_InvokeAsync_returns_0_when_handler_is_successful() {
             var wasCalled = false;
             var rootCommand = new RootCommand();
 
@@ -74,21 +66,22 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task RootCommand_InvokeAsync_returns_1_when_handler_throws()
-        {
+        public async Task RootCommand_InvokeAsync_returns_1_when_handler_throws() {
             var wasCalled = false;
             var rootCommand = new RootCommand();
 
-            rootCommand.Handler = CommandHandler.Create(() =>
-            {
-                wasCalled = true;
-                throw new Exception("oops!");
+            rootCommand.Handler = CommandHandler.Create(
+                () =>
+                {
+                    wasCalled = true;
+                    throw new Exception("oops!");
 
-                // Help the compiler pick a CommandHandler.Create overload.
+                    // Help the compiler pick a CommandHandler.Create overload.
 #pragma warning disable CS0162 // Unreachable code detected
-                return 0;
+                    return 0;
 #pragma warning restore CS0162
-            });
+                }
+            );
 
             var resultCode = await rootCommand.InvokeAsync("");
 
@@ -102,16 +95,18 @@ namespace System.CommandLine.Tests.Invocation
             var wasCalled = false;
             var rootCommand = new RootCommand();
 
-            rootCommand.Handler = CommandHandler.Create(() =>
-            {
-                wasCalled = true;
-                throw new Exception("oops!");
+            rootCommand.Handler = CommandHandler.Create(
+                () =>
+                {
+                    wasCalled = true;
+                    throw new Exception("oops!");
 
-                // Help the compiler pick a CommandHandler.Create overload.
+                    // Help the compiler pick a CommandHandler.Create overload.
 #pragma warning disable CS0162 // Unreachable code detected
-                return 0;
+                    return 0;
 #pragma warning restore CS0162
-            });
+                }
+            );
 
             var resultCode = rootCommand.Invoke("");
 
@@ -124,10 +119,12 @@ namespace System.CommandLine.Tests.Invocation
         {
             var rootCommand = new RootCommand();
 
-            rootCommand.Handler = CommandHandler.Create<InvocationContext>(context =>
-            {
-                context.ExitCode = 123;
-            });
+            rootCommand.Handler = CommandHandler.Create<InvocationContext>(
+                context =>
+                {
+                    context.ExitCode = 123;
+                }
+            );
 
             var resultCode = await rootCommand.InvokeAsync("");
 
@@ -139,10 +136,12 @@ namespace System.CommandLine.Tests.Invocation
         {
             var rootCommand = new RootCommand();
 
-            rootCommand.Handler = CommandHandler.Create<InvocationContext>(context =>
-            {
-                context.ExitCode = 123;
-            });
+            rootCommand.Handler = CommandHandler.Create<InvocationContext>(
+                context =>
+                {
+                    context.ExitCode = 123;
+                }
+            );
 
             int resultCode = rootCommand.Invoke("");
 

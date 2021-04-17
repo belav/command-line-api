@@ -10,13 +10,14 @@ namespace System.CommandLine.Suggestions
     {
         public static IEnumerable<string?> Containing(
             this IEnumerable<string?> candidates,
-            string textToMatch)
-        {
+            string textToMatch
+        ) {
             foreach (var candidate in candidates)
             {
-                if (candidate is { } && 
-                    candidate.ContainsCaseInsensitive(textToMatch))
-                {
+                if (
+                    candidate is  {  }
+                    && candidate.ContainsCaseInsensitive(textToMatch)
+                ) {
                     yield return candidate;
                 }
             }

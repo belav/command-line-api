@@ -11,9 +11,10 @@ namespace System.CommandLine.Tests
     public class CommandExtensionsTests
     {
         [Fact]
-        public void Command_Invoke_can_be_called_more_than_once_for_the_same_command()
-        {
-            var command = new RootCommand("Root command description")
+        public void Command_Invoke_can_be_called_more_than_once_for_the_same_command() {
+            var command = new RootCommand(
+                "Root command description"
+            )
             {
                 new Command("inner")
             };
@@ -23,7 +24,7 @@ namespace System.CommandLine.Tests
             command.Invoke("-h", console1);
 
             console1.Out.ToString().Should().Contain(command.Description);
-            
+
             var console2 = new TestConsole();
 
             command.Invoke("-h", console2);
@@ -32,25 +33,22 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_CommandLineBuilder_is_used_then_Command_Invoke_uses_its_configuration()
-        {
+        public void When_CommandLineBuilder_is_used_then_Command_Invoke_uses_its_configuration() {
             var command = new RootCommand();
 
-            new CommandLineBuilder(command)
-                .UseMiddleware(context =>
-                {
-                    context.Console.Out.Write("hello!");
-                })
+            new CommandLineBuilder(command).UseMiddleware(
+                    context =>
+                    {
+                        context.Console.Out.Write("hello!");
+                    }
+                )
                 .Build();
 
             var console = new TestConsole();
 
             command.Invoke("", console);
 
-            console.Out
-                   .ToString()
-                   .Should()
-                   .Contain("hello!");
+            console.Out.ToString().Should().Contain("hello!");
         }
     }
 }

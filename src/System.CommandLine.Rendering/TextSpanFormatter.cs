@@ -7,13 +7,13 @@ using System.Text.RegularExpressions;
 
 namespace System.CommandLine.Rendering
 {
-    public class TextSpanFormatter :
-        ICustomFormatter,
-        IFormatProvider
+    public class TextSpanFormatter : ICustomFormatter, IFormatProvider
     {
         private static readonly Regex _formattableStringParser;
 
-        private readonly Dictionary<Type, Func<object, TextSpan>> _formatters = new Dictionary<Type, Func<object, TextSpan>>();
+        private readonly Dictionary<Type,
+            Func<object, TextSpan>> _formatters = new Dictionary<Type,
+            Func<object, TextSpan>>();
 
         static TextSpanFormatter()
         {
@@ -25,19 +25,21 @@ namespace System.CommandLine.Rendering
 (?<token> \{ [0-9]+ [^\}]* \} )
 	|
 (?<text> [^\{\}]* )",
-                RegexOptions.Compiled |
-                RegexOptions.IgnorePatternWhitespace);
+                RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace
+            );
         }
 
         public void AddFormatter<T>(Func<T, TextSpan> format)
         {
-            _formatters.Add(typeof(T),
-                            t =>
-                            {
-                                var span = format((T)t);
+            _formatters.Add(
+                typeof(T),
+                t =>
+                {
+                    var span = format((T)t);
 
-                                return span ?? TextSpan.Empty();
-                            });
+                    return span ?? TextSpan.Empty();
+                }
+            );
         }
 
         public TextSpan Format(object value)
@@ -53,7 +55,7 @@ namespace System.CommandLine.Rendering
                 case AnsiControlCode ansiCode:
                     return new ControlSpan(ansiCode.EscapeSequence, ansiCode);
                 case FormattableString formattable:
-                    content = ((IFormattable) formattable).ToString("", this);
+                    content = ((IFormattable)formattable).ToString("", this);
                     break;
                 default:
                     content = value.ToString();
@@ -77,14 +79,17 @@ namespace System.CommandLine.Rendering
 
         public void AddFormatter<T>(Func<T, FormattableString> format)
         {
-            _formatters.Add(typeof(T),
-                            t => {
-                                var formattableString = format((T)t);
+            _formatters.Add(
+                typeof(T),
+                t =>
+                {
+                    var formattableString = format((T)t);
 
-                                return formattableString == null
-                                           ? TextSpan.Empty()
-                                           : ParseToSpan(formattableString);
-                            });
+                    return formattableString == null
+                        ? TextSpan.Empty()
+                        : ParseToSpan(formattableString);
+                }
+            );
         }
 
         object IFormatProvider.GetFormat(Type formatType) => this;
@@ -92,9 +97,8 @@ namespace System.CommandLine.Rendering
         string ICustomFormatter.Format(
             string format,
             object arg,
-            IFormatProvider formatProvider)
-        {
-
+            IFormatProvider formatProvider
+        ) {
             return Format(arg).ToString();
         }
 
@@ -112,27 +116,37 @@ namespace System.CommandLine.Rendering
             {
                 return new ContainerSpan(DestructureIntoSpans().ToArray());
             }
-            
+
             IEnumerable<TextSpan> DestructureIntoSpans()
             {
                 var partIndex = 0;
 
-
-                foreach (Match match in _formattableStringParser.Matches(formattableString.Format))
-                {
+                foreach (Match match in _formattableStringParser.Matches(
+                    formattableString.Format
+                )
+                ) {
                     if (match.Value != "")
                     {
-                        if (match.Value.StartsWith("{") &&
-                            match.Value.EndsWith("}"))
-                        {
+                        if (
+                            match.Value.StartsWith("{")
+                            && match.Value.EndsWith("}")
+                        ) {
                             var arg = args[partIndex++];
 
                             if (match.Value.Contains(":"))
                             {
-                                var formatString = match.Value.Split(new[] { '{', ':', '}' }, 4)[2];
+                                var formatString =
+                                    match.Value.Split(
+                                        new[] { '{', ':', '}' },
+                                        4
+                                    )[2];
 
                                 yield return Format(
-                                    string.Format("{0:" + formatString + "}", arg));
+                                    string.Format(
+                                        "{0:" + formatString + "}",
+                                        arg
+                                    )
+                                );
                             }
                             else
                             {

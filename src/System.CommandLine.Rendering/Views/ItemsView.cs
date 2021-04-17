@@ -14,8 +14,12 @@ namespace System.CommandLine.Rendering.Views
             get => _items;
             set
             {
-                if (!EqualityComparer<IReadOnlyList<TItem>>.Default.Equals(_items, value))
-                {
+                if (
+                    !EqualityComparer<IReadOnlyList<TItem>>.Default.Equals(
+                        _items,
+                        value
+                    )
+                ) {
                     _items = value;
                     OnUpdated();
                 }

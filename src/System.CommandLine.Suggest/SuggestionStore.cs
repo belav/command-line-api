@@ -11,16 +11,25 @@ namespace System.CommandLine.Suggest
 {
     public class SuggestionStore : ISuggestionStore
     {
-        public string GetSuggestions(string exeFileName, string suggestionTargetArguments, TimeSpan timeout)
-        {
+        public string GetSuggestions(
+            string exeFileName,
+            string suggestionTargetArguments,
+            TimeSpan timeout
+        ) {
             if (string.IsNullOrWhiteSpace(exeFileName))
             {
-                throw new ArgumentException("Value cannot be null, empty, or consist entirely of whitespace.", nameof(exeFileName));
+                throw new ArgumentException(
+                    "Value cannot be null, empty, or consist entirely of whitespace.",
+                    nameof(exeFileName)
+                );
             }
 
             if (string.IsNullOrWhiteSpace(suggestionTargetArguments))
             {
-                throw new ArgumentException("Value cannot be null, empty, or consist entirely of whitespace.", nameof(suggestionTargetArguments));
+                throw new ArgumentException(
+                    "Value cannot be null, empty, or consist entirely of whitespace.",
+                    nameof(suggestionTargetArguments)
+                );
             }
 
             string result = "";
@@ -29,18 +38,19 @@ namespace System.CommandLine.Suggest
             {
                 // Invoke target with args
                 var processStartInfo = new ProcessStartInfo(
-                                           exeFileName, 
-                                           suggestionTargetArguments)
-                                       {
-                                           UseShellExecute = false,
-                                           RedirectStandardOutput = true
-                                       };
+                    exeFileName,
+                    suggestionTargetArguments
+                )
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true
+                };
 
                 using (var process = new Process
-                                     {
-                                         StartInfo = processStartInfo
-                                     })
                 {
+                    StartInfo = processStartInfo
+                }
+                ) {
                     process.Start();
 
                     Task<string> readToEndTask = process.StandardOutput.ReadToEndAsync();
@@ -68,7 +78,10 @@ namespace System.CommandLine.Suggest
 #endif
 
                     throw new ArgumentException(
-                        message, nameof(exeFileName), exception);
+                        message,
+                        nameof(exeFileName),
+                        exception
+                    );
                 }
             }
             return result;

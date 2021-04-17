@@ -21,44 +21,32 @@ namespace System.CommandLine.Rendering
                 case ContentSpan contentSpan:
                     VisitContentSpan(contentSpan);
                     break;
-
                 case ContainerSpan containerSpan:
                     VisitContainerSpan(containerSpan);
                     break;
-
                 case ForegroundColorSpan foregroundColorSpan:
                     VisitForegroundColorSpan(foregroundColorSpan);
                     break;
-
                 case BackgroundColorSpan backgroundColorSpan:
                     VisitBackgroundColorSpan(backgroundColorSpan);
                     break;
-
                 case StyleSpan styleSpan:
                     VisitStyleSpan(styleSpan);
                     break;
-
                 case CursorControlSpan cursorControlSpan:
                     VisitCursorControlSpan(cursorControlSpan);
                     break;
-
                 default:
                     VisitUnknownSpan(span);
                     break;
             }
         }
 
-        protected virtual void Start(TextSpan span)
-        {
-        }
+        protected virtual void Start(TextSpan span) { }
 
-        protected virtual void Stop(TextSpan span)
-        {
-        }
+        protected virtual void Stop(TextSpan span) { }
 
-        public virtual void VisitUnknownSpan(TextSpan span)
-        {
-        }
+        public virtual void VisitUnknownSpan(TextSpan span) { }
 
         public virtual void VisitContainerSpan(ContainerSpan containerSpan)
         {
@@ -68,24 +56,20 @@ namespace System.CommandLine.Rendering
             }
         }
 
-        public virtual void VisitContentSpan(ContentSpan contentSpan)
-        {
-        }
+        public virtual void VisitContentSpan(ContentSpan contentSpan) { }
 
-        public virtual void VisitForegroundColorSpan(ForegroundColorSpan span)
-        {
-        }
+        public virtual void VisitForegroundColorSpan(
+            ForegroundColorSpan span
+        ) { }
 
-        public virtual void VisitBackgroundColorSpan(BackgroundColorSpan span)
-        {
-        }
+        public virtual void VisitBackgroundColorSpan(
+            BackgroundColorSpan span
+        ) { }
 
-        public virtual void VisitStyleSpan(StyleSpan span)
-        {
-        }
+        public virtual void VisitStyleSpan(StyleSpan span) { }
 
-        public virtual void VisitCursorControlSpan(CursorControlSpan cursorControlSpan)
-        {
-        }
+        public virtual void VisitCursorControlSpan(
+            CursorControlSpan cursorControlSpan
+        ) { }
     }
 }

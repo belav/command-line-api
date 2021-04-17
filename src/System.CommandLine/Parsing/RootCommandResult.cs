@@ -11,17 +11,14 @@ namespace System.CommandLine.Parsing
         private Dictionary<ICommand, CommandResult>? _allCommandResults;
         private Dictionary<IOption, OptionResult>? _allOptionResults;
 
-        public RootCommandResult(
-            ICommand command,
-            Token token) : base(command, token)
-        {
-        }
+        public RootCommandResult(ICommand command, Token token)
+            : base(command, token) { }
 
         internal override RootCommandResult Root => this;
 
         private void EnsureResultMapsAreInitialized()
         {
-            if (_allArgumentResults is { })
+            if (_allArgumentResults is  {  } )
             {
                 return;
             }
@@ -73,7 +70,9 @@ namespace System.CommandLine.Parsing
                 case IOption option:
                     return FindResultFor(option);
                 default:
-                    throw new ArgumentException($"Unsupported symbol type: {symbol.GetType()}");
+                    throw new ArgumentException(
+                        $"Unsupported symbol type: {symbol.GetType()}"
+                    );
             }
         }
 
@@ -84,17 +83,24 @@ namespace System.CommandLine.Parsing
             switch (result)
             {
                 case ArgumentResult argumentResult:
-                    _allArgumentResults!.Add(argumentResult.Argument, argumentResult);
+                    _allArgumentResults!.Add(
+                        argumentResult.Argument,
+                        argumentResult
+                    );
                     break;
                 case CommandResult commandResult:
-                    _allCommandResults!.Add(commandResult.Command, commandResult);
+                    _allCommandResults!.Add(
+                        commandResult.Command,
+                        commandResult
+                    );
                     break;
                 case OptionResult optionResult:
                     _allOptionResults!.Add(optionResult.Option, optionResult);
                     break;
-
                 default:
-                    throw new ArgumentException($"Unsupported {nameof(SymbolResult)} type: {result.GetType()}");
+                    throw new ArgumentException(
+                        $"Unsupported {nameof(SymbolResult)} type: {result.GetType()}"
+                    );
             }
         }
 
@@ -107,7 +113,7 @@ namespace System.CommandLine.Parsing
                 return _allArgumentResults!.Values;
             }
         }
-        
+
         internal IReadOnlyCollection<OptionResult> AllOptionResults
         {
             get

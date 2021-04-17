@@ -27,8 +27,11 @@ namespace System.CommandLine.Rendering.Tests.Views
         {
             var contentView = new TestContentView("Four");
             var span = contentView.GetSpan();
-            
-            span.Should().BeOfType<ContentSpan>().Which.Content.Should().Contain("Four");
+
+            span.Should()
+                .BeOfType<ContentSpan>()
+                .Which.Content.Should()
+                .Contain("Four");
         }
 
         [Fact]
@@ -36,7 +39,7 @@ namespace System.CommandLine.Rendering.Tests.Views
         {
             TextSpan span = null;
             Action constructView = () => new ContentView(span);
-            
+
             constructView.Should().Throw<ArgumentNullException>();
         }
 
@@ -44,7 +47,7 @@ namespace System.CommandLine.Rendering.Tests.Views
         public void Span_is_not_created_by_default()
         {
             var contentView = new TestContentView();
-            
+
             contentView.IsSpanNull.Should().BeTrue();
         }
 
@@ -52,8 +55,7 @@ namespace System.CommandLine.Rendering.Tests.Views
         public void Measure_requires_renderer()
         {
             var contentView = new ContentView("Four");
-            contentView
-                .Invoking(x => x.Measure(null, new Size(0, 0)))
+            contentView.Invoking(x => x.Measure(null, new Size(0, 0)))
                 .Should()
                 .Throw<ArgumentNullException>();
         }
@@ -62,8 +64,7 @@ namespace System.CommandLine.Rendering.Tests.Views
         public void Measure_requires_maxSize()
         {
             var contentView = new ContentView("Four");
-            contentView
-                .Invoking(x => x.Measure(_renderer, null))
+            contentView.Invoking(x => x.Measure(_renderer, null))
                 .Should()
                 .Throw<ArgumentNullException>();
         }
@@ -73,7 +74,7 @@ namespace System.CommandLine.Rendering.Tests.Views
         {
             var contentView = new ContentView("Four");
             var size = contentView.Measure(_renderer, new Size(10, 1));
-            
+
             size.Height.Should().Be(1);
             size.Width.Should().Be(4);
         }
@@ -83,17 +84,16 @@ namespace System.CommandLine.Rendering.Tests.Views
         {
             var contentView = new TestContentView();
             var size = contentView.Measure(_renderer, new Size(10, 1));
-            
+
             size.Height.Should().Be(0);
-            size.Width.Should().Be(0); 
+            size.Width.Should().Be(0);
         }
 
         [Fact]
         public void Render_requires_renderer()
         {
             var contentView = new ContentView("Four");
-            contentView
-                .Invoking(x => x.Render(null, new Region(0, 0, 4, 1)))
+            contentView.Invoking(x => x.Render(null, new Region(0, 0, 4, 1)))
                 .Should()
                 .Throw<ArgumentNullException>();
         }
@@ -102,8 +102,7 @@ namespace System.CommandLine.Rendering.Tests.Views
         public void Render_requires_region()
         {
             var contentView = new ContentView("Four");
-            contentView
-                .Invoking(x => x.Render(_renderer, null))
+            contentView.Invoking(x => x.Render(_renderer, null))
                 .Should()
                 .Throw<ArgumentNullException>();
         }
@@ -115,27 +114,29 @@ namespace System.CommandLine.Rendering.Tests.Views
 
             contentView.Render(_renderer, new Region(0, 0, 4, 1));
 
-            _terminal.Events
-                    .Should()
-                    .BeEquivalentSequenceTo(
-                        new CursorPositionChanged(new Point(0, 0)),
-                        new ContentWritten("Four"));
+            _terminal.Events.Should()
+                .BeEquivalentSequenceTo(
+                    new CursorPositionChanged(new Point(0, 0)),
+                    new ContentWritten("Four")
+                );
         }
 
         [Fact]
-        public void Views_created_from_an_observable_can_be_updated_by_the_observable()
-        {
+        public void Views_created_from_an_observable_can_be_updated_by_the_observable() {
             var observable = new TestObservable();
             var view = ContentView.FromObservable(observable);
             var isViewUpdated = false;
-            view.Updated += (s, e) => { isViewUpdated = true; };
+            view.Updated += (s, e) =>
+            {
+                isViewUpdated = true;
+            };
 
             var initialSize = view.Measure(_renderer, new Size(10, 10));
             initialSize.Height.Should().Be(0);
             initialSize.Width.Should().Be(0);
 
             observable.UpdateViews("Four");
-            
+
             isViewUpdated.Should().BeTrue();
             var updatedSize = view.Measure(_renderer, new Size(10, 10));
             updatedSize.Height.Should().Be(1);
@@ -159,12 +160,13 @@ namespace System.CommandLine.Rendering.Tests.Views
 
             view.Render(_renderer, new Region(0, 0, 6, 2));
 
-            _terminal.Events.Should().BeEquivalentSequenceTo(
-                new CursorPositionChanged(new Point(0,0)),
-                new ContentWritten("   One"),
-                new CursorPositionChanged(new Point(0, 1)),
-                new ContentWritten("Two   ")
-            );
+            _terminal.Events.Should()
+                .BeEquivalentSequenceTo(
+                    new CursorPositionChanged(new Point(0, 0)),
+                    new ContentWritten("   One"),
+                    new CursorPositionChanged(new Point(0, 1)),
+                    new ContentWritten("Two   ")
+                );
         }
 
         private class TestContentView : ContentView
@@ -173,10 +175,10 @@ namespace System.CommandLine.Rendering.Tests.Views
 
             public TextSpan GetSpan() => Span;
 
-            public TestContentView()
-            { }
+            public TestContentView() { }
 
-            public TestContentView(string content) : base(content) { }
+            public TestContentView(string content)
+                : base(content) { }
         }
 
         private class TestObservable : IObservable<string>
@@ -199,7 +201,7 @@ namespace System.CommandLine.Rendering.Tests.Views
 
             public void UpdateViews(string value)
             {
-                foreach(var observer in _observers)
+                foreach (var observer in _observers)
                 {
                     observer.OnNext(value);
                 }
@@ -210,16 +212,19 @@ namespace System.CommandLine.Rendering.Tests.Views
         {
             private readonly List<IObserver<string>> _observers;
             private readonly IObserver<string> _observer;
-            
-            public TestDisposable(List<IObserver<string>> observers, IObserver<string> observer)
-            {
+
+            public TestDisposable(
+                List<IObserver<string>> observers,
+                IObserver<string> observer
+            ) {
                 _observers = observers;
                 _observer = observer;
             }
 
-            public void Dispose() 
+            public void Dispose()
             {
-                if (_observer != null) _observers.Remove(_observer);
+                if (_observer != null)
+                    _observers.Remove(_observer);
             }
         }
     }

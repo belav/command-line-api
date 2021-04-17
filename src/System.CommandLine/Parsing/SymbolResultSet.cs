@@ -22,7 +22,9 @@ namespace System.CommandLine.Parsing
             return default;
         }
 
-        protected override IReadOnlyCollection<string> GetAliases(SymbolResult result) =>
+        protected override IReadOnlyCollection<string> GetAliases(
+            SymbolResult result
+        ) =>
             result.Symbol switch
             {
                 IIdentifierSymbol named => named.Aliases,

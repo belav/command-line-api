@@ -25,7 +25,7 @@ namespace System.CommandLine.Rendering
         public AnsiControlCode AnsiControlCode { get; }
 
         public override int ContentLength => 0;
-        
+
         public override string ToString() => "";
 
         public override void WriteTo(TextWriter writer, OutputMode outputMode)
@@ -41,7 +41,8 @@ namespace System.CommandLine.Rendering
             }
         }
 
-        protected bool Equals(ControlSpan other) => string.Equals(Name, other.Name);
+        protected bool Equals(ControlSpan other) =>
+            string.Equals(Name, other.Name);
 
         public override bool Equals(object obj)
         {

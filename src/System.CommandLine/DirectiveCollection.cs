@@ -10,7 +10,8 @@ namespace System.CommandLine
 {
     internal class DirectiveCollection : IDirectiveCollection
     {
-        private readonly Dictionary<string, List<string>> _directives = new Dictionary<string, List<string>>();
+        private readonly Dictionary<string,
+            List<string>> _directives = new Dictionary<string, List<string>>();
 
         public void Add(string name, string? value)
         {
@@ -32,8 +33,10 @@ namespace System.CommandLine
             return _directives.ContainsKey(name);
         }
 
-        public bool TryGetValues(string name,  [NotNullWhen(true)] out IEnumerable<string>? values)
-        {
+        public bool TryGetValues(
+            string name,
+            [NotNullWhen(true)]out IEnumerable<string>? values
+        ) {
             if (_directives.TryGetValue(name, out var v))
             {
                 values = v;
@@ -46,9 +49,15 @@ namespace System.CommandLine
             }
         }
 
-        public IEnumerator<KeyValuePair<string, IEnumerable<string>>> GetEnumerator() =>
-            _directives
-                .Select(pair => new KeyValuePair<string, IEnumerable<string>>(pair.Key, pair.Value))
+        public IEnumerator<KeyValuePair<string,
+                IEnumerable<string>>> GetEnumerator() =>
+            _directives.Select(
+                    pair =>
+                        new KeyValuePair<string, IEnumerable<string>>(
+                            pair.Key,
+                            pair.Value
+                        )
+                )
                 .GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

@@ -17,7 +17,10 @@ namespace System.CommandLine.Rendering.Views
         {
             if (size < 0.0)
             {
-                throw new ArgumentException("Fixed size cannot be negative", nameof(size));
+                throw new ArgumentException(
+                    "Fixed size cannot be negative",
+                    nameof(size)
+                );
             }
             return new RowDefinition(SizeMode.Fixed, size);
         }
@@ -26,11 +29,15 @@ namespace System.CommandLine.Rendering.Views
         {
             if (weight < 0.0)
             {
-                throw new ArgumentException("Weight cannot be negative", nameof(weight));
+                throw new ArgumentException(
+                    "Weight cannot be negative",
+                    nameof(weight)
+                );
             }
             return new RowDefinition(SizeMode.Star, weight);
         }
-        
-        public static RowDefinition SizeToContent() => new RowDefinition(SizeMode.SizeToContent, 0);
+
+        public static RowDefinition SizeToContent() =>
+            new RowDefinition(SizeMode.SizeToContent, 0);
     }
 }

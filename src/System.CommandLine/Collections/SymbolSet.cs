@@ -21,7 +21,7 @@ namespace System.CommandLine.Collections
             ResetIndex(item);
 
             if (item is Symbol symbol)
-            {   
+            {
                 symbol.OnNameOrAliasChanged += Resync;
             }
         }
@@ -56,12 +56,13 @@ namespace System.CommandLine.Collections
             DirtyItems.Add(symbol);
         }
 
-        internal void AddWithoutAliasCollisionCheck(ISymbol item) => base.Add(item);
+        internal void AddWithoutAliasCollisionCheck(ISymbol item) =>
+            base.Add(item);
 
         internal bool IsAnyAliasInUse(
             ISymbol item,
-            [MaybeNullWhen(false)] out string aliasAlreadyInUse)
-        {
+            [MaybeNullWhen(false)]out string aliasAlreadyInUse
+        ) {
             EnsureAliasIndexIsCurrent();
 
             if (item is IIdentifierSymbol identifier)
@@ -84,8 +85,13 @@ namespace System.CommandLine.Collections
                 for (var i = 0; i < Items.Count; i++)
                 {
                     var existing = Items[i];
-                    if (string.Equals(item.Name, existing.Name, StringComparison.Ordinal))
-                    {
+                    if (
+                        string.Equals(
+                            item.Name,
+                            existing.Name,
+                            StringComparison.Ordinal
+                        )
+                    ) {
                         aliasAlreadyInUse = existing.Name;
                         return true;
                     }
@@ -101,11 +107,15 @@ namespace System.CommandLine.Collections
         {
             if (IsAnyAliasInUse(item, out var rawAliasAlreadyInUse))
             {
-                throw new ArgumentException($"Alias '{rawAliasAlreadyInUse}' is already in use.");
+                throw new ArgumentException(
+                    $"Alias '{rawAliasAlreadyInUse}' is already in use."
+                );
             }
         }
 
-        protected override IReadOnlyCollection<string> GetAliases(ISymbol item) =>
+        protected override IReadOnlyCollection<string> GetAliases(
+            ISymbol item
+        ) =>
             item switch
             {
                 IIdentifierSymbol named => named.Aliases,
@@ -134,7 +144,7 @@ namespace System.CommandLine.Collections
                 }
             }
         }
-        
+
         internal IReadOnlyList<Option> Options
         {
             get

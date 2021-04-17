@@ -29,7 +29,9 @@ namespace System.CommandLine.Rendering.Tests.Views
         {
             Action nullRenderer = () => new ScreenView(null, _terminal);
 
-            nullRenderer.Should().Throw<ArgumentNullException>().Where(ex => ex.ParamName == "renderer");
+            nullRenderer.Should()
+                .Throw<ArgumentNullException>()
+                .Where(ex => ex.ParamName == "renderer");
         }
 
         [Fact]
@@ -37,37 +39,49 @@ namespace System.CommandLine.Rendering.Tests.Views
         {
             Action nullRenderer = () => new ScreenView(_renderer, null);
 
-            nullRenderer.Should().Throw<ArgumentNullException>().Where(ex => ex.ParamName == "console");
+            nullRenderer.Should()
+                .Throw<ArgumentNullException>()
+                .Where(ex => ex.ParamName == "console");
         }
 
         [Fact]
         public void Render_hides_the_cursor()
         {
-            var screen = new ScreenView(_renderer, _terminal, _synchronizationContext);
+            var screen = new ScreenView(
+                _renderer,
+                _terminal,
+                _synchronizationContext
+            );
 
             screen.Render();
 
-            _terminal.Events
-                .Should()
+            _terminal.Events.Should()
                 .BeEquivalentSequenceTo(new TestTerminal.CursorHidden());
         }
 
         [Fact]
         public void Dispose_shows_the_cursor()
         {
-            var screen = new ScreenView(_renderer, _terminal, _synchronizationContext);
+            var screen = new ScreenView(
+                _renderer,
+                _terminal,
+                _synchronizationContext
+            );
 
             screen.Dispose();
 
-            _terminal.Events
-                .Should()
+            _terminal.Events.Should()
                 .BeEquivalentSequenceTo(new TestTerminal.CursorShown());
         }
 
         [Fact]
         public void Dispose_unregisters_from_updated_event()
         {
-            var screen = new ScreenView(_renderer, _terminal, _synchronizationContext);
+            var screen = new ScreenView(
+                _renderer,
+                _terminal,
+                _synchronizationContext
+            );
             var view = new TestView();
 
             screen.Child = view;
@@ -81,7 +95,11 @@ namespace System.CommandLine.Rendering.Tests.Views
         [Fact]
         public void Rendering_without_a_child_view_should_not_throw()
         {
-            var screen = new ScreenView(_renderer, _terminal, _synchronizationContext);
+            var screen = new ScreenView(
+                _renderer,
+                _terminal,
+                _synchronizationContext
+            );
 
             Action renderAction = () => screen.Render();
 
@@ -95,15 +113,18 @@ namespace System.CommandLine.Rendering.Tests.Views
             _terminal.Width = 100;
             _terminal.CursorLeft = _terminal.CursorTop = 20;
 
-            var screen = new ScreenView(_renderer, _terminal, _synchronizationContext);
+            var screen = new ScreenView(
+                _renderer,
+                _terminal,
+                _synchronizationContext
+            );
             var view = new TestView();
             screen.Child = view;
 
             view.RaiseUpdated();
 
             _synchronizationContext.InvokePostCallbacks();
-            view.RenderedRegions
-                .Should()
+            view.RenderedRegions.Should()
                 .BeEquivalentSequenceTo(new Region(0, 0, 100, 40));
         }
 
@@ -114,7 +135,11 @@ namespace System.CommandLine.Rendering.Tests.Views
             _terminal.Width = 100;
             _terminal.CursorLeft = _terminal.CursorTop = 20;
 
-            var screen = new ScreenView(_renderer, _terminal, _synchronizationContext);
+            var screen = new ScreenView(
+                _renderer,
+                _terminal,
+                _synchronizationContext
+            );
             var view = new TestView();
             screen.Child = view;
 
@@ -124,19 +149,21 @@ namespace System.CommandLine.Rendering.Tests.Views
             _synchronizationContext.InvokePostCallbacks();
 
             _synchronizationContext.PostInvocationCount.Should().Be(1);
-            view.RenderedRegions
-                .Should()
+            view.RenderedRegions.Should()
                 .BeEquivalentSequenceTo(new Region(0, 0, 100, 40));
         }
 
         [Fact]
-        public void On_child_updated_while_a_render_operation_is_in_progress_gets_queued()
-        {
+        public void On_child_updated_while_a_render_operation_is_in_progress_gets_queued() {
             _terminal.Height = 40;
             _terminal.Width = 100;
             _terminal.CursorLeft = _terminal.CursorTop = 20;
 
-            var screen = new ScreenView(_renderer, _terminal, _synchronizationContext);
+            var screen = new ScreenView(
+                _renderer,
+                _terminal,
+                _synchronizationContext
+            );
             var view = new TestView();
             void BeforeRenderAction()
             {
@@ -152,11 +179,11 @@ namespace System.CommandLine.Rendering.Tests.Views
             _synchronizationContext.InvokePostCallbacks();
 
             _synchronizationContext.PostInvocationCount.Should().Be(2);
-            view.RenderedRegions
-                .Should()
+            view.RenderedRegions.Should()
                 .BeEquivalentSequenceTo(
                     new Region(0, 0, 100, 40),
-                    new Region(0, 0, 100, 40));
+                    new Region(0, 0, 100, 40)
+                );
         }
 
         private class TestSynchronizationContext : SynchronizationContext
@@ -171,7 +198,11 @@ namespace System.CommandLine.Rendering.Tests.Views
                 }
             }
 
-            public int PostInvocationCount { get; private set; }
+            public int PostInvocationCount
+            {
+                get;
+                private set;
+            }
             public override void Post(SendOrPostCallback d, object state)
             {
                 PostInvocationCount++;
@@ -184,13 +215,18 @@ namespace System.CommandLine.Rendering.Tests.Views
             public Action BeforeRender { get; set; }
             public List<Region> RenderedRegions { get; } = new List<Region>();
 
-            public override void Render(ConsoleRenderer renderer, Region region)
-            {
+            public override void Render(
+                ConsoleRenderer renderer,
+                Region region
+            ) {
                 BeforeRender?.Invoke();
                 RenderedRegions.Add(region);
             }
 
-            public override Size Measure(ConsoleRenderer renderer, Size maxSize) => throw new NotImplementedException();
+            public override Size Measure(
+                ConsoleRenderer renderer,
+                Size maxSize
+            ) => throw new NotImplementedException();
 
             public void RaiseUpdated() => OnUpdated();
         }

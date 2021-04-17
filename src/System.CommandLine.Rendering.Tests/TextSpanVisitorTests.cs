@@ -15,8 +15,7 @@ namespace System.CommandLine.Rendering.Tests
         public void Initialize_is_only_called_once()
         {
             var span = new ContainerSpan(
-                new ContainerSpan(
-                    new ContainerSpan()),
+                new ContainerSpan(new ContainerSpan()),
                 new ContentSpan("hello")
             );
 
@@ -45,30 +44,33 @@ namespace System.CommandLine.Rendering.Tests
                 new ContainerSpan(
                     ForegroundColorSpan.Red(),
                     new ContentSpan("the content"),
-                    ForegroundColorSpan.Reset()),
-                BackgroundColorSpan.Reset());
+                    ForegroundColorSpan.Reset()
+                ),
+                BackgroundColorSpan.Reset()
+            );
 
             var visitor = new RecordingSpanVisitor();
 
             visitor.Visit(outerContainer);
 
-            visitor.VisitedSpans
-                   .Select(s => s.GetType())
-                   .Should()
-                   .BeEquivalentSequenceTo(
-                       typeof(ContainerSpan),
-                       typeof(BackgroundColorSpan),
-                       typeof(ContainerSpan),
-                       typeof(ForegroundColorSpan),
-                       typeof(ContentSpan),
-                       typeof(ForegroundColorSpan),
-                       typeof(BackgroundColorSpan));
+            visitor.VisitedSpans.Select(s => s.GetType())
+                .Should()
+                .BeEquivalentSequenceTo(
+                    typeof(ContainerSpan),
+                    typeof(BackgroundColorSpan),
+                    typeof(ContainerSpan),
+                    typeof(ForegroundColorSpan),
+                    typeof(ContentSpan),
+                    typeof(ForegroundColorSpan),
+                    typeof(BackgroundColorSpan)
+                );
         }
     }
 
     public class RecordingSpanVisitor : TextSpanVisitor
     {
-        public override void VisitUnknownSpan(TextSpan span) => VisitedSpans.Add(span);
+        public override void VisitUnknownSpan(TextSpan span) =>
+            VisitedSpans.Add(span);
 
         public override void VisitContainerSpan(ContainerSpan span)
         {
@@ -77,13 +79,19 @@ namespace System.CommandLine.Rendering.Tests
             base.VisitContainerSpan(span);
         }
 
-        public override void VisitContentSpan(ContentSpan span) => VisitedSpans.Add(span);
+        public override void VisitContentSpan(ContentSpan span) =>
+            VisitedSpans.Add(span);
 
-        public override void VisitForegroundColorSpan(ForegroundColorSpan span) => VisitedSpans.Add(span);
+        public override void VisitForegroundColorSpan(
+            ForegroundColorSpan span
+        ) => VisitedSpans.Add(span);
 
-        public override void VisitBackgroundColorSpan(BackgroundColorSpan span) => VisitedSpans.Add(span);
+        public override void VisitBackgroundColorSpan(
+            BackgroundColorSpan span
+        ) => VisitedSpans.Add(span);
 
-        public override void VisitStyleSpan(StyleSpan span) => VisitedSpans.Add(span);
+        public override void VisitStyleSpan(StyleSpan span) =>
+            VisitedSpans.Add(span);
 
         public List<TextSpan> VisitedSpans { get; } = new List<TextSpan>();
     }

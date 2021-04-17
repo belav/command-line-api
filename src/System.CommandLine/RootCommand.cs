@@ -20,33 +20,36 @@ namespace System.CommandLine
         /// Initializes a new instance of the RootCommand class.
         /// </summary>
         /// <param name="description">The description of the command, shown in help.</param>
-        public RootCommand(string description = "") : base(ExecutableName, description)
-        {
-        }
+        public RootCommand(string description = "")
+            : base(ExecutableName, description) { }
 
-        private static readonly Lazy<string> _executablePath = new Lazy<string>(() =>
-        {
-            return GetAssembly().Location;
-        });
-
-        private static readonly Lazy<string> _executableName = new Lazy<string>(() =>
-        {
-            var location = _executablePath.Value;
-            if (string.IsNullOrEmpty(location))
+        private static readonly Lazy<string> _executablePath = new Lazy<string>(
+            () =>
             {
-                var commandLineArgs = Environment.GetCommandLineArgs();
-
-                if (commandLineArgs.Length > 0)
-                {
-                    location = commandLineArgs[0];
-                }
+                return GetAssembly().Location;
             }
-            return Path.GetFileNameWithoutExtension(location).Replace(" ", "");
-        });
+        );
+
+        private static readonly Lazy<string> _executableName = new Lazy<string>(
+            () =>
+            {
+                var location = _executablePath.Value;
+                if (string.IsNullOrEmpty(location))
+                {
+                    var commandLineArgs = Environment.GetCommandLineArgs();
+
+                    if (commandLineArgs.Length > 0)
+                    {
+                        location = commandLineArgs[0];
+                    }
+                }
+                return Path.GetFileNameWithoutExtension(location)
+                    .Replace(" ", "");
+            }
+        );
 
         private static Assembly GetAssembly() =>
-            Assembly.GetEntryAssembly() ??
-            Assembly.GetExecutingAssembly();
+            Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
 
         /// <summary>
         /// The name of the currently running executable.
@@ -60,8 +63,9 @@ namespace System.CommandLine
 
         private protected override void RemoveAlias(string alias)
         {
-            if (!string.Equals(alias, ExecutableName, StringComparison.Ordinal))
-            {
+            if (
+                !string.Equals(alias, ExecutableName, StringComparison.Ordinal)
+            ) {
                 base.RemoveAlias(alias);
             }
         }

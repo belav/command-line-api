@@ -11,12 +11,13 @@ namespace System.CommandLine.Parsing
         private readonly TokenizeResult _tokenizeResult;
         private readonly CommandLineConfiguration _configuration;
         private int _index;
-        private readonly Dictionary<IArgument, int> _argumentCounts = new Dictionary<IArgument, int>();
+        private readonly Dictionary<IArgument,
+            int> _argumentCounts = new Dictionary<IArgument, int>();
 
         public ParseOperation(
             TokenizeResult tokenizeResult,
-            CommandLineConfiguration configuration)
-        {
+            CommandLineConfiguration configuration
+        ) {
             _tokenizeResult = tokenizeResult;
             _configuration = configuration;
         }
@@ -25,7 +26,11 @@ namespace System.CommandLine.Parsing
 
         public List<ParseError> Errors { get; } = new List<ParseError>();
 
-        public RootCommandNode? RootCommandNode { get; private set; }
+        public RootCommandNode? RootCommandNode
+        {
+            get;
+            private set;
+        }
 
         public List<Token> UnmatchedTokens { get; } = new List<Token>();
 
@@ -70,7 +75,8 @@ namespace System.CommandLine.Parsing
         {
             var rootCommandNode = new RootCommandNode(
                 CurrentToken,
-                _configuration.RootCommand);
+                _configuration.RootCommand
+            );
 
             Advance();
 
@@ -90,9 +96,16 @@ namespace System.CommandLine.Parsing
                 return null;
             }
 
-            if (parentNode.Command.Children.GetByAlias(CurrentToken.Value) is ICommand command)
-            {
-                var commandNode = new CommandNode(CurrentToken, command, parentNode);
+            if (
+                parentNode.Command.Children.GetByAlias(
+                    CurrentToken.Value
+                ) is ICommand command
+            ) {
+                var commandNode = new CommandNode(
+                    CurrentToken,
+                    command,
+                    parentNode
+                );
 
                 Advance();
 
@@ -113,9 +126,10 @@ namespace System.CommandLine.Parsing
                     return;
                 }
 
-                var child = ParseSubcommand(parent) ??
-                            (SyntaxNode?)ParseOption(parent) ??
-                            ParseCommandArgument(parent);
+                var child =
+                    ParseSubcommand(parent)
+                    ?? (SyntaxNode?)ParseOption(parent)
+                    ?? ParseCommandArgument(parent);
 
                 if (child is null)
                 {
@@ -129,8 +143,9 @@ namespace System.CommandLine.Parsing
             }
         }
 
-        private CommandArgumentNode? ParseCommandArgument(CommandNode commandNode)
-        {
+        private CommandArgumentNode? ParseCommandArgument(
+            CommandNode commandNode
+        ) {
             if (CurrentToken.Type != TokenType.Argument)
             {
                 return null;
@@ -140,9 +155,10 @@ namespace System.CommandLine.Parsing
 
             for (var i = 0; i < commandNode.Command.Arguments.Count; i++)
             {
-                if (commandNode.Command.Arguments[i] is {} arg &&
-                    !IsFull(arg))
-                {
+                if (
+                    commandNode.Command.Arguments[i] is  {  } arg
+                    && !IsFull(arg)
+                ) {
                     argument = arg;
                     break;
                 }
@@ -156,7 +172,8 @@ namespace System.CommandLine.Parsing
             var argumentNode = new CommandArgumentNode(
                 CurrentToken,
                 argument,
-                commandNode);
+                commandNode
+            );
 
             IncrementCount(argument);
 
@@ -174,12 +191,12 @@ namespace System.CommandLine.Parsing
 
             OptionNode? optionNode = null;
 
-            if (parent.Command.Children.GetByAlias(CurrentToken.Value) is IOption option)
-            {
-                optionNode = new OptionNode(
-                    CurrentToken,
-                    option,
-                    parent);
+            if (
+                parent.Command.Children.GetByAlias(
+                    CurrentToken.Value
+                ) is IOption option
+            ) {
+                optionNode = new OptionNode(CurrentToken, option, parent);
 
                 Advance();
 
@@ -194,12 +211,13 @@ namespace System.CommandLine.Parsing
             var argument = optionNode.Option.Argument;
 
             var contiguousTokens = 0;
-            var  continueProcessing = true;
+            var continueProcessing = true;
 
-            while (More() &&
-                   CurrentToken.Type == TokenType.Argument &&
-                   continueProcessing)
-            {
+            while (
+                More()
+                && CurrentToken.Type == TokenType.Argument
+                && continueProcessing
+            ) {
                 if (IsFull(argument))
                 {
                     if (contiguousTokens > 0)
@@ -214,20 +232,21 @@ namespace System.CommandLine.Parsing
                 }
                 else if (argument.ValueType == typeof(bool))
                 {
-                    if (ArgumentConverter.ConvertObject(
+                    if (
+                        ArgumentConverter.ConvertObject(
                             argument,
                             argument.ValueType,
-                            CurrentToken.Value) is FailedArgumentTypeConversionResult)
-                    {
+                            CurrentToken.Value
+                        )
+                        is FailedArgumentTypeConversionResult
+                    ) {
                         return;
                     }
                 }
 
                 optionNode.AddChildNode(
-                    new OptionArgumentNode(
-                        CurrentToken,
-                        argument,
-                        optionNode));
+                    new OptionArgumentNode(CurrentToken, argument, optionNode)
+                );
 
                 IncrementCount(argument);
 
@@ -250,18 +269,21 @@ namespace System.CommandLine.Parsing
                     return;
                 }
 
-                var withoutBrackets = token.Value.Substring(1, token.Value.Length - 2);
-                var keyAndValue = withoutBrackets.Split(new[]
-                {
-                    ':'
-                }, 2);
+                var withoutBrackets = token.Value.Substring(
+                    1,
+                    token.Value.Length - 2
+                );
+                var keyAndValue = withoutBrackets.Split(new[] { ':' }, 2);
 
                 var key = keyAndValue[0];
-                var value = keyAndValue.Length == 2
-                                ? keyAndValue[1]
-                                : null;
+                var value = keyAndValue.Length == 2 ? keyAndValue[1] : null;
 
-                var directiveNode = new DirectiveNode(token, parent, key, value);
+                var directiveNode = new DirectiveNode(
+                    token,
+                    parent,
+                    key,
+                    value
+                );
 
                 parent.AddChildNode(directiveNode);
 

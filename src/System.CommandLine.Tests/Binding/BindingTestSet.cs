@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 namespace System.CommandLine.Tests.Binding
 {
-    public class BindingTestSet : Dictionary<(Type type, string variationName), BindingTestCase>
+    public class BindingTestSet
+        : Dictionary<(Type type, string variationName), BindingTestCase>
     {
         public void Add(BindingTestCase testCase)
         {

@@ -11,8 +11,8 @@ namespace System.CommandLine.Binding
 
         internal PropertyDescriptor(
             PropertyInfo propertyInfo,
-            ModelDescriptor parent)
-        {
+            ModelDescriptor parent
+        ) {
             Parent = parent ?? throw new ArgumentNullException(nameof(parent));
             _propertyInfo = propertyInfo;
         }

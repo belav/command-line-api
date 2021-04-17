@@ -24,9 +24,11 @@ namespace System.CommandLine.Rendering
             RecalculateChildPositions();
         }
 
-        public override int ContentLength => _children.Sum(span => span.ContentLength);
+        public override int ContentLength =>
+            _children.Sum(span => span.ContentLength);
 
-        public IEnumerator<TextSpan> GetEnumerator() => _children.GetEnumerator();
+        public IEnumerator<TextSpan> GetEnumerator() =>
+            _children.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -34,8 +36,10 @@ namespace System.CommandLine.Rendering
 
         public TextSpan this[int index] => _children[index];
 
-        internal override void RecalculatePositions(ContainerSpan parent, int start)
-        {
+        internal override void RecalculatePositions(
+            ContainerSpan parent,
+            int start
+        ) {
             base.RecalculatePositions(parent, start);
 
             RecalculateChildPositions();

@@ -14,17 +14,16 @@ namespace System.CommandLine.Tests.Binding
         [InlineData(typeof(string), "")]
         [InlineData(typeof(int), 0)]
         [InlineData(typeof(int?), null)]
-        public void GetDefaultValue_returns_the_default_for_the_type(Type type, object defaultValue)
-        {
+        public void GetDefaultValue_returns_the_default_for_the_type(
+            Type type,
+            object defaultValue
+        ) {
             type = typeof(ClassWithCtorParameter<>).MakeGenericType(type);
 
             var modelDescriptor = ModelDescriptor.FromType(type);
 
-            modelDescriptor
-                .ConstructorDescriptors
-                .Single()
-                .ParameterDescriptors
-                .Single()
+            modelDescriptor.ConstructorDescriptors.Single()
+                .ParameterDescriptors.Single()
                 .GetDefaultValue()
                 .Should()
                 .Be(defaultValue);

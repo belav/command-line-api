@@ -7,6 +7,7 @@ namespace System.CommandLine.Suggest
 {
     internal static class StringExtensions
     {
-        public static string Escape(this string commandLine) => commandLine.Replace("\"", "\\\"");
+        public static string Escape(this string commandLine) =>
+            commandLine.Replace("\"", "\\\"");
     }
 }

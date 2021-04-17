@@ -22,14 +22,12 @@ namespace System.CommandLine.Benchmarks.CommandLine
         /// count=1  : { "suggestion0" }
         /// count=5  : { "suggestion0", .., "suggestion5" }
         /// </remarks>
-        private string[] GenerateSuggestionsArray(int count)
-            => Enumerable.Range(0, count)
-                         .Select(i => $"suggestion{i}")
-                         .ToArray();
+        private string[] GenerateSuggestionsArray(int count) =>
+            Enumerable.Range(0, count).Select(i => $"suggestion{i}").ToArray();
 
-        private IEnumerable<Option> GenerateOptionsArray(int count)
-            => Enumerable.Range(0, count)
-                         .Select(i => new Option($"suggestion{i}"));
+        private IEnumerable<Option> GenerateOptionsArray(int count) =>
+            Enumerable.Range(0, count)
+                .Select(i => new Option($"suggestion{i}"));
 
         [Params(1, 5, 20, 100)]
         public int TestSuggestionsCount;
@@ -37,8 +35,10 @@ namespace System.CommandLine.Benchmarks.CommandLine
         [GlobalSetup(Target = nameof(SuggestionsFromSymbol))]
         public void Setup_FromSymbol()
         {
-            _testSymbol = new Option("--hello", arity: ArgumentArity.ExactlyOne)
-                .AddSuggestions(GenerateSuggestionsArray(TestSuggestionsCount));
+            _testSymbol = new Option(
+                "--hello",
+                arity: ArgumentArity.ExactlyOne
+            ).AddSuggestions(GenerateSuggestionsArray(TestSuggestionsCount));
         }
 
         [Benchmark]
@@ -63,7 +63,8 @@ namespace System.CommandLine.Benchmarks.CommandLine
         [Benchmark]
         public void SuggestionsFromParseResult()
         {
-            _testParseResult.GetSuggestions("--wrong".Length + 1).Consume(new Consumer());
+            _testParseResult.GetSuggestions("--wrong".Length + 1)
+                .Consume(new Consumer());
         }
     }
 }

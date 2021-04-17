@@ -12,21 +12,26 @@ namespace System.CommandLine.DragonFruit.Tests
     {
         private class Program
         {
-            public static void Main(bool verbose = false, string flavor = null, int? count = 0)
-            {
-            }
+            public static void Main(
+                bool verbose = false,
+                string flavor = null,
+                int? count = 0
+            ) { }
         }
 
         [Fact]
         public void It_finds_member_xml()
         {
-            const string xml = @"<?xml version=""1.0""?>
+            const string xml =
+                @"<?xml version=""1.0""?>
 <doc>
     <assembly>
         <name>DragonFruit</name>
     </assembly>
     <members>
-        <member name=""M:System.CommandLine.DragonFruit.Tests." + nameof(XmlDocReaderTests) + @".Program.Main(System.Boolean,System.String,System.Nullable{System.Int32})"">
+        <member name=""M:System.CommandLine.DragonFruit.Tests."
+                + nameof(XmlDocReaderTests)
+                + @".Program.Main(System.Boolean,System.String,System.Nullable{System.Int32})"">
             <summary>
             Hello
             </summary>
@@ -41,11 +46,19 @@ namespace System.CommandLine.DragonFruit.Tests
             var reader = new StringReader(xml);
             XmlDocReader.TryLoad(reader, out var docReader).Should().BeTrue();
 
-            docReader.TryGetMethodDescription(action.Method, out var helpMetadata).Should().BeTrue();
+            docReader.TryGetMethodDescription(
+                    action.Method,
+                    out var helpMetadata
+                )
+                .Should()
+                .BeTrue();
             helpMetadata.Description.Should().Be("Hello");
-            helpMetadata.ParameterDescriptions["verbose"].Should().Be("Show verbose output");
-            helpMetadata.ParameterDescriptions["flavor"].Should().Be("Which flavor to use");
-            helpMetadata.ParameterDescriptions["count"].Should().Be("How many smoothies?");
+            helpMetadata.ParameterDescriptions["verbose"].Should()
+                .Be("Show verbose output");
+            helpMetadata.ParameterDescriptions["flavor"].Should()
+                .Be("Which flavor to use");
+            helpMetadata.ParameterDescriptions["count"].Should()
+                .Be("How many smoothies?");
         }
     }
 }

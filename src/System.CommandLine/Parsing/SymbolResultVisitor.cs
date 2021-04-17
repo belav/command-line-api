@@ -20,9 +20,7 @@ namespace System.CommandLine.Parsing
             {
                 case ArgumentResult argumentResult:
                     VisitArgumentResult(argumentResult);
-
                     break;
-
                 case RootCommandResult rootCommandResult:
                     VisitRootCommandResult(rootCommandResult);
 
@@ -30,9 +28,7 @@ namespace System.CommandLine.Parsing
                     {
                         VisitInternal(rootCommandResult.Children[i]);
                     }
-
                     break;
-
                 case CommandResult commandResult:
                     VisitCommandResult(commandResult);
 
@@ -40,9 +36,7 @@ namespace System.CommandLine.Parsing
                     {
                         VisitInternal(commandResult.Children[i]);
                     }
-
                     break;
-
                 case OptionResult optionResult:
                     VisitOptionResult(optionResult);
 
@@ -50,33 +44,26 @@ namespace System.CommandLine.Parsing
                     {
                         VisitInternal(optionResult.Children[i]);
                     }
-
                     break;
             }
         }
 
-        protected virtual void VisitOptionResult(OptionResult optionResult)
-        {
-        }
+        protected virtual void VisitOptionResult(OptionResult optionResult) { }
 
-        protected virtual void VisitCommandResult(CommandResult commandResult)
-        {
-        }
+        protected virtual void VisitCommandResult(
+            CommandResult commandResult
+        ) { }
 
-        protected virtual void VisitArgumentResult(ArgumentResult argumentResult)
-        {
-        }
+        protected virtual void VisitArgumentResult(
+            ArgumentResult argumentResult
+        ) { }
 
-        protected virtual void VisitRootCommandResult(RootCommandResult rootCommandResult)
-        {
-        }
+        protected virtual void VisitRootCommandResult(
+            RootCommandResult rootCommandResult
+        ) { }
 
-        protected virtual void Start(SymbolResult node)
-        {
-        }
+        protected virtual void Start(SymbolResult node) { }
 
-        protected virtual void Stop(SymbolResult node)
-        {
-        }
+        protected virtual void Stop(SymbolResult node) { }
     }
 }

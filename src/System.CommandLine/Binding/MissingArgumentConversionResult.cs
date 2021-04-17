@@ -3,10 +3,13 @@
 
 namespace System.CommandLine.Binding
 {
-    internal class MissingArgumentConversionResult : FailedArgumentConversionArityResult
+    internal class MissingArgumentConversionResult
+        : FailedArgumentConversionArityResult
     {
-        internal MissingArgumentConversionResult(IArgument argument, string errorMessage) : base(argument, errorMessage)
-        {
-        }
+        internal MissingArgumentConversionResult(
+            IArgument argument,
+            string errorMessage
+        )
+            : base(argument, errorMessage) { }
     }
 }

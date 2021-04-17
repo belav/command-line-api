@@ -8,8 +8,9 @@ namespace System.CommandLine.Parsing
         public OptionArgumentNode(
             Token token,
             IArgument argument,
-            OptionNode parent) : base(token, parent)
-        {
+            OptionNode parent
+        )
+            : base(token, parent) {
             if (token.Type != TokenType.Argument)
             {
                 throw new ArgumentException($"Incorrect token type: {token}");

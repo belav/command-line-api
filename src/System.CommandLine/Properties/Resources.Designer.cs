@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace System.CommandLine.Properties {
+namespace System.CommandLine.Properties
+{
     using System;
-    
-    
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,314 +19,472 @@ namespace System.CommandLine.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute(
+        "System.Resources.Tools.StronglyTypedResourceBuilder",
+        "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
-        
+    internal class Resources
+    {
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
-        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
-        }
-        
+
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+            "Microsoft.Performance",
+            "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() { }
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("System.CommandLine.Properties.Resources", typeof(Resources).Assembly);
+        [global::System.ComponentModel.EditorBrowsableAttribute(
+            global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager(
+                        "System.CommandLine.Properties.Resources",
+                        typeof(Resources).Assembly
+                    );
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
-            get {
-                return resourceCulture;
-            }
-            set {
-                resourceCulture = value;
-            }
+        [global::System.ComponentModel.EditorBrowsableAttribute(
+            global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture
+        {
+            get { return resourceCulture; }
+            set { resourceCulture = value; }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Command &apos;{0}&apos; expects no more than {1} arguments, but {2} were provided..
         /// </summary>
-        internal static string CommandExpectsFewerArguments {
-            get {
-                return ResourceManager.GetString("CommandExpectsFewerArguments", resourceCulture);
+        internal static string CommandExpectsFewerArguments
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "CommandExpectsFewerArguments",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Command &apos;{0}&apos; expects a single argument but {1} were provided..
         /// </summary>
-        internal static string CommandExpectsOneArgument {
-            get {
-                return ResourceManager.GetString("CommandExpectsOneArgument", resourceCulture);
+        internal static string CommandExpectsOneArgument
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "CommandExpectsOneArgument",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to No argument was provided for Command &apos;{0}&apos;..
         /// </summary>
-        internal static string CommandNoArgumentProvided {
-            get {
-                return ResourceManager.GetString("CommandNoArgumentProvided", resourceCulture);
+        internal static string CommandNoArgumentProvided
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "CommandNoArgumentProvided",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Required argument missing for command: {0}.
         /// </summary>
-        internal static string CommandRequiredArgumentMissing {
-            get {
-                return ResourceManager.GetString("CommandRequiredArgumentMissing", resourceCulture);
+        internal static string CommandRequiredArgumentMissing
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "CommandRequiredArgumentMissing",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Directory does not exist: {0}.
         /// </summary>
-        internal static string DirectoryDoesNotExist {
-            get {
-                return ResourceManager.GetString("DirectoryDoesNotExist", resourceCulture);
+        internal static string DirectoryDoesNotExist
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "DirectoryDoesNotExist",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Error reading response file &apos;{0}&apos;: {1}.
         /// </summary>
-        internal static string ErrorReadingResponseFile {
-            get {
-                return ResourceManager.GetString("ErrorReadingResponseFile", resourceCulture);
+        internal static string ErrorReadingResponseFile
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "ErrorReadingResponseFile",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to File does not exist: {0}.
         /// </summary>
-        internal static string FileDoesNotExist {
-            get {
-                return ResourceManager.GetString("FileDoesNotExist", resourceCulture);
+        internal static string FileDoesNotExist
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "FileDoesNotExist",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to File or directory does not exist: {0}.
         /// </summary>
-        internal static string FileOrDirectoryDoesNotExist {
-            get {
-                return ResourceManager.GetString("FileOrDirectoryDoesNotExist", resourceCulture);
+        internal static string FileOrDirectoryDoesNotExist
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "FileOrDirectoryDoesNotExist",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Arguments passed to the application that is being run..
         /// </summary>
-        internal static string HelpAdditionalArgumentsDescription {
-            get {
-                return ResourceManager.GetString("HelpAdditionalArgumentsDescription", resourceCulture);
+        internal static string HelpAdditionalArgumentsDescription
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpAdditionalArgumentsDescription",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Additional Arguments:.
         /// </summary>
-        internal static string HelpAdditionalArgumentsTitle {
-            get {
-                return ResourceManager.GetString("HelpAdditionalArgumentsTitle", resourceCulture);
+        internal static string HelpAdditionalArgumentsTitle
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpAdditionalArgumentsTitle",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to default.
         /// </summary>
-        internal static string HelpArgumentDefaultValueTitle {
-            get {
-                return ResourceManager.GetString("HelpArgumentDefaultValueTitle", resourceCulture);
+        internal static string HelpArgumentDefaultValueTitle
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpArgumentDefaultValueTitle",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Arguments:.
         /// </summary>
-        internal static string HelpArgumentsTitle {
-            get {
-                return ResourceManager.GetString("HelpArgumentsTitle", resourceCulture);
+        internal static string HelpArgumentsTitle
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpArgumentsTitle",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Commands:.
         /// </summary>
-        internal static string HelpCommandsTitle {
-            get {
-                return ResourceManager.GetString("HelpCommandsTitle", resourceCulture);
+        internal static string HelpCommandsTitle
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpCommandsTitle",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Show help and usage information.
         /// </summary>
-        internal static string HelpOptionDescription {
-            get {
-                return ResourceManager.GetString("HelpOptionDescription", resourceCulture);
+        internal static string HelpOptionDescription
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpOptionDescription",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Character not allowed in a file name: {0}.
         /// </summary>
-        internal static string InvalidCharactersInFileName {
-            get {
-                return ResourceManager.GetString("InvalidCharactersInFileName", resourceCulture);
+        internal static string InvalidCharactersInFileName
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "InvalidCharactersInFileName",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to (REQUIRED).
         /// </summary>
-        internal static string HelpOptionsRequired {
-            get {
-                return ResourceManager.GetString("HelpOptionsRequired", resourceCulture);
+        internal static string HelpOptionsRequired
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpOptionsRequired",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Options:.
         /// </summary>
-        internal static string HelpOptionsTitle {
-            get {
-                return ResourceManager.GetString("HelpOptionsTitle", resourceCulture);
+        internal static string HelpOptionsTitle
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpOptionsTitle",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to [[--] &lt;additional arguments&gt;...]].
         /// </summary>
-        internal static string HelpUsageAdditionalArguments {
-            get {
-                return ResourceManager.GetString("HelpUsageAdditionalArguments", resourceCulture);
+        internal static string HelpUsageAdditionalArguments
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpUsageAdditionalArguments",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to [command].
         /// </summary>
-        internal static string HelpUsageCommandTitle {
-            get {
-                return ResourceManager.GetString("HelpUsageCommandTitle", resourceCulture);
+        internal static string HelpUsageCommandTitle
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpUsageCommandTitle",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to [options].
         /// </summary>
-        internal static string HelpUsageOptionsTitle {
-            get {
-                return ResourceManager.GetString("HelpUsageOptionsTitle", resourceCulture);
+        internal static string HelpUsageOptionsTitle
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpUsageOptionsTitle",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Usage:.
         /// </summary>
-        internal static string HelpUsageTile {
-            get {
-                return ResourceManager.GetString("HelpUsageTile", resourceCulture);
+        internal static string HelpUsageTile
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "HelpUsageTile",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Character not allowed in a path: {0}.
         /// </summary>
-        internal static string InvalidCharactersInPath {
-            get {
-                return ResourceManager.GetString("InvalidCharactersInPath", resourceCulture);
+        internal static string InvalidCharactersInPath
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "InvalidCharactersInPath",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Option &apos;{0}&apos; expects no more than {1} arguments, but {2} were provided..
         /// </summary>
-        internal static string OptionExpectsFewerArguments {
-            get {
-                return ResourceManager.GetString("OptionExpectsFewerArguments", resourceCulture);
+        internal static string OptionExpectsFewerArguments
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "OptionExpectsFewerArguments",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Option &apos;{0}&apos; expects a single argument but {1} were provided..
         /// </summary>
-        internal static string OptionExpectsOneArgument {
-            get {
-                return ResourceManager.GetString("OptionExpectsOneArgument", resourceCulture);
+        internal static string OptionExpectsOneArgument
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "OptionExpectsOneArgument",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to No argument was provided for Option &apos;{0}&apos;..
         /// </summary>
-        internal static string OptionNoArgumentProvided {
-            get {
-                return ResourceManager.GetString("OptionNoArgumentProvided", resourceCulture);
+        internal static string OptionNoArgumentProvided
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "OptionNoArgumentProvided",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Required argument missing for option: {0}.
         /// </summary>
-        internal static string OptionRequiredArgumentMissing {
-            get {
-                return ResourceManager.GetString("OptionRequiredArgumentMissing", resourceCulture);
+        internal static string OptionRequiredArgumentMissing
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "OptionRequiredArgumentMissing",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Required command was not provided..
         /// </summary>
-        internal static string RequiredCommandWasNotProvided {
-            get {
-                return ResourceManager.GetString("RequiredCommandWasNotProvided", resourceCulture);
+        internal static string RequiredCommandWasNotProvided
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "RequiredCommandWasNotProvided",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Response file not found &apos;{0}&apos;.
         /// </summary>
-        internal static string ResponseFileNotFound {
-            get {
-                return ResourceManager.GetString("ResponseFileNotFound", resourceCulture);
+        internal static string ResponseFileNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "ResponseFileNotFound",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Argument &apos;{0}&apos; not recognized. Must be one of:{1}.
         /// </summary>
-        internal static string UnrecognizedArgument {
-            get {
-                return ResourceManager.GetString("UnrecognizedArgument", resourceCulture);
+        internal static string UnrecognizedArgument
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "UnrecognizedArgument",
+                    resourceCulture
+                );
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Unrecognized command or argument &apos;{0}&apos;.
         /// </summary>
-        internal static string UnrecognizedCommandOrArgument {
-            get {
-                return ResourceManager.GetString("UnrecognizedCommandOrArgument", resourceCulture);
+        internal static string UnrecognizedCommandOrArgument
+        {
+            get
+            {
+                return ResourceManager.GetString(
+                    "UnrecognizedCommandOrArgument",
+                    resourceCulture
+                );
             }
         }
     }

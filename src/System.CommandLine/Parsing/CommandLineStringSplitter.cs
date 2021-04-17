@@ -40,11 +40,9 @@ namespace System.CommandLine.Parsing
                             startTokenIndex = pos;
                             seeking = Boundary.TokenStart;
                             break;
-
                         case Boundary.TokenStart:
                             startTokenIndex = pos;
                             break;
-
                         case Boundary.QuoteEnd:
                             break;
                     }
@@ -58,12 +56,10 @@ namespace System.CommandLine.Parsing
                             startTokenIndex = pos;
                             seeking = Boundary.TokenStart;
                             break;
-
                         case Boundary.TokenStart:
                             startTokenIndex = pos + 1;
                             seeking = Boundary.QuoteEnd;
                             break;
-
                         case Boundary.WordEnd:
                             seeking = Boundary.QuoteEnd;
                             skipQuoteAtIndex = pos;
@@ -97,22 +93,22 @@ namespace System.CommandLine.Parsing
             {
                 if (skipQuoteAtIndex is null)
                 {
-                    return memory.Slice(
-                                     startTokenIndex,
-                                     IndexOfEndOfToken())
-                                 .ToString();
+                    return memory.Slice(startTokenIndex, IndexOfEndOfToken())
+                        .ToString();
                 }
                 else
                 {
                     var beforeQuote = memory.Slice(
                         startTokenIndex,
-                        skipQuoteAtIndex.Value - startTokenIndex);
+                        skipQuoteAtIndex.Value - startTokenIndex
+                    );
 
                     var indexOfCharAfterQuote = skipQuoteAtIndex.Value + 1;
 
                     var afterQuote = memory.Slice(
                         indexOfCharAfterQuote,
-                        pos - skipQuoteAtIndex.Value - 1);
+                        pos - skipQuoteAtIndex.Value - 1
+                    );
 
                     skipQuoteAtIndex = null;
 

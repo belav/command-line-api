@@ -27,25 +27,30 @@ namespace System.CommandLine.Benchmarks.DragonFruit
         {
             _testAssemblyFilePath = Utils.CreateTestAssemblyInTempFileFromFile(
                 "Sample1.Main.cs",
-                new[]
-                {
+                new[] {
                     typeof(object).GetTypeInfo().Assembly.Location,
                     typeof(Enumerable).GetTypeInfo().Assembly.Location,
                     typeof(System.CommandLine.Invocation.InvocationContext).GetTypeInfo().Assembly.Location
                 }
             );
-            _testAssembly = Assembly.Load(File.ReadAllBytes(_testAssemblyFilePath));
-            _testAssemblyXmlDocsFilePath = _testAssemblyFilePath.Replace(".dll", ".xml");
+            _testAssembly = Assembly.Load(
+                File.ReadAllBytes(_testAssemblyFilePath)
+            );
+            _testAssemblyXmlDocsFilePath = _testAssemblyFilePath.Replace(
+                ".dll",
+                ".xml"
+            );
         }
 
         [Benchmark(Description = "--help")]
-        public async Task SearchForStartingPointWhenGivenEntryPointClass_Help()
-            => await System.CommandLine.DragonFruit.CommandLine.ExecuteAssemblyAsync(
+        public async Task SearchForStartingPointWhenGivenEntryPointClass_Help() =>
+            await System.CommandLine.DragonFruit.CommandLine.ExecuteAssemblyAsync(
                 _testAssembly,
                 new[] { "--help" },
                 null,
                 _testAssemblyXmlDocsFilePath,
-                _nullConsole);
+                _nullConsole
+            );
 
         [GlobalCleanup]
         public void Cleanup()

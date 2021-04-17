@@ -15,8 +15,8 @@ namespace System.CommandLine.Binding
 
         internal ConstructorDescriptor(
             ConstructorInfo constructorInfo,
-            ModelDescriptor parent)
-        {
+            ModelDescriptor parent
+        ) {
             Parent = parent;
             _constructorInfo = constructorInfo;
         }
@@ -24,8 +24,9 @@ namespace System.CommandLine.Binding
         public ModelDescriptor Parent { get; }
 
         public IReadOnlyList<ParameterDescriptor> ParameterDescriptors =>
-            _parameterDescriptors ??=
-                _constructorInfo.GetParameters().Select(p => new ParameterDescriptor(p, this)).ToList();
+            _parameterDescriptors ??= _constructorInfo.GetParameters()
+                .Select(p => new ParameterDescriptor(p, this))
+                .ToList();
 
         internal object Invoke(IReadOnlyCollection<object?> parameters)
         {

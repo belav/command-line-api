@@ -9,8 +9,9 @@ namespace System.CommandLine.Rendering
 
         public VirtualTerminal(
             IConsole console,
-            VirtualTerminalMode virtualTerminalMode) : base(console)
-        {
+            VirtualTerminalMode virtualTerminalMode
+        )
+            : base(console) {
             _virtualTerminalMode = virtualTerminalMode;
         }
 
@@ -20,30 +21,31 @@ namespace System.CommandLine.Rendering
 
         public override void ResetColor()
         {
-            Console.Out.Write(
-                Ansi.Color.Background.Default.EscapeSequence);
-            Console.Out.Write(
-                Ansi.Color.Foreground.Default.EscapeSequence);
+            Console.Out.Write(Ansi.Color.Background.Default.EscapeSequence);
+            Console.Out.Write(Ansi.Color.Foreground.Default.EscapeSequence);
         }
 
         public override void Clear()
         {
-            Console.Out.Write(
-                Ansi.Clear.EntireScreen.EscapeSequence);
+            Console.Out.Write(Ansi.Clear.EntireScreen.EscapeSequence);
         }
 
         public override int CursorLeft
         {
             get => System.Console.CursorLeft;
-            set => Console.Out.Write(
-                Ansi.Cursor.Move.ToLocation(left: value + 1).EscapeSequence);
+            set =>
+                Console.Out.Write(
+                    Ansi.Cursor.Move.ToLocation(left: value + 1).EscapeSequence
+                );
         }
 
         public override int CursorTop
         {
             get => System.Console.CursorTop;
-            set => Console.Out.Write(
-                Ansi.Cursor.Move.ToLocation(top: value + 1).EscapeSequence);
+            set =>
+                Console.Out.Write(
+                    Ansi.Cursor.Move.ToLocation(top: value + 1).EscapeSequence
+                );
         }
 
         protected override void Dispose(bool disposing)
@@ -56,10 +58,13 @@ namespace System.CommandLine.Rendering
             base.Dispose(disposing);
         }
 
-        public override void SetCursorPosition(int left, int top) => Console.Out.Write(
-            Ansi.Cursor.Move
-                .ToLocation(left: left + 1, top: top + 1)
-                .EscapeSequence);
+        public override void SetCursorPosition(int left, int top) =>
+            Console.Out.Write(
+                Ansi.Cursor.Move.ToLocation(
+                    left: left + 1,
+                    top: top + 1
+                ).EscapeSequence
+            );
 
         public override void HideCursor()
         {

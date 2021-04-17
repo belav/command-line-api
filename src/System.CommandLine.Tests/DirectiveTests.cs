@@ -16,7 +16,9 @@ namespace System.CommandLine.Tests
         {
             var option = new Option("-y");
 
-            var result = option.Parse($"{RootCommand.ExecutableName} [parse] -y");
+            var result = option.Parse(
+                $"{RootCommand.ExecutableName} [parse] -y"
+            );
 
             result.UnmatchedTokens.Should().BeEmpty();
         }
@@ -70,24 +72,27 @@ namespace System.CommandLine.Tests
         public void Directives_can_have_a_value_which_is_everything_after_the_first_colon(
             string directive,
             string expectedKey,
-            string expectedValue)
-        {
+            string expectedValue
+        ) {
             var option = new Option("-y");
 
             var result = option.Parse($"{directive} -y");
 
-            result.Directives.TryGetValues(expectedKey, out var values).Should().BeTrue();
+            result.Directives.TryGetValues(expectedKey, out var values)
+                .Should()
+                .BeTrue();
             values.Should().BeEquivalentTo(expectedValue);
         }
 
         [Fact]
-        public void Directives_without_a_value_specified_have_a_value_of_empty_string()
-        {
+        public void Directives_without_a_value_specified_have_a_value_of_empty_string() {
             var option = new Option("-y");
 
             var result = option.Parse("[parse] -y");
 
-            result.Directives.TryGetValues("parse", out var values).Should().BeTrue();
+            result.Directives.TryGetValues("parse", out var values)
+                .Should()
+                .BeTrue();
             values.Should().BeEmpty();
         }
 
@@ -118,19 +123,19 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_a_directive_is_specified_more_than_once_then_its_values_are_aggregated()
-        {
+        public void When_a_directive_is_specified_more_than_once_then_its_values_are_aggregated() {
             var option = new Option("-a");
 
             var result = option.Parse("[directive:one] [directive:two] -a");
 
-            result.Directives.TryGetValues("directive", out var values).Should().BeTrue();
+            result.Directives.TryGetValues("directive", out var values)
+                .Should()
+                .BeTrue();
             values.Should().BeEquivalentTo("one", "two");
         }
 
         [Fact]
-        public void Directive_count_is_based_on_distinct_instances_of_directive_name()
-        {
+        public void Directive_count_is_based_on_distinct_instances_of_directive_name() {
             var command = new RootCommand();
 
             var result = command.Parse("[one] [two] [one:a] [one:b]");
@@ -143,23 +148,17 @@ namespace System.CommandLine.Tests
         {
             var parser = new Parser(
                 new CommandLineConfiguration(
-                    new[]
-                    {
-                        new RootCommand
-                        {
-                            new Argument<List<string>>()
-                        }
-                    },
-                    enableDirectives: false));
+                    new[] { new RootCommand { new Argument<List<string>>() } },
+                    enableDirectives: false
+                )
+            );
 
             var result = parser.Parse("[hello]");
 
             result.Directives.Count().Should().Be(0);
-            result.CommandResult
-                  .Tokens
-                  .Select(t => t.Value)
-                  .Should()
-                  .BeEquivalentTo("[hello]");
+            result.CommandResult.Tokens.Select(t => t.Value)
+                .Should()
+                .BeEquivalentTo("[hello]");
         }
     }
 }

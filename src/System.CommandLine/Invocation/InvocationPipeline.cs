@@ -14,16 +14,22 @@ namespace System.CommandLine.Invocation
 
         public InvocationPipeline(ParseResult parseResult)
         {
-            this.parseResult = parseResult ?? throw new ArgumentNullException(nameof(parseResult));
+            this.parseResult = parseResult
+            ?? throw new ArgumentNullException(nameof(parseResult));
         }
 
         public async Task<int> InvokeAsync(IConsole? console = null)
         {
             var context = new InvocationContext(parseResult, console);
 
-            InvocationMiddleware invocationChain = BuildInvocationChain(context);
+            InvocationMiddleware invocationChain = BuildInvocationChain(
+                context
+            );
 
-            await invocationChain(context, invocationContext => Task.CompletedTask);
+            await invocationChain(
+                context,
+                invocationContext => Task.CompletedTask
+            );
 
             return GetExitCode(context);
         }
@@ -32,39 +38,54 @@ namespace System.CommandLine.Invocation
         {
             var context = new InvocationContext(parseResult, console);
 
-            InvocationMiddleware invocationChain = BuildInvocationChain(context);
+            InvocationMiddleware invocationChain = BuildInvocationChain(
+                context
+            );
 
-            Task.Run(() => invocationChain(context, invocationContext => Task.CompletedTask)).GetAwaiter().GetResult();
+            Task.Run(
+                    () => invocationChain(
+                        context,
+                        invocationContext => Task.CompletedTask
+                    )
+                )
+                .GetAwaiter()
+                .GetResult();
 
             return GetExitCode(context);
         }
 
-        private static InvocationMiddleware BuildInvocationChain(InvocationContext context)
-        {
-            var invocations = new List<InvocationMiddleware>(context.Parser.Configuration.Middleware.Count + 1);
+        private static InvocationMiddleware BuildInvocationChain(
+            InvocationContext context
+        ) {
+            var invocations = new List<InvocationMiddleware>(
+                context.Parser.Configuration.Middleware.Count + 1
+            );
             invocations.AddRange(context.Parser.Configuration.Middleware);
 
-            invocations.Add(async (invocationContext, next) =>
-            {
-                if (invocationContext
-                    .ParseResult
-                    .CommandResult
-                    .Command is Command command)
+            invocations.Add(
+                async (invocationContext, next) =>
                 {
-                    var handler = command.Handler;
+                    if (
+                        invocationContext.ParseResult.CommandResult.Command is Command command
+                    ) {
+                        var handler = command.Handler;
 
-                    if (handler != null)
-                    {
-                        context.ExitCode = await handler.InvokeAsync(invocationContext);
+                        if (handler != null)
+                        {
+                            context.ExitCode = await handler.InvokeAsync(
+                                invocationContext
+                            );
+                        }
                     }
                 }
-            });
+            );
 
             return invocations.Aggregate(
-                (first, second) =>
-                    (ctx, next) =>
-                        first(ctx,
-                            c => second(c, next)));
+                (first, second) => (ctx, next) => first(
+                    ctx,
+                    c => second(c, next)
+                )
+            );
         }
 
         private static int GetExitCode(InvocationContext context)

@@ -8,7 +8,7 @@ namespace System.CommandLine.Builder
 {
     public class CommandBuilder
     {
-        public CommandBuilder(Command command) 
+        public CommandBuilder(Command command)
         {
             Command = command;
         }
@@ -17,12 +17,15 @@ namespace System.CommandLine.Builder
 
         public IEnumerable<Option> Options => Command.Options;
 
-        internal void AddCommand(Command command) => Command.AddCommand(command);
+        internal void AddCommand(Command command) =>
+            Command.AddCommand(command);
 
         internal void AddOption(Option option) => Command.AddOption(option);
 
-        internal void AddGlobalOption(Option option) => Command.AddGlobalOption(option);
+        internal void AddGlobalOption(Option option) =>
+            Command.AddGlobalOption(option);
 
-        internal void AddArgument(Argument argument) => Command.AddArgument(argument);
+        internal void AddArgument(Argument argument) =>
+            Command.AddArgument(argument);
     }
 }

@@ -7,29 +7,35 @@ namespace System.CommandLine.Parsing
 {
     internal class SymbolResultCollatorVisitor : SymbolResultVisitor
     {
-        public Dictionary<IArgument, ArgumentResult> ArgumentResults { get; } = new Dictionary<IArgument, ArgumentResult>();
+        public Dictionary<IArgument, ArgumentResult> ArgumentResults { get; } =
+            new Dictionary<IArgument, ArgumentResult>();
 
-        public Dictionary<ICommand, CommandResult> CommandResults { get; } = new Dictionary<ICommand, CommandResult>();
+        public Dictionary<ICommand, CommandResult> CommandResults { get; } =
+            new Dictionary<ICommand, CommandResult>();
 
-        public Dictionary<IOption, OptionResult> OptionResults { get; } = new Dictionary<IOption, OptionResult>();
+        public Dictionary<IOption, OptionResult> OptionResults { get; } =
+            new Dictionary<IOption, OptionResult>();
 
         protected override void VisitOptionResult(OptionResult optionResult)
         {
             OptionResults.Add(optionResult.Option, optionResult);
         }
 
-        protected override void VisitCommandResult(CommandResult commandResult)
-        {
+        protected override void VisitCommandResult(
+            CommandResult commandResult
+        ) {
             CommandResults.Add(commandResult.Command, commandResult);
         }
 
-        protected override void VisitRootCommandResult(RootCommandResult rootCommandResult)
-        {
+        protected override void VisitRootCommandResult(
+            RootCommandResult rootCommandResult
+        ) {
             CommandResults.Add(rootCommandResult.Command, rootCommandResult);
         }
 
-        protected override void VisitArgumentResult(ArgumentResult argumentResult)
-        {
+        protected override void VisitArgumentResult(
+            ArgumentResult argumentResult
+        ) {
             ArgumentResults.Add(argumentResult.Argument, argumentResult);
         }
     }

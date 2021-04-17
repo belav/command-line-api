@@ -16,15 +16,18 @@ namespace System.CommandLine.Binding
     public sealed class BindingContext
     {
         private IConsole _console;
-        private readonly Dictionary<Type, ModelBinder> _modelBindersByValueDescriptor = new Dictionary<Type, ModelBinder>();
+        private readonly Dictionary<Type,
+            ModelBinder> _modelBindersByValueDescriptor = new Dictionary<Type,
+            ModelBinder>();
 
         public BindingContext(
             ParseResult parseResult,
-            IConsole? console = default)
-        {
+            IConsole? console = default
+        ) {
             _console = console ?? new SystemConsole();
 
-            ParseResult = parseResult ?? throw new ArgumentNullException(nameof(parseResult));
+            ParseResult = parseResult
+            ?? throw new ArgumentNullException(nameof(parseResult));
             ServiceProvider = new ServiceProvider(this);
         }
 
@@ -32,7 +35,8 @@ namespace System.CommandLine.Binding
 
         internal IConsoleFactory? ConsoleFactory { get; set; }
 
-        internal IHelpBuilder HelpBuilder => (IHelpBuilder)ServiceProvider.GetService(typeof(IHelpBuilder))!;
+        internal IHelpBuilder HelpBuilder =>
+            (IHelpBuilder)ServiceProvider.GetService(typeof(IHelpBuilder))!;
 
         public IConsole Console
         {
@@ -51,23 +55,32 @@ namespace System.CommandLine.Binding
 
         internal ServiceProvider ServiceProvider { get; }
 
-        public void AddModelBinder(ModelBinder binder) => 
-            _modelBindersByValueDescriptor.Add(binder.ValueDescriptor.ValueType, binder);
+        public void AddModelBinder(ModelBinder binder) =>
+            _modelBindersByValueDescriptor.Add(
+                binder.ValueDescriptor.ValueType,
+                binder
+            );
 
         public ModelBinder GetModelBinder(IValueDescriptor valueDescriptor)
         {
-            if (_modelBindersByValueDescriptor.TryGetValue(valueDescriptor.ValueType, out ModelBinder binder))
-            {
+            if (
+                _modelBindersByValueDescriptor.TryGetValue(
+                    valueDescriptor.ValueType,
+                    out ModelBinder binder
+                )
+            ) {
                 return binder;
             }
             return new ModelBinder(valueDescriptor);
         }
 
-        public void AddService(Type serviceType, Func<IServiceProvider, object> factory)
-        {
+        public void AddService(
+            Type serviceType,
+            Func<IServiceProvider, object> factory
+        ) {
             ServiceProvider.AddService(serviceType, factory);
         }
-        
+
         public void AddService<T>(Func<IServiceProvider, T> factory)
         {
             if (factory is null)
@@ -80,10 +93,13 @@ namespace System.CommandLine.Binding
 
         internal bool TryGetValueSource(
             IValueDescriptor valueDescriptor,
-            [MaybeNullWhen(false)] out IValueSource valueSource)
-        {
-            if (ServiceProvider.AvailableServiceTypes.Contains(valueDescriptor.ValueType))
-            {
+            [MaybeNullWhen(false)]out IValueSource valueSource
+        ) {
+            if (
+                ServiceProvider.AvailableServiceTypes.Contains(
+                    valueDescriptor.ValueType
+                )
+            ) {
                 valueSource = new ServiceProviderValueSource();
                 return true;
             }
@@ -95,25 +111,39 @@ namespace System.CommandLine.Binding
         internal bool TryBindToScalarValue(
             IValueDescriptor valueDescriptor,
             IValueSource valueSource,
-            out BoundValue? boundValue)
-        {
+            out BoundValue? boundValue
+        ) {
             if (valueSource.TryGetValue(valueDescriptor, this, out var value))
             {
-                if (value is null || valueDescriptor.ValueType.IsInstanceOfType(value))
-                {
-                    boundValue = new BoundValue(value, valueDescriptor, valueSource);
+                if (
+                    value is null
+                    || valueDescriptor.ValueType.IsInstanceOfType(value)
+                ) {
+                    boundValue = new BoundValue(
+                        value,
+                        valueDescriptor,
+                        valueSource
+                    );
                     return true;
                 }
                 else
                 {
                     var parsed = ArgumentConverter.ConvertObject(
-                        valueDescriptor as IArgument ?? new Argument(valueDescriptor.ValueName), 
-                        valueDescriptor.ValueType, 
-                        value);
+                        valueDescriptor
+                        as IArgument
+                        ?? new Argument(valueDescriptor.ValueName),
+                        valueDescriptor.ValueType,
+                        value
+                    );
 
-                    if (parsed is SuccessfulArgumentConversionResult successful)
-                    {
-                        boundValue = new BoundValue(successful.Value, valueDescriptor, valueSource);
+                    if (
+                        parsed is SuccessfulArgumentConversionResult successful
+                    ) {
+                        boundValue = new BoundValue(
+                            successful.Value,
+                            valueDescriptor,
+                            valueSource
+                        );
                         return true;
                     }
                 }

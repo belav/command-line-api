@@ -24,26 +24,32 @@ namespace System.CommandLine.Benchmarks.CommandLine
         {
             _nullConsole = new NullConsole();
 
-            var eatCommand = new Command("eat")
+            var eatCommand = new Command(
+                "eat"
+            )
             {
-                new Option<string>("--fruit").AddSuggestions("apple", "banana", "cherry"),
-                new Option<string>("--vegetable").AddSuggestions("asparagus", "broccoli", "carrot")
+                new Option<string>("--fruit").AddSuggestions(
+                    "apple",
+                    "banana",
+                    "cherry"
+                ),
+                new Option<string>("--vegetable").AddSuggestions(
+                    "asparagus",
+                    "broccoli",
+                    "carrot"
+                )
             };
 
-            _testParser = new CommandLineBuilder(eatCommand)
-                .UseSuggestDirective()
-                .Build();
+            _testParser = new CommandLineBuilder(
+                eatCommand
+            ).UseSuggestDirective().Build();
         }
 
-        [Params(
-          "[suggest:4] \"eat\"",
-          "[suggest:13] \"eat --fruit\""
-        )]
+        [Params("[suggest:4] \"eat\"", "[suggest:13] \"eat --fruit\"")]
         public string TestCmdArgs;
 
         [Benchmark]
-        public async Task InvokeSuggest()
-            => await _testParser.InvokeAsync(TestCmdArgs, _nullConsole);
-
+        public async Task InvokeSuggest() =>
+            await _testParser.InvokeAsync(TestCmdArgs, _nullConsole);
     }
 }

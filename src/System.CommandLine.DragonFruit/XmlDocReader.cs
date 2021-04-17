@@ -19,8 +19,10 @@ namespace System.CommandLine.DragonFruit
             _members = document.Descendants("members");
         }
 
-        public static bool TryLoad(string filePath, out XmlDocReader xmlDocReader)
-        {
+        public static bool TryLoad(
+            string filePath,
+            out XmlDocReader xmlDocReader
+        ) {
             try
             {
                 return TryLoad(File.OpenText(filePath), out xmlDocReader);
@@ -32,8 +34,10 @@ namespace System.CommandLine.DragonFruit
             }
         }
 
-        public static bool TryLoad(TextReader reader, out XmlDocReader xmlDocReader)
-        {
+        public static bool TryLoad(
+            TextReader reader,
+            out XmlDocReader xmlDocReader
+        ) {
             try
             {
                 xmlDocReader = new XmlDocReader(XDocument.Load(reader));
@@ -46,17 +50,17 @@ namespace System.CommandLine.DragonFruit
             }
         }
 
-        public bool TryGetMethodDescription(MethodInfo info, out CommandHelpMetadata commandHelpMetadata)
-        {
+        public bool TryGetMethodDescription(
+            MethodInfo info,
+            out CommandHelpMetadata commandHelpMetadata
+        ) {
             commandHelpMetadata = null;
 
             var sb = new StringBuilder();
 
             sb.Append("M:");
             AppendTypeName(sb, info.DeclaringType);
-            sb.Append(".")
-              .Append(info.Name)
-              .Append("(");
+            sb.Append(".").Append(info.Name).Append("(");
 
             bool first = true;
             foreach (ParameterInfo param in info.GetParameters())
@@ -78,7 +82,9 @@ namespace System.CommandLine.DragonFruit
             string name = sb.ToString();
 
             XElement member = _members.Elements("member")
-                                     .FirstOrDefault(m => string.Equals(m.Attribute("name")?.Value, name));
+                .FirstOrDefault(
+                    m => string.Equals(m.Attribute("name")?.Value, name)
+                );
 
             if (member == null)
             {
@@ -95,7 +101,10 @@ namespace System.CommandLine.DragonFruit
                         commandHelpMetadata.Description = element.Value?.Trim();
                         break;
                     case "param":
-                        commandHelpMetadata.ParameterDescriptions.Add(element.Attribute("name")?.Value, element.Value?.Trim());
+                        commandHelpMetadata.ParameterDescriptions.Add(
+                            element.Attribute("name")?.Value,
+                            element.Value?.Trim()
+                        );
                         break;
                 }
             }

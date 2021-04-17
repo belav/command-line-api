@@ -44,14 +44,21 @@ namespace System.CommandLine.Rendering
                 public static AnsiControlCode White { get; } = $"{Esc}[47m";
                 public static AnsiControlCode DarkGray { get; } = $"{Esc}[100m";
                 public static AnsiControlCode LightRed { get; } = $"{Esc}[101m";
-                public static AnsiControlCode LightGreen { get; } = $"{Esc}[102m";
-                public static AnsiControlCode LightYellow { get; } = $"{Esc}[103m";
-                public static AnsiControlCode LightBlue { get; } = $"{Esc}[104m";
-                public static AnsiControlCode LightMagenta { get; } = $"{Esc}[105m";
-                public static AnsiControlCode LightCyan { get; } = $"{Esc}[106m";
-                public static AnsiControlCode LightGray { get; } = $"{Esc}[107m";
+                public static AnsiControlCode LightGreen { get; } =
+                    $"{Esc}[102m";
+                public static AnsiControlCode LightYellow { get; } =
+                    $"{Esc}[103m";
+                public static AnsiControlCode LightBlue { get; } =
+                    $"{Esc}[104m";
+                public static AnsiControlCode LightMagenta { get; } =
+                    $"{Esc}[105m";
+                public static AnsiControlCode LightCyan { get; } =
+                    $"{Esc}[106m";
+                public static AnsiControlCode LightGray { get; } =
+                    $"{Esc}[107m";
 
-                public static AnsiControlCode Rgb(byte r, byte g, byte b) => $"{Esc}[48;2;{r.ToString()};{g.ToString()};{b.ToString()}m";
+                public static AnsiControlCode Rgb(byte r, byte g, byte b) =>
+                    $"{Esc}[48;2;{r.ToString()};{g.ToString()};{b.ToString()}m";
             }
 
             [DebuggerStepThrough]
@@ -69,14 +76,18 @@ namespace System.CommandLine.Rendering
                 public static AnsiControlCode White { get; } = $"{Esc}[37m";
                 public static AnsiControlCode DarkGray { get; } = $"{Esc}[90m";
                 public static AnsiControlCode LightRed { get; } = $"{Esc}[91m";
-                public static AnsiControlCode LightGreen { get; } = $"{Esc}[92m";
-                public static AnsiControlCode LightYellow { get; } = $"{Esc}[93m";
+                public static AnsiControlCode LightGreen { get; } =
+                    $"{Esc}[92m";
+                public static AnsiControlCode LightYellow { get; } =
+                    $"{Esc}[93m";
                 public static AnsiControlCode LightBlue { get; } = $"{Esc}[94m";
-                public static AnsiControlCode LightMagenta { get; } = $"{Esc}[95m";
+                public static AnsiControlCode LightMagenta { get; } =
+                    $"{Esc}[95m";
                 public static AnsiControlCode LightCyan { get; } = $"{Esc}[96m";
                 public static AnsiControlCode LightGray { get; } = $"{Esc}[97m";
 
-                public static AnsiControlCode Rgb(byte r, byte g, byte b) => $"{Esc}[38;2;{r.ToString()};{g.ToString()};{b.ToString()}m";
+                public static AnsiControlCode Rgb(byte r, byte g, byte b) =>
+                    $"{Esc}[38;2;{r.ToString()};{g.ToString()};{b.ToString()}m";
             }
         }
 
@@ -87,13 +98,23 @@ namespace System.CommandLine.Rendering
             [DebuggerStepThrough]
             public static class Move
             {
-                public static AnsiControlCode Up(int lines = 1) => $"{Esc}[{lines.ToString()}A";
-                public static AnsiControlCode Down(int lines = 1) => $"{Esc}[{lines.ToString()}B";
-                public static AnsiControlCode Right(int columns = 1) => $"{Esc}[{columns.ToString()}C";
-                public static AnsiControlCode Left(int columns = 1) => $"{Esc}[{columns.ToString()}D";
-                public static AnsiControlCode NextLine(int line = 1) => $"{Esc}[{line.ToString()}E";
-                public static AnsiControlCode ToUpperLeftCorner { get; } = $"{Esc}[H";
-                public static AnsiControlCode ToLocation(int? left = null, int? top = null) => $"{Esc}[{top.GetValueOrDefault(1)};{left.GetValueOrDefault(1).ToString()}H";
+                public static AnsiControlCode Up(int lines = 1) =>
+                    $"{Esc}[{lines.ToString()}A";
+                public static AnsiControlCode Down(int lines = 1) =>
+                    $"{Esc}[{lines.ToString()}B";
+                public static AnsiControlCode Right(int columns = 1) =>
+                    $"{Esc}[{columns.ToString()}C";
+                public static AnsiControlCode Left(int columns = 1) =>
+                    $"{Esc}[{columns.ToString()}D";
+                public static AnsiControlCode NextLine(int line = 1) =>
+                    $"{Esc}[{line.ToString()}E";
+                public static AnsiControlCode ToUpperLeftCorner { get; } =
+                    $"{Esc}[H";
+                public static AnsiControlCode ToLocation(
+                    int? left = null,
+                    int? top = null
+                ) =>
+                    $"{Esc}[{top.GetValueOrDefault(1)};{left.GetValueOrDefault(1).ToString()}H";
             }
 
             [DebuggerStepThrough]
@@ -118,8 +139,10 @@ namespace System.CommandLine.Rendering
         {
             public static AnsiControlCode EntireScreen { get; } = $"{Esc}[2J";
             public static AnsiControlCode Line { get; } = $"{Esc}[2K";
-            public static AnsiControlCode ToBeginningOfLine { get; } = $"{Esc}[1K";
-            public static AnsiControlCode ToBeginningOfScreen { get; } = $"{Esc}[1J";
+            public static AnsiControlCode ToBeginningOfLine { get; } =
+                $"{Esc}[1K";
+            public static AnsiControlCode ToBeginningOfScreen { get; } =
+                $"{Esc}[1J";
             public static AnsiControlCode ToEndOfLine { get; } = $"{Esc}[K";
             public static AnsiControlCode ToEndOfScreen { get; } = $"{Esc}[J";
         }

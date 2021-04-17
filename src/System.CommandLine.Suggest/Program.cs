@@ -9,7 +9,9 @@ namespace System.CommandLine.Suggest
 {
     public class Program
     {
-        internal static string DOTNET_SUGGEST_LOGGING = nameof(DOTNET_SUGGEST_LOGGING);
+        internal static string DOTNET_SUGGEST_LOGGING = nameof(
+            DOTNET_SUGGEST_LOGGING
+        );
 
         public static async Task<int> Main(string[] args)
         {
@@ -19,11 +21,11 @@ namespace System.CommandLine.Suggest
 
             var provider = new CombineSuggestionRegistration(
                 new GlobalToolsSuggestionRegistration(),
-                new FileSuggestionRegistration());
+                new FileSuggestionRegistration()
+            );
             var dispatcher = new SuggestionDispatcher(provider);
             return await dispatcher.InvokeAsync(args);
         }
-
 #if DEBUG
         internal static void LogDebug(params string[] args)
         {

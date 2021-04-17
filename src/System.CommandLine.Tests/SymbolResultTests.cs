@@ -10,15 +10,11 @@ namespace System.CommandLine.Tests
     public class SymbolResultTests
     {
         [Fact]
-        public void An_option_with_a_default_value_and_no_explicitly_provided_argument_has_an_empty_arguments_property()
-        {
+        public void An_option_with_a_default_value_and_no_explicitly_provided_argument_has_an_empty_arguments_property() {
             var option = new Option<string>("-x", () => "default");
 
-            var result = new RootCommand
-            {
-                option
-            }.Parse("-x")
-             .FindResultFor(option);
+            var result = new RootCommand { option }.Parse("-x")
+                .FindResultFor(option);
 
             result.Tokens.Should().BeEmpty();
         }
@@ -26,7 +22,9 @@ namespace System.CommandLine.Tests
         [Fact]
         public void HasOption_can_be_used_to_check_the_presence_of_an_option()
         {
-            var command = new Command("the-command")
+            var command = new Command(
+                "the-command"
+            )
             {
                 new Option(new[] { "-h", "--help" })
             };
@@ -37,9 +35,10 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void HasOption_can_be_used_to_check_the_presence_of_an_implicit_option()
-        {
-            var command = new Command("the-command")
+        public void HasOption_can_be_used_to_check_the_presence_of_an_implicit_option() {
+            var command = new Command(
+                "the-command"
+            )
             {
                 new Option<int>(new[] { "-c", "--count" }, () => 5)
             };
@@ -50,23 +49,22 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_will_not_accept_a_command_if_a_sibling_command_has_already_been_accepted()
-        {
-            var command = new Command("outer")
+        public void Command_will_not_accept_a_command_if_a_sibling_command_has_already_been_accepted() {
+            var command = new Command(
+                "outer"
+            )
             {
-                new Command("inner-one")
+                new Command(
+                    "inner-one"
+                )
                 {
-                    new Argument
-                    {
-                        Arity = ArgumentArity.Zero
-                    }
+                    new Argument { Arity = ArgumentArity.Zero }
                 },
-                new Command("inner-two")
+                new Command(
+                    "inner-two"
+                )
                 {
-                    new Argument
-                    {
-                        Arity = ArgumentArity.Zero
-                    }
+                    new Argument { Arity = ArgumentArity.Zero }
                 }
             };
 
@@ -75,7 +73,9 @@ namespace System.CommandLine.Tests
             result.CommandResult.Symbol.Name.Should().Be("inner-one");
             result.Errors.Count.Should().Be(1);
 
-            var result2 = new Parser(command).Parse("outer inner-two inner-one");
+            var result2 = new Parser(command).Parse(
+                "outer inner-two inner-one"
+            );
 
             result2.CommandResult.Symbol.Name.Should().Be("inner-two");
             result2.Errors.Count.Should().Be(1);
@@ -93,7 +93,10 @@ namespace System.CommandLine.Tests
                 result.ValueForOption<string>(string.Empty);
             };
 
-            action.Should().Throw<ArgumentException>("Value cannot be null or whitespace.");
+            action.Should()
+                .Throw<ArgumentException>(
+                    "Value cannot be null or whitespace."
+                );
         }
     }
 }

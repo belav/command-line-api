@@ -11,19 +11,26 @@ namespace System.CommandLine.Suggest.Tests
     {
         private readonly List<Registration> _suggestionRegistrations = new List<Registration>();
 
-        public TestSuggestionRegistration(params Registration[] suggestionRegistrations)
-        {
-            foreach (Registration suggestionRegistration in suggestionRegistrations)
-            {
+        public TestSuggestionRegistration(
+            params Registration[] suggestionRegistrations
+        ) {
+            foreach (Registration suggestionRegistration in suggestionRegistrations
+            ) {
                 AddSuggestionRegistration(suggestionRegistration);
             }
         }
 
-        public Registration FindRegistration(FileInfo soughtExecutable)
-            => _suggestionRegistrations.FirstOrDefault(x => x.ExecutablePath.StartsWith(soughtExecutable.FullName, StringComparison.OrdinalIgnoreCase));
+        public Registration FindRegistration(FileInfo soughtExecutable) =>
+            _suggestionRegistrations.FirstOrDefault(
+                x =>
+                    x.ExecutablePath.StartsWith(
+                        soughtExecutable.FullName,
+                        StringComparison.OrdinalIgnoreCase
+                    )
+            );
 
-        public IEnumerable<Registration> FindAllRegistrations()
-            => _suggestionRegistrations;
+        public IEnumerable<Registration> FindAllRegistrations() =>
+            _suggestionRegistrations;
 
         public void AddSuggestionRegistration(Registration registration)
         {

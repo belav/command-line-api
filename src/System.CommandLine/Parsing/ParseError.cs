@@ -5,15 +5,16 @@ namespace System.CommandLine.Parsing
 {
     public class ParseError
     {
-        internal ParseError(
-            string message, 
-            SymbolResult? symbolResult = null)
+        internal ParseError(string message, SymbolResult? symbolResult = null)
         {
             if (string.IsNullOrWhiteSpace(message))
             {
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(message));
+                throw new ArgumentException(
+                    "Value cannot be null or whitespace.",
+                    nameof(message)
+                );
             }
-          
+
             Message = message;
             SymbolResult = symbolResult;
         }

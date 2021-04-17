@@ -16,7 +16,8 @@ namespace System.CommandLine.Rendering
 
         public override string ToString() => Content;
 
-        protected bool Equals(ContentSpan other) => string.Equals(Content, other.Content);
+        protected bool Equals(ContentSpan other) =>
+            string.Equals(Content, other.Content);
 
         public override bool Equals(object obj)
         {
@@ -30,8 +31,7 @@ namespace System.CommandLine.Rendering
                 return true;
             }
 
-            return obj.GetType() == GetType() &&
-                   Equals((ContentSpan)obj);
+            return obj.GetType() == GetType() && Equals((ContentSpan)obj);
         }
 
         public override int GetHashCode() => Content?.GetHashCode() ?? 0;

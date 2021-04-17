@@ -39,31 +39,38 @@ namespace System.CommandLine.Rendering.Tests
         [InlineData(OutputMode.Ansi)]
         [InlineData(OutputMode.NonAnsi)]
         [InlineData(OutputMode.PlainText)]
-        public async Task Sets_output_mode_to_Ansi_when_specified_by_output_directive(OutputMode specifiedOutputMode)
-        {
+        public async Task Sets_output_mode_to_Ansi_when_specified_by_output_directive(
+            OutputMode specifiedOutputMode
+        ) {
             var console = new TestConsole();
             OutputMode detectedOutputMode = OutputMode.Auto;
 
-            var command = new Command("hello")
-                          {
-                              Handler = CommandHandler.Create((IConsole c) =>
-                              {
-                                  detectedOutputMode = c.DetectOutputMode();
-                              })
-                          };
+            var command = new Command(
+                "hello"
+            )
+            {
+                Handler = CommandHandler.Create(
+                    (IConsole c) =>
+                    {
+                        detectedOutputMode = c.DetectOutputMode();
+                    }
+                )
+            };
 
-            var parser = new CommandLineBuilder(command)
-                         .UseAnsiTerminalWhenAvailable()
-                         .Build();
+            var parser = new CommandLineBuilder(
+                command
+            ).UseAnsiTerminalWhenAvailable().Build();
 
-            await parser.InvokeAsync($"[output:{specifiedOutputMode}]", console);
+            await parser.InvokeAsync(
+                $"[output:{specifiedOutputMode}]",
+                console
+            );
 
             detectedOutputMode.Should().Be(specifiedOutputMode);
         }
 
         [WindowsOnlyFact(Skip = "How to test?")]
-        public void Sets_outputMode_to_ansi_when_windows_and_virtual_terminal()
-        {
+        public void Sets_outputMode_to_ansi_when_windows_and_virtual_terminal() {
             var terminal = new TestTerminal();
 
             var outputMode = terminal.DetectOutputMode();
@@ -72,8 +79,7 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [WindowsOnlyFact(Skip = "How to test?")]
-        public void Sets_outputMode_to_nonansi_when_windows_and_no_virtual_terminal()
-        {
+        public void Sets_outputMode_to_nonansi_when_windows_and_no_virtual_terminal() {
             var console = new TestConsole();
 
             var outputMode = console.DetectOutputMode();

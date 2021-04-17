@@ -8,8 +8,8 @@ namespace System.CommandLine.Binding
         internal BoundValue(
             object? value,
             IValueDescriptor valueDescriptor,
-            IValueSource valueSource)
-        {
+            IValueSource valueSource
+        ) {
             Value = value;
             ValueDescriptor = valueDescriptor;
             ValueSource = valueSource;
@@ -23,28 +23,24 @@ namespace System.CommandLine.Binding
 
         public override string ToString() => $"{ValueDescriptor}: {Value}";
 
-        public static BoundValue DefaultForType(IValueDescriptor valueDescriptor)
-        {
+        public static BoundValue DefaultForType(
+            IValueDescriptor valueDescriptor
+        ) {
             var valueSource = TypeDefaultValueSource.Instance;
 
             valueSource.TryGetValue(valueDescriptor, null, out var value);
 
-            return new BoundValue(
-                value,
-                valueDescriptor,
-                valueSource);
+            return new BoundValue(value, valueDescriptor, valueSource);
         }
 
-        public static BoundValue DefaultForValueDescriptor(IValueDescriptor valueDescriptor)
-        {
+        public static BoundValue DefaultForValueDescriptor(
+            IValueDescriptor valueDescriptor
+        ) {
             var valueSource = ValueDescriptorDefaultValueSource.Instance;
 
             valueSource.TryGetValue(valueDescriptor, null, out var value);
 
-            return new BoundValue(
-                value,
-                valueDescriptor,
-                valueSource);
+            return new BoundValue(value, valueDescriptor, valueSource);
         }
     }
 }

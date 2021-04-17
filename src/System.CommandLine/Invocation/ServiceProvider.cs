@@ -13,25 +13,34 @@ namespace System.CommandLine.Invocation
 {
     internal class ServiceProvider : IServiceProvider
     {
-        private readonly Dictionary<Type, Func<IServiceProvider, object?>> _services;
+        private readonly Dictionary<Type,
+            Func<IServiceProvider, object?>> _services;
 
         public ServiceProvider(BindingContext bindingContext)
         {
             _services = new Dictionary<Type, Func<IServiceProvider, object?>>
-                        {
-                            [typeof(ParseResult)] = _ => bindingContext.ParseResult,
-                            [typeof(IConsole)] = _ => bindingContext.Console,
-                            [typeof(CancellationToken)] = _ => CancellationToken.None,
-                            [typeof(IHelpBuilder)] = _ => bindingContext.ParseResult.Parser.Configuration.HelpBuilderFactory(bindingContext),
-                            [typeof(BindingContext)] = _ => bindingContext
-                        };
+            {
+                [typeof(ParseResult)] = _ => bindingContext.ParseResult,
+                [typeof(IConsole)] = _ => bindingContext.Console,
+                [typeof(CancellationToken)] = _ => CancellationToken.None,
+                [typeof(IHelpBuilder)] = _ =>
+                    bindingContext.ParseResult.Parser.Configuration.HelpBuilderFactory(
+                        bindingContext
+                    ),
+                [typeof(BindingContext)] = _ => bindingContext
+            };
         }
 
-        public void AddService<T>(Func<IServiceProvider, T> factory) => _services[typeof(T)] = p => factory(p)!;
+        public void AddService<T>(Func<IServiceProvider, T> factory) =>
+            _services[typeof(T)] = p => factory(p)!;
 
-        public void AddService(Type serviceType, Func<IServiceProvider, object?> factory) => _services[serviceType] = factory;
+        public void AddService(
+            Type serviceType,
+            Func<IServiceProvider, object?> factory
+        ) => _services[serviceType] = factory;
 
-        public IReadOnlyCollection<Type> AvailableServiceTypes => _services.Keys;
+        public IReadOnlyCollection<Type> AvailableServiceTypes =>
+            _services.Keys;
 
         public object? GetService(Type serviceType)
         {

@@ -17,15 +17,19 @@ namespace System.CommandLine.Rendering
 
         protected ContentRenderingSpanVisitor(
             IStandardStreamWriter writer,
-            Region region)
-        {
+            Region region
+        ) {
             Writer = writer ?? throw new ArgumentNullException(nameof(writer));
             Region = region ?? throw new ArgumentNullException(nameof(region));
         }
 
         protected IStandardStreamWriter Writer { get; }
 
-        protected int LinesWritten { get; private set; }
+        protected int LinesWritten
+        {
+            get;
+            private set;
+        }
 
         protected Region Region { get; }
 
@@ -39,10 +43,11 @@ namespace System.CommandLine.Rendering
             var text = span.ToString();
 
             // if text from the previous line was not truncated because the word was separated by an ANSI code, it should be truncated
-            var skipWordRemainderFromPreviousLine = !_lastSpanEndedWithWhitespace
-                           && _positionOnLine == 0
-                           && LinesWritten > 0
-                           && !text.StartsWithWhitespace();
+            var skipWordRemainderFromPreviousLine =
+                !_lastSpanEndedWithWhitespace
+                && _positionOnLine == 0
+                && LinesWritten > 0
+                && !text.StartsWithWhitespace();
 
             foreach (var word in text.SplitForWrapping())
             {
@@ -75,8 +80,7 @@ namespace System.CommandLine.Rendering
 
         protected override void Stop(TextSpan span)
         {
-            if (_positionOnLine > 0 ||
-                span.ContentLength == 0)
+            if (_positionOnLine > 0 || span.ContentLength == 0)
             {
                 FlushLine();
             }
@@ -103,7 +107,7 @@ namespace System.CommandLine.Rendering
         {
             if (!Region.IsOverwrittenOnRender)
             {
-               return;
+                return;
             }
 
             ClearRemainingWidth();
@@ -142,10 +146,11 @@ namespace System.CommandLine.Rendering
 
         private bool TryAppendWord(string value)
         {
-            if (_positionOnLine == 0 &&
-                string.IsNullOrWhiteSpace(value) &&
-                LinesWritten > 0)
-            {
+            if (
+                _positionOnLine == 0
+                && string.IsNullOrWhiteSpace(value)
+                && LinesWritten > 0
+            ) {
                 // omit whitespace if it's at the beginning of the line
                 return true;
             }
@@ -154,7 +159,10 @@ namespace System.CommandLine.Rendering
 
             if (mustTruncate)
             {
-                value = value.Substring(0, Math.Min(value.Length, RemainingWidthInRegion));
+                value = value.Substring(
+                    0,
+                    Math.Min(value.Length, RemainingWidthInRegion)
+                );
             }
 
             if (value.Length > RemainingWidthInRegion)
@@ -202,12 +210,9 @@ namespace System.CommandLine.Rendering
             return true;
         }
 
-        private void TrySetCursorPosition(
-            int left, 
-            int? top = null)
+        private void TrySetCursorPosition(int left, int? top = null)
         {
-            if (left == _cursorLeft &&
-                top == _cursorTop)
+            if (left == _cursorLeft && top == _cursorTop)
             {
                 return;
             }
@@ -222,7 +227,8 @@ namespace System.CommandLine.Rendering
         }
 
         protected abstract void SetCursorPosition(
-            int? left = null, 
-            int? top = null);
+            int? left = null,
+            int? top = null
+        );
     }
 }

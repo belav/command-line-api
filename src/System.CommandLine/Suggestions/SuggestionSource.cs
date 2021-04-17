@@ -9,17 +9,21 @@ namespace System.CommandLine.Suggestions
 {
     public static class SuggestionSource
     {
-        private static readonly ConcurrentDictionary<Type, ISuggestionSource> _suggestionSourcesByType = new ConcurrentDictionary<Type, ISuggestionSource>();
+        private static readonly ConcurrentDictionary<Type,
+            ISuggestionSource> _suggestionSourcesByType = new ConcurrentDictionary<Type,
+            ISuggestionSource>();
 
-        private static readonly string[] _trueAndFalse =
-        {
+        private static readonly string[] _trueAndFalse = {
             bool.FalseString,
             bool.TrueString
         };
 
         public static ISuggestionSource ForType(Type type)
         {
-            return _suggestionSourcesByType.GetOrAdd(type ?? typeof(object), CreateForType);
+            return _suggestionSourcesByType.GetOrAdd(
+                type ?? typeof(object),
+                CreateForType
+            );
 
             ISuggestionSource CreateForType(Type t)
             {
@@ -31,18 +35,21 @@ namespace System.CommandLine.Suggestions
                 if (t.IsEnum)
                 {
                     var names = Enum.GetNames(t);
-                    return new AnonymousSuggestionSource((_,__) => names);
+                    return new AnonymousSuggestionSource((_, __) => names);
                 }
 
                 if (t == typeof(bool))
                 {
-                    return new AnonymousSuggestionSource((_, __) => _trueAndFalse);
+                    return new AnonymousSuggestionSource(
+                        (_, __) => _trueAndFalse
+                    );
                 }
 
                 return Empty;
             }
         }
 
-        public static ISuggestionSource Empty { get; } = new AnonymousSuggestionSource((_, __) => Array.Empty<string>());
+        public static ISuggestionSource Empty { get; } =
+            new AnonymousSuggestionSource((_, __) => Array.Empty<string>());
     }
 }
