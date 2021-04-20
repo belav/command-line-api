@@ -75,7 +75,8 @@ namespace System.CommandLine.Suggest.Tests
             }
         }
 
-        private static void PrepareTestHomeDirectoryToAvoidPolluteBuildMachineHome() {
+        private static void PrepareTestHomeDirectoryToAvoidPolluteBuildMachineHome()
+        {
             _testRoot = Path.Combine(
                 Path.GetTempPath(),
                 Path.GetRandomFileName()
@@ -136,7 +137,8 @@ namespace System.CommandLine.Suggest.Tests
         }
 
         [ReleaseBuildOnlyFact]
-        public async Task Dotnet_suggest_provides_suggestions_for_app_with_only_commandname() {
+        public async Task Dotnet_suggest_provides_suggestions_for_app_with_only_commandname()
+        {
             // run once to trigger a call to dotnet-suggest register
             await ExecuteAsync(
                 _endToEndTestApp.FullName,

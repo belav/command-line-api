@@ -96,10 +96,10 @@ namespace System.CommandLine.Parsing
                 if (!foundEndOfDirectives)
                 {
                     if (
-                        arg.StartsWith("[", StringComparison.Ordinal)
-                        && arg.EndsWith("]", StringComparison.Ordinal)
-                        && arg[1] != ']'
-                        && arg[1] != ':'
+                        arg.StartsWith("[", StringComparison.Ordinal) &&
+                        arg.EndsWith("]", StringComparison.Ordinal) &&
+                        arg[1] != ']' &&
+                        arg[1] != ':'
                     ) {
                         tokenList.Add(Directive(arg));
                         continue;
@@ -112,17 +112,17 @@ namespace System.CommandLine.Parsing
                 }
 
                 if (
-                    arg.GetResponseFileReference() is  {  } filePath
-                    && configuration.ResponseFileHandling
-                    != ResponseFileHandling.Disabled
+                    arg.GetResponseFileReference() is  {  } filePath &&
+                    configuration.ResponseFileHandling !=
+                    ResponseFileHandling.Disabled
                 ) {
                     ReadResponseFile(filePath, i);
                     continue;
                 }
 
                 if (
-                    configuration.EnablePosixBundling
-                    && CanBeUnbundled(arg, out var replacement)
+                    configuration.EnablePosixBundling &&
+                    CanBeUnbundled(arg, out var replacement)
                 ) {
                     argList.InsertRange(i + 1, replacement);
                     argList.RemoveAt(i);
@@ -132,8 +132,8 @@ namespace System.CommandLine.Parsing
                 if (arg.TrySplitIntoSubtokens(out var first, out var rest))
                 {
                     if (
-                        knownTokens.TryGetValue(first!, out var token)
-                        && token.Type == TokenType.Option
+                        knownTokens.TryGetValue(first!, out var token) &&
+                        token.Type == TokenType.Option
                     ) {
                         tokenList.Add(Option(first!));
 
@@ -149,19 +149,18 @@ namespace System.CommandLine.Parsing
                     }
                 }
                 else if (
-                    !knownTokens.ContainsKey(arg)
-                    ||
+                    !knownTokens.ContainsKey(arg) ||
                     // if token matches the current command name, consider it an argument
-                    currentCommand?.HasAlias(arg)
-                    == true
+                    currentCommand?.HasAlias(arg) ==
+                    true
                 ) {
                     tokenList.Add(Argument(arg));
                 }
                 else
                 {
                     if (
-                        knownTokens.TryGetValue(arg, out var token)
-                        && token.Type == TokenType.Option
+                        knownTokens.TryGetValue(arg, out var token) &&
+                        token.Type == TokenType.Option
                     ) {
                         tokenList.Add(Option(arg));
                     }
@@ -232,12 +231,12 @@ namespace System.CommandLine.Parsing
 
                 // don't unbundle if the last token is an option expecting an argument
                 if (
-                    tokenList[tokenList.Count - 1] is  {  } lastToken
-                    && lastToken.Type == TokenType.Option
-                    && currentCommand?.Children.GetByAlias(
+                    tokenList[tokenList.Count - 1] is  {  } lastToken &&
+                    lastToken.Type == TokenType.Option &&
+                    currentCommand?.Children.GetByAlias(
                         lastToken.Value
-                    ) is IOption option
-                    && option.Argument.Arity.MinimumNumberOfValues > 0
+                    ) is IOption option &&
+                    option.Argument.Arity.MinimumNumberOfValues > 0
                 ) {
                     return false;
                 }
@@ -274,8 +273,8 @@ namespace System.CommandLine.Parsing
                     foreach (var token in knownTokens.Values)
                     {
                         if (
-                            token.Type == TokenType.Option
-                            && token.UnprefixedValue == c.ToString()
+                            token.Type == TokenType.Option &&
+                            token.UnprefixedValue == c.ToString()
                         ) {
                             return token;
                         }
@@ -330,8 +329,8 @@ namespace System.CommandLine.Parsing
                         }
 
                         var option =
-                            currentCommand?.Children.GetByAlias(token.Value)
-                            as IOption;
+                            currentCommand?.Children.GetByAlias(token.Value) as
+                            IOption;
                         builder.Add(token.Value);
 
                         // Here we're at an impass, because if we don't have the `IOption`
@@ -342,8 +341,8 @@ namespace System.CommandLine.Parsing
                         // this after we have the correct model available.
                         var requiresArgument =
                             option?.Argument.Arity.MinimumNumberOfValues > 0;
-                        lastTokenHasArgument = option?.Argument.Arity.MaximumNumberOfValues
-                        > 0;
+                        lastTokenHasArgument = option?.Argument.Arity.MaximumNumberOfValues >
+                        0;
 
                         // If i == arg.Length - 1, we're already at the end of the string
                         // so no need for the custom handling of argument.
@@ -368,10 +367,11 @@ namespace System.CommandLine.Parsing
                 {
                     var next = i + 1;
 
-                    foreach (var newArg in ExpandResponseFile(
-                        filePath,
-                        configuration.ResponseFileHandling
-                    )
+                    foreach (
+                        var newArg in ExpandResponseFile(
+                            filePath,
+                            configuration.ResponseFileHandling
+                        )
                     ) {
                         argList.Insert(next, newArg);
                         next += 1;
@@ -422,8 +422,8 @@ namespace System.CommandLine.Parsing
                 }
 
                 if (
-                    potentialRootCommand != null
-                    && commandLineConfiguration.RootCommand.HasAlias(
+                    potentialRootCommand != null &&
+                    commandLineConfiguration.RootCommand.HasAlias(
                         potentialRootCommand
                     )
                 ) {
@@ -568,10 +568,11 @@ namespace System.CommandLine.Parsing
                 {
                     if (p.GetResponseFileReference() is  {  } path)
                     {
-                        foreach (var q in ExpandResponseFile(
-                            path,
-                            responseFileHandling
-                        )
+                        foreach (
+                            var q in ExpandResponseFile(
+                                path,
+                                responseFileHandling
+                            )
                         ) {
                             yield return q;
                         }
@@ -600,9 +601,10 @@ namespace System.CommandLine.Parsing
                         break;
                     case ResponseFileHandling.ParseArgsAsSpaceSeparated:
 
-                        foreach (var word in CommandLineStringSplitter.Instance.Split(
-                            arg
-                        )
+                        foreach (
+                            var word in CommandLineStringSplitter.Instance.Split(
+                                arg
+                            )
                         ) {
                             yield return word;
                         }

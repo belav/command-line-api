@@ -153,9 +153,9 @@ namespace RenderingPlayground
                         while (!Console.KeyAvailable)
                         {
                             if (
-                                DateTime.Now
-                                - lastTime
-                                > TimeSpan.FromSeconds(1)
+                                DateTime.Now -
+                                lastTime >
+                                TimeSpan.FromSeconds(1)
                             ) {
                                 lastTime = DateTime.Now;
                                 clockObservable.OnNext(lastTime);
@@ -210,13 +210,13 @@ namespace RenderingPlayground
                             RowDefinition.Star(1)
                         );
                         var content = new ContentView(
-                            "Instructions:\n"
-                            + $"DIRECTION ARROWS move the cursor; CTRL moves 2 instead of 1.\n"
-                            + "PAGE UP/DOWN scrolls up/down.\n"
-                            + "S saves the cursor position, R restores it.\n"
-                            + "ENTER navigates to the start of the next line; CTRL moves 2 instead of 1.\n"
-                            + "L moves to location (3, 9).\n"
-                            + "ESC quits."
+                            "Instructions:\n" +
+                            $"DIRECTION ARROWS move the cursor; CTRL moves 2 instead of 1.\n" +
+                            "PAGE UP/DOWN scrolls up/down.\n" +
+                            "S saves the cursor position, R restores it.\n" +
+                            "ENTER navigates to the start of the next line; CTRL moves 2 instead of 1.\n" +
+                            "L moves to location (3, 9).\n" +
+                            "ESC quits."
                         );
                         gridView.SetChild(content, 0, 0);
                         gridView.SetChild(new ColorsView("#"), 0, 1);

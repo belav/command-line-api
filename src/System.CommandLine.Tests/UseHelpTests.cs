@@ -40,7 +40,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task UseHelp_interrupts_execution_of_the_specified_command() {
+        public async Task UseHelp_interrupts_execution_of_the_specified_command()
+        {
             var wasCalled = false;
             var command = new Command("command");
             var subcommand = new Command("subcommand");
@@ -75,7 +76,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task UseHelp_does_not_display_when_option_defined_with_same_alias() {
+        public async Task UseHelp_does_not_display_when_option_defined_with_same_alias()
+        {
             var command = new Command("command");
             command.AddOption(new Option("-h"));
 
@@ -91,7 +93,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void There_are_no_parse_errors_when_help_is_invoked_on_root_command() {
+        public void There_are_no_parse_errors_when_help_is_invoked_on_root_command()
+        {
             var parser = new CommandLineBuilder().UseHelp().Build();
 
             var result = parser.Parse("-h");
@@ -100,7 +103,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void There_are_no_parse_errors_when_help_is_invoked_on_subcommand() {
+        public void There_are_no_parse_errors_when_help_is_invoked_on_subcommand()
+        {
             var root = new RootCommand { new Command("subcommand") };
 
             var parser = new CommandLineBuilder(root).UseHelp().Build();
@@ -111,7 +115,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void There_are_no_parse_errors_when_help_is_invoked_on_a_command_with_subcommands() {
+        public void There_are_no_parse_errors_when_help_is_invoked_on_a_command_with_subcommands()
+        {
             var root = new RootCommand { new Command("subcommand") };
 
             var parser = new CommandLineBuilder(root).UseHelp().Build();
@@ -122,7 +127,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void There_are_no_parse_errors_when_help_is_invoked_on_a_command_with_required_options() {
+        public void There_are_no_parse_errors_when_help_is_invoked_on_a_command_with_required_options()
+        {
             var command = new RootCommand
             {
                 new Option<string>("-x") { IsRequired = true },
@@ -198,7 +204,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void UseHelp_specifying_multiple_delegates_the_last_one_in_wins() {
+        public void UseHelp_specifying_multiple_delegates_the_last_one_in_wins()
+        {
             var option = new Option<string>("-x");
             var command = new RootCommand { option };
 
@@ -219,7 +226,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void UseHelp_specifying_wrong_type_for_the_help_builder_throws_exception() {
+        public void UseHelp_specifying_wrong_type_for_the_help_builder_throws_exception()
+        {
             var option = new Option<string>("-x");
             var command = new RootCommand { option };
 

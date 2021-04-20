@@ -18,8 +18,8 @@ namespace System.CommandLine.IO
             }
 
             if (
-                Platform.IsConsoleRedirectionCheckSupported
-                && !Console.IsOutputRedirected
+                Platform.IsConsoleRedirectionCheckSupported &&
+                !Console.IsOutputRedirected
             ) {
                 Console.ForegroundColor = ConsoleColor.Red;
             }
@@ -41,8 +41,8 @@ namespace System.CommandLine.IO
             }
 
             if (
-                Platform.IsConsoleRedirectionCheckSupported
-                && !Console.IsOutputRedirected
+                Platform.IsConsoleRedirectionCheckSupported &&
+                !Console.IsOutputRedirected
             ) {
                 Console.ResetColor();
             }

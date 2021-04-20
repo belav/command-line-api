@@ -154,7 +154,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void On_child_updated_while_a_render_operation_is_in_progress_gets_queued() {
+        public void On_child_updated_while_a_render_operation_is_in_progress_gets_queued()
+        {
             _terminal.Height = 40;
             _terminal.Width = 100;
             _terminal.CursorLeft = _terminal.CursorTop = 20;

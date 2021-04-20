@@ -35,10 +35,12 @@ namespace System.CommandLine.DragonFruit
             }
             else
             {
-                foreach (var type in assembly.DefinedTypes.Where(t => t.IsClass)
-                    .Where(
-                        t => !t.IsDefined(typeof(CompilerGeneratedAttribute))
-                    )
+                foreach (
+                    var type in assembly.DefinedTypes.Where(t => t.IsClass)
+                        .Where(
+                            t =>
+                                !t.IsDefined(typeof(CompilerGeneratedAttribute))
+                        )
                 ) {
                     FindMainMethodCandidates(type, candidates);
                 }
@@ -72,25 +74,26 @@ namespace System.CommandLine.DragonFruit
             TypeInfo type,
             List<MethodInfo> candidates
         ) {
-            foreach (var method in type.GetMethods(
-                    BindingFlags.Static
-                    | BindingFlags.Public
-                    | BindingFlags.NonPublic
-                )
-                .Where(
-                    m =>
-                        string.Equals(
-                            "Main",
-                            m.Name,
-                            StringComparison.OrdinalIgnoreCase
-                        )
-                )
+            foreach (
+                var method in type.GetMethods(
+                        BindingFlags.Static |
+                        BindingFlags.Public |
+                        BindingFlags.NonPublic
+                    )
+                    .Where(
+                        m =>
+                            string.Equals(
+                                "Main",
+                                m.Name,
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                    )
             ) {
                 if (
-                    method.ReturnType == typeof(void)
-                    || method.ReturnType == typeof(int)
-                    || method.ReturnType == typeof(Task)
-                    || method.ReturnType == typeof(Task<int>)
+                    method.ReturnType == typeof(void) ||
+                    method.ReturnType == typeof(int) ||
+                    method.ReturnType == typeof(Task) ||
+                    method.ReturnType == typeof(Task<int>)
                 ) {
                     candidates.Add(method);
                 }

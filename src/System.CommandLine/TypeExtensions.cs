@@ -21,8 +21,8 @@ namespace System.CommandLine
             this Type type,
             Type genericTypeDefinition
         ) =>
-            type.IsConstructedGenericType
-            && type.GetGenericTypeDefinition() == genericTypeDefinition;
+            type.IsConstructedGenericType &&
+            type.GetGenericTypeDefinition() == genericTypeDefinition;
 
         /// <summary>
         /// Determines whether <paramref name="type"/> is a nullable value type.
@@ -31,7 +31,7 @@ namespace System.CommandLine
         /// <returns><see langword="true" /> if <paramref name="type"/> is a nullable value type; otherwise, <see langword="false" />.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNullableValueType(this Type type) =>
-            type.IsValueType
-            && type.IsConstructedGenericTypeOf(typeof(Nullable<>));
+            type.IsValueType &&
+            type.IsConstructedGenericTypeOf(typeof(Nullable<>));
     }
 }

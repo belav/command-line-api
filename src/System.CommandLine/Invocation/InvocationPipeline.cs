@@ -14,8 +14,8 @@ namespace System.CommandLine.Invocation
 
         public InvocationPipeline(ParseResult parseResult)
         {
-            this.parseResult = parseResult
-            ?? throw new ArgumentNullException(nameof(parseResult));
+            this.parseResult = parseResult ??
+            throw new ArgumentNullException(nameof(parseResult));
         }
 
         public async Task<int> InvokeAsync(IConsole? console = null)

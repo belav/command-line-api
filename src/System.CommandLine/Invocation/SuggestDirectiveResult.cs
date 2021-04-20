@@ -21,8 +21,8 @@ namespace System.CommandLine.Invocation
             var commandLineToSuggest =
                 context.ParseResult.Tokens.LastOrDefault(
                     t => t.Type != TokenType.Directive
-                )?.Value
-                ?? "";
+                )?.Value ??
+                "";
 
             var suggestionParseResult = context.Parser.Parse(
                 commandLineToSuggest

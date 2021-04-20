@@ -39,9 +39,9 @@ namespace System.CommandLine.Binding
         }
 
         public static bool CalculateAllowsNull(ParameterInfo parameterInfo) =>
-            parameterInfo.ParameterType.IsNullable()
-            || (parameterInfo.HasDefaultValue
-            && parameterInfo.DefaultValue is null);
+            parameterInfo.ParameterType.IsNullable() ||
+            (parameterInfo.HasDefaultValue &&
+            parameterInfo.DefaultValue is null);
 
         public object? GetDefaultValue() =>
             _parameterInfo.DefaultValue is DBNull

@@ -16,7 +16,8 @@ namespace System.CommandLine.Tests
         private readonly TestConsole _console = new TestConsole();
 
         [Fact]
-        public async Task Declaration_of_UseExceptionHandler_can_come_after_other_middleware() {
+        public async Task Declaration_of_UseExceptionHandler_can_come_after_other_middleware()
+        {
             await new CommandLineBuilder().AddCommand(
                     new Command("the-command")
                 )
@@ -29,7 +30,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task UseExceptionHandler_catches_middleware_exceptions_and_writes_details_to_standard_error() {
+        public async Task UseExceptionHandler_catches_middleware_exceptions_and_writes_details_to_standard_error()
+        {
             var parser = new CommandLineBuilder().AddCommand(
                     new Command("the-command")
                 )
@@ -47,7 +49,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task UseExceptionHandler_catches_command_handler_exceptions_and_sets_result_code_to_1() {
+        public async Task UseExceptionHandler_catches_command_handler_exceptions_and_sets_result_code_to_1()
+        {
             var command = new Command("the-command");
             command.Handler = CommandHandler.Create(
                 () =>
@@ -70,7 +73,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task UseExceptionHandler_catches_command_handler_exceptions_and_writes_details_to_standard_error() {
+        public async Task UseExceptionHandler_catches_command_handler_exceptions_and_writes_details_to_standard_error()
+        {
             var command = new Command("the-command");
             command.Handler = CommandHandler.Create(
                 () =>
@@ -95,7 +99,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task Declaration_of_UseExceptionHandler_can_come_before_other_middleware() {
+        public async Task Declaration_of_UseExceptionHandler_can_come_before_other_middleware()
+        {
             await new CommandLineBuilder().AddCommand(
                     new Command("the-command")
                 )
@@ -108,7 +113,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task When_thrown_exception_is_from_cancelation_no_output_is_generated() {
+        public async Task When_thrown_exception_is_from_cancelation_no_output_is_generated()
+        {
             int resultCode =
                 await new CommandLineBuilder().AddCommand(
                         new Command("the-command")

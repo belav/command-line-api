@@ -59,7 +59,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void A_row_is_written_for_each_item_and_a_header_for_each_column_in_file_mode() {
+        public void A_row_is_written_for_each_item_and_a_header_for_each_column_in_file_mode()
+        {
             var options =
                 new[] {
                     new Option("-s", "a short option"),
@@ -76,11 +77,11 @@ namespace System.CommandLine.Rendering.Tests
             _terminal.Out.ToString()
                 .Should()
                 .Be(
-                    "Option                     "
-                    + NewLine
-                    + "-s           a short option"
-                    + NewLine
-                    + "--very-long  a long option "
+                    "Option                     " +
+                    NewLine +
+                    "-s           a short option" +
+                    NewLine +
+                    "--very-long  a long option "
                 );
         }
 
@@ -113,7 +114,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void Column_widths_are_aligned_to_the_longest_cell_in_file_mode() {
+        public void Column_widths_are_aligned_to_the_longest_cell_in_file_mode()
+        {
             var options =
                 new[] {
                     new Option("-s", "an option"),

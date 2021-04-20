@@ -56,7 +56,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void Ansi_cursor_move_next_line_returns_correct_terminal_sequence() {
+        public void Ansi_cursor_move_next_line_returns_correct_terminal_sequence()
+        {
             Ansi.Cursor.Move.NextLine()
                 .EscapeSequence.Should()
                 .Be($"{Ansi.Esc}[1E");
@@ -66,13 +67,15 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void Ansi_cursor_move_to_upper_left_corner_returns_correct_terminal_sequence() {
+        public void Ansi_cursor_move_to_upper_left_corner_returns_correct_terminal_sequence()
+        {
             Ansi.Cursor.Move.ToUpperLeftCorner.EscapeSequence.Should()
                 .Be($"{Ansi.Esc}[H");
         }
 
         [Fact]
-        public void Ansi_cursor_move_to_location_returns_correct_terminal_sequence() {
+        public void Ansi_cursor_move_to_location_returns_correct_terminal_sequence()
+        {
             Ansi.Cursor.Move.ToLocation()
                 .EscapeSequence.Should()
                 .Be($"{Ansi.Esc}[1;1H");
@@ -88,13 +91,15 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void Ansi_cursor_scroll_up_one_returns_correct_terminal_sequence() {
+        public void Ansi_cursor_scroll_up_one_returns_correct_terminal_sequence()
+        {
             Ansi.Cursor.Scroll.UpOne.EscapeSequence.Should()
                 .Be($"{Ansi.Esc}[S");
         }
 
         [Fact]
-        public void Ansi_cursor_scroll_down_one_returns_correct_terminal_sequence() {
+        public void Ansi_cursor_scroll_down_one_returns_correct_terminal_sequence()
+        {
             Ansi.Cursor.Scroll.DownOne.EscapeSequence.Should()
                 .Be($"{Ansi.Esc}[T");
         }
@@ -112,12 +117,14 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void Ansi_cursor_save_position_returns_correct_terminal_sequence() {
+        public void Ansi_cursor_save_position_returns_correct_terminal_sequence()
+        {
             Ansi.Cursor.SavePosition.EscapeSequence.Should().Be($"{Ansi.Esc}7");
         }
 
         [Fact]
-        public void Ansi_cursor_restore_position_returns_correct_terminal_sequence() {
+        public void Ansi_cursor_restore_position_returns_correct_terminal_sequence()
+        {
             Ansi.Cursor.RestorePosition.EscapeSequence.Should()
                 .Be($"{Ansi.Esc}8");
         }

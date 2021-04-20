@@ -23,7 +23,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_default_value_is_set_to_null_then_HasDefaultValue_is_true() {
+        public void When_default_value_is_set_to_null_then_HasDefaultValue_is_true()
+        {
             var argument = new Argument();
 
             argument.SetDefaultValue(null);
@@ -32,7 +33,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_default_value_factory_is_set_then_HasDefaultValue_is_true() {
+        public void When_default_value_factory_is_set_then_HasDefaultValue_is_true()
+        {
             var argument = new Argument();
 
             argument.SetDefaultValueFactory(() => null);
@@ -41,7 +43,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_there_is_no_default_value_then_GetDefaultValue_throws() {
+        public void When_there_is_no_default_value_then_GetDefaultValue_throws()
+        {
             var argument = new Argument<string>("the-arg");
 
             argument.Invoking(a => a.GetDefaultValue())
@@ -105,7 +108,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void GetDefaultValue_returns_null_when_parse_delegate_returns_true_without_setting_a_value() {
+            public void GetDefaultValue_returns_null_when_parse_delegate_returns_true_without_setting_a_value()
+            {
                 var argument = new Argument<string>(
                     result => null,
                     isDefault: true
@@ -115,7 +119,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void GetDefaultValue_returns_null_when_parse_delegate_returns_true_and_sets_value_to_null() {
+            public void GetDefaultValue_returns_null_when_parse_delegate_returns_true_and_sets_value_to_null()
+            {
                 var argument = new Argument<string>(
                     result => null,
                     isDefault: true
@@ -136,7 +141,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Validation_failure_message_can_be_specified_when_parsing_tokens() {
+            public void Validation_failure_message_can_be_specified_when_parsing_tokens()
+            {
                 var argument = new Argument<FileSystemInfo>(
                     result =>
                     {
@@ -153,7 +159,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Validation_failure_message_can_be_specified_when_evaluating_default_argument_value() {
+            public void Validation_failure_message_can_be_specified_when_evaluating_default_argument_value()
+            {
                 var argument = new Argument<FileSystemInfo>(
                     result =>
                     {
@@ -171,7 +178,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Validation_failure_message_can_be_specified_when_evaluating_default_option_value() {
+            public void Validation_failure_message_can_be_specified_when_evaluating_default_option_value()
+            {
                 var option = new Option<FileSystemInfo>(
                     "-x",
                     result =>
@@ -190,7 +198,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void custom_parsing_of_scalar_value_from_an_argument_with_one_token() {
+            public void custom_parsing_of_scalar_value_from_an_argument_with_one_token()
+            {
                 var argument = new Argument<int>(
                     result => int.Parse(result.Tokens.Single().Value)
                 );
@@ -202,7 +211,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void custom_parsing_of_sequence_value_from_an_argument_with_one_token() {
+            public void custom_parsing_of_sequence_value_from_an_argument_with_one_token()
+            {
                 var argument = new Argument<IEnumerable<int>>(
                     result =>
                         result.Tokens.Single()
@@ -217,7 +227,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void custom_parsing_of_sequence_value_from_an_argument_with_multiple_tokens() {
+            public void custom_parsing_of_sequence_value_from_an_argument_with_multiple_tokens()
+            {
                 var argument = new Argument<IEnumerable<int>>(
                     result =>
                     {
@@ -233,7 +244,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void custom_parsing_of_scalar_value_from_an_argument_with_multiple_tokens() {
+            public void custom_parsing_of_scalar_value_from_an_argument_with_multiple_tokens()
+            {
                 var argument = new Argument<int>(
                     result =>
                         result.Tokens.Select(t => int.Parse(t.Value)).Sum()
@@ -249,7 +261,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Option_ArgumentResult_Parent_is_set_correctly_when_token_is_implicit() {
+            public void Option_ArgumentResult_Parent_is_set_correctly_when_token_is_implicit()
+            {
                 ArgumentResult argumentResult = null;
 
                 var command = new Command(
@@ -274,7 +287,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Option_ArgumentResult_parentage_to_root_symbol_is_set_correctly_when_token_is_implicit() {
+            public void Option_ArgumentResult_parentage_to_root_symbol_is_set_correctly_when_token_is_implicit()
+            {
                 ArgumentResult argumentResult = null;
 
                 var command = new Command(
@@ -329,7 +343,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Command_ArgumentResult_Parent_is_set_correctly_when_token_is_implicit() {
+            public void Command_ArgumentResult_Parent_is_set_correctly_when_token_is_implicit()
+            {
                 ArgumentResult argumentResult = null;
 
                 var command = new Command(
@@ -381,7 +396,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Default_value_and_custom_argument_parser_can_be_used_together() {
+            public void Default_value_and_custom_argument_parser_can_be_used_together()
+            {
                 var argument = new Argument<int>(_ => 789, true);
                 argument.SetDefaultValue(123);
 
@@ -391,7 +407,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Multiple_command_arguments_can_have_custom_parse_delegates() {
+            public void Multiple_command_arguments_can_have_custom_parse_delegates()
+            {
                 var root = new RootCommand
                 {
                     new Argument<FileInfo[]>(
@@ -428,7 +445,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void When_custom_conversion_fails_then_an_option_does_not_accept_further_arguments() {
+            public void When_custom_conversion_fails_then_an_option_does_not_accept_further_arguments()
+            {
                 var command = new Command(
                     "the-command"
                 )
@@ -450,7 +468,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void When_argument_cannot_be_parsed_as_the_specified_type_then_getting_value_throws() {
+            public void When_argument_cannot_be_parsed_as_the_specified_type_then_getting_value_throws()
+            {
                 var command = new Command(
                     "the-command"
                 )
@@ -547,7 +566,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void When_tokens_are_passed_on_by_custom_parser_on_last_argument_then_they_become_unparsed_tokens() {
+            public void When_tokens_are_passed_on_by_custom_parser_on_last_argument_then_they_become_unparsed_tokens()
+            {
                 var argument1 = new Argument<int[]>(
                     "one",
                     result =>
@@ -574,7 +594,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void When_custom_parser_passes_on_tokens_the_argument_result_tokens_reflect_the_change() {
+            public void When_custom_parser_passes_on_tokens_the_argument_result_tokens_reflect_the_change()
+            {
                 var argument1 = new Argument<int[]>(
                     "one",
                     result =>

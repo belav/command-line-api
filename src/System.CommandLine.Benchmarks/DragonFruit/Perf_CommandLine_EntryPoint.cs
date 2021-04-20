@@ -78,9 +78,9 @@ namespace System.CommandLine.Benchmarks.DragonFruit
                 )
                 .Select(
                     i =>
-                        "namespace PerfTestApp { "
-                        + $"public class {classNamePrefix}_{i} {{ {string.Concat(testMethodsCodeSnapshot)} }} "
-                        + "} \n"
+                        "namespace PerfTestApp { " +
+                        $"public class {classNamePrefix}_{i} {{ {string.Concat(testMethodsCodeSnapshot)} }} " +
+                        "} \n"
                 );
 
             string entryPointCodeSnapshot =
@@ -98,8 +98,8 @@ namespace System.CommandLine.Benchmarks.DragonFruit
               }
              ";
 
-            return string.Concat(testClassesCodeSnapshot)
-            + entryPointCodeSnapshot;
+            return string.Concat(testClassesCodeSnapshot) +
+            entryPointCodeSnapshot;
         }
 
         private string CreateTestAssemblyInTempFile(

@@ -239,7 +239,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_multiple_arguments_are_configured_then_they_must_differ_by_name() {
+        public void When_multiple_arguments_are_configured_then_they_must_differ_by_name()
+        {
             var command = new Command(
                 "the-command"
             )
@@ -255,7 +256,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_multiple_options_are_configured_then_they_must_differ_by_name() {
+        public void When_multiple_options_are_configured_then_they_must_differ_by_name()
+        {
             var command = new Command("the-command") { new Option("--same") };
 
             command.Invoking(c => c.Add(new Option("--same")))
@@ -266,7 +268,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_Name_is_set_to_its_current_value_then_it_is_not_removed_from_aliases() {
+        public void When_Name_is_set_to_its_current_value_then_it_is_not_removed_from_aliases()
+        {
             var command = new Command("name");
 
             command.Name = "name";
@@ -277,7 +280,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_argument_of_string_defaults_to_empty_when_not_specified() {
+        public void Command_argument_of_string_defaults_to_empty_when_not_specified()
+        {
             var argument = new Argument<string>();
             var command = new Command("mycommand") { argument };
 
@@ -286,7 +290,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_argument_of_IEnumerable_of_T_defaults_to_empty_when_not_specified() {
+        public void Command_argument_of_IEnumerable_of_T_defaults_to_empty_when_not_specified()
+        {
             var argument = new Argument<IEnumerable<string>>();
             var command = new Command("mycommand") { argument };
 
@@ -295,7 +300,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_argument_of_Array_defaults_to_empty_when_not_specified() {
+        public void Command_argument_of_Array_defaults_to_empty_when_not_specified()
+        {
             var argument = new Argument<string[]>();
             var command = new Command("mycommand") { argument };
 
@@ -304,7 +310,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_argument_of_List_defaults_to_empty_when_not_specified() {
+        public void Command_argument_of_List_defaults_to_empty_when_not_specified()
+        {
             var argument = new Argument<List<string>>();
             var command = new Command("mycommand") { argument };
 
@@ -313,7 +320,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_argument_of_IList_of_T_defaults_to_empty_when_not_specified() {
+        public void Command_argument_of_IList_of_T_defaults_to_empty_when_not_specified()
+        {
             var argument = new Argument<IList<string>>();
             var command = new Command("mycommand") { argument };
 
@@ -322,7 +330,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_argument_of_IList_defaults_to_empty_when_not_specified() {
+        public void Command_argument_of_IList_defaults_to_empty_when_not_specified()
+        {
             var argument = new Argument<System.Collections.IList>();
             var command = new Command("mycommand") { argument };
 
@@ -331,7 +340,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_argument_of_ICollection_defaults_to_empty_when_not_specified() {
+        public void Command_argument_of_ICollection_defaults_to_empty_when_not_specified()
+        {
             var argument = new Argument<System.Collections.ICollection>();
             var command = new Command("mycommand") { argument };
 
@@ -340,7 +350,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_argument_of_IEnumerable_defaults_to_empty_when_not_specified() {
+        public void Command_argument_of_IEnumerable_defaults_to_empty_when_not_specified()
+        {
             var argument = new Argument<System.Collections.IEnumerable>();
             var command = new Command("mycommand") { argument };
 
@@ -349,7 +360,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_argument_of_ICollection_of_T_defaults_to_empty_when_not_specified() {
+        public void Command_argument_of_ICollection_of_T_defaults_to_empty_when_not_specified()
+        {
             var argument = new Argument<ICollection<string>>();
             var command = new Command("mycommand") { argument };
 

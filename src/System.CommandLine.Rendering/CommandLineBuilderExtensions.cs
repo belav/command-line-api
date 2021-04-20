@@ -54,8 +54,8 @@ namespace System.CommandLine.Rendering
                 context.ParseResult.Directives.TryGetValues(
                     "output",
                     out var modeString
-                )
-                && Enum.TryParse<OutputMode>(
+                ) &&
+                Enum.TryParse<OutputMode>(
                     modeString.FirstOrDefault(),
                     true,
                     out var mode

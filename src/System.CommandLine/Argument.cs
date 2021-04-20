@@ -71,8 +71,8 @@ namespace System.CommandLine
                     if (ArgumentType.CanBeBoundFromScalarValue())
                     {
                         if (
-                            Arity.MaximumNumberOfValues == 1
-                            && ArgumentType == typeof(bool)
+                            Arity.MaximumNumberOfValues == 1 &&
+                            ArgumentType == typeof(bool)
                         ) {
                             _convertArguments = ArgumentConverter.TryConvertBoolArgument;
                         }
@@ -114,8 +114,8 @@ namespace System.CommandLine
         {
             get => _argumentType;
             set =>
-                _argumentType = value
-                ?? throw new ArgumentNullException(nameof(value));
+                _argumentType = value ??
+                throw new ArgumentNullException(nameof(value));
         }
 
         private protected override string DefaultName
@@ -201,8 +201,8 @@ namespace System.CommandLine
         public void SetDefaultValueFactory(
             Func<ArgumentResult, object?> getDefaultValue
         ) {
-            _defaultValueFactory = getDefaultValue
-            ?? throw new ArgumentNullException(nameof(getDefaultValue));
+            _defaultValueFactory = getDefaultValue ??
+            throw new ArgumentNullException(nameof(getDefaultValue));
         }
 
         /// <summary>

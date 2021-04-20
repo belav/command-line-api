@@ -10,8 +10,8 @@ namespace System.CommandLine.Rendering
 
         protected ColorSpan(RgbColor rgbColor, AnsiControlCode ansiControlCode)
             : base(
-                GetName(rgbColor)
-                ?? throw new ArgumentNullException(nameof(rgbColor)),
+                GetName(rgbColor) ??
+                throw new ArgumentNullException(nameof(rgbColor)),
                 ansiControlCode
             )
         {

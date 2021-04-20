@@ -27,8 +27,8 @@ namespace System.CommandLine.Suggest
                 ? Path.Combine(directory, "tools")
                 : null;
 
-            _filesNameWithoutExtensionUnderDotnetProfileTools = filesNameWithoutExtensionUnderDotnetProfileTools
-            ?? FileEnumerator.EnumerateFilesWithoutExtension(
+            _filesNameWithoutExtensionUnderDotnetProfileTools = filesNameWithoutExtensionUnderDotnetProfileTools ??
+            FileEnumerator.EnumerateFilesWithoutExtension(
                 new DirectoryInfo(_nullableToolsShimPath)
             );
         }

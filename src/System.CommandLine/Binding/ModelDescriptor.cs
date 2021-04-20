@@ -11,9 +11,9 @@ namespace System.CommandLine.Binding
     public class ModelDescriptor
     {
         private const BindingFlags CommonBindingFlags =
-            BindingFlags.IgnoreCase
-            | BindingFlags.Public
-            | BindingFlags.Instance;
+            BindingFlags.IgnoreCase |
+            BindingFlags.Public |
+            BindingFlags.Instance;
 
         private static readonly ConcurrentDictionary<Type,
             ModelDescriptor> _modelDescriptors = new ConcurrentDictionary<Type,
@@ -24,8 +24,8 @@ namespace System.CommandLine.Binding
 
         protected ModelDescriptor(Type modelType)
         {
-            ModelType = modelType
-            ?? throw new ArgumentNullException(nameof(modelType));
+            ModelType = modelType ??
+            throw new ArgumentNullException(nameof(modelType));
         }
 
         public IReadOnlyList<ConstructorDescriptor> ConstructorDescriptors =>

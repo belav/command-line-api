@@ -14,7 +14,8 @@ namespace System.CommandLine.Suggest.Tests
         public TestSuggestionRegistration(
             params Registration[] suggestionRegistrations
         ) {
-            foreach (Registration suggestionRegistration in suggestionRegistrations
+            foreach (
+                Registration suggestionRegistration in suggestionRegistrations
             ) {
                 AddSuggestionRegistration(suggestionRegistration);
             }

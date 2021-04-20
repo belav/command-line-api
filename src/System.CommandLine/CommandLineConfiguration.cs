@@ -90,8 +90,8 @@ namespace System.CommandLine
             ValidationMessages = validationMessages ?? Resources.Instance;
             ResponseFileHandling = responseFileHandling;
             Middleware = middlewarePipeline ?? new List<InvocationMiddleware>();
-            HelpBuilderFactory = helpBuilderFactory
-            ?? (context =>
+            HelpBuilderFactory = helpBuilderFactory ??
+            (context =>
             {
                 int maxWidth = int.MaxValue;
                 if (context.Console is SystemConsole systemConsole)

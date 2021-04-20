@@ -32,7 +32,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void SplitForWrapping_preserves_whitespace_at_the_end_of_the_string() {
+        public void SplitForWrapping_preserves_whitespace_at_the_end_of_the_string()
+        {
             var input = "words and then space     ";
 
             input.SplitForWrapping()
@@ -44,7 +45,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void SplitForWrapping_preserves_whitespace_at_the_beginning_of_the_string() {
+        public void SplitForWrapping_preserves_whitespace_at_the_beginning_of_the_string()
+        {
             var input = "    space and then words";
 
             input.SplitForWrapping()

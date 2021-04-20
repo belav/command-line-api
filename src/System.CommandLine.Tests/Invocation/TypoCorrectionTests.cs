@@ -31,7 +31,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task When_there_are_no_matches_then_nothing_is_suggested() {
+        public async Task When_there_are_no_matches_then_nothing_is_suggested()
+        {
             var option = new Option("info");
 
             var parser = new CommandLineBuilder().AddOption(option)
@@ -64,7 +65,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task When_there_are_multiple_matches_it_picks_the_best_matches() {
+        public async Task When_there_are_multiple_matches_it_picks_the_best_matches()
+        {
             var parser = new CommandLineBuilder().AddCommand(
                     new Command("from")
                 )

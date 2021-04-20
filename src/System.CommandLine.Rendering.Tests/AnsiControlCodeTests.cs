@@ -9,7 +9,8 @@ namespace System.CommandLine.Rendering.Tests
     public class AnsiControlCodeTests
     {
         [Fact]
-        public void Control_codes_with_equivalent_content_have_the_same_hash_code() {
+        public void Control_codes_with_equivalent_content_have_the_same_hash_code()
+        {
             var one = new AnsiControlCode($"{Ansi.Esc}[s");
             var two = new AnsiControlCode($"{Ansi.Esc}[s");
 

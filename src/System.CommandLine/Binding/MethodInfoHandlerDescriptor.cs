@@ -17,8 +17,8 @@ namespace System.CommandLine.Binding
             MethodInfo handlerMethodInfo,
             object? target = null
         ) {
-            _handlerMethodInfo = handlerMethodInfo
-            ?? throw new ArgumentNullException(nameof(handlerMethodInfo));
+            _handlerMethodInfo = handlerMethodInfo ??
+            throw new ArgumentNullException(nameof(handlerMethodInfo));
             _invocationTarget = target;
         }
 

@@ -52,8 +52,8 @@ namespace System.CommandLine.Parsing
 
             RawInput = rawInput;
 
-            _errors = errors
-            ?? (parser.Configuration.RootCommand.TreatUnmatchedTokensAsErrors
+            _errors = errors ??
+            (parser.Configuration.RootCommand.TreatUnmatchedTokensAsErrors
                 ? new List<ParseError>(unmatchedTokens.Count)
                 : new List<ParseError>());
 
@@ -109,8 +109,8 @@ namespace System.CommandLine.Parsing
         public T ValueForArgument<T>(Argument<T> argument)
         {
             if (
-                FindResultFor(argument) is  {  } result
-                && result.GetValueOrDefault<T>() is  {  } t
+                FindResultFor(argument) is  {  } result &&
+                result.GetValueOrDefault<T>() is  {  } t
             ) {
                 return t;
             }
@@ -122,8 +122,8 @@ namespace System.CommandLine.Parsing
         public T ValueForArgument<T>(Argument argument)
         {
             if (
-                FindResultFor(argument) is  {  } result
-                && result.GetValueOrDefault<T>() is  {  } t
+                FindResultFor(argument) is  {  } result &&
+                result.GetValueOrDefault<T>() is  {  } t
             ) {
                 return t;
             }
@@ -159,8 +159,8 @@ namespace System.CommandLine.Parsing
         public T ValueForOption<T>(Option<T> option)
         {
             if (
-                FindResultFor(option) is  {  } result
-                && result.GetValueOrDefault<T>() is  {  } t
+                FindResultFor(option) is  {  } result &&
+                result.GetValueOrDefault<T>() is  {  } t
             ) {
                 return t;
             }
@@ -172,8 +172,8 @@ namespace System.CommandLine.Parsing
         public T ValueForOption<T>(Option option)
         {
             if (
-                FindResultFor(option) is  {  } result
-                && result.GetValueOrDefault<T>() is  {  } t
+                FindResultFor(option) is  {  } result &&
+                result.GetValueOrDefault<T>() is  {  } t
             ) {
                 return t;
             }

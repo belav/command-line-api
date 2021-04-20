@@ -22,7 +22,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void GetByAlias_returns_expected_item_when_command_name_is_found() {
+        public void GetByAlias_returns_expected_item_when_command_name_is_found()
+        {
             var command = new Command("x");
 
             var set = CreateSet(command);
@@ -39,7 +40,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void GetByAlias_returns_expected_item_when_option_alias_is_found() {
+        public void GetByAlias_returns_expected_item_when_option_alias_is_found()
+        {
             var option = new Option<string>("-x");
 
             var set = CreateSet(option);
@@ -56,7 +58,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void GetByAlias_returns_expected_item_when_argument_alias_is_found() {
+        public void GetByAlias_returns_expected_item_when_argument_alias_is_found()
+        {
             var set = CreateSet(new Argument<string>("x"));
 
             set.GetByAlias("x").Should().NotBeNull();
@@ -68,7 +71,8 @@ namespace System.CommandLine.Tests
     public class SymbolSetTests : AliasedSetTests<ISymbol, SymbolSet>
     {
         [Fact]
-        public void When_Name_is_changed_then_Contains_returns_true_for_new_name() {
+        public void When_Name_is_changed_then_Contains_returns_true_for_new_name()
+        {
             var command = new Command("before");
 
             var rootCommand = new RootCommand { command };
@@ -79,7 +83,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_Name_is_changed_then_Contains_returns_false_for_old_name() {
+        public void When_Name_is_changed_then_Contains_returns_false_for_old_name()
+        {
             var command = new Command("before");
 
             var rootCommand = new RootCommand { command };
@@ -90,7 +95,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_option_alias_is_changed_then_GetByAlias_returns_true_for_the_new_alias() {
+        public void When_option_alias_is_changed_then_GetByAlias_returns_true_for_the_new_alias()
+        {
             var symbol = new Option<string>("original");
 
             var command = new RootCommand { symbol };
@@ -101,7 +107,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_command_alias_is_changed_then_GetByAlias_returns_true_for_the_new_alias() {
+        public void When_command_alias_is_changed_then_GetByAlias_returns_true_for_the_new_alias()
+        {
             var symbol = new Command("original");
 
             var command = new RootCommand { symbol };
@@ -112,7 +119,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void GetByAlias_returns_expected_item_when_command_name_has_been_changed() {
+        public void GetByAlias_returns_expected_item_when_command_name_has_been_changed()
+        {
             var command = new Command("old");
 
             var set = CreateSet(command);
@@ -123,7 +131,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void GetByAlias_returns_expected_item_when_option_name_has_been_changed() {
+        public void GetByAlias_returns_expected_item_when_option_name_has_been_changed()
+        {
             var option = new Option<string>("--old");
 
             var set = CreateSet(option);
@@ -134,7 +143,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void GetByAlias_returns_expected_item_when_option_alias_has_been_added() {
+        public void GetByAlias_returns_expected_item_when_option_alias_has_been_added()
+        {
             var option = new Option<string>("--old");
 
             var set = CreateSet(option);
@@ -160,9 +170,9 @@ namespace System.CommandLine.Tests
             var commandLine = symbol switch
             {
                 Command command => command.Name,
-                Option option => option.Aliases.First()
-                + "  "
-                + "argument-value",
+                Option option => option.Aliases.First() +
+                "  " +
+                "argument-value",
                 Argument argument => "argument-value",
                 _ => throw new ArgumentOutOfRangeException()
             };

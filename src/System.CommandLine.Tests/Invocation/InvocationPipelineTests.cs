@@ -20,7 +20,8 @@ namespace System.CommandLine.Tests.Invocation
         private readonly TestConsole _console = new TestConsole();
 
         [Fact]
-        public async Task General_invocation_middleware_can_be_specified_in_the_CommandLineBuilder() {
+        public async Task General_invocation_middleware_can_be_specified_in_the_CommandLineBuilder()
+        {
             var wasCalled = false;
 
             var parser = new CommandLineBuilder().AddCommand(
@@ -83,7 +84,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public void When_middleware_throws_then_InvokeAsync_does_not_handle_the_exception() {
+        public void When_middleware_throws_then_InvokeAsync_does_not_handle_the_exception()
+        {
             var parser = new CommandLineBuilder().AddCommand(
                     new Command("the-command")
                 )
@@ -99,7 +101,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public void When_middleware_throws_then_Invoke_does_not_handle_the_exception() {
+        public void When_middleware_throws_then_Invoke_does_not_handle_the_exception()
+        {
             var parser = new CommandLineBuilder().AddCommand(
                     new Command("the-command")
                 )
@@ -112,7 +115,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public void When_command_handler_throws_then_InvokeAsync_does_not_handle_the_exception() {
+        public void When_command_handler_throws_then_InvokeAsync_does_not_handle_the_exception()
+        {
             var command = new Command("the-command");
             command.Handler = CommandHandler.Create(
                 () =>
@@ -139,7 +143,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public void When_command_handler_throws_then_Invoke_does_not_handle_the_exception() {
+        public void When_command_handler_throws_then_Invoke_does_not_handle_the_exception()
+        {
             var command = new Command("the-command");
             command.Handler = CommandHandler.Create(
                 () =>
@@ -199,7 +204,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Invocation_can_be_short_circuited_by_middleware_by_not_calling_next() {
+        public async Task Invocation_can_be_short_circuited_by_middleware_by_not_calling_next()
+        {
             var middlewareWasCalled = false;
             var handlerWasCalled = false;
 
@@ -229,7 +235,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public void Synchronous_invocation_can_be_short_circuited_by_async_middleware_by_not_calling_next() {
+        public void Synchronous_invocation_can_be_short_circuited_by_async_middleware_by_not_calling_next()
+        {
             var middlewareWasCalled = false;
             var handlerWasCalled = false;
 
@@ -259,7 +266,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task When_no_help_builder_is_specified_it_uses_default_implementation() {
+        public async Task When_no_help_builder_is_specified_it_uses_default_implementation()
+        {
             bool handlerWasCalled = false;
 
             var command = new Command("help-command");
@@ -279,7 +287,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task When_help_builder_factory_is_specified_it_is_used_to_create_the_help_builder() {
+        public async Task When_help_builder_factory_is_specified_it_is_used_to_create_the_help_builder()
+        {
             bool handlerWasCalled = false;
             bool factoryWasCalled = false;
 

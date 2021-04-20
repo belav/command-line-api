@@ -10,13 +10,15 @@ namespace System.CommandLine.Rendering.Tests
     public class TextSpanTests
     {
         [Fact]
-        public void Content_span_length_is_the_same_as_the_contained_string_length() {
+        public void Content_span_length_is_the_same_as_the_contained_string_length()
+        {
             new ContentSpan("the content").ContentLength.Should()
                 .Be("the content".Length);
         }
 
         [Fact]
-        public void When_spans_are_nested_then_content_length_can_be_calculated() {
+        public void When_spans_are_nested_then_content_length_can_be_calculated()
+        {
             var span = new ContainerSpan(
                 ForegroundColorSpan.Red(),
                 new ContentSpan("content"),
@@ -64,7 +66,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void Span_starts_update_when_parent_is_added_to_another_parent_span() {
+        public void Span_starts_update_when_parent_is_added_to_another_parent_span()
+        {
             var innerContainerSpan = new ContainerSpan(
                 ForegroundColorSpan.Red(),
                 new ContentSpan("second"),
@@ -110,7 +113,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void Ansi_control_codes_can_be_included_in_interpolated_strings() {
+        public void Ansi_control_codes_can_be_included_in_interpolated_strings()
+        {
             var writer = new StringWriter();
 
             var formatter = new TextSpanFormatter();

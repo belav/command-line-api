@@ -28,10 +28,10 @@ namespace System.CommandLine.Rendering.Tests
 
             Name = name;
             InputSpan = _formatter.ParseToSpan(rendering);
-            Region = inRegion
-            ?? throw new ArgumentNullException(nameof(inRegion));
-            ExpectedOutput = expectOutput
-            ?? throw new ArgumentNullException(nameof(expectOutput));
+            Region = inRegion ??
+            throw new ArgumentNullException(nameof(inRegion));
+            ExpectedOutput = expectOutput ??
+            throw new ArgumentNullException(nameof(expectOutput));
         }
 
         public string Name { get; }

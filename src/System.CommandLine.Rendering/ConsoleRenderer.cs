@@ -15,8 +15,8 @@ namespace System.CommandLine.Rendering
             OutputMode mode = OutputMode.Auto,
             bool resetAfterRender = false
         ) {
-            _console = console
-            ?? throw new ArgumentNullException(nameof(console));
+            _console = console ??
+            throw new ArgumentNullException(nameof(console));
             _mode = mode;
 
             _terminal = console as ITerminal;

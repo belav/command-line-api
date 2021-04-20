@@ -108,7 +108,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Multiple_arguments_of_unspecified_type_are_parsed_correctly() {
+            public void Multiple_arguments_of_unspecified_type_are_parsed_correctly()
+            {
                 var sourceArg = new Argument(
                     "source"
                 )
@@ -137,7 +138,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void tokens_that_cannot_be_converted_by_multiple_arity_argument_flow_to_next_multiple_arity_argument() {
+            public void tokens_that_cannot_be_converted_by_multiple_arity_argument_flow_to_next_multiple_arity_argument()
+            {
                 var ints = new Argument<int[]>();
                 var strings = new Argument<string[]>();
 
@@ -163,7 +165,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void tokens_that_cannot_be_converted_by_multiple_arity_argument_flow_to_next_single_arity_argument() {
+            public void tokens_that_cannot_be_converted_by_multiple_arity_argument_flow_to_next_single_arity_argument()
+            {
                 var ints = new Argument<int[]>();
                 var strings = new Argument<string>();
 
@@ -190,7 +193,8 @@ namespace System.CommandLine.Tests
 
             [Fact(
                 Skip = "https://github.com/dotnet/command-line-api/issues/1143")]
-            public void tokens_that_cannot_be_converted_by_multiple_arity_option_flow_to_next_single_arity_argument() {
+            public void tokens_that_cannot_be_converted_by_multiple_arity_option_flow_to_next_single_arity_argument()
+            {
                 var option = new Option<int[]>("-i");
                 var argument = new Argument<string>("arg");
 

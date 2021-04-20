@@ -46,10 +46,8 @@ namespace System.CommandLine.Suggest
                     RedirectStandardOutput = true
                 };
 
-                using (var process = new Process
-                {
-                    StartInfo = processStartInfo
-                }
+                using (
+                    var process = new Process { StartInfo = processStartInfo }
                 ) {
                     process.Start();
 

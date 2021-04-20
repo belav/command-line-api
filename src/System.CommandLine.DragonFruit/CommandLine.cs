@@ -228,8 +228,8 @@ namespace System.CommandLine.DragonFruit
 
             if (
                 XmlDocReader.TryLoad(
-                    xmlDocsFilePath
-                    ?? GetDefaultXmlDocsFileLocation(
+                    xmlDocsFilePath ??
+                    GetDefaultXmlDocsFileLocation(
                         method.DeclaringType.Assembly
                     ),
                     out var xmlDocs
@@ -239,13 +239,14 @@ namespace System.CommandLine.DragonFruit
                     xmlDocs.TryGetMethodDescription(
                         method,
                         out CommandHelpMetadata metadata
-                    )
-                    && metadata.Description != null
+                    ) &&
+                    metadata.Description != null
                 ) {
                     builder.Command.Description = metadata.Description;
                     var options = builder.Options.ToArray();
 
-                    foreach (var parameterDescription in metadata.ParameterDescriptions
+                    foreach (
+                        var parameterDescription in metadata.ParameterDescriptions
                     ) {
                         var kebabCasedParameterName = parameterDescription.Key.ToKebabCase();
 
@@ -323,11 +324,12 @@ namespace System.CommandLine.DragonFruit
                     typeof(CancellationToken),
                 };
 
-            foreach (var option in descriptor.ParameterDescriptors.Where(
-                    d => !omittedTypes.Contains(d.ValueType)
-                )
-                .Where(d => !_argumentParameterNames.Contains(d.ValueName))
-                .Select(p => p.BuildOption())
+            foreach (
+                var option in descriptor.ParameterDescriptors.Where(
+                        d => !omittedTypes.Contains(d.ValueType)
+                    )
+                    .Where(d => !_argumentParameterNames.Contains(d.ValueName))
+                    .Select(p => p.BuildOption())
             ) {
                 yield return option;
             }

@@ -18,8 +18,8 @@ namespace System.CommandLine.Rendering
             if (console is ITerminal terminal && !terminal.IsOutputRedirected)
             {
                 if (
-                    terminal is IRenderable renderable
-                    && renderable.OutputMode != OutputMode.Auto
+                    terminal is IRenderable renderable &&
+                    renderable.OutputMode != OutputMode.Auto
                 ) {
                     return renderable.OutputMode;
                 }

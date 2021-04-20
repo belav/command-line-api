@@ -143,15 +143,15 @@ namespace System.CommandLine
             var parent = parents.Count > 0 ? parents[0] : default;
 
             if (
-                typeof(IEnumerable).IsAssignableFrom(type)
-                && type != typeof(string)
+                typeof(IEnumerable).IsAssignableFrom(type) &&
+                type != typeof(string)
             ) {
                 return parent is ICommand ? ZeroOrMore : OneOrMore;
             }
 
             if (
-                parent is ICommand
-                && (argument.HasDefaultValue || type.IsNullable())
+                parent is ICommand &&
+                (argument.HasDefaultValue || type.IsNullable())
             ) {
                 return ZeroOrOne;
             }

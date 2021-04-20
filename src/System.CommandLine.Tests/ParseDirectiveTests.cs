@@ -45,13 +45,14 @@ namespace System.CommandLine.Tests
             console.Out.ToString()
                 .Should()
                 .Be(
-                    $"[ {RootCommand.ExecutableName} [ subcommand [ -c <34> ] ] ]   ???--> --nonexistent wat"
-                    + Environment.NewLine
+                    $"[ {RootCommand.ExecutableName} [ subcommand [ -c <34> ] ] ]   ???--> --nonexistent wat" +
+                    Environment.NewLine
                 );
         }
 
         [Fact]
-        public async Task When_there_are_no_errors_then_parse_directive_sets_exit_code_0() {
+        public async Task When_there_are_no_errors_then_parse_directive_sets_exit_code_0()
+        {
             var command = new RootCommand { new Option<int>("-x") };
 
             var exitCode = await command.InvokeAsync("[parse] -x 123");
@@ -60,7 +61,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task When_there_are_errors_then_parse_directive_sets_exit_code_1() {
+        public async Task When_there_are_errors_then_parse_directive_sets_exit_code_1()
+        {
             var command = new RootCommand { new Option<int>("-x") };
 
             var exitCode = await command.InvokeAsync("[parse] -x not-an-int");
@@ -69,7 +71,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task When_there_are_errors_then_parse_directive_sets_exit_code_to_custom_value() {
+        public async Task When_there_are_errors_then_parse_directive_sets_exit_code_to_custom_value()
+        {
             var command = new RootCommand { new Option<int>("-x") };
 
             int exitCode =

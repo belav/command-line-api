@@ -61,8 +61,8 @@ namespace System.CommandLine.Tests.Utility
             catch (Exception exc)
             {
                 if (
-                    exc is TargetInvocationException
-                    && exc.InnerException != null
+                    exc is TargetInvocationException &&
+                    exc.InnerException != null
                 )
                     exc = exc.InnerException;
 
@@ -122,8 +122,8 @@ namespace System.CommandLine.Tests.Utility
                 Process.GetCurrentProcess().MainModule.FileName;
             string thisAssembly = typeof(RemoteExecutor).Assembly.Location;
             var assembly =
-                (Assembly.GetEntryAssembly()
-                ?? Assembly.GetExecutingAssembly());
+                (Assembly.GetEntryAssembly() ??
+                Assembly.GetExecutingAssembly());
             string entryAssemblyWithoutExtension = Path.Combine(
                 Path.GetDirectoryName(assembly.Location),
                 Path.GetFileNameWithoutExtension(assembly.Location)
@@ -131,8 +131,8 @@ namespace System.CommandLine.Tests.Utility
             string runtimeConfig = GetApplicationArgument("--runtimeconfig");
             if (runtimeConfig == null)
             {
-                runtimeConfig = entryAssemblyWithoutExtension
-                + ".runtimeconfig.json";
+                runtimeConfig = entryAssemblyWithoutExtension +
+                ".runtimeconfig.json";
             }
             string depsFile = GetApplicationArgument("--depsfile");
             if (depsFile == null)

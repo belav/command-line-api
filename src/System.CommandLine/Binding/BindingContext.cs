@@ -26,8 +26,8 @@ namespace System.CommandLine.Binding
         ) {
             _console = console ?? new SystemConsole();
 
-            ParseResult = parseResult
-            ?? throw new ArgumentNullException(nameof(parseResult));
+            ParseResult = parseResult ??
+            throw new ArgumentNullException(nameof(parseResult));
             ServiceProvider = new ServiceProvider(this);
         }
 
@@ -116,8 +116,8 @@ namespace System.CommandLine.Binding
             if (valueSource.TryGetValue(valueDescriptor, this, out var value))
             {
                 if (
-                    value is null
-                    || valueDescriptor.ValueType.IsInstanceOfType(value)
+                    value is null ||
+                    valueDescriptor.ValueType.IsInstanceOfType(value)
                 ) {
                     boundValue = new BoundValue(
                         value,
@@ -129,9 +129,9 @@ namespace System.CommandLine.Binding
                 else
                 {
                     var parsed = ArgumentConverter.ConvertObject(
-                        valueDescriptor
-                        as IArgument
-                        ?? new Argument(valueDescriptor.ValueName),
+                        valueDescriptor as
+                        IArgument ??
+                        new Argument(valueDescriptor.ValueName),
                         valueDescriptor.ValueType,
                         value
                     );

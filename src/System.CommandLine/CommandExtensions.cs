@@ -54,8 +54,8 @@ namespace System.CommandLine
             string[] args
         ) {
             var parser =
-                command.ImplicitParser
-                ?? new CommandLineBuilder(command).UseDefaults().Build();
+                command.ImplicitParser ??
+                new CommandLineBuilder(command).UseDefaults().Build();
 
             var parseResult = parser.Parse(args);
 

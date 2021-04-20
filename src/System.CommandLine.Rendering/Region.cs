@@ -36,10 +36,10 @@ namespace System.CommandLine.Rendering
                 throw new ArgumentOutOfRangeException(nameof(left));
             }
 
-            Height = height
-            ?? (Console.IsOutputRedirected ? 100 : Console.WindowHeight);
-            Width = width
-            ?? (Console.IsOutputRedirected ? 100 : Console.WindowWidth);
+            Height = height ??
+            (Console.IsOutputRedirected ? 100 : Console.WindowHeight);
+            Width = width ??
+            (Console.IsOutputRedirected ? 100 : Console.WindowWidth);
             Top = top;
             Left = left;
 

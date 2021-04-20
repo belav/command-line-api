@@ -58,9 +58,9 @@ namespace System.CommandLine.Rendering
                 //                          ENABLE_VIRTUAL_TERMINAL_INPUT;
 
                 var requestedOutputMode =
-                    originalOutputMode
-                    | ENABLE_VIRTUAL_TERMINAL_PROCESSING
-                    | DISABLE_NEWLINE_AUTO_RETURN;
+                    originalOutputMode |
+                    ENABLE_VIRTUAL_TERMINAL_PROCESSING |
+                    DISABLE_NEWLINE_AUTO_RETURN;
 
                 if (!SetConsoleMode(stdOutHandle, requestedOutputMode))
                 {
@@ -83,8 +83,8 @@ namespace System.CommandLine.Rendering
             var terminalName = Environment.GetEnvironmentVariable("TERM");
 
             var isXterm =
-                !string.IsNullOrEmpty(terminalName)
-                && terminalName.StartsWith(
+                !string.IsNullOrEmpty(terminalName) &&
+                terminalName.StartsWith(
                     "xterm",
                     StringComparison.OrdinalIgnoreCase
                 );

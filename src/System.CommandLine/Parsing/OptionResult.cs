@@ -53,8 +53,8 @@ namespace System.CommandLine.Parsing
                     var results = Children.OfType<ArgumentResult>()
                         .Select(r => r.GetArgumentConversionResult());
 
-                    _argumentConversionResult = results.SingleOrDefault()
-                    ?? ArgumentConversionResult.None(Option.Argument);
+                    _argumentConversionResult = results.SingleOrDefault() ??
+                    ArgumentConversionResult.None(Option.Argument);
                 }
 
                 return _argumentConversionResult;

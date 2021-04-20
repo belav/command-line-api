@@ -28,12 +28,12 @@ namespace System.CommandLine.Hosting
             InvocationContext context = null,
             ILoggerFactory loggerFactory = null
         ) {
-            Options = options?.Value
-            ?? throw new ArgumentNullException(nameof(options));
-            Environment = environment
-            ?? throw new ArgumentNullException(nameof(environment));
-            ApplicationLifetime = applicationLifetime
-            ?? throw new ArgumentNullException(nameof(applicationLifetime));
+            Options = options?.Value ??
+            throw new ArgumentNullException(nameof(options));
+            Environment = environment ??
+            throw new ArgumentNullException(nameof(environment));
+            ApplicationLifetime = applicationLifetime ??
+            throw new ArgumentNullException(nameof(applicationLifetime));
 
             // if InvocationLifetime is added outside of a System.CommandLine
             // invocation pipeline context will be null.

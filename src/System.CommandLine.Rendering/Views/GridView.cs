@@ -119,9 +119,9 @@ namespace System.CommandLine.Rendering.Views
                 for (int column = 0; column < _columns.Count; column++)
                 {
                     if (
-                        ChildLocations[column, row] is View child
-                        && sizes[column, row].Width > 0
-                        && sizes[column, row].Height > 0
+                        ChildLocations[column, row] is View child &&
+                        sizes[column, row].Width > 0 &&
+                        sizes[column, row].Height > 0
                     ) {
                         child.Render(
                             renderer,
@@ -176,9 +176,9 @@ namespace System.CommandLine.Rendering.Views
                                 break;
                             case SizeMode.Star:
                                 measuredRows[rowIndex] = (int)Math.Round(
-                                    _rows[rowIndex].Value
-                                    / totalRowStarSize
-                                    * maxSize.Height
+                                    _rows[rowIndex].Value /
+                                    totalRowStarSize *
+                                    maxSize.Height
                                 );
                                 break;
                             case SizeMode.SizeToContent:
@@ -249,9 +249,9 @@ namespace System.CommandLine.Rendering.Views
                             }
                             int starWidth =
                                 (int)Math.Round(
-                                    column.Value
-                                    / totalColumnStarSize
-                                    * totalWidthForStarSizing.Value
+                                    column.Value /
+                                    totalColumnStarSize *
+                                    totalWidthForStarSizing.Value
                                 );
                             if (measuredColumns[columnIndex] < starWidth)
                             {
@@ -269,11 +269,8 @@ namespace System.CommandLine.Rendering.Views
                     if (_rows[rowIndex].SizeMode == SizeMode.SizeToContent)
                     {
                         if (
-                            childSize == null
-                            && ChildLocations[
-                                columnIndex,
-                                rowIndex
-                            ] is View child
+                            childSize == null &&
+                            ChildLocations[columnIndex, rowIndex] is View child
                         ) {
                             childSize = child.Measure(
                                 renderer,

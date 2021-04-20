@@ -27,7 +27,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_in_NonAnsi_mode_control_codes_within_FormattableStrings_are_not_rendered() {
+        public void When_in_NonAnsi_mode_control_codes_within_FormattableStrings_are_not_rendered()
+        {
             var writer = new ConsoleRenderer(_terminal, OutputMode.NonAnsi);
 
             writer.RenderToRegion(
@@ -43,7 +44,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_in_NonAnsi_mode_control_codes_within_tables_are_not_rendered() {
+        public void When_in_NonAnsi_mode_control_codes_within_tables_are_not_rendered()
+        {
             var writer = new ConsoleRenderer(_terminal, OutputMode.NonAnsi);
 
             new DirectoryView(
@@ -54,7 +56,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_in_File_mode_control_codes_within_FormattableStrings_are_not_rendered() {
+        public void When_in_File_mode_control_codes_within_FormattableStrings_are_not_rendered()
+        {
             var writer = new ConsoleRenderer(_terminal, OutputMode.PlainText);
 
             writer.RenderToRegion(
@@ -70,7 +73,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_in_File_mode_control_codes_within_tables_are_not_rendered() {
+        public void When_in_File_mode_control_codes_within_tables_are_not_rendered()
+        {
             var writer = new ConsoleRenderer(_terminal, OutputMode.PlainText);
 
             new DirectoryView(
@@ -81,7 +85,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_in_Ansi_mode_control_codes_within_FormattableStrings_are_rendered() {
+        public void When_in_Ansi_mode_control_codes_within_FormattableStrings_are_rendered()
+        {
             var writer = new ConsoleRenderer(_terminal, OutputMode.Ansi);
 
             writer.RenderToRegion(
@@ -125,7 +130,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_in_NonAnsi_mode_text_following_newline_within_an_unindented_region_appears_at_the_correct_left_position() {
+        public void When_in_NonAnsi_mode_text_following_newline_within_an_unindented_region_appears_at_the_correct_left_position()
+        {
             var writer = new ConsoleRenderer(_terminal, OutputMode.NonAnsi);
 
             var region = new Region(0, 0, 5, 2);
@@ -142,7 +148,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_in_Ansi_mode_text_following_newline_within_an_unindented_region_appears_at_the_correct_left_position() {
+        public void When_in_Ansi_mode_text_following_newline_within_an_unindented_region_appears_at_the_correct_left_position()
+        {
             var writer = new ConsoleRenderer(_terminal, OutputMode.Ansi);
 
             var region = new Region(0, 0, 5, 2);
@@ -157,7 +164,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_in_NonAnsi_mode_text_following_newline_within_an_indented_region_appears_at_the_correct_left_position() {
+        public void When_in_NonAnsi_mode_text_following_newline_within_an_indented_region_appears_at_the_correct_left_position()
+        {
             var writer = new ConsoleRenderer(_terminal, OutputMode.NonAnsi);
 
             var region = new Region(13, 17, 5, 2);
@@ -171,7 +179,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_in_Ansi_mode_text_following_newline_within_an_indented_region_appears_at_the_correct_left_position() {
+        public void When_in_Ansi_mode_text_following_newline_within_an_indented_region_appears_at_the_correct_left_position()
+        {
             var writer = new ConsoleRenderer(_terminal, OutputMode.Ansi);
 
             var region = new Region(5, 13, 5, 2);
@@ -215,7 +224,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void Text_styles_can_be_automatically_reset_after_render_operations_in_ANSI_mode() {
+        public void Text_styles_can_be_automatically_reset_after_render_operations_in_ANSI_mode()
+        {
             var renderer = new ConsoleRenderer(
                 _terminal,
                 OutputMode.Ansi,
@@ -236,7 +246,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void Text_styles_can_be_automatically_reset_after_render_operations_in_non_ANSI_mode() {
+        public void Text_styles_can_be_automatically_reset_after_render_operations_in_non_ANSI_mode()
+        {
             var renderer = new ConsoleRenderer(
                 _terminal,
                 OutputMode.NonAnsi,

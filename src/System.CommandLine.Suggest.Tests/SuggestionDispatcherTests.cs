@@ -66,7 +66,8 @@ namespace System.CommandLine.Suggest.Tests
         }
 
         [Fact]
-        public async Task InvokeAsync_executes_suggestion_command_for_executable() {
+        public async Task InvokeAsync_executes_suggestion_command_for_executable()
+        {
             string receivedTargetExeArgs = null;
 
             var args = PrepareArgs(
@@ -133,7 +134,8 @@ namespace System.CommandLine.Suggest.Tests
         }
 
         [Fact]
-        public async Task InvokeAsync_with_unknown_suggestion_provider_returns_empty_string() {
+        public async Task InvokeAsync_with_unknown_suggestion_provider_returns_empty_string()
+        {
             string[] args = Enumerable.ToArray(
                 (CommandLineStringSplitter.Instance.Split(
                     @"get -p 10 -e ""testcli.exe"" -- command op"
@@ -144,7 +146,8 @@ namespace System.CommandLine.Suggest.Tests
         }
 
         [Fact]
-        public async Task When_command_suggestions_use_process_that_remains_open_it_returns_empty_string() {
+        public async Task When_command_suggestions_use_process_that_remains_open_it_returns_empty_string()
+        {
             var provider = new TestSuggestionRegistration(
                 new Registration(CurrentExeFullPath())
             );

@@ -7,8 +7,8 @@ namespace System.CommandLine.Binding
     {
         private protected ArgumentConversionResult(IArgument argument)
         {
-            Argument = argument
-            ?? throw new ArgumentNullException(nameof(argument));
+            Argument = argument ??
+            throw new ArgumentNullException(nameof(argument));
         }
 
         public IArgument Argument { get; }

@@ -9,8 +9,8 @@ namespace System.CommandLine.Parsing
     {
         public Parser(CommandLineConfiguration configuration)
         {
-            Configuration = configuration
-            ?? throw new ArgumentNullException(nameof(configuration));
+            Configuration = configuration ??
+            throw new ArgumentNullException(nameof(configuration));
         }
 
         public Parser(params Symbol[] symbols)

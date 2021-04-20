@@ -17,7 +17,8 @@ namespace System.CommandLine.Rendering.Tests
         protected override ITerminal GetTerminal() => _terminal;
 
         [Fact]
-        public void When_CursorLeft_is_set_then_a_cursor_position_is_recorded() {
+        public void When_CursorLeft_is_set_then_a_cursor_position_is_recorded()
+        {
             var terminal = (TestTerminal)GetTerminal();
 
             terminal.CursorLeft = 19;
@@ -42,7 +43,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_in_ANSI_mode_and_ANSI_sequences_are_used_to_set_cursor_positions_then_a_CursorPositionChanged_events_is_recorded() {
+        public void When_in_ANSI_mode_and_ANSI_sequences_are_used_to_set_cursor_positions_then_a_CursorPositionChanged_events_is_recorded()
+        {
             var terminal = (TestTerminal)GetTerminal();
 
             terminal.IsAnsiTerminal = true;
@@ -60,7 +62,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_not_in_ANSI_mode_and_ANSI_sequences_are_used_to_set_cursor_positions_then_a_CursorPositionChanged_events_is_recorded() {
+        public void When_not_in_ANSI_mode_and_ANSI_sequences_are_used_to_set_cursor_positions_then_a_CursorPositionChanged_events_is_recorded()
+        {
             var terminal = (TestTerminal)GetTerminal();
 
             terminal.IsAnsiTerminal = false;
@@ -132,7 +135,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void When_in_ANSI_mode_then_ContentWritten_events_do_not_include_escape_sequences() {
+        public void When_in_ANSI_mode_then_ContentWritten_events_do_not_include_escape_sequences()
+        {
             var terminal = (TestTerminal)GetTerminal();
 
             var renderer = new ConsoleRenderer(terminal, OutputMode.Ansi);
@@ -147,8 +151,8 @@ namespace System.CommandLine.Rendering.Tests
             terminal.Events.Should()
                 .Contain(
                     e =>
-                        e is TestTerminal.ContentWritten
-                        && ((TestTerminal.ContentWritten)e).Content == "text"
+                        e is TestTerminal.ContentWritten &&
+                        ((TestTerminal.ContentWritten)e).Content == "text"
                 );
         }
     }

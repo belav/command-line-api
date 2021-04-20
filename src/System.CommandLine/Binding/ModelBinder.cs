@@ -15,8 +15,8 @@ namespace System.CommandLine.Binding
 
         internal ModelBinder(IValueDescriptor valueDescriptor)
         {
-            ValueDescriptor = valueDescriptor
-            ?? throw new ArgumentNullException(nameof(valueDescriptor));
+            ValueDescriptor = valueDescriptor ??
+            throw new ArgumentNullException(nameof(valueDescriptor));
             ModelDescriptor = ModelDescriptor.FromType(
                 valueDescriptor.ValueType
             );
@@ -133,16 +133,16 @@ namespace System.CommandLine.Binding
         private bool DisallowedBindingType()
         {
             var modelType = ModelDescriptor.ModelType;
-            return modelType.IsConstructedGenericTypeOf(typeof(Span<>))
-            || modelType.IsConstructedGenericTypeOf(typeof(ReadOnlySpan<>));
+            return modelType.IsConstructedGenericTypeOf(typeof(Span<>)) ||
+            modelType.IsConstructedGenericTypeOf(typeof(ReadOnlySpan<>));
         }
 
         private bool ShortCutTheBinding()
         {
             var modelType = ModelDescriptor.ModelType;
-            return modelType.IsPrimitive
-            || modelType.IsNullableValueType()
-            || modelType == typeof(string);
+            return modelType.IsPrimitive ||
+            modelType.IsNullableValueType() ||
+            modelType == typeof(string);
         }
 
         private (bool success, object? newInstance, bool anyNonDefaults) GetSimpleModelValue(
@@ -366,7 +366,7 @@ namespace System.CommandLine.Binding
             if (
                 valueDescriptor.ValueType != parentType
             ) // Recursive models aren't allowed
-             {
+            {
                 var binder = bindingContext.GetModelBinder(valueDescriptor);
                 var (
                     success,
@@ -389,8 +389,8 @@ namespace System.CommandLine.Binding
             if (includeMissingValues)
             {
                 if (
-                    valueDescriptor is ParameterDescriptor parameterDescriptor
-                    && parameterDescriptor.AllowsNull
+                    valueDescriptor is ParameterDescriptor parameterDescriptor &&
+                    parameterDescriptor.AllowsNull
                 ) {
                     return (
                         new BoundValue(
@@ -415,8 +415,9 @@ namespace System.CommandLine.Binding
 
             return ModelDescriptor.ConstructorDescriptors.FirstOrDefault(
                 ctorDesc =>
-                    ModelDescriptor.ModelType == constructorInfo.DeclaringType
-                    && ctorDesc.ParameterDescriptors.Any(
+                    ModelDescriptor.ModelType ==
+                    constructorInfo.DeclaringType &&
+                    ctorDesc.ParameterDescriptors.Any(
                         x =>
                             constructorParameters.Any(y => MatchParameter(x, y))
                     )
@@ -426,11 +427,11 @@ namespace System.CommandLine.Binding
                 ParameterDescriptor desc,
                 ParameterInfo info
             ) {
-                return desc.ValueType == info.ParameterType
-                && desc.ValueName == info.Name
-                && desc.HasDefaultValue == info.HasDefaultValue
-                && desc.AllowsNull
-                == ParameterDescriptor.CalculateAllowsNull(info);
+                return desc.ValueType == info.ParameterType &&
+                desc.ValueName == info.Name &&
+                desc.HasDefaultValue == info.HasDefaultValue &&
+                desc.AllowsNull ==
+                ParameterDescriptor.CalculateAllowsNull(info);
             }
         }
 
@@ -440,8 +441,8 @@ namespace System.CommandLine.Binding
         ) {
             return ModelDescriptor.PropertyDescriptors.FirstOrDefault(
                 desc =>
-                    desc.ValueType == propertyType
-                    && string.Equals(
+                    desc.ValueType == propertyType &&
+                    string.Equals(
                         desc.ValueName,
                         propertyName,
                         StringComparison.Ordinal

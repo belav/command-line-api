@@ -23,7 +23,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_an_option_accepts_only_specific_arguments_but_a_wrong_one_is_supplied_then_an_informative_error_is_returned() {
+        public void When_an_option_accepts_only_specific_arguments_but_a_wrong_one_is_supplied_then_an_informative_error_is_returned()
+        {
             var parser = new Parser(
                 new Option("-x", arity: ArgumentArity.ExactlyOne).FromAmong(
                     "this",
@@ -43,7 +44,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_an_option_has_en_error_then_the_error_has_a_reference_to_the_option() {
+        public void When_an_option_has_en_error_then_the_error_has_a_reference_to_the_option()
+        {
             var option = new Option(
                 "-x",
                 arity: ArgumentArity.ExactlyOne
@@ -59,7 +61,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_a_required_argument_is_not_supplied_then_an_error_is_returned() {
+        public void When_a_required_argument_is_not_supplied_then_an_error_is_returned()
+        {
             var parser = new Parser(
                 new Option("-x", arity: ArgumentArity.ExactlyOne)
             );
@@ -73,7 +76,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_a_required_option_is_not_supplied_then_an_error_is_returned() {
+        public void When_a_required_option_is_not_supplied_then_an_error_is_returned()
+        {
             var command = new Command(
                 "command"
             )
@@ -109,7 +113,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Required_options_on_parent_commands_do_not_create_parse_errors_when_an_inner_command_is_specified() {
+        public void Required_options_on_parent_commands_do_not_create_parse_errors_when_an_inner_command_is_specified()
+        {
             var child = new Command("child");
 
             var parent = new RootCommand
@@ -125,7 +130,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_no_option_accepts_arguments_but_one_is_supplied_then_an_error_is_returned() {
+        public void When_no_option_accepts_arguments_but_one_is_supplied_then_an_error_is_returned()
+        {
             var parser = new Parser(
                 new Command("the-command") { new Option("-x") }
             );
@@ -156,8 +162,8 @@ namespace System.CommandLine.Tests
                 commandResult =>
                 {
                     if (
-                        commandResult.Children.Contains("--one")
-                        && commandResult.Children.Contains("--two")
+                        commandResult.Children.Contains("--one") &&
+                        commandResult.Children.Contains("--two")
                     ) {
                         return "Options '--one' and '--two' cannot be used together.";
                     }
@@ -304,7 +310,8 @@ namespace System.CommandLine.Tests
         public class PathValidity
         {
             [Fact]
-            public void LegalFilePathsOnly_rejects_command_arguments_containing_invalid_path_characters() {
+            public void LegalFilePathsOnly_rejects_command_arguments_containing_invalid_path_characters()
+            {
                 var command = new Command(
                     "the-command"
                 )
@@ -320,14 +327,16 @@ namespace System.CommandLine.Tests
                 result.Errors.Should()
                     .Contain(
                         e =>
-                            e.SymbolResult.Symbol == command.Arguments.First()
-                            && e.Message
-                            == $"Character not allowed in a path: {invalidCharacter}"
+                            e.SymbolResult.Symbol ==
+                            command.Arguments.First() &&
+                            e.Message ==
+                            $"Character not allowed in a path: {invalidCharacter}"
                     );
             }
 
             [Fact]
-            public void LegalFilePathsOnly_rejects_option_arguments_containing_invalid_path_characters() {
+            public void LegalFilePathsOnly_rejects_option_arguments_containing_invalid_path_characters()
+            {
                 var command = new Command(
                     "the-command"
                 )
@@ -345,14 +354,15 @@ namespace System.CommandLine.Tests
                 result.Errors.Should()
                     .Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "x"
-                            && e.Message
-                            == $"Character not allowed in a path: {invalidCharacter}"
+                            e.SymbolResult.Symbol.Name == "x" &&
+                            e.Message ==
+                            $"Character not allowed in a path: {invalidCharacter}"
                     );
             }
 
             [Fact]
-            public void LegalFilePathsOnly_accepts_command_arguments_containing_valid_path_characters() {
+            public void LegalFilePathsOnly_accepts_command_arguments_containing_valid_path_characters()
+            {
                 var command = new Command(
                     "the-command"
                 )
@@ -374,7 +384,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void LegalFilePathsOnly_accepts_option_arguments_containing_valid_path_characters() {
+            public void LegalFilePathsOnly_accepts_option_arguments_containing_valid_path_characters()
+            {
                 var command = new Command(
                     "the-command"
                 )
@@ -399,7 +410,8 @@ namespace System.CommandLine.Tests
         public class FileNameValidity
         {
             [Fact]
-            public void LegalFileNamesOnly_rejects_command_arguments_containing_invalid_file_name_characters() {
+            public void LegalFileNamesOnly_rejects_command_arguments_containing_invalid_file_name_characters()
+            {
                 var command = new Command(
                     "the-command"
                 )
@@ -415,14 +427,16 @@ namespace System.CommandLine.Tests
                 result.Errors.Should()
                     .Contain(
                         e =>
-                            e.SymbolResult.Symbol == command.Arguments.First()
-                            && e.Message
-                            == $"Character not allowed in a file name: {invalidCharacter}"
+                            e.SymbolResult.Symbol ==
+                            command.Arguments.First() &&
+                            e.Message ==
+                            $"Character not allowed in a file name: {invalidCharacter}"
                     );
             }
 
             [Fact]
-            public void LegalFileNamesOnly_rejects_option_arguments_containing_invalid_file_name_characters() {
+            public void LegalFileNamesOnly_rejects_option_arguments_containing_invalid_file_name_characters()
+            {
                 var command = new Command(
                     "the-command"
                 )
@@ -440,14 +454,15 @@ namespace System.CommandLine.Tests
                 result.Errors.Should()
                     .Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "x"
-                            && e.Message
-                            == $"Character not allowed in a file name: {invalidCharacter}"
+                            e.SymbolResult.Symbol.Name == "x" &&
+                            e.Message ==
+                            $"Character not allowed in a file name: {invalidCharacter}"
                     );
             }
 
             [Fact]
-            public void LegalFileNamesOnly_accepts_command_arguments_containing_valid_file_name_characters() {
+            public void LegalFileNamesOnly_accepts_command_arguments_containing_valid_file_name_characters()
+            {
                 var command = new Command(
                     "the-command"
                 )
@@ -468,7 +483,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void LegalFileNamesOnly_accepts_option_arguments_containing_valid_file_name_characters() {
+            public void LegalFileNamesOnly_accepts_option_arguments_containing_valid_file_name_characters()
+            {
                 var command = new Command(
                     "the-command"
                 )
@@ -492,7 +508,8 @@ namespace System.CommandLine.Tests
         public class FileExistence
         {
             [Fact]
-            public void A_command_argument_can_be_invalid_based_on_file_existence() {
+            public void A_command_argument_can_be_invalid_based_on_file_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -507,13 +524,14 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message == $"File does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message == $"File does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void An_option_argument_can_be_invalid_based_on_file_existence() {
+            public void An_option_argument_can_be_invalid_based_on_file_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -528,13 +546,14 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message == $"File does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message == $"File does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void A_command_argument_can_be_invalid_based_on_directory_existence() {
+            public void A_command_argument_can_be_invalid_based_on_directory_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -549,13 +568,14 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message == $"Directory does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message == $"Directory does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void An_option_argument_can_be_invalid_based_on_directory_existence() {
+            public void An_option_argument_can_be_invalid_based_on_directory_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -570,13 +590,14 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message == $"Directory does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message == $"Directory does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void A_command_argument_can_be_invalid_based_on_file_or_directory_existence() {
+            public void A_command_argument_can_be_invalid_based_on_file_or_directory_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -591,14 +612,16 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol == command.Arguments.First()
-                            && e.Message
-                            == $"File or directory does not exist: {path}"
+                            e.SymbolResult.Symbol ==
+                            command.Arguments.First() &&
+                            e.Message ==
+                            $"File or directory does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void An_option_argument_can_be_invalid_based_on_file_or_directory_existence() {
+            public void An_option_argument_can_be_invalid_based_on_file_or_directory_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -613,14 +636,15 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message
-                            == $"File or directory does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message ==
+                            $"File or directory does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void A_command_argument_with_multiple_files_can_be_invalid_based_on_file_existence() {
+            public void A_command_argument_with_multiple_files_can_be_invalid_based_on_file_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -635,13 +659,14 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message == $"File does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message == $"File does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void An_option_argument_with_multiple_files_can_be_invalid_based_on_file_existence() {
+            public void An_option_argument_with_multiple_files_can_be_invalid_based_on_file_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -656,13 +681,14 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message == $"File does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message == $"File does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void A_command_argument_with_multiple_directories_can_be_invalid_based_on_directory_existence() {
+            public void A_command_argument_with_multiple_directories_can_be_invalid_based_on_directory_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -677,13 +703,14 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message == $"Directory does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message == $"Directory does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void An_option_argument_with_multiple_directories_can_be_invalid_based_on_directory_existence() {
+            public void An_option_argument_with_multiple_directories_can_be_invalid_based_on_directory_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -698,13 +725,14 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message == $"Directory does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message == $"Directory does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void A_command_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_file_existence() {
+            public void A_command_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_file_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -724,14 +752,15 @@ namespace System.CommandLine.Tests
                 result.Errors.Should()
                     .Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message
-                            == $"File or directory does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message ==
+                            $"File or directory does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void An_option_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_file_existence() {
+            public void An_option_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_file_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -745,14 +774,15 @@ namespace System.CommandLine.Tests
                 result.Errors.Should()
                     .Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message
-                            == $"File or directory does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message ==
+                            $"File or directory does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void A_command_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_directory_existence() {
+            public void A_command_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_directory_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -767,14 +797,15 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message
-                            == $"File or directory does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message ==
+                            $"File or directory does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void An_option_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_directory_existence() {
+            public void An_option_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_directory_existence()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -789,14 +820,15 @@ namespace System.CommandLine.Tests
                     .HaveCount(1)
                     .And.Contain(
                         e =>
-                            e.SymbolResult.Symbol.Name == "to"
-                            && e.Message
-                            == $"File or directory does not exist: {path}"
+                            e.SymbolResult.Symbol.Name == "to" &&
+                            e.Message ==
+                            $"File or directory does not exist: {path}"
                     );
             }
 
             [Fact]
-            public void Command_argument_does_not_return_errors_when_file_exists() {
+            public void Command_argument_does_not_return_errors_when_file_exists()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -811,7 +843,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Option_argument_does_not_return_errors_when_file_exists() {
+            public void Option_argument_does_not_return_errors_when_file_exists()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -826,7 +859,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Command_argument_does_not_return_errors_when_Directory_exists() {
+            public void Command_argument_does_not_return_errors_when_Directory_exists()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -841,7 +875,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void Option_argument_does_not_return_errors_when_Directory_exists() {
+            public void Option_argument_does_not_return_errors_when_Directory_exists()
+            {
                 var command = new Command(
                     "move"
                 )
@@ -874,7 +909,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void A_command_with_subcommands_is_invalid_to_invoke_if_it_has_no_handler() {
+        public void A_command_with_subcommands_is_invalid_to_invoke_if_it_has_no_handler()
+        {
             var outer = new Command("outer");
             var inner = new Command("inner");
             var innerer = new Command("inner-er");
@@ -888,8 +924,8 @@ namespace System.CommandLine.Tests
                     e =>
                         e.Message.Equals(
                             Resources.Instance.RequiredCommandWasNotProvided()
-                        )
-                        && e.SymbolResult.Symbol.Name.Equals("inner")
+                        ) &&
+                        e.SymbolResult.Symbol.Name.Equals("inner")
                 );
         }
 
@@ -907,13 +943,14 @@ namespace System.CommandLine.Tests
                     e =>
                         e.Message.Equals(
                             Resources.Instance.RequiredCommandWasNotProvided()
-                        )
-                        && e.SymbolResult.Symbol == rootCommand
+                        ) &&
+                        e.SymbolResult.Symbol == rootCommand
                 );
         }
 
         [Fact]
-        public void A_command_with_subcommands_is_valid_to_invoke_if_it_has_a_handler() {
+        public void A_command_with_subcommands_is_valid_to_invoke_if_it_has_a_handler()
+        {
             var outer = new Command("outer");
             var inner = new Command(
                 "inner"
@@ -932,7 +969,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_an_option_is_specified_more_than_once_but_only_allowed_once_then_an_informative_error_is_returned() {
+        public void When_an_option_is_specified_more_than_once_but_only_allowed_once_then_an_informative_error_is_returned()
+        {
             var parser = new Parser(
                 new Option("-x", arity: ArgumentArity.ExactlyOne)
             );
@@ -947,7 +985,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_arity_is_ExactlyOne_it_validates_against_extra_arguments() {
+        public void When_arity_is_ExactlyOne_it_validates_against_extra_arguments()
+        {
             var parser = new Parser(new Option<int>("-x"));
 
             var result = parser.Parse("-x 1 -x 2");
@@ -960,7 +999,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_an_option_has_a_default_value_it_is_not_valid_to_specify_the_option_without_an_argument() {
+        public void When_an_option_has_a_default_value_it_is_not_valid_to_specify_the_option_without_an_argument()
+        {
             var parser = new Parser(new Option<int>("-x", () => 123));
 
             var result = parser.Parse("-x");
@@ -971,7 +1011,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_an_option_has_a_default_value_then_the_default_should_apply_if_not_specified() {
+        public void When_an_option_has_a_default_value_then_the_default_should_apply_if_not_specified()
+        {
             var parser = new Parser(
                 new Option<int>("-x", () => 123),
                 new Option<int>("-y", () => 456)

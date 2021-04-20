@@ -275,8 +275,8 @@ namespace System.CommandLine.Rendering
         {
             public AnsiControlCodeWritten(AnsiControlCode ansiControlCode)
             {
-                Code = ansiControlCode
-                ?? throw new ArgumentNullException(nameof(ansiControlCode));
+                Code = ansiControlCode ??
+                throw new ArgumentNullException(nameof(ansiControlCode));
             }
 
             public AnsiControlCode Code { get; }

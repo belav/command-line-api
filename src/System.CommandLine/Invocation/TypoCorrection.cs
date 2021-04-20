@@ -149,8 +149,8 @@ namespace System.CommandLine.Invocation
                     int dist1 = rows[curRow][j] + 1;
                     int dist2 = rows[nextRow][j - 1] + 1;
                     int dist3 =
-                        rows[curRow][j - 1]
-                        + (first[i - 1].Equals(second[j - 1]) ? 0 : 1);
+                        rows[curRow][j - 1] +
+                        (first[i - 1].Equals(second[j - 1]) ? 0 : 1);
 
                     rows[nextRow][j] = Math.Min(dist1, Math.Min(dist2, dist3));
                 }

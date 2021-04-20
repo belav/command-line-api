@@ -13,7 +13,8 @@ namespace System.CommandLine.Tests
     public class ValidationMessageLocalizationTests
     {
         [Fact]
-        public void Default_validation_messages_can_be_replaced_in_order_to_add_localization_support() {
+        public void Default_validation_messages_can_be_replaced_in_order_to_add_localization_support()
+        {
             var messages = new FakeValidationMessages("the-message");
 
             var command = new Command(
@@ -36,7 +37,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Default_validation_messages_can_be_replaced_using_CommandLineBuilder_in_order_to_add_localization_support() {
+        public void Default_validation_messages_can_be_replaced_using_CommandLineBuilder_in_order_to_add_localization_support()
+        {
             var messages = new FakeValidationMessages("the-message");
 
             var parser = new CommandLineBuilder(
