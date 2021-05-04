@@ -49,7 +49,8 @@ namespace System.CommandLine.DragonFruit.Tests
         }
 
         [Fact]
-        public async Task It_shows_help_text_based_on_XML_documentation_comments() {
+        public async Task It_shows_help_text_based_on_XML_documentation_comments()
+        {
             int exitCode =
                 await CommandLine.InvokeMethodAsync(
                     new[] { "--help" },
@@ -73,7 +74,8 @@ namespace System.CommandLine.DragonFruit.Tests
         }
 
         [Fact]
-        public void It_synchronously_shows_help_text_based_on_XML_documentation_comments() {
+        public void It_synchronously_shows_help_text_based_on_XML_documentation_comments()
+        {
             int exitCode = CommandLine.InvokeMethod(
                 new[] { "--help" },
                 TestProgram.TestMainMethodInfo,
@@ -112,7 +114,8 @@ namespace System.CommandLine.DragonFruit.Tests
         }
 
         [Fact]
-        public void It_executes_method_synchronously_with_string_option_with_default() {
+        public void It_executes_method_synchronously_with_string_option_with_default()
+        {
             int exitCode = CommandLine.InvokeMethod(
                 Array.Empty<string>(),
                 TestProgram.TestMainMethodInfoWithDefault,

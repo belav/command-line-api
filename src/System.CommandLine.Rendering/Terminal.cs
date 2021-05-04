@@ -53,9 +53,9 @@
             ITerminal terminal;
 
             if (
-                preferVirtualTerminal
-                && VirtualTerminalMode.TryEnable() is VirtualTerminalMode virtualTerminalMode
-                && virtualTerminalMode.IsEnabled
+                preferVirtualTerminal &&
+                VirtualTerminalMode.TryEnable() is VirtualTerminalMode virtualTerminalMode &&
+                virtualTerminalMode.IsEnabled
             ) {
                 terminal = new VirtualTerminal(console, virtualTerminalMode);
             }

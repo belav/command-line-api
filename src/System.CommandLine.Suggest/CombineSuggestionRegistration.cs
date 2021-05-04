@@ -14,8 +14,8 @@ namespace System.CommandLine.Suggest
         public CombineSuggestionRegistration(
             params ISuggestionRegistration[] suggestionRegistration
         ) {
-            _suggestionRegistrations = suggestionRegistration
-            ?? throw new ArgumentNullException(nameof(suggestionRegistration));
+            _suggestionRegistrations = suggestionRegistration ??
+            throw new ArgumentNullException(nameof(suggestionRegistration));
         }
 
         public void AddSuggestionRegistration(Registration registration)

@@ -21,8 +21,8 @@ namespace System.CommandLine.Help
 
         public HelpBuilder(IConsole console, int maxWidth = int.MaxValue)
         {
-            Console = console
-            ?? throw new ArgumentNullException(nameof(console));
+            Console = console ??
+            throw new ArgumentNullException(nameof(console));
             if (maxWidth <= 0)
                 throw new ArgumentOutOfRangeException(
                     nameof(maxWidth),
@@ -260,8 +260,8 @@ namespace System.CommandLine.Help
                         continue;
                     }
 
-                    var arityIndicator = argument.Arity.MaximumNumberOfValues
-                        > 1
+                    var arityIndicator = argument.Arity.MaximumNumberOfValues >
+                        1
                         ? "..."
                         : "";
 
@@ -305,8 +305,8 @@ namespace System.CommandLine.Help
                 argument is Argument a && a.Parents.Count > 1;
 
             bool IsOptional(IArgument argument) =>
-                IsMultiParented(argument)
-                || argument.Arity.MinimumNumberOfValues == 0;
+                IsMultiParented(argument) ||
+                argument.Arity.MinimumNumberOfValues == 0;
         }
 
         protected void RenderAsColumns(params HelpItem[] items)
@@ -320,11 +320,11 @@ namespace System.CommandLine.Help
                 .Max();
 
             if (
-                firstColumnWidth
-                + secondColumnWidth
-                + Indent.Length
-                + Indent.Length
-                > windowWidth
+                firstColumnWidth +
+                secondColumnWidth +
+                Indent.Length +
+                Indent.Length >
+                windowWidth
             ) {
                 int firstColumnMaxWidth = windowWidth / 2 - Indent.Length;
                 if (firstColumnWidth > firstColumnMaxWidth)
@@ -336,10 +336,10 @@ namespace System.CommandLine.Help
                         )
                         .Max();
                 }
-                secondColumnWidth = windowWidth
-                - firstColumnWidth
-                - Indent.Length
-                - Indent.Length;
+                secondColumnWidth = windowWidth -
+                firstColumnWidth -
+                Indent.Length -
+                Indent.Length;
             }
 
             foreach (var (descriptor, description) in items)
@@ -382,8 +382,8 @@ namespace System.CommandLine.Help
                 bool hasFirst = false,
                     hasSecond = false;
                 while (
-                    (hasFirst = enum1.MoveNext())
-                    | (hasSecond = enum2.MoveNext())
+                    (hasFirst = enum1.MoveNext()) |
+                    (hasSecond = enum2.MoveNext())
                 ) {
                     yield return (
                         hasFirst ? enum1.Current : "",
@@ -452,8 +452,8 @@ namespace System.CommandLine.Help
                 Customizations.TryGetValue(
                     symbol,
                     out Customization customization
-                )
-                && customization.GetDescriptor?.Invoke() is  {  } setDescriptor
+                ) &&
+                customization.GetDescriptor?.Invoke() is  {  } setDescriptor
             ) {
                 descriptor = setDescriptor;
             }
@@ -543,14 +543,14 @@ namespace System.CommandLine.Help
                 Customizations.TryGetValue(
                     parent,
                     out Customization customization
-                )
-                && customization.GetDefaultValue?.Invoke() is  {  } parentSetDefaultValue
+                ) &&
+                customization.GetDefaultValue?.Invoke() is  {  } parentSetDefaultValue
             ) {
                 defaultValue = parentSetDefaultValue;
             }
             else if (
-                Customizations.TryGetValue(argument, out customization)
-                && customization.GetDefaultValue?.Invoke() is  {  } setDefaultValue
+                Customizations.TryGetValue(argument, out customization) &&
+                customization.GetDefaultValue?.Invoke() is  {  } setDefaultValue
             ) {
                 defaultValue = setDefaultValue;
             }
@@ -558,8 +558,8 @@ namespace System.CommandLine.Help
             {
                 object? argumentDefaultValue = argument.GetDefaultValue();
                 if (
-                    argumentDefaultValue is IEnumerable enumerable
-                    && !(argumentDefaultValue is string)
+                    argumentDefaultValue is IEnumerable enumerable &&
+                    !(argumentDefaultValue is string)
                 ) {
                     defaultValue = string.Join(
                         "|",
@@ -585,15 +585,15 @@ namespace System.CommandLine.Help
                 Customizations.TryGetValue(
                     argument,
                     out Customization customization
-                )
-                && customization.GetDescriptor?.Invoke() is  {  } setDescriptor
+                ) &&
+                customization.GetDescriptor?.Invoke() is  {  } setDescriptor
             ) {
                 return setDescriptor;
             }
 
             if (
-                argument.ValueType == typeof(bool)
-                || argument.ValueType == typeof(bool?)
+                argument.ValueType == typeof(bool) ||
+                argument.ValueType == typeof(bool?)
             ) {
                 return "";
             }

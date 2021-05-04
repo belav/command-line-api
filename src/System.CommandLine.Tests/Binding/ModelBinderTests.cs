@@ -109,7 +109,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Explicitly_configured_default_values_can_be_bound_by_name_to_constructor_parameters() {
+        public void Explicitly_configured_default_values_can_be_bound_by_name_to_constructor_parameters()
+        {
             var option = new Option<string>(
                 "--string-option",
                 () => "the default"
@@ -193,7 +194,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Types_having_constructors_accepting_a_single_string_are_bound_using_the_handler_parameter_name() {
+        public void Types_having_constructors_accepting_a_single_string_are_bound_using_the_handler_parameter_name()
+        {
             var tempPath = Path.GetTempPath();
 
             var option = new Option<DirectoryInfo>("--value");
@@ -216,7 +218,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Explicitly_configured_default_values_can_be_bound_by_name_to_property_setters() {
+        public void Explicitly_configured_default_values_can_be_bound_by_name_to_property_setters()
+        {
             var option = new Option<string>("--value", () => "the default");
 
             var command = new Command("the-command");
@@ -233,7 +236,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Property_setters_with_no_default_value_and_no_matching_option_are_not_called() {
+        public void Property_setters_with_no_default_value_and_no_matching_option_are_not_called()
+        {
             var command = new Command(
                 "the-command"
             )
@@ -257,7 +261,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Parse_result_can_be_used_to_create_an_instance_without_doing_handler_invocation() {
+        public void Parse_result_can_be_used_to_create_an_instance_without_doing_handler_invocation()
+        {
             var parser = new Parser(
                 new Command("the-command") { new Option<int>("--int-option") }
             );
@@ -275,7 +280,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Parse_result_can_be_used_to_modify_an_existing_instance_without_doing_handler_invocation() {
+        public void Parse_result_can_be_used_to_modify_an_existing_instance_without_doing_handler_invocation()
+        {
             var parser = new Parser(
                 new Command("the-command") { new Option<int>("--int-option") }
             );
@@ -291,7 +297,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Values_from_options_on_parent_commands_are_bound_by_name_by_default() {
+        public void Values_from_options_on_parent_commands_are_bound_by_name_by_default()
+        {
             var parentCommand = new Command(
                 "parent-command"
             )
@@ -317,7 +324,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Default_values_from_options_on_parent_commands_are_bound_by_name_by_default() {
+        public void Default_values_from_options_on_parent_commands_are_bound_by_name_by_default()
+        {
             var parentCommand = new Command(
                 "parent-command"
             )
@@ -343,7 +351,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Values_from_parent_command_arguments_are_bound_by_name_by_default() {
+        public void Values_from_parent_command_arguments_are_bound_by_name_by_default()
+        {
             var parentCommand = new Command(
                 "parent-command"
             )
@@ -372,7 +381,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Default_values_from_parent_command_arguments_are_bound_by_name_by_default() {
+        public void Default_values_from_parent_command_arguments_are_bound_by_name_by_default()
+        {
             var parentCommand = new Command(
                 "parent-command"
             )
@@ -403,7 +413,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Values_from_options_on_parent_commands_can_be_bound_regardless_of_naming() {
+        public void Values_from_options_on_parent_commands_can_be_bound_regardless_of_naming()
+        {
             var childCommand = new Command("child-command");
             var option = new Option<int>("-x");
             var parentCommand = new Command(
@@ -594,7 +605,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Explicit_model_binder_binds_only_to_configured_properties() {
+        public void Explicit_model_binder_binds_only_to_configured_properties()
+        {
             var intOption = new Option<int>("--int-property");
             var stringOption = new Option<string>("--string-property");
             var parser = new Parser(intOption, stringOption);
@@ -608,8 +620,8 @@ namespace System.CommandLine.Tests.Binding
             };
             binder.BindMemberFromValue(obj => obj.IntOption, intOption);
             var instance =
-                binder.CreateInstance(bindingContext)
-                as ClassWithMultiLetterSetters;
+                binder.CreateInstance(bindingContext) as
+                ClassWithMultiLetterSetters;
 
             instance.Should().NotBeNull();
             instance.IntOption.Should().Be(42);
@@ -617,7 +629,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Explicit_model_binder_binds_only_to_configured_ctor_parameters() {
+        public void Explicit_model_binder_binds_only_to_configured_ctor_parameters()
+        {
             var intOption = new Option<int>("-a");
             var stringOption = new Option<string>("-b");
             var parser = new Parser(intOption, stringOption);
@@ -636,8 +649,8 @@ namespace System.CommandLine.Tests.Binding
             };
             binder.BindConstructorArgumentFromValue(paramInfo, intOption);
             var instance =
-                binder.CreateInstance(bindingContext)
-                as ClassWithMultiLetterCtorParameters;
+                binder.CreateInstance(bindingContext) as
+                ClassWithMultiLetterCtorParameters;
 
             instance.Should().NotBeNull();
             instance.IntOption.Should().Be(42);
@@ -645,7 +658,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public async Task Bound_array_command_arguments_default_to_an_empty_array_when_not_specified() {
+        public async Task Bound_array_command_arguments_default_to_an_empty_array_when_not_specified()
+        {
             var rootCommand = new RootCommand(
                 "Command"
             )
@@ -666,7 +680,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public async Task Bound_enumerable_command_arguments_default_to_an_empty_array_when_not_specified() {
+        public async Task Bound_enumerable_command_arguments_default_to_an_empty_array_when_not_specified()
+        {
             var rootCommand = new RootCommand(
                 "Command"
             )
@@ -689,7 +704,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public async Task Bound_array_options_default_to_an_empty_array_when_not_specified() {
+        public async Task Bound_array_options_default_to_an_empty_array_when_not_specified()
+        {
             var rootCommand = new RootCommand(
                 "Command"
             )
@@ -710,7 +726,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public async Task Bound_enumerable_options_default_to_an_empty_array_when_not_specified() {
+        public async Task Bound_enumerable_options_default_to_an_empty_array_when_not_specified()
+        {
             var rootCommand = new RootCommand(
                 "Command"
             )
@@ -733,7 +750,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Custom_ModelBinders_specified_via_BindingContext_can_be_used_for_option_binding() {
+        public void Custom_ModelBinders_specified_via_BindingContext_can_be_used_for_option_binding()
+        {
             ClassWithSetter<int> boundInstance = null;
 
             var rootCommand = new RootCommand { new Option<int>("--value") };
@@ -763,7 +781,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Custom_ModelBinders_specified_via_BindingContext_can_be_used_for_command_argument_binding() {
+        public void Custom_ModelBinders_specified_via_BindingContext_can_be_used_for_command_argument_binding()
+        {
             ClassWithSetter<int> boundInstance = null;
 
             var rootCommand = new RootCommand { new Argument<int>() };
@@ -793,7 +812,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void Default_values_from_options_with_the_same_type_are_bound_and_use_their_own_defaults() {
+        public void Default_values_from_options_with_the_same_type_are_bound_and_use_their_own_defaults()
+        {
             int first = 0,
                 second = 0;
 
@@ -839,7 +859,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public async Task Empty_input_is_bound_correctly_to_list_type_properties() {
+        public async Task Empty_input_is_bound_correctly_to_list_type_properties()
+        {
             ClassWithListTypePropertiesAndDefaultCtor boundInstance = default;
 
             var cmd = new RootCommand

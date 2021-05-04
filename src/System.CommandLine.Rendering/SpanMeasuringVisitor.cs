@@ -43,10 +43,10 @@ namespace System.CommandLine.Rendering
 
             // if text from the previous line was not truncated because the word was separated by an ANSI code, it should be truncated
             var skipWordRemainderFromPreviousLine =
-                !_LastSpanEndedWithWhitespace
-                && PositionOnLine == 0
-                && LinesWritten > 0
-                && !text.StartsWithWhitespace();
+                !_LastSpanEndedWithWhitespace &&
+                PositionOnLine == 0 &&
+                LinesWritten > 0 &&
+                !text.StartsWithWhitespace();
 
             foreach (var word in text.SplitForWrapping())
             {
@@ -94,9 +94,9 @@ namespace System.CommandLine.Rendering
         private bool TryAppendWord(string value)
         {
             if (
-                PositionOnLine == 0
-                && string.IsNullOrWhiteSpace(value)
-                && LinesWritten > 0
+                PositionOnLine == 0 &&
+                string.IsNullOrWhiteSpace(value) &&
+                LinesWritten > 0
             ) {
                 // omit whitespace if it's at the beginning of the line
                 return true;

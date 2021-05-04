@@ -56,8 +56,8 @@ namespace System.CommandLine.Parsing
         protected internal Resources ValidationMessages
         {
             get =>
-                _validationMessages ??= Parent?.ValidationMessages
-                ?? Resources.Instance;
+                _validationMessages ??= Parent?.ValidationMessages ??
+                Resources.Instance;
             set => _validationMessages = value;
         }
 

@@ -14,7 +14,8 @@ namespace System.CommandLine.Tests
     public class UseParseErrorReportingTests
     {
         [Fact] // https://github.com/dotnet/command-line-api/issues/817
-        public void Parse_error_reporting_reports_error_when_help_is_used_and_required_subcommand_is_missing() {
+        public void Parse_error_reporting_reports_error_when_help_is_used_and_required_subcommand_is_missing()
+        {
             var root = new RootCommand { new Command("inner") };
 
             var parser = new CommandLineBuilder(root).UseParseErrorReporting()

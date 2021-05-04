@@ -50,12 +50,11 @@ namespace System.CommandLine.Rendering
             static ConsoleFormatInfo GetProviderNonNull(
                 IFormatProvider provider
             ) {
-                return provider
-                as ConsoleFormatInfo
-                ?? // Fast path for an CFI
-                provider.GetFormat(typeof(ConsoleFormatInfo))
-                as ConsoleFormatInfo
-                ?? CurrentInfo;
+                return provider as
+                ConsoleFormatInfo ?? // Fast path for an CFI
+                provider.GetFormat(typeof(ConsoleFormatInfo)) as
+                ConsoleFormatInfo ??
+                CurrentInfo;
             }
         }
 
@@ -105,8 +104,8 @@ namespace System.CommandLine.Rendering
                 return false;
             }
 
-            return (consoleMode & Interop.ENABLE_VIRTUAL_TERMINAL_PROCESSING)
-            == Interop.ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+            return (consoleMode & Interop.ENABLE_VIRTUAL_TERMINAL_PROCESSING) ==
+            Interop.ENABLE_VIRTUAL_TERMINAL_PROCESSING;
         }
 
         private void VerifyWritable()

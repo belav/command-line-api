@@ -84,26 +84,23 @@ namespace System.CommandLine
                         foreach (var alias in identifier.Aliases)
                         {
                             if (
-                                alias is  {  } suggestion
-                                && suggestion.ContainsCaseInsensitive(
-                                    textToMatch
-                                )
+                                alias is  {  } suggestion &&
+                                suggestion.ContainsCaseInsensitive(textToMatch)
                             ) {
                                 suggestions.Add(suggestion);
                             }
                         }
                         break;
                     case IArgument argument:
-                        foreach (var suggestion in argument.GetSuggestions(
-                            parseResult,
-                            textToMatch
-                        )
+                        foreach (
+                            var suggestion in argument.GetSuggestions(
+                                parseResult,
+                                textToMatch
+                            )
                         ) {
                             if (
-                                suggestion is  {  }
-                                && suggestion.ContainsCaseInsensitive(
-                                    textToMatch
-                                )
+                                suggestion is  {  }  &&
+                                suggestion.ContainsCaseInsensitive(textToMatch)
                             ) {
                                 suggestions.Add(suggestion);
                             }

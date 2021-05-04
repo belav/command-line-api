@@ -136,7 +136,8 @@ namespace System.CommandLine.Tests
             }
 
             [Fact]
-            public void An_option_can_have_multiple_parents_with_the_same_name() {
+            public void An_option_can_have_multiple_parents_with_the_same_name()
+            {
                 var option = new Option<string>("--the-option");
 
                 var sprocket = new Command(

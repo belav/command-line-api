@@ -12,8 +12,8 @@ namespace System.CommandLine.Rendering
         public NonAnsiRenderingSpanVisitor(ITerminal terminal, Region region)
             : base(terminal?.Out, region)
         {
-            Terminal = terminal
-            ?? throw new ArgumentNullException(nameof(terminal));
+            Terminal = terminal ??
+            throw new ArgumentNullException(nameof(terminal));
         }
 
         protected override void SetCursorPosition(
@@ -38,11 +38,8 @@ namespace System.CommandLine.Rendering
             ForegroundColorSpan span
         ) {
             if (
-                span.RgbColor == null
-                && _foregroundColorMappings.TryGetValue(
-                    span.Name,
-                    out var color
-                )
+                span.RgbColor == null &&
+                _foregroundColorMappings.TryGetValue(span.Name, out var color)
             ) {
                 Terminal.ForegroundColor = color;
             }
@@ -58,11 +55,8 @@ namespace System.CommandLine.Rendering
             BackgroundColorSpan span
         ) {
             if (
-                span.RgbColor == null
-                && _backgroundColorMappings.TryGetValue(
-                    span.Name,
-                    out var color
-                )
+                span.RgbColor == null &&
+                _backgroundColorMappings.TryGetValue(span.Name, out var color)
             ) {
                 Terminal.BackgroundColor = color;
             }

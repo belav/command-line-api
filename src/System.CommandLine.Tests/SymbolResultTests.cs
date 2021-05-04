@@ -10,7 +10,8 @@ namespace System.CommandLine.Tests
     public class SymbolResultTests
     {
         [Fact]
-        public void An_option_with_a_default_value_and_no_explicitly_provided_argument_has_an_empty_arguments_property() {
+        public void An_option_with_a_default_value_and_no_explicitly_provided_argument_has_an_empty_arguments_property()
+        {
             var option = new Option<string>("-x", () => "default");
 
             var result = new RootCommand { option }.Parse("-x")
@@ -35,7 +36,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void HasOption_can_be_used_to_check_the_presence_of_an_implicit_option() {
+        public void HasOption_can_be_used_to_check_the_presence_of_an_implicit_option()
+        {
             var command = new Command(
                 "the-command"
             )
@@ -49,7 +51,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Command_will_not_accept_a_command_if_a_sibling_command_has_already_been_accepted() {
+        public void Command_will_not_accept_a_command_if_a_sibling_command_has_already_been_accepted()
+        {
             var command = new Command(
                 "outer"
             )

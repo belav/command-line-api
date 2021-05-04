@@ -122,7 +122,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Views_created_from_an_observable_can_be_updated_by_the_observable() {
+        public void Views_created_from_an_observable_can_be_updated_by_the_observable()
+        {
             var observable = new TestObservable();
             var view = ContentView.FromObservable(observable);
             var isViewUpdated = false;

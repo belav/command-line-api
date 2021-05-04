@@ -31,8 +31,8 @@ namespace System.CommandLine
                 new[] { alias },
                 description,
                 new Argument<T>(
-                    parseArgument
-                    ?? throw new ArgumentNullException(nameof(parseArgument)),
+                    parseArgument ??
+                    throw new ArgumentNullException(nameof(parseArgument)),
                     isDefault
                 )
             ) { }
@@ -47,8 +47,8 @@ namespace System.CommandLine
                 aliases,
                 description,
                 new Argument<T>(
-                    parseArgument
-                    ?? throw new ArgumentNullException(nameof(parseArgument)),
+                    parseArgument ??
+                    throw new ArgumentNullException(nameof(parseArgument)),
                     isDefault
                 )
             ) { }
@@ -62,8 +62,8 @@ namespace System.CommandLine
                 new[] { alias },
                 description,
                 new Argument<T>(
-                    getDefaultValue
-                    ?? throw new ArgumentNullException(nameof(getDefaultValue))
+                    getDefaultValue ??
+                    throw new ArgumentNullException(nameof(getDefaultValue))
                 )
             ) { }
 
@@ -76,8 +76,8 @@ namespace System.CommandLine
                 aliases,
                 description,
                 new Argument<T>(
-                    getDefaultValue
-                    ?? throw new ArgumentNullException(nameof(getDefaultValue))
+                    getDefaultValue ??
+                    throw new ArgumentNullException(nameof(getDefaultValue))
                 )
             ) { }
     }

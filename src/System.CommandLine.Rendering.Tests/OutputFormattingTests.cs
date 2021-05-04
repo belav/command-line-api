@@ -29,7 +29,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void Output_can_be_formatted_based_on_type_specific_formatters() {
+        public void Output_can_be_formatted_based_on_type_specific_formatters()
+        {
             _renderer.Formatter.AddFormatter<TimeSpan>(
                 ts => $"{ts.TotalSeconds} seconds"
             );
@@ -64,7 +65,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void FormattableString_can_contain_format_strings_that_reformat_the_input_value() {
+        public void FormattableString_can_contain_format_strings_that_reformat_the_input_value()
+        {
             _renderer.Formatter.AddFormatter<DateTime>(
                 d =>
                     $"{d:d} {Color.Foreground.DarkGray.EscapeSequence}{d:t}{Color.Foreground.Default.EscapeSequence}"

@@ -127,9 +127,9 @@ namespace System.CommandLine.Parsing
                 }
 
                 var child =
-                    ParseSubcommand(parent)
-                    ?? (SyntaxNode?)ParseOption(parent)
-                    ?? ParseCommandArgument(parent);
+                    ParseSubcommand(parent) ??
+                    (SyntaxNode?)ParseOption(parent) ??
+                    ParseCommandArgument(parent);
 
                 if (child is null)
                 {
@@ -156,8 +156,8 @@ namespace System.CommandLine.Parsing
             for (var i = 0; i < commandNode.Command.Arguments.Count; i++)
             {
                 if (
-                    commandNode.Command.Arguments[i] is  {  } arg
-                    && !IsFull(arg)
+                    commandNode.Command.Arguments[i] is  {  } arg &&
+                    !IsFull(arg)
                 ) {
                     argument = arg;
                     break;
@@ -214,9 +214,9 @@ namespace System.CommandLine.Parsing
             var continueProcessing = true;
 
             while (
-                More()
-                && CurrentToken.Type == TokenType.Argument
-                && continueProcessing
+                More() &&
+                CurrentToken.Type == TokenType.Argument &&
+                continueProcessing
             ) {
                 if (IsFull(argument))
                 {
@@ -237,8 +237,8 @@ namespace System.CommandLine.Parsing
                             argument,
                             argument.ValueType,
                             CurrentToken.Value
-                        )
-                        is FailedArgumentTypeConversionResult
+                        ) is
+                        FailedArgumentTypeConversionResult
                     ) {
                         return;
                     }

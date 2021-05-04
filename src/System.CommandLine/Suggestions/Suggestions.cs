@@ -15,8 +15,8 @@ namespace System.CommandLine.Suggestions
             foreach (var candidate in candidates)
             {
                 if (
-                    candidate is  {  }
-                    && candidate.ContainsCaseInsensitive(textToMatch)
+                    candidate is  {  }  &&
+                    candidate.ContainsCaseInsensitive(textToMatch)
                 ) {
                     yield return candidate;
                 }

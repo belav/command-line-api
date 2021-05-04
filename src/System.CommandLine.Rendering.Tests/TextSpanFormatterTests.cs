@@ -18,7 +18,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void A_simple_formattable_string_can_be_converted_to_a_ContentSpan() {
+        public void A_simple_formattable_string_can_be_converted_to_a_ContentSpan()
+        {
             var span = new TextSpanFormatter().ParseToSpan($"some text");
 
             span.Should()
@@ -28,7 +29,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void A_formattable_string_containing_ansi_codes_can_be_converted_to_a_ContainerSpan() {
+        public void A_formattable_string_containing_ansi_codes_can_be_converted_to_a_ContainerSpan()
+        {
             var span = new TextSpanFormatter().ParseToSpan(
                 $"some {StyleSpan.BlinkOn()}blinking{StyleSpan.BlinkOff()} text"
             );
@@ -147,7 +149,8 @@ namespace System.CommandLine.Rendering.Tests
             span.Should().Be(TextSpan.Empty());
         }
 
-        public static IEnumerable<object[]> FormattableStringsWithFormatStrings() {
+        public static IEnumerable<object[]> FormattableStringsWithFormatStrings()
+        {
             var date = DateTime.Now;
 
             yield return Create($"{{ {date:dd/MM/yyyy}", 2);

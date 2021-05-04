@@ -135,10 +135,10 @@ namespace System.CommandLine.Rendering.Views
                 ColumnDefinition columnDefinition
             ) {
                 Header = header;
-                ColumnDefinition = columnDefinition
-                ?? throw new ArgumentNullException(nameof(columnDefinition));
-                _cellValue = cellValue
-                ?? throw new ArgumentNullException(nameof(cellValue));
+                ColumnDefinition = columnDefinition ??
+                throw new ArgumentNullException(nameof(columnDefinition));
+                _cellValue = cellValue ??
+                throw new ArgumentNullException(nameof(cellValue));
             }
 
             public View GetCell(TItem item, TextSpanFormatter formatter)

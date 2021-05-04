@@ -22,8 +22,8 @@ namespace System.CommandLine.Binding
 
             // when the return type of the expression is a value type, it contains a call to Convert, resulting in boxing, so we get a UnaryExpression instead
             if (
-                expression.Body is UnaryExpression unaryExpression
-                && unaryExpression.Operand is MemberExpression operandMemberExpression
+                expression.Body is UnaryExpression unaryExpression &&
+                unaryExpression.Operand is MemberExpression operandMemberExpression
             ) {
                 return TypeAndName(operandMemberExpression);
             }

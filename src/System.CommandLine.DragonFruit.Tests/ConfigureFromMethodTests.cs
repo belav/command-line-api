@@ -24,7 +24,8 @@ namespace System.CommandLine.DragonFruit.Tests
         private readonly TestConsole _testConsole = new TestConsole();
 
         [Fact]
-        public async Task Generated_boolean_parameters_will_accept_zero_arguments() {
+        public async Task Generated_boolean_parameters_will_accept_zero_arguments()
+        {
             var parser = new CommandLineBuilder().ConfigureRootCommandFromMethod(
                     GetMethodInfo(nameof(Method_taking_bool)),
                     this
@@ -62,7 +63,8 @@ namespace System.CommandLine.DragonFruit.Tests
         }
 
         [Fact]
-        public async Task Single_character_parameters_generate_aliases_that_accept_a_single_dash_prefix() {
+        public async Task Single_character_parameters_generate_aliases_that_accept_a_single_dash_prefix()
+        {
             var parser = new CommandLineBuilder().ConfigureRootCommandFromMethod(
                     GetMethodInfo(nameof(Method_with_single_letter_parameters)),
                     this
@@ -215,7 +217,8 @@ namespace System.CommandLine.DragonFruit.Tests
         }
 
         [Fact]
-        public async Task When_method_returns_int_then_return_code_is_set_to_return_value() {
+        public async Task When_method_returns_int_then_return_code_is_set_to_return_value()
+        {
             var parser = new CommandLineBuilder().ConfigureRootCommandFromMethod(
                     GetMethodInfo(nameof(Method_returning_int)),
                     this
@@ -228,7 +231,8 @@ namespace System.CommandLine.DragonFruit.Tests
         }
 
         [Fact]
-        public async Task When_method_returns_Task_of_int_then_return_code_is_set_to_return_value() {
+        public async Task When_method_returns_Task_of_int_then_return_code_is_set_to_return_value()
+        {
             var parser = new CommandLineBuilder().ConfigureRootCommandFromMethod(
                     GetMethodInfo(nameof(Method_returning_Task_of_int)),
                     this
@@ -263,7 +267,8 @@ namespace System.CommandLine.DragonFruit.Tests
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_member_method_are_bound_to_matching_option_names_by_MethodInfo_with_target() {
+        public async Task Method_parameters_on_the_invoked_member_method_are_bound_to_matching_option_names_by_MethodInfo_with_target()
+        {
             var command = new Command("test");
             command.ConfigureFromMethod(
                 GetMethodInfo(nameof(Method_taking_bool)),
@@ -276,7 +281,8 @@ namespace System.CommandLine.DragonFruit.Tests
         }
 
         [Fact]
-        public async Task Method_with_multiple_parameters_with_default_values_are_resolved_correctly() {
+        public async Task Method_with_multiple_parameters_with_default_values_are_resolved_correctly()
+        {
             var command = new Command("test");
             command.ConfigureFromMethod(
                 GetMethodInfo(nameof(Method_with_multiple_default_values)),
@@ -369,9 +375,9 @@ namespace System.CommandLine.DragonFruit.Tests
         private MethodInfo GetMethodInfo(string name)
         {
             return typeof(ConfigureFromMethodTests).GetMethods(
-                    BindingFlags.Public
-                    | BindingFlags.NonPublic
-                    | BindingFlags.Instance
+                    BindingFlags.Public |
+                    BindingFlags.NonPublic |
+                    BindingFlags.Instance
                 )
                 .Single(m => m.Name == name);
         }

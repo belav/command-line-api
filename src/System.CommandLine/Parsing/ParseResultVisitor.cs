@@ -223,8 +223,8 @@ namespace System.CommandLine.Parsing
                     ValidateAndConvertArgumentResult(argumentResult);
 
                     if (
-                        argumentResult.PassedOnTokens is  {  }
-                        && i == arguments.Count - 1
+                        argumentResult.PassedOnTokens is  {  }  &&
+                        i == arguments.Count - 1
                     ) {
                         _unparsedTokens.AddRange(argumentResult.PassedOnTokens);
                     }
@@ -260,9 +260,9 @@ namespace System.CommandLine.Parsing
                 var option = options[i];
 
                 if (
-                    option is Option o
-                    && o.IsRequired
-                    && _rootCommandResult!.FindResultFor(o) is null
+                    option is Option o &&
+                    o.IsRequired &&
+                    _rootCommandResult!.FindResultFor(o) is null
                 ) {
                     _errors.Add(
                         new ParseError(
@@ -301,8 +301,8 @@ namespace System.CommandLine.Parsing
         private void ValidateCommandHandler()
         {
             if (
-                !(_innermostCommandResult!.Command is Command cmd)
-                || cmd.Handler != null
+                !(_innermostCommandResult!.Command is Command cmd) ||
+                cmd.Handler != null
             ) {
                 return;
             }
@@ -369,8 +369,10 @@ namespace System.CommandLine.Parsing
             if (argumentResult.Argument is Argument argument)
             {
                 var parseError =
-                    argumentResult.Parent?.UnrecognizedArgumentError(argument)
-                    ?? argumentResult.CustomError(argument);
+                    argumentResult.Parent?.UnrecognizedArgumentError(
+                        argument
+                    ) ??
+                    argumentResult.CustomError(argument);
 
                 if (parseError != null)
                 {
@@ -439,9 +441,9 @@ namespace System.CommandLine.Parsing
                     }
 
                     if (
-                        symbolResult is OptionResult o
-                        && o.Option.Argument.ValueType == typeof(bool)
-                        && o.Children.Count == 0
+                        symbolResult is OptionResult o &&
+                        o.Option.Argument.ValueType == typeof(bool) &&
+                        o.Children.Count == 0
                     ) {
                         o.Children.Add(
                             new ArgumentResult(o.Option.Argument, o)
@@ -456,12 +458,12 @@ namespace System.CommandLine.Parsing
         public ParseResult Result =>
             new ParseResult(
                 _parser,
-                _rootCommandResult
-                ?? throw new InvalidOperationException(
+                _rootCommandResult ??
+                throw new InvalidOperationException(
                     "No root command was found"
                 ),
-                _innermostCommandResult
-                ?? throw new InvalidOperationException("No command was found"),
+                _innermostCommandResult ??
+                throw new InvalidOperationException("No command was found"),
                 _directives,
                 _tokenizeResult,
                 _unparsedTokens,

@@ -40,7 +40,8 @@ namespace System.CommandLine.Hosting.Tests
         }
 
         [Fact]
-        public static void UseHost_adds_invocation_context_to_HostBuilder_Properties() {
+        public static void UseHost_adds_invocation_context_to_HostBuilder_Properties()
+        {
             InvocationContext invocationContext = null;
 
             var parser = new CommandLineBuilder().UseHost(
@@ -95,7 +96,8 @@ namespace System.CommandLine.Hosting.Tests
         }
 
         [Fact]
-        public static void UseHost_UnparsedTokens_can_propagate_to_Host_Configuration() {
+        public static void UseHost_UnparsedTokens_can_propagate_to_Host_Configuration()
+        {
             const string testArgument = "test";
             const string testKey = "unparsed-config";
             string commandLineArgs = $"-- --{testKey} {testArgument}";
@@ -137,7 +139,8 @@ namespace System.CommandLine.Hosting.Tests
         }
 
         [Fact]
-        public static void UseHost_UnparsedTokens_are_available_in_HostBuilder_factory() {
+        public static void UseHost_UnparsedTokens_are_available_in_HostBuilder_factory()
+        {
             const string testArgument = "test";
             const string testKey = "unparsed-config";
             string commandLineArgs = $"-- --{testKey} {testArgument}";
@@ -178,7 +181,8 @@ namespace System.CommandLine.Hosting.Tests
         }
 
         [Fact]
-        public static void UseHost_flows_config_directives_to_HostConfiguration() {
+        public static void UseHost_flows_config_directives_to_HostConfiguration()
+        {
             const string testKey = "Test";
             const string testValue = "Value";
             string commandLine = $"[config:{testKey}={testValue}]";
@@ -290,7 +294,8 @@ namespace System.CommandLine.Hosting.Tests
         }
 
         [Fact]
-        public static void GetInvocationContext_in_ConfigureServices_returns_non_null_instance() {
+        public static void GetInvocationContext_in_ConfigureServices_returns_non_null_instance()
+        {
             bool ctxAsserted = false;
             var parser = new CommandLineBuilder().UseHost(
                     hostBuilder =>
@@ -312,7 +317,8 @@ namespace System.CommandLine.Hosting.Tests
         }
 
         [Fact]
-        public static void GetInvocationContext_returns_same_instance_as_outer_middleware() {
+        public static void GetInvocationContext_returns_same_instance_as_outer_middleware()
+        {
             InvocationContext ctxCustom = null;
             InvocationContext ctxHosting = null;
 
@@ -337,7 +343,8 @@ namespace System.CommandLine.Hosting.Tests
         }
 
         [Fact]
-        public static void GetInvocationContext_in_ConfigureServices_returns_same_instance_as_outer_middleware() {
+        public static void GetInvocationContext_in_ConfigureServices_returns_same_instance_as_outer_middleware()
+        {
             InvocationContext ctxCustom = null;
             InvocationContext ctxConfigureServices = null;
 
@@ -367,7 +374,8 @@ namespace System.CommandLine.Hosting.Tests
         }
 
         [Fact]
-        public static void GetInvocationContext_throws_if_not_within_invocation() {
+        public static void GetInvocationContext_throws_if_not_within_invocation()
+        {
             var hostBuilder = new HostBuilder();
             hostBuilder.Invoking(
                     b =>
@@ -380,7 +388,8 @@ namespace System.CommandLine.Hosting.Tests
         }
 
         [Fact]
-        public static void GetInvocationContext_in_ConfigureServices_throws_if_not_within_invocation() {
+        public static void GetInvocationContext_in_ConfigureServices_throws_if_not_within_invocation()
+        {
             new HostBuilder().Invoking(
                     b =>
                     {
@@ -398,7 +407,8 @@ namespace System.CommandLine.Hosting.Tests
         }
 
         [Fact]
-        public static void GetHost_returns_non_null_instance_in_subsequent_middleware() {
+        public static void GetHost_returns_non_null_instance_in_subsequent_middleware()
+        {
             bool hostAsserted = false;
             var parser = new CommandLineBuilder().UseHost()
                 .UseMiddleware(

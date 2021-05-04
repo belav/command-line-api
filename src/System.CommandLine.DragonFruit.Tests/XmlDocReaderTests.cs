@@ -29,9 +29,9 @@ namespace System.CommandLine.DragonFruit.Tests
         <name>DragonFruit</name>
     </assembly>
     <members>
-        <member name=""M:System.CommandLine.DragonFruit.Tests."
-                + nameof(XmlDocReaderTests)
-                + @".Program.Main(System.Boolean,System.String,System.Nullable{System.Int32})"">
+        <member name=""M:System.CommandLine.DragonFruit.Tests." +
+                nameof(XmlDocReaderTests) +
+                @".Program.Main(System.Boolean,System.String,System.Nullable{System.Int32})"">
             <summary>
             Hello
             </summary>

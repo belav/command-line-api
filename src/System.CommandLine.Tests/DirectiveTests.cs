@@ -85,7 +85,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Directives_without_a_value_specified_have_a_value_of_empty_string() {
+        public void Directives_without_a_value_specified_have_a_value_of_empty_string()
+        {
             var option = new Option("-y");
 
             var result = option.Parse("[parse] -y");
@@ -123,7 +124,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_a_directive_is_specified_more_than_once_then_its_values_are_aggregated() {
+        public void When_a_directive_is_specified_more_than_once_then_its_values_are_aggregated()
+        {
             var option = new Option("-a");
 
             var result = option.Parse("[directive:one] [directive:two] -a");
@@ -135,7 +137,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Directive_count_is_based_on_distinct_instances_of_directive_name() {
+        public void Directive_count_is_based_on_distinct_instances_of_directive_name()
+        {
             var command = new RootCommand();
 
             var result = command.Parse("[one] [two] [one:a] [one:b]");

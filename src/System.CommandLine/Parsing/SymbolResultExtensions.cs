@@ -13,9 +13,10 @@ namespace System.CommandLine.Parsing
         ) {
             yield return symbolResult;
 
-            foreach (var item in symbolResult.Children.FlattenBreadthFirst(
-                o => o.Children
-            )
+            foreach (
+                var item in symbolResult.Children.FlattenBreadthFirst(
+                    o => o.Children
+                )
             ) {
                 yield return item;
             }
@@ -26,8 +27,8 @@ namespace System.CommandLine.Parsing
             return symbolResult switch
             {
                 CommandResult commandResult => commandResult.Token,
-                OptionResult optionResult => optionResult.Token
-                ?? CreateImplicitToken(optionResult.Option),
+                OptionResult optionResult => optionResult.Token ??
+                CreateImplicitToken(optionResult.Option),
                 _ => throw new ArgumentOutOfRangeException(nameof(symbolResult))
             };
 

@@ -24,15 +24,17 @@ namespace System.CommandLine.Tests.Utility
 
             using (new AssertionScope())
             {
-                foreach (var tuple in actualValues.Zip(
-                        expectedValues,
-                        (actual, expected) => (actual, expected)
-                    )
-                    .Where(
-                        t =>
-                            (t.expected == null)
-                            || (t.expected.GetType().GetProperties().Length > 0)
-                    )
+                foreach (
+                    var tuple in actualValues.Zip(
+                            expectedValues,
+                            (actual, expected) => (actual, expected)
+                        )
+                        .Where(
+                            t =>
+                                (t.expected == null) ||
+                                (t.expected.GetType().GetProperties().Length >
+                                0)
+                        )
                 ) {
                     tuple.actual.Should().BeEquivalentTo(tuple.expected);
                 }

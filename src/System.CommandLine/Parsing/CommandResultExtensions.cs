@@ -50,8 +50,8 @@ namespace System.CommandLine.Parsing
                 var option = (Option)options[i];
 
                 if (
-                    !option.DisallowBinding
-                    && valueDescriptor.ValueName.IsMatch(option)
+                    !option.DisallowBinding &&
+                    valueDescriptor.ValueName.IsMatch(option)
                 ) {
                     var optionResult = commandResult.FindResultFor(option);
 

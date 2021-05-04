@@ -9,7 +9,8 @@ namespace System.CommandLine.Rendering.Tests
     public class ControlSpanTests
     {
         [Fact]
-        public void ForegroundColorSpans_with_equivalent_content_have_the_same_hash_code() {
+        public void ForegroundColorSpans_with_equivalent_content_have_the_same_hash_code()
+        {
             var one = new ForegroundColorSpan(
                 "green",
                 Ansi.Color.Foreground.Green
@@ -57,7 +58,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void BackgroundColorSpans_with_equivalent_content_have_the_same_hash_code() {
+        public void BackgroundColorSpans_with_equivalent_content_have_the_same_hash_code()
+        {
             var one = new BackgroundColorSpan(
                 "green",
                 Ansi.Color.Foreground.Green
@@ -102,7 +104,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void A_ForegroundColorSpan_and_a_BackgroundColorSpan_having_the_same_name_are_not_equal() {
+        public void A_ForegroundColorSpan_and_a_BackgroundColorSpan_having_the_same_name_are_not_equal()
+        {
             var one = new ForegroundColorSpan(
                 "green",
                 Ansi.Color.Foreground.Green
@@ -116,7 +119,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void A_ForegroundColorSpan_and_a_BackgroundColorSpan_having_the_same_name_do_not_have_the_same_hash_code() {
+        public void A_ForegroundColorSpan_and_a_BackgroundColorSpan_having_the_same_name_do_not_have_the_same_hash_code()
+        {
             var one = new ForegroundColorSpan(
                 "green",
                 Ansi.Color.Foreground.Green
@@ -130,7 +134,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void StyleSpans_with_equivalent_content_have_the_same_hash_code() {
+        public void StyleSpans_with_equivalent_content_have_the_same_hash_code()
+        {
             var one = new StyleSpan("green", Ansi.Color.Foreground.Green);
             var two = new StyleSpan("green", Ansi.Color.Foreground.Green);
 

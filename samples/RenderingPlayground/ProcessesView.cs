@@ -106,14 +106,14 @@ namespace RenderingPlayground
                     process.TotalProcessorTime - trackingStartedAt;
 
                 var usageSinceLastCheck =
-                    (currentCpuTime - previousCpuTime).TotalSeconds
-                    / (processorCount
-                    * DateTime.UtcNow.Subtract(lastCheckedAt).TotalSeconds);
+                    (currentCpuTime - previousCpuTime).TotalSeconds /
+                    (processorCount *
+                    DateTime.UtcNow.Subtract(lastCheckedAt).TotalSeconds);
 
                 var usageTotal =
-                    currentCpuTime.TotalSeconds
-                    / (processorCount
-                    * DateTime.UtcNow.Subtract(StartTime).TotalSeconds);
+                    currentCpuTime.TotalSeconds /
+                    (processorCount *
+                    DateTime.UtcNow.Subtract(StartTime).TotalSeconds);
 
                 lastCheckedAt = DateTime.UtcNow;
 

@@ -105,7 +105,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task Sets_environment_variable_value_containing_equals_sign() {
+        public async Task Sets_environment_variable_value_containing_equals_sign()
+        {
             bool asserted = false;
             string variable = test_variable;
             const string value = "This is = a test containing equals";
@@ -159,7 +160,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public static async Task Ignores_environment_directive_with_empty_variable_name() {
+        public static async Task Ignores_environment_directive_with_empty_variable_name()
+        {
             bool asserted = false;
             string value = $"This is a test, random: {randomizer.Next()}";
             var rootCommand = new RootCommand
@@ -184,7 +186,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public static async Task Ignores_environment_directive_with_whitespace_variable_name() {
+        public static async Task Ignores_environment_directive_with_whitespace_variable_name()
+        {
             bool asserted = false;
             string value = $"This is a test, random: {randomizer.Next()}";
             var rootCommand = new RootCommand

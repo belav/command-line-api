@@ -59,7 +59,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Parse_diagram_identifies_options_where_default_values_have_been_applied() {
+        public void Parse_diagram_identifies_options_where_default_values_have_been_applied()
+        {
             var rootCommand = new RootCommand
             {
                 new Option<int>(new[] { "-h", "--height" }, () => 10),
@@ -81,7 +82,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Parse_diagram_indicates_which_tokens_were_applied_to_which_command_argument() {
+        public void Parse_diagram_indicates_which_tokens_were_applied_to_which_command_argument()
+        {
             var command = new Command(
                 "the-command"
             )
@@ -101,7 +103,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Parse_diagram_indicates_which_tokens_were_applied_to_which_command_argument_for_sequences_of_complex_types() {
+        public void Parse_diagram_indicates_which_tokens_were_applied_to_which_command_argument_for_sequences_of_complex_types()
+        {
             var command = new Command(
                 "the-command"
             )

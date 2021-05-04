@@ -18,12 +18,12 @@ namespace System.CommandLine.Rendering.Views
             IConsole console,
             SynchronizationContext synchronizationContext = null
         ) {
-            Renderer = renderer
-            ?? throw new ArgumentNullException(nameof(renderer));
-            _console = console
-            ?? throw new ArgumentNullException(nameof(console));
-            _context = synchronizationContext
-            ?? SynchronizationContext.Current ?? new SynchronizationContext();
+            Renderer = renderer ??
+            throw new ArgumentNullException(nameof(renderer));
+            _console = console ??
+            throw new ArgumentNullException(nameof(console));
+            _context = synchronizationContext ??
+            SynchronizationContext.Current ?? new SynchronizationContext();
         }
 
         private ConsoleRenderer Renderer { get; }
@@ -62,16 +62,16 @@ namespace System.CommandLine.Rendering.Views
                                 ref _renderRequested,
                                 0,
                                 1
-                            )
-                            == 1
+                            ) ==
+                            1
                         ) {
                             if (
                                 Interlocked.CompareExchange(
                                     ref _renderInProgress,
                                     1,
                                     0
-                                )
-                                == 0
+                                ) ==
+                                0
                             ) {
                                 Render();
                                 Interlocked.Exchange(ref _renderInProgress, 0);

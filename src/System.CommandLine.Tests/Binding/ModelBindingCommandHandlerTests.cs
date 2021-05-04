@@ -211,7 +211,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public async Task When_argument_type_is_not_known_until_binding_then_bool_parameter_is_bound_correctly() {
+        public async Task When_argument_type_is_not_known_until_binding_then_bool_parameter_is_bound_correctly()
+        {
             bool? received = null;
 
             var handler = CommandHandler.Create((bool x) => received = x);
@@ -225,7 +226,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public async Task When_argument_type_is_not_known_until_binding_then_int_parameter_is_bound_correctly() {
+        public async Task When_argument_type_is_not_known_until_binding_then_int_parameter_is_bound_correctly()
+        {
             int received = 0;
 
             var handler = CommandHandler.Create((int x) => received = x);
@@ -242,7 +244,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public void When_argument_type_is_more_specific_than_parameter_type_then_parameter_is_bound_correctly() {
+        public void When_argument_type_is_more_specific_than_parameter_type_then_parameter_is_bound_correctly()
+        {
             FileSystemInfo received = null;
 
             var root = new RootCommand { new Option<DirectoryInfo>("-f") };
@@ -355,7 +358,8 @@ namespace System.CommandLine.Tests.Binding
         }
 
         [Fact]
-        public async Task When_binding_fails_due_to_parameter_naming_mismatch_then_handler_is_called_and_no_error_is_produced() {
+        public async Task When_binding_fails_due_to_parameter_naming_mismatch_then_handler_is_called_and_no_error_is_produced()
+        {
             string[] received = { "this should get overwritten" };
 
             var o = new Option<string[]>(
@@ -702,12 +706,12 @@ namespace System.CommandLine.Tests.Binding
         internal static string NonexistentPathWithTrailingSlash() =>
             NonexistentPathWithoutTrailingSlash() + Path.DirectorySeparatorChar;
         internal static string NonexistentPathWithTrailingAltSlash() =>
-            NonexistentPathWithoutTrailingSlash()
-            + Path.AltDirectorySeparatorChar;
+            NonexistentPathWithoutTrailingSlash() +
+            Path.AltDirectorySeparatorChar;
 
         internal static string ExistingFile() =>
-            Directory.GetFiles(ExistingDirectory()).FirstOrDefault()
-            ?? throw new AssertionFailedException(
+            Directory.GetFiles(ExistingDirectory()).FirstOrDefault() ??
+            throw new AssertionFailedException(
                 "No files found in current directory"
             );
 

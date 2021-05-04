@@ -121,15 +121,16 @@ namespace System.CommandLine.Rendering
             {
                 var partIndex = 0;
 
-                foreach (Match match in _formattableStringParser.Matches(
-                    formattableString.Format
-                )
+                foreach (
+                    Match match in _formattableStringParser.Matches(
+                        formattableString.Format
+                    )
                 ) {
                     if (match.Value != "")
                     {
                         if (
-                            match.Value.StartsWith("{")
-                            && match.Value.EndsWith("}")
+                            match.Value.StartsWith("{") &&
+                            match.Value.EndsWith("}")
                         ) {
                             var arg = args[partIndex++];
 

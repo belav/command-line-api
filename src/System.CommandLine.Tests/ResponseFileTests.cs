@@ -42,7 +42,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_response_file_specified_it_loads_options_from_response_file() {
+        public void When_response_file_specified_it_loads_options_from_response_file()
+        {
             var result = new Option("--flag").Parse(
                 $"@{ResponseFile("--flag")}"
             );
@@ -51,7 +52,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_response_file_is_specified_it_loads_options_with_arguments_from_response_file() {
+        public void When_response_file_is_specified_it_loads_options_with_arguments_from_response_file()
+        {
             var responseFile = ResponseFile("--flag", "--flag2", "123");
 
             var result = new RootCommand
@@ -66,7 +68,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_response_file_is_specified_it_loads_command_arguments_from_response_file() {
+        public void When_response_file_is_specified_it_loads_command_arguments_from_response_file()
+        {
             var responseFile = ResponseFile("one", "two", "three");
 
             var result = new RootCommand { new Argument<string[]>() }.Parse(
@@ -109,7 +112,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_response_file_is_specified_it_loads_subcommand_arguments_from_response_file() {
+        public void When_response_file_is_specified_it_loads_subcommand_arguments_from_response_file()
+        {
             var responseFile = ResponseFile("one", "two", "three");
 
             var result = new RootCommand
@@ -138,7 +142,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void Response_file_can_contain_comments_which_are_ignored_when_loaded() {
+        public void Response_file_can_contain_comments_which_are_ignored_when_loaded()
+        {
             var responseFile = ResponseFile(
                 "# comment one",
                 "--flag",
@@ -177,7 +182,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_response_filepath_is_not_specified_then_error_is_returned() {
+        public void When_response_filepath_is_not_specified_then_error_is_returned()
+        {
             var result = new RootCommand
             {
                 new Option("--flag"),
@@ -193,15 +199,17 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_response_file_cannot_be_read_then_specified_error_is_returned() {
+        public void When_response_file_cannot_be_read_then_specified_error_is_returned()
+        {
             var nonexistent = Path.GetTempFileName();
 
-            using (File.Open(
-                nonexistent,
-                FileMode.Open,
-                FileAccess.ReadWrite,
-                FileShare.None
-            )
+            using (
+                File.Open(
+                    nonexistent,
+                    FileMode.Open,
+                    FileAccess.ReadWrite,
+                    FileShare.None
+                )
             ) {
                 var result = new RootCommand
                 {
@@ -246,7 +254,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_response_file_processing_is_disabled_then_it_returns_response_file_name_as_argument() {
+        public void When_response_file_processing_is_disabled_then_it_returns_response_file_name_as_argument()
+        {
             var command = new RootCommand { new Argument<List<string>>() };
             var configuration = new CommandLineConfiguration(
                 new[] { command },
@@ -286,7 +295,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_response_file_options_or_arguments_contain_trailing_spaces_they_are_ignored() {
+        public void When_response_file_options_or_arguments_contain_trailing_spaces_they_are_ignored()
+        {
             var responseFile = ResponseFile(
                 "--option1 ",
                 "value1 ",
@@ -305,7 +315,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_response_file_options_or_arguments_contain_leading_spaces_they_are_ignored() {
+        public void When_response_file_options_or_arguments_contain_leading_spaces_they_are_ignored()
+        {
             var responseFile = ResponseFile(
                 " --option1",
                 " value1",
@@ -325,7 +336,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_response_file_options_or_arguments_contain_trailing_and_leading_spaces_they_are_ignored() {
+        public void When_response_file_options_or_arguments_contain_trailing_and_leading_spaces_they_are_ignored()
+        {
             var responseFile = ResponseFile(
                 " --option1 ",
                 " value1 ",

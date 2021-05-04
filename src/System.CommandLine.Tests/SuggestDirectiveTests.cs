@@ -35,7 +35,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task It_writes_suggestions_for_option_arguments_when_under_subcommand() {
+        public async Task It_writes_suggestions_for_option_arguments_when_under_subcommand()
+        {
             var rootCommand = new RootCommand { _eatCommand };
 
             var parser = new CommandLineBuilder(rootCommand).UseDefaults()
@@ -53,7 +54,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task It_writes_suggestions_for_option_arguments_when_under_root_command() {
+        public async Task It_writes_suggestions_for_option_arguments_when_under_root_command()
+        {
             var rootCommand = new RootCommand
             {
                 _fruitOption,
@@ -128,7 +130,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task It_writes_suggestions_for_subcommand_aliases_under_root_command() {
+        public async Task It_writes_suggestions_for_subcommand_aliases_under_root_command()
+        {
             var rootCommand = new RootCommand { _eatCommand };
 
             var parser = new CommandLineBuilder(
@@ -145,7 +148,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task It_writes_suggestions_for_partial_option_aliases_under_root_command() {
+        public async Task It_writes_suggestions_for_partial_option_aliases_under_root_command()
+        {
             var rootCommand = new RootCommand
             {
                 _fruitOption,
@@ -166,7 +170,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task It_writes_suggestions_for_partial_subcommand_aliases_under_root_command() {
+        public async Task It_writes_suggestions_for_partial_subcommand_aliases_under_root_command()
+        {
             var parser = new CommandLineBuilder().AddCommand(_eatCommand)
                 .AddCommand(new Command("wash-dishes"))
                 .UseSuggestDirective()
@@ -182,7 +187,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task It_writes_suggestions_for_partial_option_and_subcommand_aliases_under_root_command() {
+        public async Task It_writes_suggestions_for_partial_option_and_subcommand_aliases_under_root_command()
+        {
             var parser = new CommandLineBuilder().AddCommand(_eatCommand)
                 .AddCommand(new Command("wash-dishes"))
                 .UseDefaults()
@@ -198,7 +204,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task It_writes_suggestions_for_partial_option_and_subcommand_aliases_under_root_command_with_an_argument() {
+        public async Task It_writes_suggestions_for_partial_option_and_subcommand_aliases_under_root_command_with_an_argument()
+        {
             var command = new Command(
                 "parent"
             )
@@ -219,7 +226,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task It_does_not_repeat_suggestion_for_already_specified_bool_option() {
+        public async Task It_does_not_repeat_suggestion_for_already_specified_bool_option()
+        {
             var command = new RootCommand { new Option<bool>("--bool-option") };
 
             var console = new TestConsole();

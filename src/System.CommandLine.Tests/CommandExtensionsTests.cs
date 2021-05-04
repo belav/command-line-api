@@ -11,7 +11,8 @@ namespace System.CommandLine.Tests
     public class CommandExtensionsTests
     {
         [Fact]
-        public void Command_Invoke_can_be_called_more_than_once_for_the_same_command() {
+        public void Command_Invoke_can_be_called_more_than_once_for_the_same_command()
+        {
             var command = new RootCommand(
                 "Root command description"
             )
@@ -33,7 +34,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_CommandLineBuilder_is_used_then_Command_Invoke_uses_its_configuration() {
+        public void When_CommandLineBuilder_is_used_then_Command_Invoke_uses_its_configuration()
+        {
             var command = new RootCommand();
 
             new CommandLineBuilder(command).UseMiddleware(

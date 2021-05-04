@@ -17,7 +17,8 @@ namespace System.CommandLine.Tests.Invocation
         private readonly TestConsole _console = new TestConsole();
 
         [Fact]
-        public async Task Specific_invocation_behavior_can_be_specified_in_the_command() {
+        public async Task Specific_invocation_behavior_can_be_specified_in_the_command()
+        {
             var wasCalled = false;
 
             var command = new Command("command");
@@ -31,7 +32,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_method_are_bound_to_matching_option_names() {
+        public async Task Method_parameters_on_the_invoked_method_are_bound_to_matching_option_names()
+        {
             string boundName = default;
             int boundAge = default;
 
@@ -56,7 +58,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_method_are_bound_to_matching_option_aliases() {
+        public async Task Method_parameters_on_the_invoked_method_are_bound_to_matching_option_aliases()
+        {
             string boundName = default;
             int boundAge = default;
 
@@ -81,7 +84,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_method_can_be_bound_to_hyphenated_option_names() {
+        public async Task Method_parameters_on_the_invoked_method_can_be_bound_to_hyphenated_option_names()
+        {
             string boundFirstName = default;
 
             void Execute(string firstName)
@@ -103,7 +107,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_method_can_be_bound_to_option_names_case_insensitively() {
+        public async Task Method_parameters_on_the_invoked_method_can_be_bound_to_option_names_case_insensitively()
+        {
             string boundName = default;
             int boundAge = default;
 
@@ -130,7 +135,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_is_invoked_when_command_line_does_not_specify_matching_options() {
+        public async Task Method_is_invoked_when_command_line_does_not_specify_matching_options()
+        {
             string boundName = default;
             int boundAge = default;
 
@@ -156,7 +162,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_method_can_be_bound_to_option_names_by_alias() {
+        public async Task Method_parameters_on_the_invoked_method_can_be_bound_to_option_names_by_alias()
+        {
             string boundName = default;
             int boundAge = default;
 
@@ -182,7 +189,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_lambda_are_bound_to_matching_option_names() {
+        public async Task Method_parameters_on_the_invoked_lambda_are_bound_to_matching_option_names()
+        {
             string boundName = default;
             int boundAge = default;
 
@@ -211,7 +219,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Nullable_parameters_are_bound_to_correct_value_when_option_is_specified() {
+        public async Task Nullable_parameters_are_bound_to_correct_value_when_option_is_specified()
+        {
             int? boundAge = default;
 
             var command = new Command("command") { new Option<int?>("--age") };
@@ -228,7 +237,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Nullable_parameters_are_bound_to_null_when_option_is_not_specified() {
+        public async Task Nullable_parameters_are_bound_to_null_when_option_is_not_specified()
+        {
             var wasCalled = false;
             int? boundAge = default;
 
@@ -248,7 +258,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_of_types_having_constructors_accepting_a_single_string_are_bound_using_handler_parameter_name() {
+        public async Task Method_parameters_of_types_having_constructors_accepting_a_single_string_are_bound_using_handler_parameter_name()
+        {
             DirectoryInfo boundDirectoryInfo = default;
             var tempPath = Path.GetTempPath();
 
@@ -274,7 +285,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_of_type_ParseResult_receive_the_current_ParseResult_instance() {
+        public async Task Method_parameters_of_type_ParseResult_receive_the_current_ParseResult_instance()
+        {
             ParseResult boundParseResult = default;
 
             var command = new Command("command") { new Option<int>("-x") };
@@ -291,7 +303,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_of_type_ParseResult_receive_the_current_BindingContext_instance() {
+        public async Task Method_parameters_of_type_ParseResult_receive_the_current_BindingContext_instance()
+        {
             BindingContext boundContext = default;
 
             var option = new Option<int>("-x");
@@ -309,7 +322,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_of_type_IConsole_receive_the_current_console_instance() {
+        public async Task Method_parameters_of_type_IConsole_receive_the_current_console_instance()
+        {
             var command = new Command("command") { new Option<int>("-x") };
             command.Handler = CommandHandler.Create<IConsole>(
                 console =>
@@ -324,7 +338,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_of_type_InvocationContext_receive_the_current_InvocationContext_instance() {
+        public async Task Method_parameters_of_type_InvocationContext_receive_the_current_InvocationContext_instance()
+        {
             InvocationContext boundContext = default;
 
             var command = new Command("command") { new Option<int>("-x") };
@@ -355,7 +370,8 @@ namespace System.CommandLine.Tests.Invocation
         private delegate void ExecuteTestDelegate(string name, int age);
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_member_method_are_bound_to_matching_option_names_by_delegate() {
+        public async Task Method_parameters_on_the_invoked_member_method_are_bound_to_matching_option_names_by_delegate()
+        {
             var testClass = new ExecuteTestClass();
 
             var command = new Command(
@@ -379,7 +395,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_member_method_are_bound_to_matching_option_names_by_MethodInfo_with_target() {
+        public async Task Method_parameters_on_the_invoked_member_method_are_bound_to_matching_option_names_by_MethodInfo_with_target()
+        {
             var testClass = new ExecuteTestClass();
 
             var command = new Command(
@@ -404,7 +421,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_method_are_bound_to_matching_argument_names() {
+        public async Task Method_parameters_on_the_invoked_method_are_bound_to_matching_argument_names()
+        {
             string boundName = default;
             int boundAge = default;
 
@@ -426,7 +444,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_method_can_be_bound_to_hyphenated_argument_names() {
+        public async Task Method_parameters_on_the_invoked_method_can_be_bound_to_hyphenated_argument_names()
+        {
             string boundFirstName = default;
 
             void Execute(string firstName)
@@ -448,7 +467,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_method_can_be_bound_to_argument_names_case_insensitively() {
+        public async Task Method_parameters_on_the_invoked_method_can_be_bound_to_argument_names_case_insensitively()
+        {
             string boundName = default;
             int boundAge = default;
 
@@ -470,7 +490,8 @@ namespace System.CommandLine.Tests.Invocation
         }
 
         [Fact]
-        public async Task Method_parameters_on_the_invoked_method_are_bound_to_matching_argument_names_with_pipe_in() {
+        public async Task Method_parameters_on_the_invoked_method_are_bound_to_matching_argument_names_with_pipe_in()
+        {
             string boundName = default;
             int boundAge = default;
 

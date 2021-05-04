@@ -59,8 +59,8 @@ namespace System.CommandLine.Parsing
             if (string.IsNullOrWhiteSpace(rawInput))
             {
                 if (
-                    source.UnmatchedTokens.Count > 0
-                    || lastToken?.Type == TokenType.Argument
+                    source.UnmatchedTokens.Count > 0 ||
+                    lastToken?.Type == TokenType.Argument
                 ) {
                     return textToMatch ?? "";
                 }
@@ -71,8 +71,8 @@ namespace System.CommandLine.Parsing
 
                 var textAfterCursor = rawInput.Substring(position.Value);
 
-                return textBeforeCursor.Split(' ').LastOrDefault()
-                + textAfterCursor.Split(' ').FirstOrDefault();
+                return textBeforeCursor.Split(' ').LastOrDefault() +
+                textAfterCursor.Split(' ').FirstOrDefault();
             }
 
             return "";
@@ -118,8 +118,8 @@ namespace System.CommandLine.Parsing
             }
 
             if (
-                symbolResult is OptionResult optionResult
-                && optionResult.IsImplicit
+                symbolResult is OptionResult optionResult &&
+                optionResult.IsImplicit
             ) {
                 builder.Append("*");
             }
@@ -127,9 +127,9 @@ namespace System.CommandLine.Parsing
             if (symbolResult is ArgumentResult argumentResult)
             {
                 var includeArgumentName =
-                    argumentResult.Argument is Argument argument
-                    && argument.Parents[0] is ICommand command
-                    && command.Arguments.Count > 1;
+                    argumentResult.Argument is Argument argument &&
+                    argument.Parents[0] is ICommand command &&
+                    command.Arguments.Count > 1;
 
                 if (includeArgumentName)
                 {
@@ -241,8 +241,8 @@ namespace System.CommandLine.Parsing
             var parentSymbol = currentSymbolResult.Parent?.Symbol;
 
             if (
-                parentSymbol is null
-                || !currentSymbolResult.IsArgumentLimitReached
+                parentSymbol is null ||
+                !currentSymbolResult.IsArgumentLimitReached
             ) {
                 siblingSuggestions = Array.Empty<string?>();
             }
@@ -313,9 +313,9 @@ namespace System.CommandLine.Parsing
                     else if (item is OptionResult option)
                     {
                         var willAcceptAnArgument =
-                            !option.IsImplicit
-                            && (!option.IsArgumentLimitReached
-                            || parseResult.TextToMatch(position).Length > 0);
+                            !option.IsImplicit &&
+                            (!option.IsArgumentLimitReached ||
+                            parseResult.TextToMatch(position).Length > 0);
 
                         if (willAcceptAnArgument)
                         {

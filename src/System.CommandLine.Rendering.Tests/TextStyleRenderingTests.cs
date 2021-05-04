@@ -15,7 +15,8 @@ namespace System.CommandLine.Rendering.Tests
         private readonly TestTerminal _terminal = new TestTerminal();
 
         [Fact]
-        public void BackgroundColorSpans_are_replaced_with_ANSI_codes_during_ANSI_rendering() {
+        public void BackgroundColorSpans_are_replaced_with_ANSI_codes_during_ANSI_rendering()
+        {
             var span = _textSpanFormatter.ParseToSpan(
                 $"{BackgroundColorSpan.Red()}red {BackgroundColorSpan.Blue()}blue {BackgroundColorSpan.Green()}green {BackgroundColorSpan.Reset()}or a {BackgroundColorSpan.Rgb(12, 34, 56)}little of each."
             );
@@ -32,7 +33,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void ForegroundColorSpans_are_replaced_with_ANSI_codes_during_ANSI_rendering() {
+        public void ForegroundColorSpans_are_replaced_with_ANSI_codes_during_ANSI_rendering()
+        {
             var span = _textSpanFormatter.ParseToSpan(
                 $"{ForegroundColorSpan.Red()}red {ForegroundColorSpan.Blue()}blue {ForegroundColorSpan.Green()}green {ForegroundColorSpan.Reset()}or a {ForegroundColorSpan.Rgb(12, 34, 56)}little of each."
             );
@@ -49,7 +51,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void BackgroundColorSpans_are_replaced_with_System_Console_calls_during_non_ANSI_rendering() {
+        public void BackgroundColorSpans_are_replaced_with_System_Console_calls_during_non_ANSI_rendering()
+        {
             var span = _textSpanFormatter.ParseToSpan(
                 $"{BackgroundColorSpan.Red()}red {BackgroundColorSpan.Blue()}blue {BackgroundColorSpan.Green()}green {BackgroundColorSpan.Reset()}or a {BackgroundColorSpan.Rgb(12, 34, 56)}little of each."
             );
@@ -77,7 +80,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [Fact]
-        public void ForegroundColorSpans_are_replaced_with_System_Console_calls_during_non_ANSI_rendering() {
+        public void ForegroundColorSpans_are_replaced_with_System_Console_calls_during_non_ANSI_rendering()
+        {
             var span = _textSpanFormatter.ParseToSpan(
                 $"{ForegroundColorSpan.Red()}red {ForegroundColorSpan.Blue()}blue {ForegroundColorSpan.Green()}green {ForegroundColorSpan.Reset()}or a {ForegroundColorSpan.Rgb(12, 34, 56)}little of each."
             );

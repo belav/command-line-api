@@ -30,8 +30,8 @@ namespace System.CommandLine.Binding
                     value.EndsWith(
                         Path.DirectorySeparatorChar.ToString(),
                         StringComparison.Ordinal
-                    )
-                    || value.EndsWith(
+                    ) ||
+                    value.EndsWith(
                         Path.AltDirectorySeparatorChar.ToString(),
                         StringComparison.Ordinal
                     )
@@ -192,8 +192,8 @@ namespace System.CommandLine.Binding
         }
 
         internal static bool HasStringTypeConverter(this Type type) =>
-            TypeDescriptor.GetConverter(type) is  {  } typeConverter
-            && typeConverter.CanConvertFrom(typeof(string));
+            TypeDescriptor.GetConverter(type) is  {  } typeConverter &&
+            typeConverter.CanConvertFrom(typeof(string));
 
         private static FailedArgumentConversionResult Failure(
             IArgument argument,
@@ -227,10 +227,10 @@ namespace System.CommandLine.Binding
                         toType,
                         successful.Value
                     );
-                case SuccessfulArgumentConversionResult successful when toType
-                == typeof(object)
-                && conversionResult.Argument.Arity.MaximumNumberOfValues > 1
-                && successful.Value is string:
+                case SuccessfulArgumentConversionResult successful when toType ==
+                typeof(object) &&
+                conversionResult.Argument.Arity.MaximumNumberOfValues > 1 &&
+                successful.Value is string:
                     return ConvertObject(
                         conversionResult.Argument,
                         typeof(IEnumerable<string>),
@@ -238,14 +238,14 @@ namespace System.CommandLine.Binding
                     );
                 case NoArgumentConversionResult _ when toType == typeof(bool):
                     return Success(conversionResult.Argument, true);
-                case NoArgumentConversionResult _ when conversionResult.Argument.Arity.MinimumNumberOfValues
-                > 0:
+                case NoArgumentConversionResult _ when conversionResult.Argument.Arity.MinimumNumberOfValues >
+                0:
                     return new MissingArgumentConversionResult(
                         conversionResult.Argument,
                         Resources.Instance.RequiredArgumentMissing(symbolResult)
                     );
-                case NoArgumentConversionResult _ when conversionResult.Argument.Arity.MaximumNumberOfValues
-                > 1:
+                case NoArgumentConversionResult _ when conversionResult.Argument.Arity.MaximumNumberOfValues >
+                1:
                     return Success(
                         conversionResult.Argument,
                         Array.Empty<string>()

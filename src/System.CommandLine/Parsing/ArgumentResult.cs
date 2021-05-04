@@ -87,9 +87,9 @@ namespace System.CommandLine.Parsing
         private ArgumentConversionResult Convert(IArgument argument)
         {
             if (
-                ShouldCheckArity()
-                && Parent is  {  }
-                && ArgumentArity.Validate(
+                ShouldCheckArity() &&
+                Parent is  {  }  &&
+                ArgumentArity.Validate(
                     Parent,
                     argument,
                     argument.Arity.MinimumNumberOfValues,
@@ -144,8 +144,8 @@ namespace System.CommandLine.Parsing
 
                     return ArgumentConversionResult.Failure(
                         argument,
-                        ErrorMessage
-                        ?? $"Invalid: {Parent.Token()} {string.Join(" ", Tokens.Select(t => t.Value))}"
+                        ErrorMessage ??
+                        $"Invalid: {Parent.Token()} {string.Join(" ", Tokens.Select(t => t.Value))}"
                     );
                 }
             }
@@ -165,8 +165,8 @@ namespace System.CommandLine.Parsing
             }
 
             bool ShouldCheckArity() =>
-                !(Parent is OptionResult optionResult
-                && optionResult.IsImplicit);
+                !(Parent is OptionResult optionResult &&
+                optionResult.IsImplicit);
         }
     }
 }

@@ -10,14 +10,16 @@ namespace System.CommandLine.Suggest.Tests
     public class FileEnumeratorTests
     {
         [Fact]
-        public void EnumerateFilesWithoutExtension_returns_empty_when_pass_in_null() {
+        public void EnumerateFilesWithoutExtension_returns_empty_when_pass_in_null()
+        {
             FileEnumerator.EnumerateFilesWithoutExtension(null)
                 .Should()
                 .BeEmpty();
         }
 
         [Fact]
-        public void EnumerateFilesWithoutExtension_returns_empty_when_directory_does_not_exist() {
+        public void EnumerateFilesWithoutExtension_returns_empty_when_directory_does_not_exist()
+        {
             var path = Path.GetTempPath();
             FileEnumerator.EnumerateFilesWithoutExtension(
                     new DirectoryInfo(
@@ -29,7 +31,8 @@ namespace System.CommandLine.Suggest.Tests
         }
 
         [Fact]
-        public void EnumerateFilesWithoutExtension_returns_files_without_extension() {
+        public void EnumerateFilesWithoutExtension_returns_files_without_extension()
+        {
             var path = Path.Combine(
                 Path.GetTempPath(),
                 Path.GetRandomFileName()

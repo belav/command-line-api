@@ -12,7 +12,8 @@ namespace System.CommandLine.Rendering.Tests.Views
     public class StackLayoutViewTests
     {
         [Fact]
-        public void Vertical_stack_displays_content_stacked_on_top_of_each_other() {
+        public void Vertical_stack_displays_content_stacked_on_top_of_each_other()
+        {
             var stackLayout = new StackLayoutView();
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");
@@ -34,7 +35,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Vertical_stack_clips_content_when_region_is_not_tall_enough() {
+        public void Vertical_stack_clips_content_when_region_is_not_tall_enough()
+        {
             var stackLayout = new StackLayoutView();
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");
@@ -54,7 +56,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Vertical_stack_wraps_content_when_region_is_not_wide_enough() {
+        public void Vertical_stack_wraps_content_when_region_is_not_wide_enough()
+        {
             var stackLayout = new StackLayoutView();
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");
@@ -80,7 +83,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Horizontal_stack_displays_content_stacked_on_next_to_each_other() {
+        public void Horizontal_stack_displays_content_stacked_on_next_to_each_other()
+        {
             var stackLayout = new StackLayoutView(Orientation.Horizontal);
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");
@@ -102,7 +106,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Horizontal_stack_clips_content_when_region_is_not_wide_enough() {
+        public void Horizontal_stack_clips_content_when_region_is_not_wide_enough()
+        {
             var stackLayout = new StackLayoutView(Orientation.Horizontal);
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");
@@ -124,7 +129,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Horizontal_stack_wraps_content_when_region_is_not_wide_enough() {
+        public void Horizontal_stack_wraps_content_when_region_is_not_wide_enough()
+        {
             var stackLayout = new StackLayoutView(Orientation.Horizontal);
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");
@@ -166,7 +172,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Measuring_a_vertical_stack_with_word_wrap_it_sums_max_height_for_each_row() {
+        public void Measuring_a_vertical_stack_with_word_wrap_it_sums_max_height_for_each_row()
+        {
             var stackLayout = new StackLayoutView(Orientation.Vertical);
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");
@@ -183,7 +190,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Measuring_a_vertical_stack_with_row_truncation_the_top_row_is_measured_first() {
+        public void Measuring_a_vertical_stack_with_row_truncation_the_top_row_is_measured_first()
+        {
             var stackLayout = new StackLayoutView(Orientation.Vertical);
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");
@@ -220,7 +228,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Measuring_a_horizontal_stack_with_word_wrap_it_sums_max_width_for_each_child() {
+        public void Measuring_a_horizontal_stack_with_word_wrap_it_sums_max_width_for_each_child()
+        {
             var stackLayout = new StackLayoutView(Orientation.Horizontal);
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");
@@ -237,7 +246,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Measuring_a_horizontal_stack_with_truncated_height_measures_max_for_each_child() {
+        public void Measuring_a_horizontal_stack_with_truncated_height_measures_max_for_each_child()
+        {
             var stackLayout = new StackLayoutView(Orientation.Horizontal);
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");
@@ -254,7 +264,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Measuring_a_horizontal_stack_with_wide_children_wraps_last_child() {
+        public void Measuring_a_horizontal_stack_with_wide_children_wraps_last_child()
+        {
             var stackLayout = new StackLayoutView(Orientation.Horizontal);
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");
@@ -271,7 +282,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         }
 
         [Fact]
-        public void Measuring_a_vertical_stack_with_tall_children_trims_last_child() {
+        public void Measuring_a_vertical_stack_with_tall_children_trims_last_child()
+        {
             var stackLayout = new StackLayoutView(Orientation.Vertical);
             var child1 = new ContentView("The quick");
             var child2 = new ContentView("brown fox");

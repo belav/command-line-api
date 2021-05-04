@@ -70,7 +70,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [WindowsOnlyFact(Skip = "How to test?")]
-        public void Sets_outputMode_to_ansi_when_windows_and_virtual_terminal() {
+        public void Sets_outputMode_to_ansi_when_windows_and_virtual_terminal()
+        {
             var terminal = new TestTerminal();
 
             var outputMode = terminal.DetectOutputMode();
@@ -79,7 +80,8 @@ namespace System.CommandLine.Rendering.Tests
         }
 
         [WindowsOnlyFact(Skip = "How to test?")]
-        public void Sets_outputMode_to_nonansi_when_windows_and_no_virtual_terminal() {
+        public void Sets_outputMode_to_nonansi_when_windows_and_no_virtual_terminal()
+        {
             var console = new TestConsole();
 
             var outputMode = console.DetectOutputMode();

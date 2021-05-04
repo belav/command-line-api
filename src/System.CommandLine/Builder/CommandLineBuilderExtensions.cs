@@ -23,8 +23,8 @@ namespace System.CommandLine.Builder
             () =>
             {
                 var assembly =
-                    Assembly.GetEntryAssembly()
-                    ?? Assembly.GetExecutingAssembly();
+                    Assembly.GetEntryAssembly() ??
+                    Assembly.GetExecutingAssembly();
                 var assemblyVersionAttribute = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
                 if (assemblyVersionAttribute is null)
                 {
@@ -329,8 +329,8 @@ namespace System.CommandLine.Builder
                                 ? components[0].Trim()
                                 : string.Empty;
                             if (
-                                string.IsNullOrEmpty(variable)
-                                || components.Length < 2
+                                string.IsNullOrEmpty(variable) ||
+                                components.Length < 2
                             ) {
                                 continue;
                             }
@@ -563,8 +563,8 @@ namespace System.CommandLine.Builder
                         }
                         else
                         {
-                            position = context.ParseResult.RawInput?.Length
-                            ?? 0;
+                            position = context.ParseResult.RawInput?.Length ??
+                            0;
                         }
 
                         context.InvocationResult = new SuggestDirectiveResult(
@@ -590,8 +590,8 @@ namespace System.CommandLine.Builder
                 async (context, next) =>
                 {
                     if (
-                        context.ParseResult.UnmatchedTokens.Count > 0
-                        && context.ParseResult.CommandResult.Command.TreatUnmatchedTokensAsErrors
+                        context.ParseResult.UnmatchedTokens.Count > 0 &&
+                        context.ParseResult.CommandResult.Command.TreatUnmatchedTokensAsErrors
                     ) {
                         var typoCorrection = new TypoCorrection(
                             maxLevenshteinDistance

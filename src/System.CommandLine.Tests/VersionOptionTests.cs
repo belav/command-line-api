@@ -17,11 +17,12 @@ namespace System.CommandLine.Tests
     public class VersionOptionTests
     {
         private static readonly string version =
-            (Assembly.GetEntryAssembly()
-            ?? Assembly.GetExecutingAssembly()).GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+            (Assembly.GetEntryAssembly() ??
+            Assembly.GetExecutingAssembly()).GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
 
         [Fact]
-        public async Task When_the_version_option_is_specified_then_the_version_is_written_to_standard_out() {
+        public async Task When_the_version_option_is_specified_then_the_version_is_written_to_standard_out()
+        {
             var parser = new CommandLineBuilder().UseVersionOption().Build();
 
             var console = new TestConsole();
@@ -32,7 +33,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public async Task When_the_version_option_is_specified_then_invocation_is_short_circuited() {
+        public async Task When_the_version_option_is_specified_then_invocation_is_short_circuited()
+        {
             var wasCalled = false;
             var rootCommand = new RootCommand();
             rootCommand.Handler = CommandHandler.Create(() => wasCalled = true);
@@ -99,7 +101,8 @@ namespace System.CommandLine.Tests
         }
 
         [Fact]
-        public void When_the_version_is_not_valid_it_returns_a_custom_result_code() {
+        public void When_the_version_is_not_valid_it_returns_a_custom_result_code()
+        {
             var rootCommand = new RootCommand
             {
                 new Command(

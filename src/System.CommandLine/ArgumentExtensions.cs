@@ -76,8 +76,8 @@ namespace System.CommandLine
                     symbol.Tokens.Select(t => t.Value)
                         .Where(
                             filePath =>
-                                !Directory.Exists(filePath)
-                                && !File.Exists(filePath)
+                                !Directory.Exists(filePath) &&
+                                !File.Exists(filePath)
                         )
                         .Select(
                             symbol.ValidationMessages.FileOrDirectoryDoesNotExist
@@ -118,8 +118,8 @@ namespace System.CommandLine
                         a.Tokens.Select(t => t.Value)
                             .Where(
                                 filePath =>
-                                    !Directory.Exists(filePath)
-                                    && !File.Exists(filePath)
+                                    !Directory.Exists(filePath) &&
+                                    !File.Exists(filePath)
                             )
                             .Select(
                                 a.ValidationMessages.FileOrDirectoryDoesNotExist

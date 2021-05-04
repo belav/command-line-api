@@ -21,8 +21,8 @@ namespace System.CommandLine.Suggest
             ISuggestionRegistration suggestionRegistration,
             ISuggestionStore suggestionStore = null
         ) {
-            _suggestionRegistration = suggestionRegistration
-            ?? throw new ArgumentNullException(nameof(suggestionRegistration));
+            _suggestionRegistration = suggestionRegistration ??
+            throw new ArgumentNullException(nameof(suggestionRegistration));
 
             _suggestionStore = suggestionStore ?? new SuggestionStore();
 
@@ -223,11 +223,11 @@ namespace System.CommandLine.Suggest
                         fileNameWithoutExtension?.StartsWith(
                             "dotnet-",
                             StringComparison.Ordinal
-                        )
-                        == true
+                        ) ==
+                        true
                     ) {
-                        yield return "dotnet "
-                        + fileNameWithoutExtension.Substring("dotnet-".Length);
+                        yield return "dotnet " +
+                        fileNameWithoutExtension.Substring("dotnet-".Length);
                     }
                 }
             }

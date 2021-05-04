@@ -70,10 +70,11 @@ namespace System.CommandLine.Tests.Invocation
                 .Build()
                 .InvokeAsync("the-command");
 
-            using (RemoteExecution program = RemoteExecutor.Execute(
-                childProgram,
-                psi: new ProcessStartInfo { RedirectStandardOutput = true }
-            )
+            using (
+                RemoteExecution program = RemoteExecutor.Execute(
+                    childProgram,
+                    psi: new ProcessStartInfo { RedirectStandardOutput = true }
+                )
             ) {
                 System.Diagnostics.Process process = program.Process;
 
