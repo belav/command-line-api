@@ -25,18 +25,12 @@ namespace System.CommandLine.Suggest
             }
         }
 
-        private static void PrintToConsoleFrom(
-            IConsole console,
-            string scriptName
-        ) {
+        private static void PrintToConsoleFrom(IConsole console, string scriptName)
+        {
             var assemblyLocation =
-                Assembly.GetAssembly(
-                    typeof(SuggestionShellScriptHandler)
-                ).Location;
+                Assembly.GetAssembly(typeof(SuggestionShellScriptHandler)).Location;
             var directory = Path.GetDirectoryName(assemblyLocation);
-            console.Out.Write(
-                File.ReadAllText(Path.Combine(directory, scriptName))
-            );
+            console.Out.Write(File.ReadAllText(Path.Combine(directory, scriptName)));
         }
     }
 }

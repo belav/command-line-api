@@ -48,9 +48,10 @@ namespace System.CommandLine.Rendering.Tests
         {
             var writer = new ConsoleRenderer(_terminal, OutputMode.NonAnsi);
 
-            new DirectoryView(
-                new DirectoryInfo(Directory.GetCurrentDirectory())
-            ).Render(writer, new Region(0, 0, 100, 100));
+            new DirectoryView(new DirectoryInfo(Directory.GetCurrentDirectory())).Render(
+                writer,
+                new Region(0, 0, 100, 100)
+            );
 
             _terminal.Out.ToString().Should().NotContain(Esc);
         }
@@ -77,9 +78,10 @@ namespace System.CommandLine.Rendering.Tests
         {
             var writer = new ConsoleRenderer(_terminal, OutputMode.PlainText);
 
-            new DirectoryView(
-                new DirectoryInfo(Directory.GetCurrentDirectory())
-            ).Render(writer, new Region(0, 0, 100, 100));
+            new DirectoryView(new DirectoryInfo(Directory.GetCurrentDirectory())).Render(
+                writer,
+                new Region(0, 0, 100, 100)
+            );
 
             _terminal.Out.ToString().Should().NotContain(Esc);
         }
@@ -97,9 +99,7 @@ namespace System.CommandLine.Rendering.Tests
             _terminal.Out.ToString()
                 .TrimEnd()
                 .Should()
-                .Contain(
-                    $"{Ansi.Color.Foreground.Red}normal{Ansi.Color.Foreground.Default}"
-                );
+                .Contain($"{Ansi.Color.Foreground.Red}normal{Ansi.Color.Foreground.Default}");
         }
 
         [Theory]
@@ -124,9 +124,7 @@ namespace System.CommandLine.Rendering.Tests
 
             writer.RenderToRegion(text, region);
 
-            _terminal.RenderOperations()
-                .Should()
-                .OnlyContain(line => line.Text.Length == width);
+            _terminal.RenderOperations().Should().OnlyContain(line => line.Text.Length == width);
         }
 
         [Fact]
@@ -216,9 +214,7 @@ namespace System.CommandLine.Rendering.Tests
 
             writer.RenderToRegion(text, region);
 
-            _output.WriteLine(
-                string.Join(NewLine, _terminal.RenderOperations())
-            );
+            _output.WriteLine(string.Join(NewLine, _terminal.RenderOperations()));
 
             _terminal.RenderOperations().Should().HaveCount(height);
         }
@@ -226,11 +222,7 @@ namespace System.CommandLine.Rendering.Tests
         [Fact]
         public void Text_styles_can_be_automatically_reset_after_render_operations_in_ANSI_mode()
         {
-            var renderer = new ConsoleRenderer(
-                _terminal,
-                OutputMode.Ansi,
-                true
-            );
+            var renderer = new ConsoleRenderer(_terminal, OutputMode.Ansi, true);
 
             renderer.RenderToRegion("hello", new Region(0, 0, 5, 1));
 
@@ -239,20 +231,14 @@ namespace System.CommandLine.Rendering.Tests
                     new CursorPositionChanged(new Point(0, 0)),
                     new ContentWritten("hello"),
                     new AnsiControlCodeWritten(Ansi.Color.Foreground.Default),
-                    new TestTerminal.AnsiControlCodeWritten(
-                        Ansi.Color.Background.Default
-                    )
+                    new TestTerminal.AnsiControlCodeWritten(Ansi.Color.Background.Default)
                 );
         }
 
         [Fact]
         public void Text_styles_can_be_automatically_reset_after_render_operations_in_non_ANSI_mode()
         {
-            var renderer = new ConsoleRenderer(
-                _terminal,
-                OutputMode.NonAnsi,
-                true
-            );
+            var renderer = new ConsoleRenderer(_terminal, OutputMode.NonAnsi, true);
 
             renderer.RenderToRegion("hello", new Region(0, 0, 5, 1));
 
@@ -301,9 +287,7 @@ namespace System.CommandLine.Rendering.Tests
                 tableView.AddColumn(
                     f =>
                         f is DirectoryInfo
-                            ? Span(
-                                    $"{ForegroundColorSpan.LightGreen()}{f.Name} "
-                                )
+                            ? Span($"{ForegroundColorSpan.LightGreen()}{f.Name} ")
                             : Span($"{ForegroundColorSpan.White()}{f.Name} "),
                     new ContentView(
                         formatter.ParseToSpan(

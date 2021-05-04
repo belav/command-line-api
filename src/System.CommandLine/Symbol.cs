@@ -84,8 +84,9 @@ namespace System.CommandLine
                         foreach (var alias in identifier.Aliases)
                         {
                             if (
-                                alias is  {  } suggestion &&
-                                suggestion.ContainsCaseInsensitive(textToMatch)
+                                alias
+                                    is  {  } suggestion
+                                && suggestion.ContainsCaseInsensitive(textToMatch)
                             ) {
                                 suggestions.Add(suggestion);
                             }
@@ -93,14 +94,12 @@ namespace System.CommandLine
                         break;
                     case IArgument argument:
                         foreach (
-                            var suggestion in argument.GetSuggestions(
-                                parseResult,
-                                textToMatch
-                            )
+                            var suggestion in argument.GetSuggestions(parseResult, textToMatch)
                         ) {
                             if (
-                                suggestion is  {  }  &&
-                                suggestion.ContainsCaseInsensitive(textToMatch)
+                                suggestion
+                                    is  {  }
+                                && suggestion.ContainsCaseInsensitive(textToMatch)
                             ) {
                                 suggestions.Add(suggestion);
                             }
@@ -109,9 +108,7 @@ namespace System.CommandLine
                 }
             }
 
-            return suggestions.OrderBy(
-                    symbol => symbol!.IndexOfCaseInsensitive(textToMatch)
-                )
+            return suggestions.OrderBy(symbol => symbol!.IndexOfCaseInsensitive(textToMatch))
                 .ThenBy(symbol => symbol, StringComparer.OrdinalIgnoreCase);
         }
 

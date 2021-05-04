@@ -39,8 +39,7 @@ namespace System.CommandLine.Tests
         {
             var rootCommand = new RootCommand { _eatCommand };
 
-            var parser = new CommandLineBuilder(rootCommand).UseDefaults()
-                .Build();
+            var parser = new CommandLineBuilder(rootCommand).UseDefaults().Build();
 
             var result = parser.Parse($"[suggest:13] \"eat --fruit\"");
 
@@ -48,23 +47,15 @@ namespace System.CommandLine.Tests
 
             await result.InvokeAsync(console);
 
-            console.Out.ToString()
-                .Should()
-                .Be($"apple{NewLine}banana{NewLine}cherry{NewLine}");
+            console.Out.ToString().Should().Be($"apple{NewLine}banana{NewLine}cherry{NewLine}");
         }
 
         [Fact]
         public async Task It_writes_suggestions_for_option_arguments_when_under_root_command()
         {
-            var rootCommand = new RootCommand
-            {
-                _fruitOption,
-                _vegetableOption
-            };
+            var rootCommand = new RootCommand { _fruitOption, _vegetableOption };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseSuggestDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseSuggestDirective().Build();
 
             var result = parser.Parse($"[suggest:8] \"--fruit\"");
 
@@ -72,9 +63,7 @@ namespace System.CommandLine.Tests
 
             await result.InvokeAsync(console);
 
-            console.Out.ToString()
-                .Should()
-                .Be($"apple{NewLine}banana{NewLine}cherry{NewLine}");
+            console.Out.ToString().Should().Be($"apple{NewLine}banana{NewLine}cherry{NewLine}");
         }
 
         [Theory]
@@ -85,9 +74,7 @@ namespace System.CommandLine.Tests
         ) {
             var rootCommand = new RootCommand { _eatCommand };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseSuggestDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseSuggestDirective().Build();
 
             var result = parser.Parse(commandLine);
 
@@ -95,9 +82,7 @@ namespace System.CommandLine.Tests
 
             await result.InvokeAsync(console);
 
-            console.Out.ToString()
-                .Should()
-                .Be($"--fruit{NewLine}--vegetable{NewLine}");
+            console.Out.ToString().Should().Be($"--fruit{NewLine}--vegetable{NewLine}");
         }
 
         [Theory]
@@ -105,18 +90,11 @@ namespace System.CommandLine.Tests
         [InlineData("[suggest:0]")]
         [InlineData("[suggest] ")]
         [InlineData("[suggest:0] ")]
-        public async Task It_writes_suggestions_for_option_aliases_under_root_command(
-            string input
-        ) {
-            var rootCommand = new RootCommand
-            {
-                _vegetableOption,
-                _fruitOption
-            };
+        public async Task It_writes_suggestions_for_option_aliases_under_root_command(string input)
+        {
+            var rootCommand = new RootCommand { _vegetableOption, _fruitOption };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseSuggestDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseSuggestDirective().Build();
 
             var result = parser.Parse(input);
 
@@ -124,9 +102,7 @@ namespace System.CommandLine.Tests
 
             await result.InvokeAsync(console);
 
-            console.Out.ToString()
-                .Should()
-                .Be($"--fruit{NewLine}--vegetable{NewLine}");
+            console.Out.ToString().Should().Be($"--fruit{NewLine}--vegetable{NewLine}");
         }
 
         [Fact]
@@ -134,9 +110,7 @@ namespace System.CommandLine.Tests
         {
             var rootCommand = new RootCommand { _eatCommand };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseSuggestDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseSuggestDirective().Build();
 
             var result = parser.Parse("[suggest]");
 
@@ -150,15 +124,9 @@ namespace System.CommandLine.Tests
         [Fact]
         public async Task It_writes_suggestions_for_partial_option_aliases_under_root_command()
         {
-            var rootCommand = new RootCommand
-            {
-                _fruitOption,
-                _vegetableOption
-            };
+            var rootCommand = new RootCommand { _fruitOption, _vegetableOption };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseSuggestDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseSuggestDirective().Build();
 
             var result = parser.Parse($"[suggest:1] \"f\"");
 
@@ -220,9 +188,7 @@ namespace System.CommandLine.Tests
 
             await command.InvokeAsync("[suggest:3] \"opt\"", console);
 
-            console.Out.ToString()
-                .Should()
-                .Be($"--option1{NewLine}--option2{NewLine}");
+            console.Out.ToString().Should().Be($"--option1{NewLine}--option2{NewLine}");
         }
 
         [Fact]

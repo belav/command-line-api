@@ -12,8 +12,7 @@ namespace RenderingPlayground
 
         private string Text { get; }
 
-        public override Size Measure(ConsoleRenderer renderer, Size maxSize) =>
-            maxSize;
+        public override Size Measure(ConsoleRenderer renderer, Size maxSize) => maxSize;
 
         public override void Render(ConsoleRenderer renderer, Region region)
         {
@@ -35,12 +34,7 @@ namespace RenderingPlayground
                         i++;
                     }
 
-                    var subregion = new Region(
-                        region.Left + x,
-                        region.Top + y,
-                        1,
-                        1
-                    );
+                    var subregion = new Region(region.Left + x, region.Top + y, 1, 1);
                     unchecked
                     {
                         renderer.RenderToRegion(

@@ -9,18 +9,13 @@ namespace System.CommandLine.IO
     {
         internal static void SetTerminalForegroundRed(this IConsole console)
         {
-            if (
-                console.GetType()
-                    .GetInterfaces()
-                    .Any(i => i.Name == "ITerminal")
-            ) {
+            if (console.GetType().GetInterfaces().Any(i => i.Name == "ITerminal"))
+            {
                 ((dynamic)console).ForegroundColor = ConsoleColor.Red;
             }
 
-            if (
-                Platform.IsConsoleRedirectionCheckSupported &&
-                !Console.IsOutputRedirected
-            ) {
+            if (Platform.IsConsoleRedirectionCheckSupported && !Console.IsOutputRedirected)
+            {
                 Console.ForegroundColor = ConsoleColor.Red;
             }
             else if (Platform.IsConsoleRedirectionCheckSupported)
@@ -29,21 +24,15 @@ namespace System.CommandLine.IO
             }
         }
 
-        internal static void ResetTerminalForegroundColor(
-            this IConsole console
-        ) {
-            if (
-                console.GetType()
-                    .GetInterfaces()
-                    .Any(i => i.Name == "ITerminal")
-            ) {
+        internal static void ResetTerminalForegroundColor(this IConsole console)
+        {
+            if (console.GetType().GetInterfaces().Any(i => i.Name == "ITerminal"))
+            {
                 ((dynamic)console).ForegroundColor = ConsoleColor.Red;
             }
 
-            if (
-                Platform.IsConsoleRedirectionCheckSupported &&
-                !Console.IsOutputRedirected
-            ) {
+            if (Platform.IsConsoleRedirectionCheckSupported && !Console.IsOutputRedirected)
+            {
                 Console.ResetColor();
             }
             else if (Platform.IsConsoleRedirectionCheckSupported)

@@ -12,11 +12,8 @@ namespace System.CommandLine
 {
     public static class CommandExtensions
     {
-        public static int Invoke(
-            this Command command,
-            string[] args,
-            IConsole? console = null
-        ) {
+        public static int Invoke(this Command command, string[] args, IConsole? console = null)
+        {
             return GetInvocationPipeline(command, args).Invoke(console);
         }
 
@@ -35,8 +32,7 @@ namespace System.CommandLine
             string[] args,
             IConsole? console = null
         ) {
-            return await GetInvocationPipeline(command, args)
-                .InvokeAsync(console);
+            return await GetInvocationPipeline(command, args).InvokeAsync(console);
         }
 
         public static Task<int> InvokeAsync(
@@ -49,23 +45,18 @@ namespace System.CommandLine
                 console
             );
 
-        private static InvocationPipeline GetInvocationPipeline(
-            Command command,
-            string[] args
-        ) {
+        private static InvocationPipeline GetInvocationPipeline(Command command, string[] args)
+        {
             var parser =
-                command.ImplicitParser ??
-                new CommandLineBuilder(command).UseDefaults().Build();
+                command.ImplicitParser ?? new CommandLineBuilder(command).UseDefaults().Build();
 
             var parseResult = parser.Parse(args);
 
             return new InvocationPipeline(parseResult);
         }
 
-        public static ParseResult Parse(
-            this Command command,
-            params string[] args
-        ) => new Parser(command).Parse(args);
+        public static ParseResult Parse(this Command command, params string[] args) =>
+            new Parser(command).Parse(args);
 
         public static ParseResult Parse(
             this Command command,

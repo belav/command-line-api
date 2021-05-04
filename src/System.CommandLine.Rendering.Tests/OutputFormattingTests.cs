@@ -31,14 +31,9 @@ namespace System.CommandLine.Rendering.Tests
         [Fact]
         public void Output_can_be_formatted_based_on_type_specific_formatters()
         {
-            _renderer.Formatter.AddFormatter<TimeSpan>(
-                ts => $"{ts.TotalSeconds} seconds"
-            );
+            _renderer.Formatter.AddFormatter<TimeSpan>(ts => $"{ts.TotalSeconds} seconds");
 
-            new TimeSpanView(21.Seconds()).Render(
-                _renderer,
-                new Region(0, 0, 10, 1)
-            );
+            new TimeSpanView(21.Seconds()).Render(_renderer, new Region(0, 0, 10, 1));
 
             _terminal.Out.ToString().TrimEnd().Should().Be("21 seconds");
         }
@@ -48,20 +43,15 @@ namespace System.CommandLine.Rendering.Tests
         {
             var view = new ProcessTimesView(Example_TOP.Processes);
 
-            _renderer.Formatter.AddFormatter<TimeSpan>(
-                ts => $"{ts.TotalSeconds} seconds"
-            );
+            _renderer.Formatter.AddFormatter<TimeSpan>(ts => $"{ts.TotalSeconds} seconds");
 
             view.Render(_renderer, new Region(0, 0, 200, 50));
 
             _output.WriteLine(_terminal.Out.ToString());
 
-            var decimalSeparator =
-                CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+            var decimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
 
-            _terminal.Out.ToString()
-                .Should()
-                .Contain($"42{decimalSeparator}82 seconds");
+            _terminal.Out.ToString().Should().Contain($"42{decimalSeparator}82 seconds");
         }
 
         [Fact]

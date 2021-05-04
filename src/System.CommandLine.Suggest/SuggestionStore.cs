@@ -46,9 +46,8 @@ namespace System.CommandLine.Suggest
                     RedirectStandardOutput = true
                 };
 
-                using (
-                    var process = new Process { StartInfo = processStartInfo }
-                ) {
+                using (var process = new Process { StartInfo = processStartInfo })
+                {
                     process.Start();
 
                     Task<string> readToEndTask = process.StandardOutput.ReadToEndAsync();
@@ -75,11 +74,7 @@ namespace System.CommandLine.Suggest
                     Program.LogDebug($"exception: {message}");
 #endif
 
-                    throw new ArgumentException(
-                        message,
-                        nameof(exeFileName),
-                        exception
-                    );
+                    throw new ArgumentException(message, nameof(exeFileName), exception);
                 }
             }
             return result;

@@ -21,8 +21,8 @@ namespace System.CommandLine.Suggest
             ISuggestionRegistration suggestionRegistration,
             ISuggestionStore suggestionStore = null
         ) {
-            _suggestionRegistration = suggestionRegistration ??
-            throw new ArgumentNullException(nameof(suggestionRegistration));
+            _suggestionRegistration = suggestionRegistration
+            ?? throw new ArgumentNullException(nameof(suggestionRegistration));
 
             _suggestionStore = suggestionStore ?? new SuggestionStore();
 
@@ -33,8 +33,9 @@ namespace System.CommandLine.Suggest
             {
                 new Argument<ShellType> { Name = nameof(ShellType) }
             };
-            CompleteScriptCommand.Handler = CommandHandler.Create<IConsole,
-                ShellType>(SuggestionShellScriptHandler.Handle);
+            CompleteScriptCommand.Handler = CommandHandler.Create<IConsole, ShellType>(
+                SuggestionShellScriptHandler.Handle
+            );
 
             ListCommand = new Command(
                 "list"
@@ -42,10 +43,7 @@ namespace System.CommandLine.Suggest
             {
                 Description = "Lists apps registered for suggestions",
                 Handler = CommandHandler.Create<IConsole>(
-                    c =>
-                        c.Out.WriteLine(
-                            ShellPrefixesToMatch(_suggestionRegistration)
-                        )
+                    c => c.Out.WriteLine(ShellPrefixesToMatch(_suggestionRegistration))
                 )
             };
 
@@ -57,9 +55,7 @@ namespace System.CommandLine.Suggest
                 ExecutableOption,
                 PositionOption
             };
-            GetCommand.Handler = CommandHandler.Create<ParseResult, IConsole>(
-                Get
-            );
+            GetCommand.Handler = CommandHandler.Create<ParseResult, IConsole>(Get);
 
             RegisterCommand = new Command(
                 "register",
@@ -76,9 +72,7 @@ namespace System.CommandLine.Suggest
                 )
             };
 
-            RegisterCommand.Handler = CommandHandler.Create<string,
-                string,
-                IConsole>(Register);
+            RegisterCommand.Handler = CommandHandler.Create<string, string, IConsole>(Register);
 
             var root = new RootCommand
             {
@@ -126,20 +120,15 @@ namespace System.CommandLine.Suggest
         public Task<int> InvokeAsync(string[] args, IConsole console = null) =>
             Parser.InvokeAsync(args, console);
 
-        private void Register(
-            string commandPath,
-            string suggestionCommand,
-            IConsole console
-        ) {
+        private void Register(string commandPath, string suggestionCommand, IConsole console)
+        {
             var existingRegistration = _suggestionRegistration.FindRegistration(
                 new FileInfo(commandPath)
             );
 
             if (existingRegistration == null)
             {
-                _suggestionRegistration.AddSuggestionRegistration(
-                    new Registration(commandPath)
-                );
+                _suggestionRegistration.AddSuggestionRegistration(new Registration(commandPath));
 
                 console.Out.WriteLine($"Registered {commandPath}");
             }
@@ -160,9 +149,7 @@ namespace System.CommandLine.Suggest
             }
             else
             {
-                suggestionRegistration = _suggestionRegistration.FindRegistration(
-                    commandPath
-                );
+                suggestionRegistration = _suggestionRegistration.FindRegistration(commandPath);
             }
 
             var position = parseResult.ValueForOption(PositionOption);
@@ -178,21 +165,13 @@ namespace System.CommandLine.Suggest
 
             var targetExePath = suggestionRegistration.ExecutablePath;
 
-            string targetArgs = FormatSuggestionArguments(
-                parseResult,
-                position,
-                targetExePath
-            );
+            string targetArgs = FormatSuggestionArguments(parseResult, position, targetExePath);
 
 #if DEBUG
             Program.LogDebug($"dotnet-suggest sending: {targetArgs}");
 #endif
 
-            string suggestions = _suggestionStore.GetSuggestions(
-                    targetExePath,
-                    targetArgs,
-                    Timeout
-                )
+            string suggestions = _suggestionStore.GetSuggestions(targetExePath, targetArgs, Timeout)
                 .Trim();
 
 #if DEBUG
@@ -202,9 +181,8 @@ namespace System.CommandLine.Suggest
             console.Out.Write(suggestions);
         }
 
-        private static string ShellPrefixesToMatch(
-            ISuggestionRegistration suggestionProvider
-        ) {
+        private static string ShellPrefixesToMatch(ISuggestionRegistration suggestionProvider)
+        {
             var registrations = suggestionProvider.FindAllRegistrations();
 
             return string.Join(Environment.NewLine, Prefixes());
@@ -220,14 +198,11 @@ namespace System.CommandLine.Suggest
                     yield return fileNameWithoutExtension;
 
                     if (
-                        fileNameWithoutExtension?.StartsWith(
-                            "dotnet-",
-                            StringComparison.Ordinal
-                        ) ==
-                        true
+                        fileNameWithoutExtension?.StartsWith("dotnet-", StringComparison.Ordinal)
+                        == true
                     ) {
-                        yield return "dotnet " +
-                        fileNameWithoutExtension.Substring("dotnet-".Length);
+                        yield return "dotnet "
+                        + fileNameWithoutExtension.Substring("dotnet-".Length);
                     }
                 }
             }
@@ -242,8 +217,7 @@ namespace System.CommandLine.Suggest
 
             var commandLine = tokens.FirstOrDefault() ?? "";
 
-            targetExeName = Path.GetFileName(targetExeName)
-                .RemoveExeExtension();
+            targetExeName = Path.GetFileName(targetExeName).RemoveExeExtension();
 
             int offset = 0;
 
@@ -266,11 +240,8 @@ namespace System.CommandLine.Suggest
 
                 if (endOfWhitespace != null)
                 {
-                    for (
-                        var i = endOfWhitespace.Value;
-                        i < commandLine.Length;
-                        i++
-                    ) {
+                    for (var i = endOfWhitespace.Value; i < commandLine.Length; i++)
+                    {
                         if (char.IsWhiteSpace(commandLine[i]))
                         {
                             endOfSecondtoken = i;
@@ -280,11 +251,8 @@ namespace System.CommandLine.Suggest
 
                     if (endOfSecondtoken != null)
                     {
-                        for (
-                            var i = endOfSecondtoken.Value;
-                            i < commandLine.Length;
-                            i++
-                        ) {
+                        for (var i = endOfSecondtoken.Value; i < commandLine.Length; i++)
+                        {
                             if (!char.IsWhiteSpace(commandLine[i]))
                             {
                                 choppedCommandLine = commandLine.Substring(i);
@@ -317,9 +285,7 @@ namespace System.CommandLine.Suggest
             {
                 if (commandLine.Length > targetExeName.Length)
                 {
-                    commandLine = commandLine.Substring(
-                        targetExeName.Length + 1
-                    );
+                    commandLine = commandLine.Substring(targetExeName.Length + 1);
                 }
                 else
                 {

@@ -11,27 +11,21 @@ namespace System.CommandLine.Binding
     public class ModelDescriptor
     {
         private const BindingFlags CommonBindingFlags =
-            BindingFlags.IgnoreCase |
-            BindingFlags.Public |
-            BindingFlags.Instance;
+            BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
 
         private static readonly ConcurrentDictionary<Type,
-            ModelDescriptor> _modelDescriptors = new ConcurrentDictionary<Type,
-            ModelDescriptor>();
+            ModelDescriptor> _modelDescriptors = new ConcurrentDictionary<Type, ModelDescriptor>();
 
         private List<PropertyDescriptor>? _propertyDescriptors;
         private List<ConstructorDescriptor>? _constructorDescriptors;
 
         protected ModelDescriptor(Type modelType)
         {
-            ModelType = modelType ??
-            throw new ArgumentNullException(nameof(modelType));
+            ModelType = modelType ?? throw new ArgumentNullException(nameof(modelType));
         }
 
         public IReadOnlyList<ConstructorDescriptor> ConstructorDescriptors =>
-            _constructorDescriptors ??= ModelType.GetConstructors(
-                    CommonBindingFlags
-                )
+            _constructorDescriptors ??= ModelType.GetConstructors(CommonBindingFlags)
                 .Select(i => new ConstructorDescriptor(i, this))
                 .ToList();
 
@@ -46,10 +40,7 @@ namespace System.CommandLine.Binding
         public override string ToString() => $"{ModelType.Name}";
 
         public static ModelDescriptor FromType<T>() =>
-            _modelDescriptors.GetOrAdd(
-                typeof(T),
-                _ => new ModelDescriptor(typeof(T))
-            );
+            _modelDescriptors.GetOrAdd(typeof(T), _ => new ModelDescriptor(typeof(T)));
 
         public static ModelDescriptor FromType(Type type) =>
             _modelDescriptors.GetOrAdd(type, _ => new ModelDescriptor(type));

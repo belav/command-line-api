@@ -223,8 +223,7 @@ namespace System.CommandLine.Rendering.Tests.Views
 
             var size = stackLayout.Measure(renderer, new Size(20, 20));
 
-            size.Should()
-                .BeEquivalentTo(new Size("The quickbrown fox".Length, 1));
+            size.Should().BeEquivalentTo(new Size("The quickbrown fox".Length, 1));
         }
 
         [Fact]

@@ -14,14 +14,10 @@ namespace System.CommandLine.Invocation
 
         public BindingContext BindingContext { get; }
 
-        public InvocationContext(
-            ParseResult parseResult,
-            IConsole? console = null
-        ) {
+        public InvocationContext(ParseResult parseResult, IConsole? console = null)
+        {
             BindingContext = new BindingContext(parseResult, console);
-            BindingContext.ServiceProvider.AddService(
-                _ => GetCancellationToken()
-            );
+            BindingContext.ServiceProvider.AddService(_ => GetCancellationToken());
             BindingContext.ServiceProvider.AddService(_ => this);
         }
 

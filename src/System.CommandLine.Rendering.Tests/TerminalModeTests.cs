@@ -57,14 +57,9 @@ namespace System.CommandLine.Rendering.Tests
                 )
             };
 
-            var parser = new CommandLineBuilder(
-                command
-            ).UseAnsiTerminalWhenAvailable().Build();
+            var parser = new CommandLineBuilder(command).UseAnsiTerminalWhenAvailable().Build();
 
-            await parser.InvokeAsync(
-                $"[output:{specifiedOutputMode}]",
-                console
-            );
+            await parser.InvokeAsync($"[output:{specifiedOutputMode}]", console);
 
             detectedOutputMode.Should().Be(specifiedOutputMode);
         }

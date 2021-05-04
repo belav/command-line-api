@@ -10,12 +10,10 @@ namespace System.CommandLine.Rendering
 
         public override int Height => int.MaxValue;
 
-        public override int Width =>
-            Console.IsOutputRedirected ? 100 : base.Width;
+        public override int Width => Console.IsOutputRedirected ? 100 : base.Width;
 
         public override int Top => Console.IsOutputRedirected ? 0 : base.Top;
 
-        public override int Left =>
-            Console.IsOutputRedirected ? 0 : Console.CursorLeft;
+        public override int Left => Console.IsOutputRedirected ? 0 : Console.CursorLeft;
     }
 }

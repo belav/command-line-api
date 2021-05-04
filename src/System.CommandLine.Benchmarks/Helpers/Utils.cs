@@ -13,23 +13,14 @@ namespace System.CommandLine.Benchmarks.Helpers
     static class Utils
     {
         internal static string GetInputFullFilePath(string name) =>
-            Path.Combine(
-                Path.GetDirectoryName(typeof(Program).Assembly.Location),
-                "Input",
-                name
-            );
+            Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location), "Input", name);
 
         internal static string CreateTestAssemblyInTempFileFromFile(
             string testCsFilePath,
             IEnumerable<string> references
         ) {
-            var testSourceCode = File.ReadAllText(
-                GetInputFullFilePath(testCsFilePath)
-            );
-            return CreateTestAssemblyInTempFileFromString(
-                testSourceCode,
-                references
-            );
+            var testSourceCode = File.ReadAllText(GetInputFullFilePath(testCsFilePath));
+            return CreateTestAssemblyInTempFileFromString(testSourceCode, references);
         }
 
         internal static string CreateTestAssemblyInTempFileFromString(
@@ -42,9 +33,7 @@ namespace System.CommandLine.Benchmarks.Helpers
                 randomAssemblyName,
                 new[] { syntaxTree },
                 references.Select(r => MetadataReference.CreateFromFile(r)),
-                new CSharpCompilationOptions(
-                    OutputKind.DynamicallyLinkedLibrary
-                )
+                new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)
             );
 
             string pathToAssemblyFile = Path.Combine(
@@ -55,11 +44,7 @@ namespace System.CommandLine.Benchmarks.Helpers
                 Path.GetTempPath(),
                 randomAssemblyName + ".xml"
             );
-            EmitResult result = compiler.Emit(
-                pathToAssemblyFile,
-                null,
-                pathToAssemblyXmlDocsFile
-            );
+            EmitResult result = compiler.Emit(pathToAssemblyFile, null, pathToAssemblyXmlDocsFile);
 
             if (!result.Success)
             {

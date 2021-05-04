@@ -58,9 +58,7 @@ namespace System.CommandLine.Tests.Utility
                 {
                     if (File.Exists(_exceptionFile))
                     {
-                        throw new RemoteExecutionException(
-                            File.ReadAllText(_exceptionFile)
-                        );
+                        throw new RemoteExecutionException(File.ReadAllText(_exceptionFile));
                     }
                 }
 

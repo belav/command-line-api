@@ -25,12 +25,8 @@ namespace System.CommandLine.Suggest.Tests
             var allRegistrations = suggestionProvider.FindAllRegistrations();
             allRegistrations.Should()
                 .HaveCount(2)
-                .And.Contain(
-                    x => x.ExecutablePath == suggestion1.ExecutablePath
-                )
-                .And.Contain(
-                    x => x.ExecutablePath == suggestion2.ExecutablePath
-                );
+                .And.Contain(x => x.ExecutablePath == suggestion1.ExecutablePath)
+                .And.Contain(x => x.ExecutablePath == suggestion2.ExecutablePath);
         }
 
         [Fact]
@@ -38,10 +34,7 @@ namespace System.CommandLine.Suggest.Tests
         {
             ISuggestionRegistration suggestionProvider = GetSuggestionRegistration();
 
-            var path = Path.Combine(
-                Path.GetTempPath(),
-                Path.GetRandomFileName()
-            );
+            var path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             try
             {
                 Directory.CreateDirectory(path);
@@ -66,19 +59,14 @@ namespace System.CommandLine.Suggest.Tests
         {
             ISuggestionRegistration suggestionProvider = GetSuggestionRegistration();
 
-            var path = Path.Combine(
-                Path.GetTempPath(),
-                Path.GetRandomFileName()
-            );
+            var path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             try
             {
                 Directory.CreateDirectory(path);
                 var registeredFile = Path.Combine(path, "im-registered");
                 File.WriteAllText(registeredFile, "");
 
-                suggestionProvider.AddSuggestionRegistration(
-                    new Registration(registeredFile)
-                );
+                suggestionProvider.AddSuggestionRegistration(new Registration(registeredFile));
                 var foundRegistration = suggestionProvider.FindRegistration(
                     new FileInfo(registeredFile)
                 );
@@ -105,8 +93,7 @@ namespace System.CommandLine.Suggest.Tests
                 new FileInfo("COMMANDPATH")
             );
 
-            registration.ExecutablePath.Should()
-                .Be(Path.GetFullPath("commandPath"));
+            registration.ExecutablePath.Should().Be(Path.GetFullPath("commandPath"));
         }
     }
 }

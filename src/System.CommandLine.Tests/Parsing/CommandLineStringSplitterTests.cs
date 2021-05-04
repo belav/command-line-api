@@ -11,8 +11,7 @@ namespace System.CommandLine.Tests.Parsing
 {
     public class CommandLineStringSplitterTests
     {
-        private readonly CommandLineStringSplitter _splitter =
-            CommandLineStringSplitter.Instance;
+        private readonly CommandLineStringSplitter _splitter = CommandLineStringSplitter.Instance;
 
         [Theory]
         [InlineData("one two three four")]
@@ -48,42 +47,27 @@ namespace System.CommandLine.Tests.Parsing
             string prefix,
             char delimiter
         ) {
-            var optionAndArgument =
-                $@"{prefix}the-option{delimiter}""c:\temp files\""";
+            var optionAndArgument = $@"{prefix}the-option{delimiter}""c:\temp files\""";
 
             var commandLine = $"the-command {optionAndArgument}";
 
             _splitter.Split(commandLine)
                 .Should()
-                .BeEquivalentSequenceTo(
-                    "the-command",
-                    optionAndArgument.Replace("\"", "")
-                );
+                .BeEquivalentSequenceTo("the-command", optionAndArgument.Replace("\"", ""));
         }
 
         [Fact]
         public void It_handles_multiple_options_with_quoted_arguments()
         {
             var source = Directory.GetCurrentDirectory();
-            var destination = Path.Combine(
-                Directory.GetCurrentDirectory(),
-                ".trash"
-            );
+            var destination = Path.Combine(Directory.GetCurrentDirectory(), ".trash");
 
-            var commandLine =
-                $"move --from \"{source}\" --to \"{destination}\" --verbose";
+            var commandLine = $"move --from \"{source}\" --to \"{destination}\" --verbose";
 
             var tokenized = _splitter.Split(commandLine);
 
             tokenized.Should()
-                .BeEquivalentSequenceTo(
-                    "move",
-                    "--from",
-                    source,
-                    "--to",
-                    destination,
-                    "--verbose"
-                );
+                .BeEquivalentSequenceTo("move", "--from", source, "--to", destination, "--verbose");
         }
     }
 }

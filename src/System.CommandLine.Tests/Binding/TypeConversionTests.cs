@@ -43,12 +43,7 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void Command_argument_with_arity_of_zero_or_one_when_type_has_a_constructor_that_takes_a_single_string_returns_null_when_argument_is_not_provided()
         {
-            var argument = new Argument<FileInfo>(
-                "the-arg"
-            )
-            {
-                Arity = ArgumentArity.ZeroOrOne
-            };
+            var argument = new Argument<FileInfo>("the-arg") { Arity = ArgumentArity.ZeroOrOne };
             var command = new Command("the-command") { argument };
 
             var result = command.Parse("");
@@ -61,15 +56,9 @@ namespace System.CommandLine.Tests.Binding
         {
             var option = new Option<FileInfo[]>("--file");
 
-            var file1 = new FileInfo(
-                Path.Combine(new DirectoryInfo("temp").FullName, "file1.txt")
-            );
-            var file2 = new FileInfo(
-                Path.Combine(new DirectoryInfo("temp").FullName, "file2.txt")
-            );
-            var result = option.Parse(
-                $"--file {file1.FullName} --file {file2.FullName}"
-            );
+            var file1 = new FileInfo(Path.Combine(new DirectoryInfo("temp").FullName, "file1.txt"));
+            var file2 = new FileInfo(Path.Combine(new DirectoryInfo("temp").FullName, "file2.txt"));
+            var result = option.Parse($"--file {file1.FullName} --file {file2.FullName}");
 
             result.ValueForOption(option)
                 .Select(fi => fi.Name)
@@ -98,18 +87,15 @@ namespace System.CommandLine.Tests.Binding
         {
             var command = new Command("the-command") { new Argument<int?>() };
 
-            command.Arguments.Single()
-                .Arity.Should()
-                .BeEquivalentTo(ArgumentArity.ZeroOrOne);
+            command.Arguments.Single().Arity.Should().BeEquivalentTo(ArgumentArity.ZeroOrOne);
         }
 
         [Theory]
         [InlineData(typeof(int[]))]
         [InlineData(typeof(IEnumerable<int>))]
         [InlineData(typeof(List<int>))]
-        public void Argument_infers_arity_of_IEnumerable_types_as_OneOrMore(
-            Type type
-        ) {
+        public void Argument_infers_arity_of_IEnumerable_types_as_OneOrMore(Type type)
+        {
             var argument = new Argument { ArgumentType = type };
 
             argument.Arity.Should().BeEquivalentTo(ArgumentArity.OneOrMore);
@@ -319,19 +305,12 @@ namespace System.CommandLine.Tests.Binding
             )
             {
                 new Option<string>("-a"),
-                new Argument<string>(
-                    "the-arg"
-                )
-                {
-                    Arity = ArgumentArity.ZeroOrMore
-                }
+                new Argument<string>("the-arg") { Arity = ArgumentArity.ZeroOrMore }
             };
 
             var result = command.Parse(commandLine);
 
-            result.ValueForArgument("the-arg")
-                .Should()
-                .BeEquivalentTo(new[] { "c", "c", "c" });
+            result.ValueForArgument("the-arg").Should().BeEquivalentTo(new[] { "c", "c", "c" });
         }
 
         [Fact]
@@ -381,9 +360,7 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void A_default_value_with_a_custom_constructor_can_be_specified_for_an_option_argument()
         {
-            var directoryInfo = new DirectoryInfo(
-                Directory.GetCurrentDirectory()
-            );
+            var directoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
 
             var option = new Option<DirectoryInfo>("-x", () => directoryInfo);
 
@@ -397,14 +374,9 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void A_default_value_with_a_custom_constructor_can_be_specified_for_a_command_argument()
         {
-            var directoryInfo = new DirectoryInfo(
-                Directory.GetCurrentDirectory()
-            );
+            var directoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
 
-            var argument = new Argument<DirectoryInfo>(
-                "the-arg",
-                () => directoryInfo
-            );
+            var argument = new Argument<DirectoryInfo>("the-arg", () => directoryInfo);
 
             var command = new Command("something") { argument };
 
@@ -434,12 +406,7 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void Specifying_an_option_argument_overrides_the_default_value()
         {
-            var command = new Command(
-                "something"
-            )
-            {
-                new Option<int>("-x", () => 123)
-            };
+            var command = new Command("something") { new Option<int>("-x", () => 123) };
 
             var result = command.Parse("something -x 456");
 
@@ -483,8 +450,7 @@ namespace System.CommandLine.Tests.Binding
         {
             var option = new Option("-x", arity: ArgumentArity.ZeroOrOne);
 
-            var value = option.Parse("-x 123.456")
-                .ValueForOption<decimal>(option);
+            var value = option.Parse("-x 123.456").ValueForOption<decimal>(option);
 
             value.Should().Be(123.456m);
         }
@@ -522,14 +488,8 @@ namespace System.CommandLine.Tests.Binding
         {
             var option = new Option("-x", arity: ArgumentArity.ZeroOrOne);
 
-            option.Parse("-x false")
-                .ValueForOption<bool>("-x")
-                .Should()
-                .BeFalse();
-            option.Parse("-x true")
-                .ValueForOption<bool>("-x")
-                .Should()
-                .BeTrue();
+            option.Parse("-x false").ValueForOption<bool>("-x").Should().BeFalse();
+            option.Parse("-x true").ValueForOption<bool>("-x").Should().BeTrue();
         }
 
         [Fact]
@@ -537,8 +497,7 @@ namespace System.CommandLine.Tests.Binding
         {
             var option = new Option("-x", arity: ArgumentArity.ZeroOrMore);
 
-            var value = option.Parse("-x 1 -x 2 -x 3")
-                .ValueForOption<int[]>("-x");
+            var value = option.Parse("-x 1 -x 2 -x 3").ValueForOption<int[]>("-x");
 
             value.Should().BeEquivalentTo(1, 2, 3);
         }
@@ -580,10 +539,7 @@ namespace System.CommandLine.Tests.Binding
             var result = command.Parse("--items one two three");
 
             result.Errors.Should().BeEmpty();
-            result.FindResultFor(option)
-                .GetValueOrDefault()
-                .Should()
-                .BeAssignableTo(argumentType);
+            result.FindResultFor(option).GetValueOrDefault().Should().BeAssignableTo(argumentType);
         }
 
         [Fact]
@@ -591,8 +547,7 @@ namespace System.CommandLine.Tests.Binding
         {
             var option = new Option("-x", arity: ArgumentArity.ZeroOrMore);
 
-            var value = option.Parse("-x 1 -x 2 -x 3")
-                .ValueForOption<List<int>>("-x");
+            var value = option.Parse("-x 1 -x 2 -x 3").ValueForOption<List<int>>("-x");
 
             value.Should().BeEquivalentTo(1, 2, 3);
         }
@@ -602,8 +557,7 @@ namespace System.CommandLine.Tests.Binding
         {
             var option = new Option("-x", arity: ArgumentArity.ZeroOrMore);
 
-            var value = option.Parse("-x 1 -x 2 -x 3")
-                .ValueForOption<IEnumerable<int>>("-x");
+            var value = option.Parse("-x 1 -x 2 -x 3").ValueForOption<IEnumerable<int>>("-x");
 
             value.Should().BeEquivalentTo(1, 2, 3);
         }
@@ -663,9 +617,7 @@ namespace System.CommandLine.Tests.Binding
             getValue.Should()
                 .Throw<InvalidOperationException>()
                 .Which.Message.Should()
-                .Be(
-                    "Option '-x' expects a single argument but 2 were provided."
-                );
+                .Be("Option '-x' expects a single argument but 2 were provided.");
         }
 
         public class MyCustomType

@@ -13,17 +13,11 @@ namespace System.CommandLine.Suggestions
             ISuggestionSource> _suggestionSourcesByType = new ConcurrentDictionary<Type,
             ISuggestionSource>();
 
-        private static readonly string[] _trueAndFalse = {
-            bool.FalseString,
-            bool.TrueString
-        };
+        private static readonly string[] _trueAndFalse = { bool.FalseString, bool.TrueString };
 
         public static ISuggestionSource ForType(Type type)
         {
-            return _suggestionSourcesByType.GetOrAdd(
-                type ?? typeof(object),
-                CreateForType
-            );
+            return _suggestionSourcesByType.GetOrAdd(type ?? typeof(object), CreateForType);
 
             ISuggestionSource CreateForType(Type t)
             {
@@ -40,9 +34,7 @@ namespace System.CommandLine.Suggestions
 
                 if (t == typeof(bool))
                 {
-                    return new AnonymousSuggestionSource(
-                        (_, __) => _trueAndFalse
-                    );
+                    return new AnonymousSuggestionSource((_, __) => _trueAndFalse);
                 }
 
                 return Empty;

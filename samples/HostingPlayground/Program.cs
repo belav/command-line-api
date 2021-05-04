@@ -51,11 +51,7 @@ namespace HostingPlayground
             var logger = loggerFactory.CreateLogger(typeof(Program));
 
             var name = options.Name;
-            logger.LogInformation(
-                GreetEvent,
-                "Greeting was requested for: {name}",
-                name
-            );
+            logger.LogInformation(GreetEvent, "Greeting was requested for: {name}", name);
             greeter.Greet(name);
         }
     }

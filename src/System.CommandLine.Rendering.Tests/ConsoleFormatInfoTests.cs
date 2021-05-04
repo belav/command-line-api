@@ -22,26 +22,20 @@ namespace System.CommandLine.Rendering.Tests
             var readonlyInfo = ConsoleFormatInfo.ReadOnly(info);
             readonlyInfo.IsReadOnly.Should().BeTrue();
 
-            Assert.Throws<InvalidOperationException>(
-                () => readonlyInfo.SupportsAnsiCodes = false
-            );
+            Assert.Throws<InvalidOperationException>(() => readonlyInfo.SupportsAnsiCodes = false);
         }
 
         [Fact]
         public void ReadOnly_throws_argnull()
         {
-            Assert.Throws<ArgumentNullException>(
-                () => ConsoleFormatInfo.ReadOnly(null)
-            );
+            Assert.Throws<ArgumentNullException>(() => ConsoleFormatInfo.ReadOnly(null));
         }
 
         [Fact]
         public void Set_current_throws_argnull()
         {
             var info = new ConsoleFormatInfo();
-            Assert.Throws<ArgumentNullException>(
-                () => ConsoleFormatInfo.CurrentInfo = null
-            );
+            Assert.Throws<ArgumentNullException>(() => ConsoleFormatInfo.CurrentInfo = null);
         }
 
         [Fact]

@@ -12,14 +12,11 @@ namespace System.CommandLine.Rendering
         public NonAnsiRenderingSpanVisitor(ITerminal terminal, Region region)
             : base(terminal?.Out, region)
         {
-            Terminal = terminal ??
-            throw new ArgumentNullException(nameof(terminal));
+            Terminal = terminal ?? throw new ArgumentNullException(nameof(terminal));
         }
 
-        protected override void SetCursorPosition(
-            int? left = null,
-            int? top = null
-        ) {
+        protected override void SetCursorPosition(int? left = null, int? top = null)
+        {
             if (left != null && top != null)
             {
                 Terminal.SetCursorPosition(left.Value, top.Value);
@@ -34,12 +31,11 @@ namespace System.CommandLine.Rendering
             }
         }
 
-        public override void VisitForegroundColorSpan(
-            ForegroundColorSpan span
-        ) {
+        public override void VisitForegroundColorSpan(ForegroundColorSpan span)
+        {
             if (
-                span.RgbColor == null &&
-                _foregroundColorMappings.TryGetValue(span.Name, out var color)
+                span.RgbColor == null
+                && _foregroundColorMappings.TryGetValue(span.Name, out var color)
             ) {
                 Terminal.ForegroundColor = color;
             }
@@ -51,12 +47,11 @@ namespace System.CommandLine.Rendering
             }
         }
 
-        public override void VisitBackgroundColorSpan(
-            BackgroundColorSpan span
-        ) {
+        public override void VisitBackgroundColorSpan(BackgroundColorSpan span)
+        {
             if (
-                span.RgbColor == null &&
-                _backgroundColorMappings.TryGetValue(span.Name, out var color)
+                span.RgbColor == null
+                && _backgroundColorMappings.TryGetValue(span.Name, out var color)
             ) {
                 Terminal.BackgroundColor = color;
             }
@@ -68,9 +63,8 @@ namespace System.CommandLine.Rendering
             }
         }
 
-        public override void VisitCursorControlSpan(
-            CursorControlSpan cursorControlSpan
-        ) {
+        public override void VisitCursorControlSpan(CursorControlSpan cursorControlSpan)
+        {
             switch (cursorControlSpan.Name)
             {
                 case nameof(CursorControlSpan.Hide):
@@ -83,8 +77,7 @@ namespace System.CommandLine.Rendering
         }
 
         private static readonly Dictionary<string,
-            ConsoleColor> _backgroundColorMappings = new Dictionary<string,
-            ConsoleColor>
+            ConsoleColor> _backgroundColorMappings = new Dictionary<string, ConsoleColor>
         {
             [nameof(BackgroundColorSpan.Black)] = ConsoleColor.Black,
             [nameof(BackgroundColorSpan.Red)] = ConsoleColor.DarkRed,
@@ -105,8 +98,7 @@ namespace System.CommandLine.Rendering
         };
 
         private static readonly Dictionary<string,
-            ConsoleColor> _foregroundColorMappings = new Dictionary<string,
-            ConsoleColor>
+            ConsoleColor> _foregroundColorMappings = new Dictionary<string, ConsoleColor>
         {
             [nameof(ForegroundColorSpan.Black)] = ConsoleColor.Black,
             [nameof(ForegroundColorSpan.Red)] = ConsoleColor.DarkRed,

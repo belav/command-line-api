@@ -9,8 +9,8 @@ namespace System.CommandLine.Binding
     {
         public SpecificSymbolValueSource(IValueDescriptor valueDescriptor)
         {
-            ValueDescriptor = valueDescriptor ??
-            throw new ArgumentNullException(nameof(valueDescriptor));
+            ValueDescriptor = valueDescriptor
+            ?? throw new ArgumentNullException(nameof(valueDescriptor));
         }
 
         public IValueDescriptor ValueDescriptor { get; }
@@ -24,8 +24,7 @@ namespace System.CommandLine.Binding
             switch (specificDescriptor)
             {
                 case IOption option:
-                    var optionResult =
-                        bindingContext?.ParseResult.FindResultFor(option);
+                    var optionResult = bindingContext?.ParseResult.FindResultFor(option);
                     if (!(optionResult is null))
                     {
                         boundValue = optionResult.GetValueOrDefault();
@@ -33,8 +32,7 @@ namespace System.CommandLine.Binding
                     }
                     break;
                 case IArgument argument:
-                    var argumentResult =
-                        bindingContext?.ParseResult.FindResultFor(argument);
+                    var argumentResult = bindingContext?.ParseResult.FindResultFor(argument);
                     if (!(argumentResult is null))
                     {
                         boundValue = argumentResult.GetValueOrDefault();

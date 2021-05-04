@@ -15,13 +15,10 @@ namespace System.CommandLine.Binding
             IValueDescriptor valueDescriptor
         ) {
             var (propertyType, propertyName) = property.MemberTypeAndName();
-            var propertyDescriptor = FindModelPropertyDescriptor(
-                propertyType,
-                propertyName
+            var propertyDescriptor = FindModelPropertyDescriptor(propertyType, propertyName);
+            MemberBindingSources[propertyDescriptor] = new SpecificSymbolValueSource(
+                valueDescriptor
             );
-            MemberBindingSources[
-                propertyDescriptor
-            ] = new SpecificSymbolValueSource(valueDescriptor);
         }
 
         public void BindMemberFromValue<TValue>(
@@ -29,13 +26,8 @@ namespace System.CommandLine.Binding
             Func<BindingContext?, TValue> getValue
         ) {
             var (propertyType, propertyName) = property.MemberTypeAndName();
-            var propertyDescriptor = FindModelPropertyDescriptor(
-                propertyType,
-                propertyName
-            );
-            MemberBindingSources[propertyDescriptor] = new DelegateValueSource(
-                c => getValue(c)
-            );
+            var propertyDescriptor = FindModelPropertyDescriptor(propertyType, propertyName);
+            MemberBindingSources[propertyDescriptor] = new DelegateValueSource(c => getValue(c));
         }
     }
 }

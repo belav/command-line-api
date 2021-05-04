@@ -16,8 +16,7 @@ namespace System.CommandLine.Binding
     internal static class ArgumentConverter
     {
         private static readonly Dictionary<Type,
-            Func<string, object>> _converters = new Dictionary<Type,
-            Func<string, object>>
+            Func<string, object>> _converters = new Dictionary<Type, Func<string, object>>
         {
             [typeof(FileSystemInfo)] = value =>
             {
@@ -27,11 +26,8 @@ namespace System.CommandLine.Binding
                 }
 
                 if (
-                    value.EndsWith(
-                        Path.DirectorySeparatorChar.ToString(),
-                        StringComparison.Ordinal
-                    ) ||
-                    value.EndsWith(
+                    value.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal)
+                    || value.EndsWith(
                         Path.AltDirectorySeparatorChar.ToString(),
                         StringComparison.Ordinal
                     )
@@ -53,11 +49,7 @@ namespace System.CommandLine.Binding
                 case string singleValue:
                     if (type.IsEnumerable() && !type.HasStringTypeConverter())
                     {
-                        return ConvertStrings(
-                            argument,
-                            type,
-                            new[] { singleValue }
-                        );
+                        return ConvertStrings(argument, type, new[] { singleValue });
                     }
                     else
                     {
@@ -83,10 +75,7 @@ namespace System.CommandLine.Binding
                 {
                     try
                     {
-                        return Success(
-                            argument,
-                            typeConverter.ConvertFromInvariantString(value)
-                        );
+                        return Success(argument, typeConverter.ConvertFromInvariantString(value));
                     }
                     catch (Exception)
                     {
@@ -192,19 +181,16 @@ namespace System.CommandLine.Binding
         }
 
         internal static bool HasStringTypeConverter(this Type type) =>
-            TypeDescriptor.GetConverter(type) is  {  } typeConverter &&
-            typeConverter.CanConvertFrom(typeof(string));
+            TypeDescriptor.GetConverter(type)
+                is  {  } typeConverter
+            && typeConverter.CanConvertFrom(typeof(string));
 
         private static FailedArgumentConversionResult Failure(
             IArgument argument,
             Type expectedType,
             string value
         ) {
-            return new FailedArgumentTypeConversionResult(
-                argument,
-                expectedType,
-                value
-            );
+            return new FailedArgumentTypeConversionResult(argument, expectedType, value);
         }
 
         internal static ArgumentConversionResult ConvertIfNeeded(
@@ -222,15 +208,10 @@ namespace System.CommandLine.Binding
                 case SuccessfulArgumentConversionResult successful when !toType.IsInstanceOfType(
                     successful.Value
                 ):
-                    return ConvertObject(
-                        conversionResult.Argument,
-                        toType,
-                        successful.Value
-                    );
-                case SuccessfulArgumentConversionResult successful when toType ==
-                typeof(object) &&
-                conversionResult.Argument.Arity.MaximumNumberOfValues > 1 &&
-                successful.Value is string:
+                    return ConvertObject(conversionResult.Argument, toType, successful.Value);
+                case SuccessfulArgumentConversionResult successful when toType == typeof(object)
+                && conversionResult.Argument.Arity.MaximumNumberOfValues > 1
+                && successful.Value is string:
                     return ConvertObject(
                         conversionResult.Argument,
                         typeof(IEnumerable<string>),
@@ -238,27 +219,23 @@ namespace System.CommandLine.Binding
                     );
                 case NoArgumentConversionResult _ when toType == typeof(bool):
                     return Success(conversionResult.Argument, true);
-                case NoArgumentConversionResult _ when conversionResult.Argument.Arity.MinimumNumberOfValues >
-                0:
+                case NoArgumentConversionResult _ when conversionResult.Argument.Arity.MinimumNumberOfValues
+                > 0:
                     return new MissingArgumentConversionResult(
                         conversionResult.Argument,
                         Resources.Instance.RequiredArgumentMissing(symbolResult)
                     );
-                case NoArgumentConversionResult _ when conversionResult.Argument.Arity.MaximumNumberOfValues >
-                1:
-                    return Success(
-                        conversionResult.Argument,
-                        Array.Empty<string>()
-                    );
+                case NoArgumentConversionResult _ when conversionResult.Argument.Arity.MaximumNumberOfValues
+                > 1:
+                    return Success(conversionResult.Argument, Array.Empty<string>());
                 default:
                     return conversionResult;
             }
         }
 
         [return: MaybeNull]
-        internal static T GetValueOrDefault<T>(
-            this ArgumentConversionResult result
-        ) {
+        internal static T GetValueOrDefault<T>(this ArgumentConversionResult result)
+        {
             return result switch
             {
                 SuccessfulArgumentConversionResult successful => (T)successful.Value!,
@@ -270,10 +247,8 @@ namespace System.CommandLine.Binding
             };
         }
 
-        public static bool TryConvertBoolArgument(
-            ArgumentResult argumentResult,
-            out object? value
-        ) {
+        public static bool TryConvertBoolArgument(ArgumentResult argumentResult, out object? value)
+        {
             if (argumentResult.Tokens.Count == 0)
             {
                 value = true;
@@ -281,19 +256,14 @@ namespace System.CommandLine.Binding
             }
             else
             {
-                var success = bool.TryParse(
-                    argumentResult.Tokens[0].Value,
-                    out var parsed
-                );
+                var success = bool.TryParse(argumentResult.Tokens[0].Value, out var parsed);
                 value = parsed;
                 return success;
             }
         }
 
-        public static bool TryConvertArgument(
-            ArgumentResult argumentResult,
-            out object? value
-        ) {
+        public static bool TryConvertArgument(ArgumentResult argumentResult, out object? value)
+        {
             var argument = argumentResult.Argument;
 
             switch (argument.Arity.MaximumNumberOfValues)

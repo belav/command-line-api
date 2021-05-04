@@ -5,12 +5,9 @@ namespace System.CommandLine.Parsing
 {
     internal class CommandArgumentNode : SyntaxNode
     {
-        public CommandArgumentNode(
-            Token token,
-            IArgument argument,
-            CommandNode parent
-        )
-            : base(token, parent) {
+        public CommandArgumentNode(Token token, IArgument argument, CommandNode parent)
+            : base(token, parent)
+        {
             if (token.Type != TokenType.Argument)
             {
                 throw new ArgumentException($"Incorrect token type: {token}");

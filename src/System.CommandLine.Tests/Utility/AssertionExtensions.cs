@@ -10,9 +10,7 @@ namespace System.CommandLine.Tests.Utility
 {
     public static class AssertionExtensions
     {
-        public static AndConstraint<GenericCollectionAssertions<T>> BeEquivalentSequenceTo<
-            T
-        >(
+        public static AndConstraint<GenericCollectionAssertions<T>> BeEquivalentSequenceTo<T>(
             this GenericCollectionAssertions<T> assertions,
             params object[] expectedValues
         ) {
@@ -31,36 +29,29 @@ namespace System.CommandLine.Tests.Utility
                         )
                         .Where(
                             t =>
-                                (t.expected == null) ||
-                                (t.expected.GetType().GetProperties().Length >
-                                0)
+                                (t.expected == null)
+                                || (t.expected.GetType().GetProperties().Length > 0)
                         )
                 ) {
                     tuple.actual.Should().BeEquivalentTo(tuple.expected);
                 }
             }
 
-            return new AndConstraint<GenericCollectionAssertions<T>>(
-                assertions
-            );
+            return new AndConstraint<GenericCollectionAssertions<T>>(assertions);
         }
 
         public static AndConstraint<StringCollectionAssertions> BeEquivalentSequenceTo(
             this StringCollectionAssertions assertions,
             params string[] expectedValues
         ) {
-            return assertions.BeEquivalentTo(
-                expectedValues,
-                c => c.WithStrictOrderingFor(s => s)
-            );
+            return assertions.BeEquivalentTo(expectedValues, c => c.WithStrictOrderingFor(s => s));
         }
 
         public static ConsoleAssertions Should(this IConsole console) =>
             new ConsoleAssertions(console);
 
-        public static AndConstraint<ConsoleAssertions> ShowHelp(
-            this ConsoleAssertions assertions
-        ) {
+        public static AndConstraint<ConsoleAssertions> ShowHelp(this ConsoleAssertions assertions)
+        {
             assertions.Subject.Out.ToString().Should().Contain("Usage:");
             assertions.Subject.Error.ToString().Should().BeEmpty();
 

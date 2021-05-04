@@ -21,15 +21,11 @@ namespace System.CommandLine
         /// <param name="maximumNumberOfValues">The maximum number of values allowed for the argument.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="minimumNumberOfValues"/> is negative.</exception>
         /// <exception cref="ArgumentException">Thrown when the maximum number is less than the minimum number or the maximum number is greater than MaximumArity.</exception>
-        public ArgumentArity(
-            int minimumNumberOfValues,
-            int maximumNumberOfValues
-        ) {
+        public ArgumentArity(int minimumNumberOfValues, int maximumNumberOfValues)
+        {
             if (minimumNumberOfValues < 0)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(minimumNumberOfValues)
-                );
+                throw new ArgumentOutOfRangeException(nameof(minimumNumberOfValues));
             }
 
             if (maximumNumberOfValues < minimumNumberOfValues)
@@ -79,9 +75,7 @@ namespace System.CommandLine
 
                 return new MissingArgumentConversionResult(
                     argument,
-                    symbolResult.ValidationMessages.RequiredArgumentMissing(
-                        symbolResult
-                    )
+                    symbolResult.ValidationMessages.RequiredArgumentMissing(symbolResult)
                 );
             }
 
@@ -89,9 +83,7 @@ namespace System.CommandLine
             {
                 return new TooManyArgumentsConversionResult(
                     argument,
-                    symbolResult!.ValidationMessages.ExpectsOneArgument(
-                        symbolResult
-                    )
+                    symbolResult!.ValidationMessages.ExpectsOneArgument(symbolResult)
                 );
             }
 
@@ -116,20 +108,15 @@ namespace System.CommandLine
         /// <summary>
         /// An arity that may have multiple values.
         /// </summary>
-        public static IArgumentArity ZeroOrMore =>
-            new ArgumentArity(0, MaximumArity);
+        public static IArgumentArity ZeroOrMore => new ArgumentArity(0, MaximumArity);
 
         /// <summary>
         /// An arity that must have at least one value.
         /// </summary>
-        public static IArgumentArity OneOrMore =>
-            new ArgumentArity(1, MaximumArity);
+        public static IArgumentArity OneOrMore => new ArgumentArity(1, MaximumArity);
 
-        internal static IArgumentArity Default(
-            Type type,
-            Argument argument,
-            ISymbolSet parents
-        ) {
+        internal static IArgumentArity Default(Type type, Argument argument, ISymbolSet parents)
+        {
             if (type == typeof(bool))
             {
                 return ZeroOrOne;
@@ -142,17 +129,13 @@ namespace System.CommandLine
 
             var parent = parents.Count > 0 ? parents[0] : default;
 
-            if (
-                typeof(IEnumerable).IsAssignableFrom(type) &&
-                type != typeof(string)
-            ) {
+            if (typeof(IEnumerable).IsAssignableFrom(type) && type != typeof(string))
+            {
                 return parent is ICommand ? ZeroOrMore : OneOrMore;
             }
 
-            if (
-                parent is ICommand &&
-                (argument.HasDefaultValue || type.IsNullable())
-            ) {
+            if (parent is ICommand && (argument.HasDefaultValue || type.IsNullable()))
+            {
                 return ZeroOrOne;
             }
 

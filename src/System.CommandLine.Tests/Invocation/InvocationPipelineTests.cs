@@ -24,9 +24,7 @@ namespace System.CommandLine.Tests.Invocation
         {
             var wasCalled = false;
 
-            var parser = new CommandLineBuilder().AddCommand(
-                    new Command("command")
-                )
+            var parser = new CommandLineBuilder().AddCommand(new Command("command"))
                 .UseMiddleware(_ => wasCalled = true)
                 .Build();
 
@@ -45,13 +43,9 @@ namespace System.CommandLine.Tests.Invocation
             first.Handler = CommandHandler.Create(() => firstWasCalled = true);
 
             var second = new Command("second");
-            second.Handler = CommandHandler.Create(
-                () => secondWasCalled = true
-            );
+            second.Handler = CommandHandler.Create(() => secondWasCalled = true);
 
-            var parser = new CommandLineBuilder().AddCommand(first)
-                .AddCommand(second)
-                .Build();
+            var parser = new CommandLineBuilder().AddCommand(first).AddCommand(second).Build();
 
             await parser.InvokeAsync("first", _console);
 
@@ -69,13 +63,9 @@ namespace System.CommandLine.Tests.Invocation
             first.Handler = CommandHandler.Create(() => firstWasCalled = true);
 
             var second = new Command("second");
-            second.Handler = CommandHandler.Create(
-                () => secondWasCalled = true
-            );
+            second.Handler = CommandHandler.Create(() => secondWasCalled = true);
 
-            var parser = new CommandLineBuilder().AddCommand(first)
-                .AddCommand(second)
-                .Build();
+            var parser = new CommandLineBuilder().AddCommand(first).AddCommand(second).Build();
 
             parser.Invoke("first", _console);
 
@@ -86,16 +76,11 @@ namespace System.CommandLine.Tests.Invocation
         [Fact]
         public void When_middleware_throws_then_InvokeAsync_does_not_handle_the_exception()
         {
-            var parser = new CommandLineBuilder().AddCommand(
-                    new Command("the-command")
-                )
+            var parser = new CommandLineBuilder().AddCommand(new Command("the-command"))
                 .UseMiddleware(_ => throw new Exception("oops!"))
                 .Build();
 
-            Func<Task> invoke = async () => await parser.InvokeAsync(
-                "the-command",
-                _console
-            );
+            Func<Task> invoke = async () => await parser.InvokeAsync("the-command", _console);
 
             invoke.Should().Throw<Exception>().WithMessage("oops!");
         }
@@ -103,9 +88,7 @@ namespace System.CommandLine.Tests.Invocation
         [Fact]
         public void When_middleware_throws_then_Invoke_does_not_handle_the_exception()
         {
-            var parser = new CommandLineBuilder().AddCommand(
-                    new Command("the-command")
-                )
+            var parser = new CommandLineBuilder().AddCommand(new Command("the-command"))
                 .UseMiddleware(_ => throw new Exception("oops!"))
                 .Build();
 
@@ -131,10 +114,7 @@ namespace System.CommandLine.Tests.Invocation
 
             var parser = new CommandLineBuilder().AddCommand(command).Build();
 
-            Func<Task> invoke = async () => await parser.InvokeAsync(
-                "the-command",
-                _console
-            );
+            Func<Task> invoke = async () => await parser.InvokeAsync("the-command", _console);
 
             invoke.Should()
                 .Throw<TargetInvocationException>()
@@ -185,9 +165,7 @@ namespace System.CommandLine.Tests.Invocation
             var parser = new CommandLineBuilder().UseMiddleware(
                     async (context, next) =>
                     {
-                        var tokens = context.ParseResult.Tokens.Select(
-                                t => t.Value
-                            )
+                        var tokens = context.ParseResult.Tokens.Select(t => t.Value)
                             .Concat(new[] { "implicit-inner-command" })
                             .ToArray();
 
@@ -298,9 +276,7 @@ namespace System.CommandLine.Tests.Invocation
                 context =>
                 {
                     factoryWasCalled = true;
-                    return createdHelpBuilder = new HelpBuilder(
-                        context.Console
-                    );
+                    return createdHelpBuilder = new HelpBuilder(context.Console);
                 };
 
             var command = new Command("help-command");
@@ -313,9 +289,7 @@ namespace System.CommandLine.Tests.Invocation
                 }
             );
 
-            var parser = new CommandLineBuilder().UseHelpBuilder(
-                    helpBuilderFactory
-                )
+            var parser = new CommandLineBuilder().UseHelpBuilder(helpBuilderFactory)
                 .AddCommand(command)
                 .Build();
 

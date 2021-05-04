@@ -41,8 +41,7 @@ namespace System.CommandLine.Rendering
             }
         }
 
-        protected bool Equals(ControlSpan other) =>
-            string.Equals(Name, other.Name);
+        protected bool Equals(ControlSpan other) => string.Equals(Name, other.Name);
 
         public override bool Equals(object obj)
         {

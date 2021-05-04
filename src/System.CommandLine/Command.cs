@@ -49,8 +49,7 @@ namespace System.CommandLine
         /// Adds an <see cref="Argument"/> to the command.
         /// </summary>
         /// <param name="argument">The argument to add to the command.</param>
-        public void AddArgument(Argument argument) =>
-            AddArgumentInner(argument);
+        public void AddArgument(Argument argument) => AddArgumentInner(argument);
 
         /// <summary>
         /// Adds a subcommand to the command.
@@ -137,8 +136,7 @@ namespace System.CommandLine
             base.AddSymbol(symbol);
         }
 
-        private protected override string DefaultName =>
-            throw new NotImplementedException();
+        private protected override string DefaultName => throw new NotImplementedException();
 
         internal List<ValidateSymbol<CommandResult>> Validators { get; } =
             new List<ValidateSymbol<CommandResult>>();
@@ -170,8 +168,7 @@ namespace System.CommandLine
         /// <summary>
         /// Represents all of the symbols for the command.
         /// </summary>
-        public IEnumerator<Symbol> GetEnumerator() =>
-            Children.OfType<Symbol>().GetEnumerator();
+        public IEnumerator<Symbol> GetEnumerator() => Children.OfType<Symbol>().GetEnumerator();
 
         /// <inheritdoc />
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

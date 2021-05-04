@@ -27,19 +27,15 @@ namespace System.CommandLine.Binding
                 }
 
                 if (
-                    TypeDescriptor.GetConverter(type) is  {  } typeConverter &&
-                    typeConverter.CanConvertFrom(typeof(string))
+                    TypeDescriptor.GetConverter(type)
+                        is  {  } typeConverter
+                    && typeConverter.CanConvertFrom(typeof(string))
                 ) {
                     return true;
                 }
 
-                if (
-                    TryFindConstructorWithSingleParameterOfType(
-                        type,
-                        typeof(string),
-                        out _
-                    )
-                ) {
+                if (TryFindConstructorWithSingleParameterOfType(type, typeof(string), out _))
+                {
                     return true;
                 }
 
@@ -74,15 +70,11 @@ namespace System.CommandLine.Binding
                 {
                     return type.GetGenericTypeDefinition() switch
                     {
-                        Type enumerable when enumerable ==
-                        typeof(IEnumerable<>) => GetEmptyEnumerable(itemType),
-                        Type list when list == typeof(List<>) => GetEmptyList(
-                            itemType
-                        ),
-                        Type array when array == typeof(IList<>) ||
-                        array == typeof(ICollection<>) => CreateEmptyArray(
-                            itemType
-                        ),
+                        Type enumerable when enumerable
+                        == typeof(IEnumerable<>) => GetEmptyEnumerable(itemType),
+                        Type list when list == typeof(List<>) => GetEmptyList(itemType),
+                        Type array when array == typeof(IList<>)
+                        || array == typeof(ICollection<>) => CreateEmptyArray(itemType),
                         _ => null
                     };
                 }
@@ -90,31 +82,24 @@ namespace System.CommandLine.Binding
 
             return type switch
             {
-                Type nonGeneric when nonGeneric == typeof(IList) ||
-                nonGeneric == typeof(ICollection) ||
-                nonGeneric == typeof(IEnumerable) => CreateEmptyArray(
-                    typeof(object)
-                ),
+                Type nonGeneric when nonGeneric == typeof(IList)
+                || nonGeneric == typeof(ICollection)
+                || nonGeneric == typeof(IEnumerable) => CreateEmptyArray(typeof(object)),
                 _ => type.IsValueType ? Activator.CreateInstance(type) : null
             };
 
             static object GetEmptyList(Type itemType)
             {
-                return Activator.CreateInstance(
-                    typeof(List<>).MakeGenericType(itemType)
-                );
+                return Activator.CreateInstance(typeof(List<>).MakeGenericType(itemType));
             }
 
             static IEnumerable GetEmptyEnumerable(Type itemType)
             {
-                var genericMethod = EnumerableEmptyMethod.MakeGenericMethod(
-                    itemType
-                );
+                var genericMethod = EnumerableEmptyMethod.MakeGenericMethod(itemType);
                 return (IEnumerable)genericMethod.Invoke(null, new object[0]);
             }
 
-            static Array CreateEmptyArray(Type itemType) =>
-                Array.CreateInstance(itemType, 0);
+            static Array CreateEmptyArray(Type itemType) => Array.CreateInstance(itemType, 0);
         }
 
         internal static Type? GetItemTypeIfEnumerable(Type type)
@@ -151,8 +136,7 @@ namespace System.CommandLine.Binding
 
             for (
                 var aliasIndex = IndexAfterPrefix(alias);
-                aliasIndex < alias.Length &&
-                parameterNameIndex < parameterName.Length;
+                aliasIndex < alias.Length && parameterNameIndex < parameterName.Length;
                 aliasIndex++
             ) {
                 var aliasChar = alias[aliasIndex];
@@ -170,10 +154,8 @@ namespace System.CommandLine.Binding
                     continue;
                 }
 
-                if (
-                    char.ToUpperInvariant(parameterNameChar) !=
-                    char.ToUpperInvariant(aliasChar)
-                ) {
+                if (char.ToUpperInvariant(parameterNameChar) != char.ToUpperInvariant(aliasChar))
+                {
                     return false;
                 }
 
@@ -200,17 +182,12 @@ namespace System.CommandLine.Binding
             }
         }
 
-        internal static bool IsMatch(
-            this string parameterName,
-            IOption symbol
-        ) =>
-            parameterName.IsMatch(symbol.Name) ||
-            symbol.HasAlias(parameterName);
+        internal static bool IsMatch(this string parameterName, IOption symbol) =>
+            parameterName.IsMatch(symbol.Name) || symbol.HasAlias(parameterName);
 
         internal static bool IsNullable(this Type t)
         {
-            return t.IsGenericType &&
-            t.GetGenericTypeDefinition() == typeof(Nullable<>);
+            return t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
         internal static bool TryFindConstructorWithSingleParameterOfType(
@@ -222,9 +199,9 @@ namespace System.CommandLine.Binding
                 .Select(c => (ctor: c, parameters: c.GetParameters()))
                 .SingleOrDefault(
                     tuple =>
-                        tuple.ctor.IsPublic &&
-                        tuple.parameters.Length == 1 &&
-                        tuple.parameters[0].ParameterType == parameterType
+                        tuple.ctor.IsPublic
+                        && tuple.parameters.Length == 1
+                        && tuple.parameters[0].ParameterType == parameterType
                 );
 
             if (x != null)

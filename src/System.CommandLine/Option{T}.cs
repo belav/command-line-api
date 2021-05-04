@@ -7,16 +7,8 @@ namespace System.CommandLine
 {
     public class Option<T> : Option
     {
-        public Option(
-            string alias,
-            string? description = null,
-            IArgumentArity? arity = null
-        )
-            : base(
-                new[] { alias },
-                description,
-                new Argument<T> { Arity = arity }
-            ) { }
+        public Option(string alias, string? description = null, IArgumentArity? arity = null)
+            : base(new[] { alias }, description, new Argument<T> { Arity = arity }) { }
 
         public Option(string[] aliases, string? description = null)
             : base(aliases, description, new Argument<T>()) { }
@@ -31,8 +23,7 @@ namespace System.CommandLine
                 new[] { alias },
                 description,
                 new Argument<T>(
-                    parseArgument ??
-                    throw new ArgumentNullException(nameof(parseArgument)),
+                    parseArgument ?? throw new ArgumentNullException(nameof(parseArgument)),
                     isDefault
                 )
             ) { }
@@ -47,37 +38,26 @@ namespace System.CommandLine
                 aliases,
                 description,
                 new Argument<T>(
-                    parseArgument ??
-                    throw new ArgumentNullException(nameof(parseArgument)),
+                    parseArgument ?? throw new ArgumentNullException(nameof(parseArgument)),
                     isDefault
                 )
             ) { }
 
-        public Option(
-            string alias,
-            Func<T> getDefaultValue,
-            string? description = null
-        )
+        public Option(string alias, Func<T> getDefaultValue, string? description = null)
             : base(
                 new[] { alias },
                 description,
                 new Argument<T>(
-                    getDefaultValue ??
-                    throw new ArgumentNullException(nameof(getDefaultValue))
+                    getDefaultValue ?? throw new ArgumentNullException(nameof(getDefaultValue))
                 )
             ) { }
 
-        public Option(
-            string[] aliases,
-            Func<T> getDefaultValue,
-            string? description = null
-        )
+        public Option(string[] aliases, Func<T> getDefaultValue, string? description = null)
             : base(
                 aliases,
                 description,
                 new Argument<T>(
-                    getDefaultValue ??
-                    throw new ArgumentNullException(nameof(getDefaultValue))
+                    getDefaultValue ?? throw new ArgumentNullException(nameof(getDefaultValue))
                 )
             ) { }
     }

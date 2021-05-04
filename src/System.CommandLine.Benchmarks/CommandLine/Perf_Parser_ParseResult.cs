@@ -23,9 +23,7 @@ namespace System.CommandLine.Benchmarks.CommandLine
         {
             var option = new Option("-opt");
 
-            _testParser = new CommandLineBuilder().AddOption(option)
-                .UseParseDirective()
-                .Build();
+            _testParser = new CommandLineBuilder().AddOption(option).UseParseDirective().Build();
         }
 
         public IEnumerable<string> GenerateTestInputs() =>
@@ -39,13 +37,7 @@ namespace System.CommandLine.Benchmarks.CommandLine
 
         public IEnumerable<object> GenerateTestParseResults() =>
             GenerateTestInputs()
-                .Select(
-                    input =>
-                        new BdnParam<ParseResult>(
-                            _testParser.Parse(input),
-                            input
-                        )
-                );
+                .Select(input => new BdnParam<ParseResult>(_testParser.Parse(input), input));
 
         [Benchmark]
         [ArgumentsSource(nameof(GenerateTestInputs))]

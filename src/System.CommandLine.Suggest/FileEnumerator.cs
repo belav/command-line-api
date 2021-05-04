@@ -9,16 +9,14 @@ namespace System.CommandLine.Suggest
 {
     public static class FileEnumerator
     {
-        public static IEnumerable<string> EnumerateFilesWithoutExtension(
-            DirectoryInfo path
-        ) {
+        public static IEnumerable<string> EnumerateFilesWithoutExtension(DirectoryInfo path)
+        {
             if (path == null || !path.Exists)
             {
                 return Array.Empty<string>();
             }
 
-            return path.EnumerateFiles()
-                .Select(p => Path.GetFileNameWithoutExtension(p.FullName));
+            return path.EnumerateFiles().Select(p => Path.GetFileNameWithoutExtension(p.FullName));
         }
     }
 }

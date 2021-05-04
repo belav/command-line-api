@@ -7,18 +7,15 @@ namespace System.CommandLine.Binding
     {
         private protected ArgumentConversionResult(IArgument argument)
         {
-            Argument = argument ??
-            throw new ArgumentNullException(nameof(argument));
+            Argument = argument ?? throw new ArgumentNullException(nameof(argument));
         }
 
         public IArgument Argument { get; }
 
         internal string? ErrorMessage { get; set; }
 
-        internal static FailedArgumentConversionResult Failure(
-            IArgument argument,
-            string error
-        ) => new FailedArgumentConversionResult(argument, error);
+        internal static FailedArgumentConversionResult Failure(IArgument argument, string error) =>
+            new FailedArgumentConversionResult(argument, error);
 
         public static SuccessfulArgumentConversionResult Success(
             IArgument argument,

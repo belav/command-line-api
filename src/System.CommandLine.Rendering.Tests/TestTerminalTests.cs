@@ -74,9 +74,7 @@ namespace System.CommandLine.Rendering.Tests
             terminal.Out.Write(stringWithEscapeSequence);
 
             terminal.Events.Should()
-                .BeEquivalentSequenceTo(
-                    new TestTerminal.ContentWritten(stringWithEscapeSequence)
-                );
+                .BeEquivalentSequenceTo(new TestTerminal.ContentWritten(stringWithEscapeSequence));
         }
 
         [Theory]
@@ -101,11 +99,7 @@ namespace System.CommandLine.Rendering.Tests
             terminal.Events.OfType<TestTerminal.CursorPositionChanged>()
                 .Select(e => e.Position)
                 .Should()
-                .BeEquivalentSequenceTo(
-                    new Point(2, 5),
-                    new Point(2, 6),
-                    new Point(2, 7)
-                );
+                .BeEquivalentSequenceTo(new Point(2, 5), new Point(2, 6), new Point(2, 7));
         }
 
         [Theory]
@@ -122,9 +116,7 @@ namespace System.CommandLine.Rendering.Tests
 
             renderer.RenderToRegion("first line\nsecond line", region);
 
-            terminal.Events.Where(
-                    e => !(e is TestTerminal.AnsiControlCodeWritten)
-                )
+            terminal.Events.Where(e => !(e is TestTerminal.AnsiControlCodeWritten))
                 .Should()
                 .BeEquivalentSequenceTo(
                     new TestTerminal.CursorPositionChanged(new Point(1, 3)),
@@ -151,8 +143,8 @@ namespace System.CommandLine.Rendering.Tests
             terminal.Events.Should()
                 .Contain(
                     e =>
-                        e is TestTerminal.ContentWritten &&
-                        ((TestTerminal.ContentWritten)e).Content == "text"
+                        e is TestTerminal.ContentWritten
+                        && ((TestTerminal.ContentWritten)e).Content == "text"
                 );
         }
     }

@@ -13,12 +13,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_Invoke_can_be_called_more_than_once_for_the_same_command()
         {
-            var command = new RootCommand(
-                "Root command description"
-            )
-            {
-                new Command("inner")
-            };
+            var command = new RootCommand("Root command description") { new Command("inner") };
 
             var console1 = new TestConsole();
 

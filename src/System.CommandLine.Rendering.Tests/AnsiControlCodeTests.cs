@@ -25,9 +25,7 @@ namespace System.CommandLine.Rendering.Tests
 
             one.Equals(two).Should().BeTrue();
 
-            one.Invoking(code => code.Equals(null))
-                .Should()
-                .NotThrow<NullReferenceException>();
+            one.Invoking(code => code.Equals(null)).Should().NotThrow<NullReferenceException>();
         }
 
         [Fact]
@@ -42,9 +40,8 @@ namespace System.CommandLine.Rendering.Tests
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void Control_codes_respect_ConsoleFormatInfo(
-            bool supportsAnsiCodes
-        ) {
+        public void Control_codes_respect_ConsoleFormatInfo(bool supportsAnsiCodes)
+        {
             IFormattable code = new AnsiControlCode($"{Ansi.Esc}[s");
 
             IFormatProvider provider = new ConsoleFormatInfo()

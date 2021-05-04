@@ -11,14 +11,8 @@ namespace System.CommandLine.Rendering.Tests
         [Fact]
         public void ForegroundColorSpans_with_equivalent_content_have_the_same_hash_code()
         {
-            var one = new ForegroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
-            var two = new ForegroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
+            var one = new ForegroundColorSpan("green", Ansi.Color.Foreground.Green);
+            var two = new ForegroundColorSpan("green", Ansi.Color.Foreground.Green);
 
             one.GetHashCode().Should().Be(two.GetHashCode());
         }
@@ -26,33 +20,19 @@ namespace System.CommandLine.Rendering.Tests
         [Fact]
         public void ForegroundColorSpans_with_the_same_name_are_equal()
         {
-            var one = new ForegroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
-            var two = new ForegroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
+            var one = new ForegroundColorSpan("green", Ansi.Color.Foreground.Green);
+            var two = new ForegroundColorSpan("green", Ansi.Color.Foreground.Green);
 
             one.Equals(two).Should().BeTrue();
 
-            one.Invoking(code => code.Equals(null))
-                .Should()
-                .NotThrow<NullReferenceException>();
+            one.Invoking(code => code.Equals(null)).Should().NotThrow<NullReferenceException>();
         }
 
         [Fact]
         public void ForegroundColorSpans_with_different_names_are_not_equal()
         {
-            var one = new ForegroundColorSpan(
-                "red",
-                Ansi.Color.Foreground.Green
-            );
-            var two = new ForegroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
+            var one = new ForegroundColorSpan("red", Ansi.Color.Foreground.Green);
+            var two = new ForegroundColorSpan("green", Ansi.Color.Foreground.Green);
 
             one.Equals(two).Should().BeFalse();
         }
@@ -60,14 +40,8 @@ namespace System.CommandLine.Rendering.Tests
         [Fact]
         public void BackgroundColorSpans_with_equivalent_content_have_the_same_hash_code()
         {
-            var one = new BackgroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
-            var two = new BackgroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
+            var one = new BackgroundColorSpan("green", Ansi.Color.Foreground.Green);
+            var two = new BackgroundColorSpan("green", Ansi.Color.Foreground.Green);
 
             one.GetHashCode().Should().Be(two.GetHashCode());
         }
@@ -75,30 +49,19 @@ namespace System.CommandLine.Rendering.Tests
         [Fact]
         public void BackgroundColorSpans_with_the_same_name_are_equal()
         {
-            var one = new BackgroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
-            var two = new BackgroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
+            var one = new BackgroundColorSpan("green", Ansi.Color.Foreground.Green);
+            var two = new BackgroundColorSpan("green", Ansi.Color.Foreground.Green);
 
             one.Equals(two).Should().BeTrue();
 
-            one.Invoking(code => code.Equals(null))
-                .Should()
-                .NotThrow<NullReferenceException>();
+            one.Invoking(code => code.Equals(null)).Should().NotThrow<NullReferenceException>();
         }
 
         [Fact]
         public void BackgroundColorSpans_with_different_names_are_not_equal()
         {
             var one = new BackgroundColorSpan("red", Ansi.Color.Foreground.Red);
-            var two = new BackgroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
+            var two = new BackgroundColorSpan("green", Ansi.Color.Foreground.Green);
 
             one.Equals(two).Should().BeFalse();
         }
@@ -106,14 +69,8 @@ namespace System.CommandLine.Rendering.Tests
         [Fact]
         public void A_ForegroundColorSpan_and_a_BackgroundColorSpan_having_the_same_name_are_not_equal()
         {
-            var one = new ForegroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
-            var two = new BackgroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
+            var one = new ForegroundColorSpan("green", Ansi.Color.Foreground.Green);
+            var two = new BackgroundColorSpan("green", Ansi.Color.Foreground.Green);
 
             one.Equals(two).Should().BeFalse();
         }
@@ -121,14 +78,8 @@ namespace System.CommandLine.Rendering.Tests
         [Fact]
         public void A_ForegroundColorSpan_and_a_BackgroundColorSpan_having_the_same_name_do_not_have_the_same_hash_code()
         {
-            var one = new ForegroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
-            var two = new BackgroundColorSpan(
-                "green",
-                Ansi.Color.Foreground.Green
-            );
+            var one = new ForegroundColorSpan("green", Ansi.Color.Foreground.Green);
+            var two = new BackgroundColorSpan("green", Ansi.Color.Foreground.Green);
 
             one.GetHashCode().Should().NotBe(two.GetHashCode());
         }
@@ -150,9 +101,7 @@ namespace System.CommandLine.Rendering.Tests
 
             one.Equals(two).Should().BeTrue();
 
-            one.Invoking(code => code.Equals(null))
-                .Should()
-                .NotThrow<NullReferenceException>();
+            one.Invoking(code => code.Equals(null)).Should().NotThrow<NullReferenceException>();
         }
 
         [Fact]

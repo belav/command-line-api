@@ -28,10 +28,7 @@ namespace System.CommandLine.Hosting.Tests
             }
 
             var parser = new CommandLineBuilder(
-                new RootCommand
-                {
-                    Handler = CommandHandler.Create<IHost>(Execute)
-                }
+                new RootCommand { Handler = CommandHandler.Create<IHost>(Execute) }
             ).UseHost().Build();
 
             parser.InvokeAsync(Array.Empty<string>()).GetAwaiter().GetResult();
@@ -47,12 +44,7 @@ namespace System.CommandLine.Hosting.Tests
             var parser = new CommandLineBuilder().UseHost(
                     host =>
                     {
-                        if (
-                            host.Properties.TryGetValue(
-                                typeof(InvocationContext),
-                                out var ctx
-                            )
-                        )
+                        if (host.Properties.TryGetValue(typeof(InvocationContext), out var ctx))
                             invocationContext = ctx as InvocationContext;
                     }
                 )
@@ -81,10 +73,7 @@ namespace System.CommandLine.Hosting.Tests
             }
 
             var parser = new CommandLineBuilder(
-                new RootCommand
-                {
-                    Handler = CommandHandler.Create<IHost>(Execute)
-                }
+                new RootCommand { Handler = CommandHandler.Create<IHost>(Execute) }
             ).UseHost().Build();
 
             parser.InvokeAsync(Array.Empty<string>()).GetAwaiter().GetResult();
@@ -111,17 +100,12 @@ namespace System.CommandLine.Hosting.Tests
             }
 
             var parser = new CommandLineBuilder(
-                new RootCommand
-                {
-                    Handler = CommandHandler.Create<IHost>(Execute),
-                }
+                new RootCommand { Handler = CommandHandler.Create<IHost>(Execute), }
             ).UseHost(
                     host =>
                     {
                         var invocation =
-                            (InvocationContext)host.Properties[
-                                typeof(InvocationContext)
-                            ];
+                            (InvocationContext)host.Properties[typeof(InvocationContext)];
                         var args = invocation.ParseResult.UnparsedTokens.ToArray();
                         host.ConfigureHostConfiguration(
                             config =>
@@ -154,10 +138,7 @@ namespace System.CommandLine.Hosting.Tests
             }
 
             var parser = new CommandLineBuilder(
-                new RootCommand
-                {
-                    Handler = CommandHandler.Create<IHost>(Execute),
-                }
+                new RootCommand { Handler = CommandHandler.Create<IHost>(Execute), }
             ).UseHost(
                     args =>
                     {
@@ -196,10 +177,7 @@ namespace System.CommandLine.Hosting.Tests
             }
 
             var parser = new CommandLineBuilder(
-                new RootCommand
-                {
-                    Handler = CommandHandler.Create<IHost>(Execute)
-                }
+                new RootCommand { Handler = CommandHandler.Create<IHost>(Execute) }
             ).UseHost().Build();
 
             parser.InvokeAsync(commandLine).GetAwaiter().GetResult();
@@ -215,9 +193,7 @@ namespace System.CommandLine.Hosting.Tests
             MyOptions options = null;
 
             var rootCmd = new RootCommand();
-            rootCmd.AddOption(
-                new Option<int>($"-{nameof(MyOptions.MyArgument)}")
-            );
+            rootCmd.AddOption(new Option<int>($"-{nameof(MyOptions.MyArgument)}"));
             rootCmd.Handler = CommandHandler.Create(
                 (IHost host) =>
                 {
@@ -231,8 +207,7 @@ namespace System.CommandLine.Hosting.Tests
                         host.ConfigureServices(
                             services =>
                             {
-                                services.AddOptions<MyOptions>()
-                                    .BindCommandLine();
+                                services.AddOptions<MyOptions>().BindCommandLine();
                             }
                         );
                     }

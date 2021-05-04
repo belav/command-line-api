@@ -58,18 +58,12 @@ namespace System.CommandLine.Rendering
 
         public virtual void VisitContentSpan(ContentSpan contentSpan) { }
 
-        public virtual void VisitForegroundColorSpan(
-            ForegroundColorSpan span
-        ) { }
+        public virtual void VisitForegroundColorSpan(ForegroundColorSpan span) { }
 
-        public virtual void VisitBackgroundColorSpan(
-            BackgroundColorSpan span
-        ) { }
+        public virtual void VisitBackgroundColorSpan(BackgroundColorSpan span) { }
 
         public virtual void VisitStyleSpan(StyleSpan span) { }
 
-        public virtual void VisitCursorControlSpan(
-            CursorControlSpan cursorControlSpan
-        ) { }
+        public virtual void VisitCursorControlSpan(CursorControlSpan cursorControlSpan) { }
     }
 }

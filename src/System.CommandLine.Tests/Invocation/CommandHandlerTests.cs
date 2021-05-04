@@ -48,10 +48,7 @@ namespace System.CommandLine.Tests.Invocation
             command.AddOption(new Option<int>("--age"));
             command.Handler = CommandHandler.Create<string, int>(Execute);
 
-            await command.InvokeAsync(
-                "command --age 425 --name Gandalf",
-                _console
-            );
+            await command.InvokeAsync("command --age 425 --name Gandalf", _console);
 
             boundName.Should().Be("Gandalf");
             boundAge.Should().Be(425);
@@ -74,10 +71,7 @@ namespace System.CommandLine.Tests.Invocation
             command.AddOption(new Option<string>("--age"));
             command.Handler = CommandHandler.Create<string, int>(Execute);
 
-            await command.InvokeAsync(
-                "command --age 425 --name Gandalf",
-                _console
-            );
+            await command.InvokeAsync("command --age 425 --name Gandalf", _console);
 
             boundName.Should().Be("Gandalf");
             boundAge.Should().Be(425);
@@ -119,16 +113,11 @@ namespace System.CommandLine.Tests.Invocation
             }
 
             var command = new Command("command");
-            command.AddOption(
-                new Option("--NAME", arity: ArgumentArity.ExactlyOne)
-            );
+            command.AddOption(new Option("--NAME", arity: ArgumentArity.ExactlyOne));
             command.AddOption(new Option<int>("--age"));
             command.Handler = CommandHandler.Create<string, int>(Execute);
 
-            await command.InvokeAsync(
-                "command --age 425 --NAME Gandalf",
-                _console
-            );
+            await command.InvokeAsync("command --age 425 --NAME Gandalf", _console);
 
             boundName.Should().Be("Gandalf");
             boundAge.Should().Be(425);
@@ -209,10 +198,7 @@ namespace System.CommandLine.Tests.Invocation
                 }
             );
 
-            await command.InvokeAsync(
-                "command --age 425 --name Gandalf",
-                _console
-            );
+            await command.InvokeAsync("command --age 425 --name Gandalf", _console);
 
             boundName.Should().Be("Gandalf");
             boundAge.Should().Be(425);
@@ -263,12 +249,7 @@ namespace System.CommandLine.Tests.Invocation
             DirectoryInfo boundDirectoryInfo = default;
             var tempPath = Path.GetTempPath();
 
-            var command = new Command(
-                "command"
-            )
-            {
-                new Option<DirectoryInfo>("--dir")
-            };
+            var command = new Command("command") { new Option<DirectoryInfo>("--dir") };
             command.Handler = CommandHandler.Create<DirectoryInfo>(
                 dir =>
                 {
@@ -276,10 +257,7 @@ namespace System.CommandLine.Tests.Invocation
                 }
             );
 
-            await command.InvokeAsync(
-                $"command --dir \"{tempPath}\"",
-                _console
-            );
+            await command.InvokeAsync($"command --dir \"{tempPath}\"", _console);
 
             boundDirectoryInfo.FullName.Should().Be(tempPath);
         }
@@ -381,14 +359,9 @@ namespace System.CommandLine.Tests.Invocation
                 new Option<string>("--name"),
                 new Option<int>("--age")
             };
-            command.Handler = CommandHandler.Create(
-                (ExecuteTestDelegate)testClass.Execute
-            );
+            command.Handler = CommandHandler.Create((ExecuteTestDelegate)testClass.Execute);
 
-            await command.InvokeAsync(
-                "command --age 425 --name Gandalf",
-                _console
-            );
+            await command.InvokeAsync("command --age 425 --name Gandalf", _console);
 
             testClass.boundName.Should().Be("Gandalf");
             testClass.boundAge.Should().Be(425);
@@ -411,10 +384,7 @@ namespace System.CommandLine.Tests.Invocation
                 testClass
             );
 
-            await command.InvokeAsync(
-                "command --age 425 --name Gandalf",
-                _console
-            );
+            await command.InvokeAsync("command --age 425 --name Gandalf", _console);
 
             testClass.boundName.Should().Be("Gandalf");
             testClass.boundAge.Should().Be(425);
@@ -453,12 +423,7 @@ namespace System.CommandLine.Tests.Invocation
                 boundFirstName = firstName;
             }
 
-            var command = new Command(
-                "command"
-            )
-            {
-                new Argument<string>("first-name")
-            };
+            var command = new Command("command") { new Argument<string>("first-name") };
             command.Handler = CommandHandler.Create<string>(Execute);
 
             await command.InvokeAsync("command Gandalf", _console);
@@ -536,27 +501,22 @@ namespace System.CommandLine.Tests.Invocation
         {
             public abstract Task<int> DoJobAsync();
 
-            public Task<int> InvokeAsync(InvocationContext context) =>
-                DoJobAsync();
+            public Task<int> InvokeAsync(InvocationContext context) => DoJobAsync();
         }
 
-        public sealed class ConcreteTestCommandHandler
-            : AbstractTestCommandHandler
+        public sealed class ConcreteTestCommandHandler : AbstractTestCommandHandler
         {
             public override Task<int> DoJobAsync() => Task.FromResult(42);
         }
 
         public class VirtualTestCommandHandler : ICommandHandler
         {
-            public virtual Task<int> InvokeAsync(InvocationContext context) =>
-                Task.FromResult(42);
+            public virtual Task<int> InvokeAsync(InvocationContext context) => Task.FromResult(42);
         }
 
-        public class OverridenVirtualTestCommandHandler
-            : VirtualTestCommandHandler
+        public class OverridenVirtualTestCommandHandler : VirtualTestCommandHandler
         {
-            public override Task<int> InvokeAsync(InvocationContext context) =>
-                Task.FromResult(41);
+            public override Task<int> InvokeAsync(InvocationContext context) => Task.FromResult(41);
         }
     }
 }

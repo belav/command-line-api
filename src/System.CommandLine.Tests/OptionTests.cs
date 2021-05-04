@@ -135,9 +135,7 @@ namespace System.CommandLine.Tests
             create.Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
-                .Be(
-                    "An alias cannot be null, empty, or consist entirely of whitespace."
-                );
+                .Be("An alias cannot be null, empty, or consist entirely of whitespace.");
         }
 
         [Fact]
@@ -148,9 +146,7 @@ namespace System.CommandLine.Tests
             create.Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
-                .Be(
-                    "An alias cannot be null, empty, or consist entirely of whitespace."
-                );
+                .Be("An alias cannot be null, empty, or consist entirely of whitespace.");
         }
 
         [Fact]
@@ -173,9 +169,7 @@ namespace System.CommandLine.Tests
             create.Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
-                .Contain(
-                    $"Option alias cannot contain whitespace: \"{alias}\""
-                );
+                .Contain($"Option alias cannot contain whitespace: \"{alias}\"");
         }
 
         [Theory]
@@ -192,27 +186,22 @@ namespace System.CommandLine.Tests
             addAlias.Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
-                .Contain(
-                    $"Option alias cannot contain whitespace: \"{alias}\""
-                );
+                .Contain($"Option alias cannot contain whitespace: \"{alias}\"");
         }
 
         [Theory]
         [InlineData("-")]
         [InlineData("--")]
         [InlineData("/")]
-        public void When_options_use_different_prefixes_they_still_work(
-            string prefix
-        ) {
+        public void When_options_use_different_prefixes_they_still_work(string prefix)
+        {
             var rootCommand = new RootCommand
             {
                 new Option<string>(prefix + "a"),
                 new Option(prefix + "b"),
                 new Option<string>(prefix + "c")
             };
-            var result = rootCommand.Parse(
-                prefix + "c value-for-c " + prefix + "a value-for-a"
-            );
+            var result = rootCommand.Parse(prefix + "c value-for-c " + prefix + "a value-for-a");
 
             result.ValueForOption(prefix + "a").Should().Be("value-for-a");
             result.ValueForOption(prefix + "c").Should().Be("value-for-c");
@@ -254,11 +243,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Option_T_default_value_can_be_set()
         {
-            var option = new Option<int>(
-                "-x",
-                parseArgument: parsed => 123,
-                isDefault: true
-            );
+            var option = new Option<int>("-x", parseArgument: parsed => 123, isDefault: true);
 
             var result = option.Parse("")
                 .FindResultFor(option)
@@ -425,9 +410,8 @@ namespace System.CommandLine.Tests
         [Theory]
         [InlineData("-option value")]
         [InlineData("-option:value")]
-        public void When_aliases_overlap_the_longer_alias_is_chosen(
-            string parseInput
-        ) {
+        public void When_aliases_overlap_the_longer_alias_is_chosen(string parseInput)
+        {
             var option = new Option<string>(new[] { "-o", "-option" });
 
             var parseResult = option.Parse(parseInput);

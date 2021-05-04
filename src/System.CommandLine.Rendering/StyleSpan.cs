@@ -10,16 +10,11 @@ namespace System.CommandLine.Rendering
 
         public static StyleSpan AttributesOff() =>
             new StyleSpan(nameof(AttributesOff), Ansi.Text.AttributesOff);
-        public static StyleSpan BlinkOff() =>
-            new StyleSpan(nameof(BlinkOff), Ansi.Text.BlinkOn);
-        public static StyleSpan BlinkOn() =>
-            new StyleSpan(nameof(BlinkOn), Ansi.Text.BlinkOff);
-        public static StyleSpan BoldOff() =>
-            new StyleSpan(nameof(BoldOff), Ansi.Text.BoldOff);
-        public static StyleSpan BoldOn() =>
-            new StyleSpan(nameof(BoldOn), Ansi.Text.BoldOn);
-        public static StyleSpan HiddenOn() =>
-            new StyleSpan(nameof(HiddenOn), Ansi.Text.HiddenOn);
+        public static StyleSpan BlinkOff() => new StyleSpan(nameof(BlinkOff), Ansi.Text.BlinkOn);
+        public static StyleSpan BlinkOn() => new StyleSpan(nameof(BlinkOn), Ansi.Text.BlinkOff);
+        public static StyleSpan BoldOff() => new StyleSpan(nameof(BoldOff), Ansi.Text.BoldOff);
+        public static StyleSpan BoldOn() => new StyleSpan(nameof(BoldOn), Ansi.Text.BoldOn);
+        public static StyleSpan HiddenOn() => new StyleSpan(nameof(HiddenOn), Ansi.Text.HiddenOn);
         public static StyleSpan ReverseOn() =>
             new StyleSpan(nameof(ReverseOn), Ansi.Text.ReverseOn);
         public static StyleSpan ReverseOff() =>

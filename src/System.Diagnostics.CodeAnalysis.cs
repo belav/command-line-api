@@ -7,18 +7,14 @@
 namespace System.Diagnostics.CodeAnalysis
 {
     [AttributeUsage(
-        AttributeTargets.Field |
-        AttributeTargets.Parameter |
-        AttributeTargets.Property,
+        AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Property,
         Inherited = false)]
     internal sealed class AllowNullAttribute : Attribute
     {
     }
 
     [AttributeUsage(
-        AttributeTargets.Field |
-        AttributeTargets.Parameter |
-        AttributeTargets.Property,
+        AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Property,
         Inherited = false)]
     internal sealed class DisallowNullAttribute : Attribute
     {
@@ -41,13 +37,13 @@ namespace System.Diagnostics.CodeAnalysis
     }
 
     [AttributeUsage(
-        AttributeTargets.Assembly |
-        AttributeTargets.Class |
-        AttributeTargets.Constructor |
-        AttributeTargets.Event |
-        AttributeTargets.Method |
-        AttributeTargets.Property |
-        AttributeTargets.Struct,
+        AttributeTargets.Assembly
+        | AttributeTargets.Class
+        | AttributeTargets.Constructor
+        | AttributeTargets.Event
+        | AttributeTargets.Method
+        | AttributeTargets.Property
+        | AttributeTargets.Struct,
         Inherited = false,
         AllowMultiple = false)]
     internal sealed class ExcludeFromCodeCoverageAttribute : Attribute
@@ -55,10 +51,10 @@ namespace System.Diagnostics.CodeAnalysis
     }
 
     [AttributeUsage(
-        AttributeTargets.Field |
-        AttributeTargets.Parameter |
-        AttributeTargets.Property |
-        AttributeTargets.ReturnValue,
+        AttributeTargets.Field
+        | AttributeTargets.Parameter
+        | AttributeTargets.Property
+        | AttributeTargets.ReturnValue,
         Inherited = false)]
     internal sealed class MaybeNullAttribute : Attribute
     {
@@ -76,19 +72,17 @@ namespace System.Diagnostics.CodeAnalysis
     }
 
     [AttributeUsage(
-        AttributeTargets.Field |
-        AttributeTargets.Parameter |
-        AttributeTargets.Property |
-        AttributeTargets.ReturnValue,
+        AttributeTargets.Field
+        | AttributeTargets.Parameter
+        | AttributeTargets.Property
+        | AttributeTargets.ReturnValue,
         Inherited = false)]
     internal sealed class NotNullAttribute : Attribute
     {
     }
 
     [AttributeUsage(
-        AttributeTargets.Parameter |
-        AttributeTargets.Property |
-        AttributeTargets.ReturnValue,
+        AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.ReturnValue,
         AllowMultiple = true,
         Inherited = false)]
     internal sealed class NotNullIfNotNullAttribute : Attribute

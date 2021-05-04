@@ -13,8 +13,7 @@ namespace System.CommandLine.Tests
     public class EnvironmentVariableDirectiveTests
     {
         private static readonly Random randomizer = new Random(Seed: 456476756);
-        private readonly string test_variable =
-            $"TEST_ENVIRONMENT_VARIABLE{randomizer.Next()}";
+        private readonly string test_variable = $"TEST_ENVIRONMENT_VARIABLE{randomizer.Next()}";
 
         [Fact]
         public async Task Sets_environment_variable_to_value()
@@ -28,16 +27,13 @@ namespace System.CommandLine.Tests
                     () =>
                     {
                         asserted = true;
-                        Environment.GetEnvironmentVariable(variable)
-                            .Should()
-                            .Be(value);
+                        Environment.GetEnvironmentVariable(variable).Should().Be(value);
                     }
                 )
             };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseEnvironmentVariableDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseEnvironmentVariableDirective()
+                .Build();
 
             await parser.InvokeAsync(new[] { $"[env:{variable}={value}]" });
 
@@ -56,20 +52,15 @@ namespace System.CommandLine.Tests
                     () =>
                     {
                         asserted = true;
-                        Environment.GetEnvironmentVariable(variable)
-                            .Should()
-                            .Be(value);
+                        Environment.GetEnvironmentVariable(variable).Should().Be(value);
                     }
                 )
             };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseEnvironmentVariableDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseEnvironmentVariableDirective()
+                .Build();
 
-            await parser.InvokeAsync(
-                new[] { $"[env:     {variable}    ={value}]" }
-            );
+            await parser.InvokeAsync(new[] { $"[env:     {variable}    ={value}]" });
 
             asserted.Should().BeTrue();
         }
@@ -86,20 +77,15 @@ namespace System.CommandLine.Tests
                     () =>
                     {
                         asserted = true;
-                        Environment.GetEnvironmentVariable(variable)
-                            .Should()
-                            .Be(value);
+                        Environment.GetEnvironmentVariable(variable).Should().Be(value);
                     }
                 )
             };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseEnvironmentVariableDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseEnvironmentVariableDirective()
+                .Build();
 
-            await parser.InvokeAsync(
-                new[] { $"[env:{variable}=    {value}     ]" }
-            );
+            await parser.InvokeAsync(new[] { $"[env:{variable}=    {value}     ]" });
 
             asserted.Should().BeTrue();
         }
@@ -116,16 +102,13 @@ namespace System.CommandLine.Tests
                     () =>
                     {
                         asserted = true;
-                        Environment.GetEnvironmentVariable(variable)
-                            .Should()
-                            .Be(value);
+                        Environment.GetEnvironmentVariable(variable).Should().Be(value);
                     }
                 )
             };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseEnvironmentVariableDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseEnvironmentVariableDirective()
+                .Build();
 
             await parser.InvokeAsync(new[] { $"[env:{variable}={value}]" });
 
@@ -143,16 +126,13 @@ namespace System.CommandLine.Tests
                     () =>
                     {
                         asserted = true;
-                        Environment.GetEnvironmentVariable(variable)
-                            .Should()
-                            .BeNull();
+                        Environment.GetEnvironmentVariable(variable).Should().BeNull();
                     }
                 )
             };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseEnvironmentVariableDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseEnvironmentVariableDirective()
+                .Build();
 
             await parser.InvokeAsync(new[] { $"[env:{variable}]" });
 
@@ -176,9 +156,8 @@ namespace System.CommandLine.Tests
                 )
             };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseEnvironmentVariableDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseEnvironmentVariableDirective()
+                .Build();
 
             await parser.InvokeAsync(new[] { $"[env:={value}]" });
 
@@ -202,9 +181,8 @@ namespace System.CommandLine.Tests
                 )
             };
 
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).UseEnvironmentVariableDirective().Build();
+            var parser = new CommandLineBuilder(rootCommand).UseEnvironmentVariableDirective()
+                .Build();
 
             await parser.InvokeAsync(new[] { $"[env:    ={value}]" });
 

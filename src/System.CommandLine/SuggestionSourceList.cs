@@ -16,8 +16,7 @@ namespace System.CommandLine
             _sources.Add(source);
         }
 
-        public IEnumerator<ISuggestionSource> GetEnumerator() =>
-            _sources.GetEnumerator();
+        public IEnumerator<ISuggestionSource> GetEnumerator() => _sources.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

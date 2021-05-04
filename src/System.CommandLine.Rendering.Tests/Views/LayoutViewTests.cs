@@ -85,32 +85,24 @@ namespace System.CommandLine.Rendering.Tests.Views
 
         private class TestView : View
         {
-            public override void Render(
-                ConsoleRenderer renderer,
-                Region region
-            ) => throw new NotImplementedException();
+            public override void Render(ConsoleRenderer renderer, Region region) =>
+                throw new NotImplementedException();
 
-            public override Size Measure(
-                ConsoleRenderer renderer,
-                Size maxSize
-            ) => throw new NotImplementedException();
+            public override Size Measure(ConsoleRenderer renderer, Size maxSize) =>
+                throw new NotImplementedException();
 
             public void RaiseUpdated() => OnUpdated();
         }
 
         private class TestLayout : LayoutView<View>
         {
-            public override Size Measure(
-                ConsoleRenderer renderer,
-                Size maxSize
-            ) {
+            public override Size Measure(ConsoleRenderer renderer, Size maxSize)
+            {
                 throw new NotImplementedException();
             }
 
-            public override void Render(
-                ConsoleRenderer renderer,
-                Region region
-            ) {
+            public override void Render(ConsoleRenderer renderer, Region region)
+            {
                 throw new NotImplementedException();
             }
 

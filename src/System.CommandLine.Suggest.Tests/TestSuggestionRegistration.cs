@@ -11,12 +11,10 @@ namespace System.CommandLine.Suggest.Tests
     {
         private readonly List<Registration> _suggestionRegistrations = new List<Registration>();
 
-        public TestSuggestionRegistration(
-            params Registration[] suggestionRegistrations
-        ) {
-            foreach (
-                Registration suggestionRegistration in suggestionRegistrations
-            ) {
+        public TestSuggestionRegistration(params Registration[] suggestionRegistrations)
+        {
+            foreach (Registration suggestionRegistration in suggestionRegistrations)
+            {
                 AddSuggestionRegistration(suggestionRegistration);
             }
         }
@@ -30,8 +28,7 @@ namespace System.CommandLine.Suggest.Tests
                     )
             );
 
-        public IEnumerable<Registration> FindAllRegistrations() =>
-            _suggestionRegistrations;
+        public IEnumerable<Registration> FindAllRegistrations() => _suggestionRegistrations;
 
         public void AddSuggestionRegistration(Registration registration)
         {

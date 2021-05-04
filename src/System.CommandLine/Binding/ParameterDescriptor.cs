@@ -10,10 +10,8 @@ namespace System.CommandLine.Binding
         private readonly ParameterInfo _parameterInfo;
         private bool? _allowsNull;
 
-        internal ParameterDescriptor(
-            ParameterInfo parameterInfo,
-            IMethodDescriptor parent
-        ) {
+        internal ParameterDescriptor(ParameterInfo parameterInfo, IMethodDescriptor parent)
+        {
             Parent = parent;
             _parameterInfo = parameterInfo;
         }
@@ -39,9 +37,8 @@ namespace System.CommandLine.Binding
         }
 
         public static bool CalculateAllowsNull(ParameterInfo parameterInfo) =>
-            parameterInfo.ParameterType.IsNullable() ||
-            (parameterInfo.HasDefaultValue &&
-            parameterInfo.DefaultValue is null);
+            parameterInfo.ParameterType.IsNullable()
+            || (parameterInfo.HasDefaultValue && parameterInfo.DefaultValue is null);
 
         public object? GetDefaultValue() =>
             _parameterInfo.DefaultValue is DBNull

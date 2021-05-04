@@ -11,40 +11,33 @@ namespace System.CommandLine
 {
     public static class OptionExtensions
     {
-        public static TOption FromAmong<TOption>(
-            this TOption option,
-            params string[] values
-        )
-            where TOption : Option {
+        public static TOption FromAmong<TOption>(this TOption option, params string[] values)
+            where TOption : Option
+        {
             option.Argument.AddAllowedValues(values);
             option.Argument.Suggestions.Add(values);
 
             return option;
         }
 
-        public static TOption AddSuggestions<TOption>(
-            this TOption option,
-            params string[] values
-        )
-            where TOption : Option {
+        public static TOption AddSuggestions<TOption>(this TOption option, params string[] values)
+            where TOption : Option
+        {
             option.Argument.Suggestions.Add(values);
 
             return option;
         }
 
-        public static TOption AddSuggestions<TOption>(
-            this TOption option,
-            SuggestDelegate suggest
-        )
-            where TOption : Option {
+        public static TOption AddSuggestions<TOption>(this TOption option, SuggestDelegate suggest)
+            where TOption : Option
+        {
             option.Argument.Suggestions.Add(suggest);
 
             return option;
         }
 
-        public static Option<FileInfo> ExistingOnly(
-            this Option<FileInfo> option
-        ) {
+        public static Option<FileInfo> ExistingOnly(this Option<FileInfo> option)
+        {
             option.Argument.AddValidator(
                 a =>
                     a.Tokens.Select(t => t.Value)
@@ -56,9 +49,8 @@ namespace System.CommandLine
             return option;
         }
 
-        public static Option<DirectoryInfo> ExistingOnly(
-            this Option<DirectoryInfo> option
-        ) {
+        public static Option<DirectoryInfo> ExistingOnly(this Option<DirectoryInfo> option)
+        {
             option.Argument.AddValidator(
                 a =>
                     a.Tokens.Select(t => t.Value)
@@ -70,20 +62,13 @@ namespace System.CommandLine
             return option;
         }
 
-        public static Option<FileSystemInfo> ExistingOnly(
-            this Option<FileSystemInfo> option
-        ) {
+        public static Option<FileSystemInfo> ExistingOnly(this Option<FileSystemInfo> option)
+        {
             option.Argument.AddValidator(
                 a =>
                     a.Tokens.Select(t => t.Value)
-                        .Where(
-                            filePath =>
-                                !Directory.Exists(filePath) &&
-                                !File.Exists(filePath)
-                        )
-                        .Select(
-                            a.ValidationMessages.FileOrDirectoryDoesNotExist
-                        )
+                        .Where(filePath => !Directory.Exists(filePath) && !File.Exists(filePath))
+                        .Select(a.ValidationMessages.FileOrDirectoryDoesNotExist)
                         .FirstOrDefault()
             );
 
@@ -117,12 +102,7 @@ namespace System.CommandLine
             return option;
         }
 
-        public static ParseResult Parse(
-            this Option option,
-            string commandLine
-        ) =>
-            new Parser(new CommandLineConfiguration(new[] { option })).Parse(
-                commandLine
-            );
+        public static ParseResult Parse(this Option option, string commandLine) =>
+            new Parser(new CommandLineConfiguration(new[] { option })).Parse(commandLine);
     }
 }

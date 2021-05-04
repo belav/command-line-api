@@ -28,10 +28,7 @@ namespace System.CommandLine.Rendering.Tests.Views
             var contentView = new TestContentView("Four");
             var span = contentView.GetSpan();
 
-            span.Should()
-                .BeOfType<ContentSpan>()
-                .Which.Content.Should()
-                .Contain("Four");
+            span.Should().BeOfType<ContentSpan>().Which.Content.Should().Contain("Four");
         }
 
         [Fact]
@@ -214,10 +211,8 @@ namespace System.CommandLine.Rendering.Tests.Views
             private readonly List<IObserver<string>> _observers;
             private readonly IObserver<string> _observer;
 
-            public TestDisposable(
-                List<IObserver<string>> observers,
-                IObserver<string> observer
-            ) {
+            public TestDisposable(List<IObserver<string>> observers, IObserver<string> observer)
+            {
                 _observers = observers;
                 _observer = observer;
             }

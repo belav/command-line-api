@@ -21,11 +21,8 @@ namespace System.CommandLine.DragonFruit.Tests
         /// <param name="name">Specifies the name option</param>
         /// <param name="console"></param>
         /// <param name="args">These are arguments</param>
-        public void TestMain(
-            string name,
-            IConsole console,
-            string[] args = null
-        ) {
+        public void TestMain(string name, IConsole console, string[] args = null)
+        {
             console.Out.Write(name);
             if (args != null && args.Length > 0)
             {
@@ -33,10 +30,8 @@ namespace System.CommandLine.DragonFruit.Tests
             }
         }
 
-        public void TestMainWithDefault(
-            string name = "Bruce",
-            IConsole console = null
-        ) {
+        public void TestMainWithDefault(string name = "Bruce", IConsole console = null)
+        {
             console?.Out.Write(name);
         }
     }

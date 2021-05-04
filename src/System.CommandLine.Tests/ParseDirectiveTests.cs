@@ -29,12 +29,9 @@ namespace System.CommandLine.Tests
             var option = new Option<int>(new[] { "-c", "--count" });
             subcommand.AddOption(option);
 
-            var parser = new CommandLineBuilder(rootCommand).UseParseDirective()
-                .Build();
+            var parser = new CommandLineBuilder(rootCommand).UseParseDirective().Build();
 
-            var result = parser.Parse(
-                "[parse] subcommand -c 34 --nonexistent wat"
-            );
+            var result = parser.Parse("[parse] subcommand -c 34 --nonexistent wat");
 
             output.WriteLine(result.Diagram());
 
@@ -45,8 +42,8 @@ namespace System.CommandLine.Tests
             console.Out.ToString()
                 .Should()
                 .Be(
-                    $"[ {RootCommand.ExecutableName} [ subcommand [ -c <34> ] ] ]   ???--> --nonexistent wat" +
-                    Environment.NewLine
+                    $"[ {RootCommand.ExecutableName} [ subcommand [ -c <34> ] ] ]   ???--> --nonexistent wat"
+                    + Environment.NewLine
                 );
         }
 

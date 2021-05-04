@@ -17,9 +17,7 @@ namespace System.CommandLine.Suggest.Tests
 
         public SuggestionShellScriptHandlerTest()
         {
-            _parser = new SuggestionDispatcher(
-                new TestSuggestionRegistration()
-            ).Parser;
+            _parser = new SuggestionDispatcher(new TestSuggestionRegistration()).Parser;
             _console = new TestConsole();
         }
 
@@ -28,9 +26,7 @@ namespace System.CommandLine.Suggest.Tests
         {
             await _parser.InvokeAsync("script 123", _console);
 
-            _console.Error.ToString()
-                .Should()
-                .Contain("Shell '123' is not supported.");
+            _console.Error.ToString().Should().Contain("Shell '123' is not supported.");
         }
 
         [Fact]
@@ -46,9 +42,7 @@ namespace System.CommandLine.Suggest.Tests
         {
             await _parser.InvokeAsync("script powershell", _console);
 
-            _console.Out.ToString()
-                .Should()
-                .Contain("Register-ArgumentCompleter");
+            _console.Out.ToString().Should().Contain("Register-ArgumentCompleter");
         }
     }
 }

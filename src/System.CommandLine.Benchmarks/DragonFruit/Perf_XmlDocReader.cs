@@ -34,27 +34,16 @@ namespace System.CommandLine.Benchmarks.DragonFruit
                 }
             );
 
-            _testAssemblyXmlDocsFilePath = _testAssemblyFilePath.Replace(
-                ".dll",
-                ".xml"
-            );
+            _testAssemblyXmlDocsFilePath = _testAssemblyFilePath.Replace(".dll", ".xml");
 
-            var testAssembly = Assembly.Load(
-                File.ReadAllBytes(_testAssemblyFilePath)
-            );
+            var testAssembly = Assembly.Load(File.ReadAllBytes(_testAssemblyFilePath));
 
-            _mainMethodInfo = testAssembly.GetType(
-                    "RenderingPlayground.Program",
-                    false,
-                    false
-                )
+            _mainMethodInfo = testAssembly.GetType("RenderingPlayground.Program", false, false)
                 .GetTypeInfo()
                 .GetDeclaredMethod("Main");
 
             _xmlDocsStreamReader = new StreamReader(
-                new MemoryStream(
-                    File.ReadAllBytes(_testAssemblyXmlDocsFilePath)
-                )
+                new MemoryStream(File.ReadAllBytes(_testAssemblyXmlDocsFilePath))
             );
         }
 
@@ -84,10 +73,7 @@ namespace System.CommandLine.Benchmarks.DragonFruit
             // So I have ended up placing it here for now
             _xmlDocsStreamReader.BaseStream.Seek(0, SeekOrigin.Begin);
             //
-            _xmlDocReaderSample1.TryGetMethodDescription(
-                _mainMethodInfo,
-                out var helpMetadata
-            );
+            _xmlDocReaderSample1.TryGetMethodDescription(_mainMethodInfo, out var helpMetadata);
             return helpMetadata;
         }
 

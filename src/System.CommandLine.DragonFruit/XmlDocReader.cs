@@ -19,10 +19,8 @@ namespace System.CommandLine.DragonFruit
             _members = document.Descendants("members");
         }
 
-        public static bool TryLoad(
-            string filePath,
-            out XmlDocReader xmlDocReader
-        ) {
+        public static bool TryLoad(string filePath, out XmlDocReader xmlDocReader)
+        {
             try
             {
                 return TryLoad(File.OpenText(filePath), out xmlDocReader);
@@ -34,10 +32,8 @@ namespace System.CommandLine.DragonFruit
             }
         }
 
-        public static bool TryLoad(
-            TextReader reader,
-            out XmlDocReader xmlDocReader
-        ) {
+        public static bool TryLoad(TextReader reader, out XmlDocReader xmlDocReader)
+        {
             try
             {
                 xmlDocReader = new XmlDocReader(XDocument.Load(reader));
@@ -82,9 +78,7 @@ namespace System.CommandLine.DragonFruit
             string name = sb.ToString();
 
             XElement member = _members.Elements("member")
-                .FirstOrDefault(
-                    m => string.Equals(m.Attribute("name")?.Value, name)
-                );
+                .FirstOrDefault(m => string.Equals(m.Attribute("name")?.Value, name));
 
             if (member == null)
             {

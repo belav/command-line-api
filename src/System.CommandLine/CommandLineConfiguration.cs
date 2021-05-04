@@ -38,8 +38,7 @@ namespace System.CommandLine
             Resources? validationMessages = null,
             ResponseFileHandling responseFileHandling =
                 ResponseFileHandling.ParseArgsAsLineSeparated,
-            IReadOnlyCollection<InvocationMiddleware>? middlewarePipeline =
-                null,
+            IReadOnlyCollection<InvocationMiddleware>? middlewarePipeline = null,
             Func<BindingContext, IHelpBuilder>? helpBuilderFactory = null,
             Action<IHelpBuilder>? configureHelp = null
         ) {
@@ -50,9 +49,7 @@ namespace System.CommandLine
 
             if (symbols.Count == 0)
             {
-                throw new ArgumentException(
-                    "You must specify at least one option or command."
-                );
+                throw new ArgumentException("You must specify at least one option or command.");
             }
 
             if (symbols.Count == 1 && symbols[0] is Command rootCommand)
@@ -62,9 +59,7 @@ namespace System.CommandLine
             else
             {
                 // Reuse existing auto-generated root command, if one is present, to prevent repeated mutations
-                RootCommand? parentRootCommand = symbols.SelectMany(
-                        s => s.Parents
-                    )
+                RootCommand? parentRootCommand = symbols.SelectMany(s => s.Parents)
                     .OfType<RootCommand>()
                     .FirstOrDefault();
 
@@ -90,8 +85,8 @@ namespace System.CommandLine
             ValidationMessages = validationMessages ?? Resources.Instance;
             ResponseFileHandling = responseFileHandling;
             Middleware = middlewarePipeline ?? new List<InvocationMiddleware>();
-            HelpBuilderFactory = helpBuilderFactory ??
-            (context =>
+            HelpBuilderFactory = helpBuilderFactory
+            ?? (context =>
             {
                 int maxWidth = int.MaxValue;
                 if (context.Console is SystemConsole systemConsole)
@@ -114,11 +109,8 @@ namespace System.CommandLine
 
         private void AddGlobalOptionsToChildren(Command parentCommand)
         {
-            for (
-                var childIndex = 0;
-                childIndex < parentCommand.Children.Count;
-                childIndex++
-            ) {
+            for (var childIndex = 0; childIndex < parentCommand.Children.Count; childIndex++)
+            {
                 var child = parentCommand.Children[childIndex];
 
                 if (child is Command childCommand)
@@ -130,9 +122,7 @@ namespace System.CommandLine
                         globalOptionIndex < globalOptions.Count;
                         globalOptionIndex++
                     ) {
-                        childCommand.TryAddGlobalOption(
-                            globalOptions[globalOptionIndex]
-                        );
+                        childCommand.TryAddGlobalOption(globalOptions[globalOptionIndex]);
                     }
 
                     AddGlobalOptionsToChildren(childCommand);

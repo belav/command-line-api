@@ -19,18 +19,12 @@ namespace System.CommandLine.Parsing
             IConsole? console = null
         ) => await new InvocationPipeline(parseResult).InvokeAsync(console);
 
-        public static int Invoke(
-            this ParseResult parseResult,
-            IConsole? console = null
-        ) => new InvocationPipeline(parseResult).Invoke(console);
+        public static int Invoke(this ParseResult parseResult, IConsole? console = null) =>
+            new InvocationPipeline(parseResult).Invoke(console);
 
-        public static string TextToMatch(
-            this ParseResult source,
-            int? position = null
-        ) {
-            Token? lastToken = source.Tokens.LastOrDefault(
-                t => t.Type != TokenType.Directive
-            );
+        public static string TextToMatch(this ParseResult source, int? position = null)
+        {
+            Token? lastToken = source.Tokens.LastOrDefault(t => t.Type != TokenType.Directive);
 
             string? textToMatch = null;
             string? rawInput = source.RawInput;
@@ -58,10 +52,8 @@ namespace System.CommandLine.Parsing
 
             if (string.IsNullOrWhiteSpace(rawInput))
             {
-                if (
-                    source.UnmatchedTokens.Count > 0 ||
-                    lastToken?.Type == TokenType.Argument
-                ) {
+                if (source.UnmatchedTokens.Count > 0 || lastToken?.Type == TokenType.Argument)
+                {
                     return textToMatch ?? "";
                 }
             }
@@ -71,8 +63,8 @@ namespace System.CommandLine.Parsing
 
                 var textAfterCursor = rawInput.Substring(position.Value);
 
-                return textBeforeCursor.Split(' ').LastOrDefault() +
-                textAfterCursor.Split(' ').FirstOrDefault();
+                return textBeforeCursor.Split(' ').LastOrDefault()
+                    + textAfterCursor.Split(' ').FirstOrDefault();
             }
 
             return "";
@@ -117,19 +109,19 @@ namespace System.CommandLine.Parsing
                 builder.Append("!");
             }
 
-            if (
-                symbolResult is OptionResult optionResult &&
-                optionResult.IsImplicit
-            ) {
+            if (symbolResult is OptionResult optionResult && optionResult.IsImplicit)
+            {
                 builder.Append("*");
             }
 
             if (symbolResult is ArgumentResult argumentResult)
             {
                 var includeArgumentName =
-                    argumentResult.Argument is Argument argument &&
-                    argument.Parents[0] is ICommand command &&
-                    command.Arguments.Count > 1;
+                    argumentResult.Argument
+                        is Argument argument
+                    && argument.Parents[0]
+                        is ICommand command
+                    && command.Arguments.Count > 1;
 
                 if (includeArgumentName)
                 {
@@ -149,12 +141,7 @@ namespace System.CommandLine.Parsing
                                 break;
                             case IEnumerable items:
                                 builder.Append("<");
-                                builder.Append(
-                                    string.Join(
-                                        "> <",
-                                        items.Cast<object>().ToArray()
-                                    )
-                                );
+                                builder.Append(string.Join("> <", items.Cast<object>().ToArray()));
                                 builder.Append(">");
                                 break;
                             default:
@@ -168,10 +155,7 @@ namespace System.CommandLine.Parsing
 
                         builder.Append("<");
                         builder.Append(
-                            string.Join(
-                                "> <",
-                                symbolResult.Tokens.Select(t => t.Value)
-                            )
+                            string.Join("> <", symbolResult.Tokens.Select(t => t.Value))
                         );
                         builder.Append(">");
                         break;
@@ -198,22 +182,19 @@ namespace System.CommandLine.Parsing
             }
         }
 
-        public static bool HasOption(
-            this ParseResult parseResult,
-            IOption option
-        ) {
+        public static bool HasOption(this ParseResult parseResult, IOption option)
+        {
             if (parseResult is null)
             {
                 throw new ArgumentNullException(nameof(parseResult));
             }
 
-            return parseResult.FindResultFor(option) is  {  } ;
+            return parseResult.FindResultFor(option)
+                is  {  } ;
         }
 
-        public static bool HasOption(
-            this ParseResult parseResult,
-            string alias
-        ) {
+        public static bool HasOption(this ParseResult parseResult, string alias)
+        {
             if (parseResult is null)
             {
                 throw new ArgumentNullException(nameof(parseResult));
@@ -230,32 +211,22 @@ namespace System.CommandLine.Parsing
             var currentSymbolResult = parseResult.SymbolToComplete(position);
             var currentSymbol = currentSymbolResult.Symbol;
 
-            var currentSymbolSuggestions = currentSymbol is ISuggestionSource currentSuggestionSource
-                ? currentSuggestionSource.GetSuggestions(
-                        parseResult,
-                        textToMatch
-                    )
+            var currentSymbolSuggestions = currentSymbol
+                is ISuggestionSource currentSuggestionSource
+                ? currentSuggestionSource.GetSuggestions(parseResult, textToMatch)
                 : Array.Empty<string>();
 
             IEnumerable<string?> siblingSuggestions;
             var parentSymbol = currentSymbolResult.Parent?.Symbol;
 
-            if (
-                parentSymbol is null ||
-                !currentSymbolResult.IsArgumentLimitReached
-            ) {
+            if (parentSymbol is null || !currentSymbolResult.IsArgumentLimitReached)
+            {
                 siblingSuggestions = Array.Empty<string?>();
             }
             else
             {
-                siblingSuggestions = parentSymbol.GetSuggestions(
-                        parseResult,
-                        textToMatch
-                    )
-                    .Except(
-                        parentSymbol.Children.OfType<ICommand>()
-                            .SelectMany(c => c.Aliases)
-                    );
+                siblingSuggestions = parentSymbol.GetSuggestions(parseResult, textToMatch)
+                    .Except(parentSymbol.Children.OfType<ICommand>().SelectMany(c => c.Aliases));
             }
 
             if (currentSymbolResult is CommandResult commandResult)
@@ -274,9 +245,8 @@ namespace System.CommandLine.Parsing
 
             return currentSymbolSuggestions.Concat(siblingSuggestions);
 
-            string[] OptionsWithArgumentLimitReached(
-                SymbolResult symbolResult
-            ) {
+            string[] OptionsWithArgumentLimitReached(SymbolResult symbolResult)
+            {
                 var optionsWithArgLimitReached = symbolResult.Children.Where(
                     c => c.IsArgumentLimitReached
                 );
@@ -313,9 +283,9 @@ namespace System.CommandLine.Parsing
                     else if (item is OptionResult option)
                     {
                         var willAcceptAnArgument =
-                            !option.IsImplicit &&
-                            (!option.IsArgumentLimitReached ||
-                            parseResult.TextToMatch(position).Length > 0);
+                            !option.IsImplicit
+                            && (!option.IsArgumentLimitReached
+                            || parseResult.TextToMatch(position).Length > 0);
 
                         if (willAcceptAnArgument)
                         {

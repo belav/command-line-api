@@ -15,11 +15,9 @@ namespace System.CommandLine.Binding
 
         internal ModelBinder(IValueDescriptor valueDescriptor)
         {
-            ValueDescriptor = valueDescriptor ??
-            throw new ArgumentNullException(nameof(valueDescriptor));
-            ModelDescriptor = ModelDescriptor.FromType(
-                valueDescriptor.ValueType
-            );
+            ValueDescriptor = valueDescriptor
+            ?? throw new ArgumentNullException(nameof(valueDescriptor));
+            ModelDescriptor = ModelDescriptor.FromType(valueDescriptor.ValueType);
         }
 
         public IValueDescriptor ValueDescriptor { get; }
@@ -30,8 +28,7 @@ namespace System.CommandLine.Binding
             IValueSource> ConstructorArgumentBindingSources { get; } =
             new Dictionary<IValueDescriptor, IValueSource>();
 
-        internal Dictionary<IValueDescriptor,
-            IValueSource> MemberBindingSources { get; } =
+        internal Dictionary<IValueDescriptor, IValueSource> MemberBindingSources { get; } =
             new Dictionary<IValueDescriptor, IValueSource>();
 
         // Consider deprecating in favor or BindingConfiguration/BindingContext attach validatation. Then make internal.
@@ -55,15 +52,13 @@ namespace System.CommandLine.Binding
             }
 
             var paramDesc = ctorDesc.ParameterDescriptors[parameter.Position];
-            ConstructorArgumentBindingSources[
-                paramDesc
-            ] = new SpecificSymbolValueSource(valueDescriptor);
+            ConstructorArgumentBindingSources[paramDesc] = new SpecificSymbolValueSource(
+                valueDescriptor
+            );
         }
 
-        public void BindMemberFromValue(
-            PropertyInfo property,
-            IValueDescriptor valueDescriptor
-        ) {
+        public void BindMemberFromValue(PropertyInfo property, IValueDescriptor valueDescriptor)
+        {
             var propertyDescriptor = FindModelPropertyDescriptor(
                 property.PropertyType,
                 property.Name
@@ -77,9 +72,9 @@ namespace System.CommandLine.Binding
                 );
             }
 
-            MemberBindingSources[
-                propertyDescriptor
-            ] = new SpecificSymbolValueSource(valueDescriptor);
+            MemberBindingSources[propertyDescriptor] = new SpecificSymbolValueSource(
+                valueDescriptor
+            );
         }
 
         public object? CreateInstance(BindingContext bindingContext)
@@ -100,20 +95,14 @@ namespace System.CommandLine.Binding
 
             if (ShortCutTheBinding())
             {
-                return GetSimpleModelValue(
-                    MemberBindingSources,
-                    bindingContext
-                );
+                return GetSimpleModelValue(MemberBindingSources, bindingContext);
             }
 
             var constructorAndArgs = GetBestConstructorAndArgs(bindingContext);
 
             if (constructorAndArgs is null)
             {
-                return GetSimpleModelValue(
-                    ConstructorArgumentBindingSources,
-                    bindingContext
-                );
+                return GetSimpleModelValue(ConstructorArgumentBindingSources, bindingContext);
             }
             else
             {
@@ -133,16 +122,16 @@ namespace System.CommandLine.Binding
         private bool DisallowedBindingType()
         {
             var modelType = ModelDescriptor.ModelType;
-            return modelType.IsConstructedGenericTypeOf(typeof(Span<>)) ||
-            modelType.IsConstructedGenericTypeOf(typeof(ReadOnlySpan<>));
+            return modelType.IsConstructedGenericTypeOf(typeof(Span<>))
+                || modelType.IsConstructedGenericTypeOf(typeof(ReadOnlySpan<>));
         }
 
         private bool ShortCutTheBinding()
         {
             var modelType = ModelDescriptor.ModelType;
-            return modelType.IsPrimitive ||
-            modelType.IsNullableValueType() ||
-            modelType == typeof(string);
+            return modelType.IsPrimitive
+                || modelType.IsNullableValueType()
+                || modelType == typeof(string);
         }
 
         private (bool success, object? newInstance, bool anyNonDefaults) GetSimpleModelValue(
@@ -156,12 +145,10 @@ namespace System.CommandLine.Binding
                 EnforceExplicitBinding
             );
             return bindingContext.TryBindToScalarValue(
-                    ValueDescriptor,
-                    valueSource,
-                    out var boundValue
-                )
-                ? (true, boundValue?.Value, true)
-                : (false, (object?)null, false);
+                ValueDescriptor,
+                valueSource,
+                out var boundValue
+            ) ? (true, boundValue?.Value, true) : (false, (object?)null, false);
         }
 
         private (bool success, object? newInstance, bool anyNonDefaults) InstanceFromSpecificConstructor(
@@ -190,14 +177,8 @@ namespace System.CommandLine.Binding
             return (true, newInstance, nonDefaultsUsed);
         }
 
-        public void UpdateInstance<T>(
-            T instance,
-            BindingContext bindingContext
-        ) =>
-            UpdateInstanceInternalNotifyIfNonDefaultsUsed(
-                instance,
-                bindingContext
-            );
+        public void UpdateInstance<T>(T instance, BindingContext bindingContext) =>
+            UpdateInstanceInternalNotifyIfNonDefaultsUsed(instance, bindingContext);
 
         private bool UpdateInstanceInternalNotifyIfNonDefaultsUsed<T>(
             T instance,
@@ -224,9 +205,8 @@ namespace System.CommandLine.Binding
             return anyNonDefaults;
         }
 
-        private ConstructorAndArgs? GetBestConstructorAndArgs(
-            BindingContext bindingContext
-        ) {
+        private ConstructorAndArgs? GetBestConstructorAndArgs(BindingContext bindingContext)
+        {
             var constructorDescriptors = ModelDescriptor.ConstructorDescriptors.OrderByDescending(
                 d => d.ParameterDescriptors.Count
             );
@@ -244,14 +224,9 @@ namespace System.CommandLine.Binding
                     true
                 );
 
-                if (
-                    boundValues.Count == constructor.ParameterDescriptors.Count
-                ) {
-                    var match = new ConstructorAndArgs(
-                        constructor,
-                        boundValues,
-                        anyNonDefaults
-                    );
+                if (boundValues.Count == constructor.ParameterDescriptors.Count)
+                {
+                    var match = new ConstructorAndArgs(constructor, boundValues, anyNonDefaults);
                     if (anyNonDefaults)
                     {
                         // based on parameter length, first usable constructor that utilizes CLI definition
@@ -310,21 +285,13 @@ namespace System.CommandLine.Binding
             IValueDescriptor valueDescriptor,
             bool enforceExplicitBinding
         ) {
-            if (
-                bindingSources.TryGetValue(
-                    valueDescriptor,
-                    out IValueSource? valueSource
-                )
-            ) {
+            if (bindingSources.TryGetValue(valueDescriptor, out IValueSource? valueSource))
+            {
                 return valueSource;
             }
 
-            if (
-                bindingContext.TryGetValueSource(
-                    valueDescriptor,
-                    out valueSource
-                )
-            ) {
+            if (bindingContext.TryGetValueSource(valueDescriptor, out valueSource))
+            {
                 return valueSource;
             }
 
@@ -357,30 +324,19 @@ namespace System.CommandLine.Binding
 
             if (valueDescriptor.HasDefaultValue)
             {
-                return (
-                    BoundValue.DefaultForValueDescriptor(valueDescriptor),
-                    false
-                );
+                return (BoundValue.DefaultForValueDescriptor(valueDescriptor), false);
             }
 
-            if (
-                valueDescriptor.ValueType != parentType
-            ) // Recursive models aren't allowed
+            if (valueDescriptor.ValueType != parentType) // Recursive models aren't allowed
             {
                 var binder = bindingContext.GetModelBinder(valueDescriptor);
-                var (
-                    success,
-                    newInstance,
-                    usedNonDefaults
-                    ) = binder.CreateInstanceInternal(bindingContext);
+                var (success, newInstance, usedNonDefaults) = binder.CreateInstanceInternal(
+                    bindingContext
+                );
                 if (success)
                 {
                     return (
-                        new BoundValue(
-                            newInstance,
-                            valueDescriptor,
-                            valueSource
-                        ),
+                        new BoundValue(newInstance, valueDescriptor, valueSource),
                         usedNonDefaults
                     );
                 }
@@ -389,8 +345,9 @@ namespace System.CommandLine.Binding
             if (includeMissingValues)
             {
                 if (
-                    valueDescriptor is ParameterDescriptor parameterDescriptor &&
-                    parameterDescriptor.AllowsNull
+                    valueDescriptor
+                        is ParameterDescriptor parameterDescriptor
+                    && parameterDescriptor.AllowsNull
                 ) {
                     return (
                         new BoundValue(
@@ -415,23 +372,18 @@ namespace System.CommandLine.Binding
 
             return ModelDescriptor.ConstructorDescriptors.FirstOrDefault(
                 ctorDesc =>
-                    ModelDescriptor.ModelType ==
-                    constructorInfo.DeclaringType &&
-                    ctorDesc.ParameterDescriptors.Any(
-                        x =>
-                            constructorParameters.Any(y => MatchParameter(x, y))
+                    ModelDescriptor.ModelType == constructorInfo.DeclaringType
+                    && ctorDesc.ParameterDescriptors.Any(
+                        x => constructorParameters.Any(y => MatchParameter(x, y))
                     )
             );
 
-            static bool MatchParameter(
-                ParameterDescriptor desc,
-                ParameterInfo info
-            ) {
-                return desc.ValueType == info.ParameterType &&
-                desc.ValueName == info.Name &&
-                desc.HasDefaultValue == info.HasDefaultValue &&
-                desc.AllowsNull ==
-                ParameterDescriptor.CalculateAllowsNull(info);
+            static bool MatchParameter(ParameterDescriptor desc, ParameterInfo info)
+            {
+                return desc.ValueType == info.ParameterType
+                    && desc.ValueName == info.Name
+                    && desc.HasDefaultValue == info.HasDefaultValue
+                    && desc.AllowsNull == ParameterDescriptor.CalculateAllowsNull(info);
             }
         }
 
@@ -441,25 +393,16 @@ namespace System.CommandLine.Binding
         ) {
             return ModelDescriptor.PropertyDescriptors.FirstOrDefault(
                 desc =>
-                    desc.ValueType == propertyType &&
-                    string.Equals(
-                        desc.ValueName,
-                        propertyName,
-                        StringComparison.Ordinal
-                    )
+                    desc.ValueType == propertyType
+                    && string.Equals(desc.ValueName, propertyName, StringComparison.Ordinal)
             );
         }
 
-        private ConstructorInfo FindConstructorOrThrow(
-            ParameterInfo parameter,
-            string message
-        ) {
+        private ConstructorInfo FindConstructorOrThrow(ParameterInfo parameter, string message)
+        {
             if (!(parameter.Member is ConstructorInfo constructor))
             {
-                throw new ArgumentException(
-                    paramName: nameof(parameter),
-                    message: message
-                );
+                throw new ArgumentException(paramName: nameof(parameter), message: message);
             }
             return constructor;
         }

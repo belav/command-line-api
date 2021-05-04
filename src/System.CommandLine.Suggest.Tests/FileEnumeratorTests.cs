@@ -12,9 +12,7 @@ namespace System.CommandLine.Suggest.Tests
         [Fact]
         public void EnumerateFilesWithoutExtension_returns_empty_when_pass_in_null()
         {
-            FileEnumerator.EnumerateFilesWithoutExtension(null)
-                .Should()
-                .BeEmpty();
+            FileEnumerator.EnumerateFilesWithoutExtension(null).Should().BeEmpty();
         }
 
         [Fact]
@@ -22,9 +20,7 @@ namespace System.CommandLine.Suggest.Tests
         {
             var path = Path.GetTempPath();
             FileEnumerator.EnumerateFilesWithoutExtension(
-                    new DirectoryInfo(
-                        Path.Combine(path, Path.GetRandomFileName(), "notexist")
-                    )
+                    new DirectoryInfo(Path.Combine(path, Path.GetRandomFileName(), "notexist"))
                 )
                 .Should()
                 .BeEmpty();
@@ -33,18 +29,13 @@ namespace System.CommandLine.Suggest.Tests
         [Fact]
         public void EnumerateFilesWithoutExtension_returns_files_without_extension()
         {
-            var path = Path.Combine(
-                Path.GetTempPath(),
-                Path.GetRandomFileName()
-            );
+            var path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             try
             {
                 Directory.CreateDirectory(path);
                 File.WriteAllText(Path.Combine(path, "dotnet-suggest"), "");
                 File.WriteAllText(Path.Combine(path, "t-rex"), "");
-                FileEnumerator.EnumerateFilesWithoutExtension(
-                        new DirectoryInfo(path)
-                    )
+                FileEnumerator.EnumerateFilesWithoutExtension(new DirectoryInfo(path))
                     .Should()
                     .BeEquivalentTo(
                         GlobalToolsSuggestionRegistrationTests.FilesNameWithoutExtensionUnderDotnetProfileToolsExample

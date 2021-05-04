@@ -17,9 +17,7 @@ namespace System.CommandLine.Tests.Invocation
         {
             var option = new Option("info");
 
-            var parser = new CommandLineBuilder().AddOption(option)
-                .UseTypoCorrections()
-                .Build();
+            var parser = new CommandLineBuilder().AddOption(option).UseTypoCorrections().Build();
 
             var result = parser.Parse("niof");
 
@@ -35,9 +33,7 @@ namespace System.CommandLine.Tests.Invocation
         {
             var option = new Option("info");
 
-            var parser = new CommandLineBuilder().AddOption(option)
-                .UseTypoCorrections()
-                .Build();
+            var parser = new CommandLineBuilder().AddOption(option).UseTypoCorrections().Build();
 
             var result = parser.Parse("zzzzzzz");
 
@@ -51,9 +47,7 @@ namespace System.CommandLine.Tests.Invocation
         {
             var command = new Command("restore");
 
-            var parser = new CommandLineBuilder().AddCommand(command)
-                .UseTypoCorrections()
-                .Build();
+            var parser = new CommandLineBuilder().AddCommand(command).UseTypoCorrections().Build();
 
             var result = parser.Parse("sertor");
 
@@ -67,9 +61,7 @@ namespace System.CommandLine.Tests.Invocation
         [Fact]
         public async Task When_there_are_multiple_matches_it_picks_the_best_matches()
         {
-            var parser = new CommandLineBuilder().AddCommand(
-                    new Command("from")
-                )
+            var parser = new CommandLineBuilder().AddCommand(new Command("from"))
                 .AddCommand(new Command("seen"))
                 .AddOption(new Option("a"))
                 .AddOption(new Option("been"))
@@ -82,17 +74,13 @@ namespace System.CommandLine.Tests.Invocation
 
             _console.Out.ToString()
                 .Should()
-                .Contain(
-                    "'een' was not matched. Did you mean 'seen', or 'been'?"
-                );
+                .Contain("'een' was not matched. Did you mean 'seen', or 'been'?");
         }
 
         [Fact]
         public async Task Hidden_commands_are_not_suggested()
         {
-            var parser = new CommandLineBuilder().AddCommand(
-                    new Command("from")
-                )
+            var parser = new CommandLineBuilder().AddCommand(new Command("from"))
                 .AddCommand(new Command("seen") { IsHidden = true })
                 .AddCommand(new Command("been"))
                 .UseTypoCorrections()
@@ -102,17 +90,13 @@ namespace System.CommandLine.Tests.Invocation
 
             await result.InvokeAsync(_console);
 
-            _console.Out.ToString()
-                .Should()
-                .Contain("'een' was not matched. Did you mean 'been'?");
+            _console.Out.ToString().Should().Contain("'een' was not matched. Did you mean 'been'?");
         }
 
         [Fact]
         public async Task Arguments_are_not_suggested()
         {
-            var parser = new CommandLineBuilder().AddArgument(
-                    new Argument("the-argument")
-                )
+            var parser = new CommandLineBuilder().AddArgument(new Argument("the-argument"))
                 .AddCommand(new Command("been"))
                 .UseTypoCorrections()
                 .Build();
@@ -136,9 +120,7 @@ namespace System.CommandLine.Tests.Invocation
 
             await result.InvokeAsync(_console);
 
-            _console.Out.ToString()
-                .Should()
-                .Contain("'een' was not matched. Did you mean 'been'?");
+            _console.Out.ToString().Should().Contain("'een' was not matched. Did you mean 'been'?");
         }
 
         [Fact]

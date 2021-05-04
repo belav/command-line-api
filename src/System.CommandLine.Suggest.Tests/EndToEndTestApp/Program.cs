@@ -19,21 +19,14 @@ namespace EndToEndTestApp
                 new Option<string>("--durian")
             };
 
-            rootCommand.Handler = CommandHandler.Create(
-                typeof(Program).GetMethod(nameof(Run))
-            );
+            rootCommand.Handler = CommandHandler.Create(typeof(Program).GetMethod(nameof(Run)));
 
-            var commandLine = new CommandLineBuilder(rootCommand).UseDefaults()
-                .Build();
+            var commandLine = new CommandLineBuilder(rootCommand).UseDefaults().Build();
 
             await commandLine.InvokeAsync(args);
         }
 
-        public static Task Run(
-            string apple,
-            string banana,
-            string cherry,
-            string durian
-        ) => Task.CompletedTask;
+        public static Task Run(string apple, string banana, string cherry, string durian) =>
+            Task.CompletedTask;
     }
 }

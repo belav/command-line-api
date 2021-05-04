@@ -60,23 +60,14 @@ namespace System.CommandLine.Rendering.Tests
         [Theory]
         [InlineData("\r\n")]
         [InlineData("\n")]
-        public void SplitForWrapping_returns_newlines_as_distinct_elements(
-            string newline
-        ) {
+        public void SplitForWrapping_returns_newlines_as_distinct_elements(string newline)
+        {
             var input = $"{newline}{newline}one two{newline}three{newline}";
 
             input.SplitForWrapping()
                 .Should()
                 .BeEquivalentTo(
-                    new[] {
-                        newline,
-                        newline,
-                        "one ",
-                        "two",
-                        newline,
-                        "three",
-                        newline,
-                    },
+                    new[] { newline, newline, "one ", "two", newline, "three", newline, },
                     options => options.WithStrictOrdering()
                 );
         }

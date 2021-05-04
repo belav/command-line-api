@@ -59,9 +59,7 @@ namespace System.CommandLine.Tests
         {
             var argument = new Argument();
 
-            argument.Invoking(a => a.ArgumentType = null)
-                .Should()
-                .Throw<ArgumentNullException>();
+            argument.Invoking(a => a.ArgumentType = null).Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -77,10 +75,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void HasDefaultValue_can_be_set_to_true()
             {
-                var argument = new Argument<FileSystemInfo>(
-                    result => null,
-                    true
-                );
+                var argument = new Argument<FileSystemInfo>(result => null, true);
 
                 argument.HasDefaultValue.Should().BeTrue();
             }
@@ -88,10 +83,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void HasDefaultValue_can_be_set_to_false()
             {
-                var argument = new Argument<FileSystemInfo>(
-                    result => null,
-                    false
-                );
+                var argument = new Argument<FileSystemInfo>(result => null, false);
 
                 argument.HasDefaultValue.Should().BeFalse();
             }
@@ -99,10 +91,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void GetDefaultValue_returns_specified_value()
             {
-                var argument = new Argument<string>(
-                    result => "the-default",
-                    isDefault: true
-                );
+                var argument = new Argument<string>(result => "the-default", isDefault: true);
 
                 argument.GetDefaultValue().Should().Be("the-default");
             }
@@ -110,10 +99,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void GetDefaultValue_returns_null_when_parse_delegate_returns_true_without_setting_a_value()
             {
-                var argument = new Argument<string>(
-                    result => null,
-                    isDefault: true
-                );
+                var argument = new Argument<string>(result => null, isDefault: true);
 
                 argument.GetDefaultValue().Should().BeNull();
             }
@@ -121,10 +107,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void GetDefaultValue_returns_null_when_parse_delegate_returns_true_and_sets_value_to_null()
             {
-                var argument = new Argument<string>(
-                    result => null,
-                    isDefault: true
-                );
+                var argument = new Argument<string>(result => null, isDefault: true);
 
                 argument.GetDefaultValue().Should().BeNull();
             }
@@ -132,10 +115,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void GetDefaultValue_can_return_null()
             {
-                var argument = new Argument<string>(
-                    result => null,
-                    isDefault: true
-                );
+                var argument = new Argument<string>(result => null, isDefault: true);
 
                 argument.GetDefaultValue().Should().BeNull();
             }
@@ -190,34 +170,22 @@ namespace System.CommandLine.Tests
                     true
                 );
 
-                option.Parse("")
-                    .Errors.Should()
-                    .ContainSingle()
-                    .Which.Message.Should()
-                    .Be("oops!");
+                option.Parse("").Errors.Should().ContainSingle().Which.Message.Should().Be("oops!");
             }
 
             [Fact]
             public void custom_parsing_of_scalar_value_from_an_argument_with_one_token()
             {
-                var argument = new Argument<int>(
-                    result => int.Parse(result.Tokens.Single().Value)
-                );
+                var argument = new Argument<int>(result => int.Parse(result.Tokens.Single().Value));
 
-                argument.Parse("123")
-                    .ValueForArgument(argument)
-                    .Should()
-                    .Be(123);
+                argument.Parse("123").ValueForArgument(argument).Should().Be(123);
             }
 
             [Fact]
             public void custom_parsing_of_sequence_value_from_an_argument_with_one_token()
             {
                 var argument = new Argument<IEnumerable<int>>(
-                    result =>
-                        result.Tokens.Single()
-                            .Value.Split(',')
-                            .Select(int.Parse)
+                    result => result.Tokens.Single().Value.Split(',').Select(int.Parse)
                 );
 
                 argument.Parse("1,2,3")
@@ -232,8 +200,7 @@ namespace System.CommandLine.Tests
                 var argument = new Argument<IEnumerable<int>>(
                     result =>
                     {
-                        return result.Tokens.Select(t => int.Parse(t.Value))
-                            .ToArray();
+                        return result.Tokens.Select(t => int.Parse(t.Value)).ToArray();
                     }
                 );
 
@@ -247,17 +214,13 @@ namespace System.CommandLine.Tests
             public void custom_parsing_of_scalar_value_from_an_argument_with_multiple_tokens()
             {
                 var argument = new Argument<int>(
-                    result =>
-                        result.Tokens.Select(t => int.Parse(t.Value)).Sum()
+                    result => result.Tokens.Select(t => int.Parse(t.Value)).Sum()
                 )
                 {
                     Arity = ArgumentArity.ZeroOrMore
                 };
 
-                argument.Parse("1 2 3")
-                    .ValueForArgument(argument)
-                    .Should()
-                    .Be(6);
+                argument.Parse("1 2 3").ValueForArgument(argument).Should().Be(6);
             }
 
             [Fact]
@@ -282,8 +245,7 @@ namespace System.CommandLine.Tests
 
                 command.Parse("");
 
-                argumentResult.Parent.Symbol.Should()
-                    .Be(command.Options.Single());
+                argumentResult.Parent.Symbol.Should().Be(command.Options.Single());
             }
 
             [Fact]
@@ -318,10 +280,7 @@ namespace System.CommandLine.Tests
                 string commandLine
             ) {
                 SymbolResult resultForOptionX = null;
-                var optionX = new Option<string>(
-                    "-x",
-                    parseArgument: _ => string.Empty
-                );
+                var optionX = new Option<string>("-x", parseArgument: _ => string.Empty);
 
                 var optionY = new Option<string>(
                     "-y",
@@ -372,10 +331,7 @@ namespace System.CommandLine.Tests
                 var callCount = 0;
                 var handlerWasCalled = false;
 
-                var command = new RootCommand
-                {
-                    Handler = CommandHandler.Create<int>(Run)
-                };
+                var command = new RootCommand { Handler = CommandHandler.Create<int>(Run) };
                 command.AddOption(
                     new Option<int>(
                         "--value",
@@ -480,8 +436,7 @@ namespace System.CommandLine.Tests
                         {
                             if (
                                 int.TryParse(
-                                    argumentResult.Tokens.Select(t => t.Value)
-                                        .Single(),
+                                    argumentResult.Tokens.Select(t => t.Value).Single(),
                                     out var value
                                 )
                             ) {
@@ -539,10 +494,7 @@ namespace System.CommandLine.Tests
                 );
                 var argument2 = new Argument<int[]>(
                     "two",
-                    result =>
-                        result.Tokens.Select(t => t.Value)
-                            .Select(int.Parse)
-                            .ToArray()
+                    result => result.Tokens.Select(t => t.Value).Select(int.Parse).ToArray()
                 );
                 var command = new RootCommand { argument1, argument2 };
 
@@ -551,10 +503,7 @@ namespace System.CommandLine.Tests
                 parseResult.FindResultFor(argument1)
                     .GetValueOrDefault()
                     .Should()
-                    .BeEquivalentTo(
-                        new[] { 1, 2, 3 },
-                        options => options.WithStrictOrdering()
-                    );
+                    .BeEquivalentTo(new[] { 1, 2, 3 }, options => options.WithStrictOrdering());
 
                 parseResult.FindResultFor(argument2)
                     .GetValueOrDefault()
@@ -611,10 +560,7 @@ namespace System.CommandLine.Tests
                 );
                 var argument2 = new Argument<int[]>(
                     "two",
-                    result =>
-                        result.Tokens.Select(t => t.Value)
-                            .Select(int.Parse)
-                            .ToArray()
+                    result => result.Tokens.Select(t => t.Value).Select(int.Parse).ToArray()
                 );
                 var command = new RootCommand { argument1, argument2 };
 
@@ -654,10 +600,7 @@ namespace System.CommandLine.Tests
                     .Should()
                     .Throw<ArgumentOutOfRangeException>()
                     .Which.Message.Should()
-                    .ContainAll(
-                        "Value must be at least 1.",
-                        "Actual value was -1."
-                    );
+                    .ContainAll("Value must be at least 1.", "Actual value was -1.");
             }
 
             [Fact]

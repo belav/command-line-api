@@ -7,16 +7,11 @@ namespace System.CommandLine.Rendering
 {
     internal class FileRenderingSpanVisitor : ContentRenderingSpanVisitor
     {
-        public FileRenderingSpanVisitor(
-            IStandardStreamWriter writer,
-            Region region
-        )
+        public FileRenderingSpanVisitor(IStandardStreamWriter writer, Region region)
             : base(writer, region) { }
 
-        protected override void SetCursorPosition(
-            int? left = null,
-            int? top = null
-        ) {
+        protected override void SetCursorPosition(int? left = null, int? top = null)
+        {
             if (top > 0 && left == 0)
             {
                 Writer.WriteLine();

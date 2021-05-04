@@ -6,14 +6,10 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace System.CommandLine
 {
-    public interface IDirectiveCollection
-        : IEnumerable<KeyValuePair<string, IEnumerable<string>>>
+    public interface IDirectiveCollection : IEnumerable<KeyValuePair<string, IEnumerable<string>>>
     {
         bool Contains(string name);
 
-        bool TryGetValues(
-            string name,
-            [NotNullWhen(true)]out IEnumerable<string>? values
-        );
+        bool TryGetValues(string name, [NotNullWhen(true)]out IEnumerable<string>? values);
     }
 }

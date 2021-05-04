@@ -33,13 +33,8 @@ namespace System.CommandLine.Benchmarks.DragonFruit
                     typeof(System.CommandLine.Invocation.InvocationContext).GetTypeInfo().Assembly.Location
                 }
             );
-            _testAssembly = Assembly.Load(
-                File.ReadAllBytes(_testAssemblyFilePath)
-            );
-            _testAssemblyXmlDocsFilePath = _testAssemblyFilePath.Replace(
-                ".dll",
-                ".xml"
-            );
+            _testAssembly = Assembly.Load(File.ReadAllBytes(_testAssemblyFilePath));
+            _testAssemblyXmlDocsFilePath = _testAssemblyFilePath.Replace(".dll", ".xml");
         }
 
         [Benchmark(Description = "--help")]

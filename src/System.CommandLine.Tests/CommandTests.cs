@@ -20,12 +20,7 @@ namespace System.CommandLine.Tests
                     "outer"
                 )
                 {
-                    new Command(
-                        "inner"
-                    )
-                    {
-                        new Option("--option", arity: ArgumentArity.ExactlyOne)
-                    }
+                    new Command("inner") { new Option("--option", arity: ArgumentArity.ExactlyOne) }
                 }
             );
         }
@@ -59,9 +54,7 @@ namespace System.CommandLine.Tests
         {
             var result = _parser.Parse("outer inner --option argument1");
 
-            result.CommandResult.Children.ElementAt(0)
-                .Symbol.Name.Should()
-                .Be("option");
+            result.CommandResult.Children.ElementAt(0).Symbol.Name.Should().Be("option");
         }
 
         [Fact]
@@ -78,28 +71,16 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Commands_at_multiple_levels_can_have_their_own_arguments()
         {
-            var outer = new Command(
-                "outer"
-            )
-            {
-                new Argument { Arity = ArgumentArity.ExactlyOne }
-            };
+            var outer = new Command("outer") { new Argument { Arity = ArgumentArity.ExactlyOne } };
             outer.AddCommand(
-                new Command(
-                    "inner"
-                )
-                {
-                    new Argument { Arity = ArgumentArity.ZeroOrMore }
-                }
+                new Command("inner") { new Argument { Arity = ArgumentArity.ZeroOrMore } }
             );
 
             var parser = new Parser(outer);
 
             var result = parser.Parse("outer arg1 inner arg2 arg3");
 
-            result.CommandResult.Parent.Tokens.Select(t => t.Value)
-                .Should()
-                .BeEquivalentTo("arg1");
+            result.CommandResult.Parent.Tokens.Select(t => t.Value).Should().BeEquivalentTo("arg1");
 
             result.CommandResult.Tokens.Select(t => t.Value)
                 .Should()
@@ -129,9 +110,7 @@ namespace System.CommandLine.Tests
             create.Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
-                .Contain(
-                    $"Command alias cannot contain whitespace: \"{alias}\""
-                );
+                .Contain($"Command alias cannot contain whitespace: \"{alias}\"");
         }
 
         [Theory]
@@ -148,9 +127,7 @@ namespace System.CommandLine.Tests
             addAlias.Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
-                .Contain(
-                    $"Command alias cannot contain whitespace: \"{alias}\""
-                );
+                .Contain($"Command alias cannot contain whitespace: \"{alias}\"");
         }
 
         [Theory]
@@ -200,10 +177,8 @@ namespace System.CommandLine.Tests
         {
             var command = new RootCommand();
             command.AddAlias("that");
-            command.Aliases.Should()
-                .BeEquivalentTo(RootCommand.ExecutableName, "that");
-            command.Aliases.Should()
-                .BeEquivalentTo(RootCommand.ExecutableName, "that");
+            command.Aliases.Should().BeEquivalentTo(RootCommand.ExecutableName, "that");
+            command.Aliases.Should().BeEquivalentTo(RootCommand.ExecutableName, "that");
 
             var result = command.Parse("that");
 
@@ -241,12 +216,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_multiple_arguments_are_configured_then_they_must_differ_by_name()
         {
-            var command = new Command(
-                "the-command"
-            )
-            {
-                new Argument<string> { Name = "same" }
-            };
+            var command = new Command("the-command") { new Argument<string> { Name = "same" } };
 
             command.Invoking(c => c.Add(new Argument<string> { Name = "same" }))
                 .Should()
@@ -369,7 +339,6 @@ namespace System.CommandLine.Tests
             result.ValueForArgument(argument).Should().BeEmpty();
         }
 
-        protected override Symbol CreateSymbol(string name) =>
-            new Command(name);
+        protected override Symbol CreateSymbol(string name) => new Command(name);
     }
 }

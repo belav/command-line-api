@@ -32,10 +32,7 @@ namespace System.CommandLine.DragonFruit.Tests
                 )
                 .Build();
 
-            await parser.InvokeAsync(
-                $"{RootCommand.ExecutableName} --value",
-                _testConsole
-            );
+            await parser.InvokeAsync($"{RootCommand.ExecutableName} --value", _testConsole);
 
             _receivedValues.Should().BeEquivalentTo(true);
         }
@@ -78,24 +75,12 @@ namespace System.CommandLine.DragonFruit.Tests
 
         [Theory]
         [InlineData(nameof(Method_having_string_argument), 1, 1)]
-        [InlineData(
-            nameof(Method_having_string_argument_with_null_default_value),
-            0,
-            1)]
-        [InlineData(
-            nameof(Method_having_string_argument_with_non_null_default_value),
-            0,
-            1)]
+        [InlineData(nameof(Method_having_string_argument_with_null_default_value), 0, 1)]
+        [InlineData(nameof(Method_having_string_argument_with_non_null_default_value), 0, 1)]
         [InlineData(nameof(Method_having_string_array_arguments), 0, 100_000)]
-        [InlineData(
-            nameof(Method_having_string_array_arguments_with_default_value),
-            0,
-            100_000)]
+        [InlineData(nameof(Method_having_string_array_arguments_with_default_value), 0, 100_000)]
         [InlineData(nameof(Method_having_FileInfo_argument), 1, 1)]
-        [InlineData(
-            nameof(Method_having_FileInfo_argument_with_default_value),
-            0,
-            1)]
+        [InlineData(nameof(Method_having_FileInfo_argument_with_default_value), 0, 1)]
         [InlineData(nameof(Method_having_FileInfo_array_args), 0, 100_000)]
         public void Parameters_named_arguments_generate_command_arguments_having_the_correct_arity(
             string methodName,
@@ -110,24 +95,16 @@ namespace System.CommandLine.DragonFruit.Tests
             var rootCommandArgument = parser.Configuration.RootCommand.Arguments.Single();
 
             rootCommandArgument.Arity.Should()
-                .BeEquivalentTo(
-                    new ArgumentArity(minNumberOfValues, maxNumberOfValues)
-                );
+                .BeEquivalentTo(new ArgumentArity(minNumberOfValues, maxNumberOfValues));
         }
 
         [Theory]
         [InlineData(nameof(Method_having_string_argument), "argument")]
-        [InlineData(
-            nameof(Method_having_string_argument_with_null_default_value),
-            "argument")]
+        [InlineData(nameof(Method_having_string_argument_with_null_default_value), "argument")]
         [InlineData(nameof(Method_having_string_array_arguments), "arguments")]
-        [InlineData(
-            nameof(Method_having_string_array_arguments_with_default_value),
-            "arguments")]
+        [InlineData(nameof(Method_having_string_array_arguments_with_default_value), "arguments")]
         [InlineData(nameof(Method_having_FileInfo_argument), "argument")]
-        [InlineData(
-            nameof(Method_having_FileInfo_argument_with_default_value),
-            "argument")]
+        [InlineData(nameof(Method_having_FileInfo_argument_with_default_value), "argument")]
         [InlineData(nameof(Method_having_FileInfo_array_args), "args")]
         public void Parameters_named_arguments_generate_command_arguments_having_the_correct_name(
             string methodName,
@@ -145,17 +122,14 @@ namespace System.CommandLine.DragonFruit.Tests
 
         [Theory]
         [InlineData(nameof(Method_having_string_argument))]
-        [InlineData(
-            nameof(Method_having_string_argument_with_null_default_value))]
+        [InlineData(nameof(Method_having_string_argument_with_null_default_value))]
         [InlineData(nameof(Method_having_string_array_arguments))]
-        [InlineData(
-            nameof(Method_having_string_array_arguments_with_default_value))]
+        [InlineData(nameof(Method_having_string_array_arguments_with_default_value))]
         [InlineData(nameof(Method_having_FileInfo_argument))]
         [InlineData(nameof(Method_having_FileInfo_argument_with_default_value))]
         [InlineData(nameof(Method_having_FileInfo_array_args))]
-        public void Options_are_not_generated_for_command_argument_parameters(
-            string methodName
-        ) {
+        public void Options_are_not_generated_for_command_argument_parameters(string methodName)
+        {
             var parser = new CommandLineBuilder().ConfigureRootCommandFromMethod(
                     GetMethodInfo(methodName)
                 )
@@ -163,31 +137,21 @@ namespace System.CommandLine.DragonFruit.Tests
 
             var rootCommand = parser.Configuration.RootCommand;
 
-            var argumentParameterNames =
-                new[] { "arguments", "argument", "args" };
+            var argumentParameterNames = new[] { "arguments", "argument", "args" };
 
-            rootCommand.Options.Should()
-                .NotContain(o => argumentParameterNames.Contains(o.Name));
+            rootCommand.Options.Should().NotContain(o => argumentParameterNames.Contains(o.Name));
         }
 
         [Theory]
         [InlineData(nameof(Method_having_string_argument), typeof(string))]
-        [InlineData(
-            nameof(Method_having_string_argument_with_null_default_value),
-            typeof(string))]
-        [InlineData(
-            nameof(Method_having_string_array_arguments),
-            typeof(string[]))]
+        [InlineData(nameof(Method_having_string_argument_with_null_default_value), typeof(string))]
+        [InlineData(nameof(Method_having_string_array_arguments), typeof(string[]))]
         [InlineData(
             nameof(Method_having_string_array_arguments_with_default_value),
             typeof(string[]))]
         [InlineData(nameof(Method_having_FileInfo_argument), typeof(FileInfo))]
-        [InlineData(
-            nameof(Method_having_FileInfo_argument_with_default_value),
-            typeof(FileInfo))]
-        [InlineData(
-            nameof(Method_having_FileInfo_array_args),
-            typeof(FileInfo[]))]
+        [InlineData(nameof(Method_having_FileInfo_argument_with_default_value), typeof(FileInfo))]
+        [InlineData(nameof(Method_having_FileInfo_array_args), typeof(FileInfo[]))]
         public void Parameters_named_arguments_generate_command_arguments_having_the_correct_type(
             string methodName,
             Type expectedType
@@ -253,9 +217,7 @@ namespace System.CommandLine.DragonFruit.Tests
         public void Options_are_not_built_for_infrastructure_types_exposed_by_method_parameters(
             Type type
         ) {
-            var targetType = typeof(ClassWithMethodHavingParameter<>).MakeGenericType(
-                type
-            );
+            var targetType = typeof(ClassWithMethodHavingParameter<>).MakeGenericType(type);
 
             var handlerMethod = targetType.GetMethod(
                 nameof(ClassWithMethodHavingParameter<int>.Handle)
@@ -270,10 +232,7 @@ namespace System.CommandLine.DragonFruit.Tests
         public async Task Method_parameters_on_the_invoked_member_method_are_bound_to_matching_option_names_by_MethodInfo_with_target()
         {
             var command = new Command("test");
-            command.ConfigureFromMethod(
-                GetMethodInfo(nameof(Method_taking_bool)),
-                this
-            );
+            command.ConfigureFromMethod(GetMethodInfo(nameof(Method_taking_bool)), this);
 
             await command.InvokeAsync("--value");
 
@@ -365,19 +324,15 @@ namespace System.CommandLine.DragonFruit.Tests
             FileInfo[] args
         ) { }
 
-        internal void Method_with_multiple_default_values(
-            int firstValue = 1,
-            int secondValue = 2
-        ) {
+        internal void Method_with_multiple_default_values(int firstValue = 1, int secondValue = 2)
+        {
             _receivedValues = new object[] { firstValue, secondValue };
         }
 
         private MethodInfo GetMethodInfo(string name)
         {
             return typeof(ConfigureFromMethodTests).GetMethods(
-                    BindingFlags.Public |
-                    BindingFlags.NonPublic |
-                    BindingFlags.Instance
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance
                 )
                 .Single(m => m.Name == name);
         }

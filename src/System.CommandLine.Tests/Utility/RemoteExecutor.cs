@@ -45,10 +45,7 @@ namespace System.CommandLine.Tests.Utility
                     instance = Activator.CreateInstance(type);
                 }
 
-                object result = methodInfo.Invoke(
-                    instance,
-                    new object[] { methodArguments }
-                );
+                object result = methodInfo.Invoke(instance, new object[] { methodArguments });
                 if (result is Task<int> task)
                 {
                     exitCode = task.GetAwaiter().GetResult();
@@ -60,10 +57,7 @@ namespace System.CommandLine.Tests.Utility
             }
             catch (Exception exc)
             {
-                if (
-                    exc is TargetInvocationException &&
-                    exc.InnerException != null
-                )
+                if (exc is TargetInvocationException && exc.InnerException != null)
                     exc = exc.InnerException;
 
                 var output = new StringBuilder();
@@ -78,9 +72,7 @@ namespace System.CommandLine.Tests.Utility
                 if (methodArguments.Length > 0)
                 {
                     output.AppendLine("Child arguments:");
-                    output.AppendLine(
-                        "  " + string.Join(", ", methodArguments)
-                    );
+                    output.AppendLine("  " + string.Join(", ", methodArguments));
                 }
 
                 File.WriteAllText(exceptionFile, output.ToString());
@@ -113,17 +105,11 @@ namespace System.CommandLine.Tests.Utility
             Type declaringType = methodInfo.DeclaringType;
             string className = declaringType.FullName;
             string methodName = methodInfo.Name;
-            string exceptionFile = Path.Combine(
-                Path.GetTempPath(),
-                Path.GetRandomFileName()
-            );
+            string exceptionFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
-            string dotnetExecutable =
-                Process.GetCurrentProcess().MainModule.FileName;
+            string dotnetExecutable = Process.GetCurrentProcess().MainModule.FileName;
             string thisAssembly = typeof(RemoteExecutor).Assembly.Location;
-            var assembly =
-                (Assembly.GetEntryAssembly() ??
-                Assembly.GetExecutingAssembly());
+            var assembly = (Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly());
             string entryAssemblyWithoutExtension = Path.Combine(
                 Path.GetDirectoryName(assembly.Location),
                 Path.GetFileNameWithoutExtension(assembly.Location)
@@ -131,8 +117,7 @@ namespace System.CommandLine.Tests.Utility
             string runtimeConfig = GetApplicationArgument("--runtimeconfig");
             if (runtimeConfig == null)
             {
-                runtimeConfig = entryAssemblyWithoutExtension +
-                ".runtimeconfig.json";
+                runtimeConfig = entryAssemblyWithoutExtension + ".runtimeconfig.json";
             }
             string depsFile = GetApplicationArgument("--depsfile");
             if (depsFile == null)
@@ -168,12 +153,7 @@ namespace System.CommandLine.Tests.Utility
             psi.Arguments = string.Join(" ", argumentList);
             Process process = Process.Start(psi);
 
-            return new RemoteExecution(
-                process,
-                className,
-                methodName,
-                exceptionFile
-            );
+            return new RemoteExecution(process, className, methodName, exceptionFile);
         }
 
         private static string GetApplicationArgument(string name)
@@ -203,9 +183,7 @@ namespace System.CommandLine.Tests.Utility
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                s_arguments = File.ReadAllText(
-                        $"/proc/{Process.GetCurrentProcess().Id}/cmdline"
-                    )
+                s_arguments = File.ReadAllText($"/proc/{Process.GetCurrentProcess().Id}/cmdline")
                     .Split(new[] { '\0' });
             }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

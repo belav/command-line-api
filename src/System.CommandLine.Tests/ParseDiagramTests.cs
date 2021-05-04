@@ -26,9 +26,7 @@ namespace System.CommandLine.Tests
 
             var result = parser.Parse("the-command -x one -y two three");
 
-            result.Diagram()
-                .Should()
-                .Be("[ the-command [ -x <one> ] [ -y ] <two> <three> ]");
+            result.Diagram().Should().Be("[ the-command [ -x <one> ] [ -y ] <two> <three> ]");
         }
 
         [Fact]
@@ -53,9 +51,7 @@ namespace System.CommandLine.Tests
 
             var result = command.Parse("-f not-an-int");
 
-            result.Diagram()
-                .Should()
-                .Be($"[ {RootCommand.ExecutableName} [ -f !<not-an-int> ] ]");
+            result.Diagram().Should().Be($"[ {RootCommand.ExecutableName} [ -f !<not-an-int> ] ]");
         }
 
         [Fact]
@@ -65,10 +61,7 @@ namespace System.CommandLine.Tests
             {
                 new Option<int>(new[] { "-h", "--height" }, () => 10),
                 new Option<int>(new[] { "-w", "--width" }, () => 15),
-                new Option<ConsoleColor>(
-                    new[] { "-c", "--color" },
-                    () => ConsoleColor.Cyan
-                )
+                new Option<ConsoleColor>(new[] { "-c", "--color" }, () => ConsoleColor.Cyan)
             };
 
             var result = rootCommand.Parse("-w 9000");

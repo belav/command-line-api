@@ -9,9 +9,7 @@ namespace System.CommandLine.Suggest
         {
             if (path.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
             {
-                path = path.Remove(
-                    path.LastIndexOf(".exe", StringComparison.OrdinalIgnoreCase)
-                );
+                path = path.Remove(path.LastIndexOf(".exe", StringComparison.OrdinalIgnoreCase));
             }
 
             return path;

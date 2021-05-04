@@ -20,18 +20,13 @@ namespace System.CommandLine.Rendering.Tests
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentException(
-                    "Value cannot be null or whitespace.",
-                    nameof(name)
-                );
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(name));
             }
 
             Name = name;
             InputSpan = _formatter.ParseToSpan(rendering);
-            Region = inRegion ??
-            throw new ArgumentNullException(nameof(inRegion));
-            ExpectedOutput = expectOutput ??
-            throw new ArgumentNullException(nameof(expectOutput));
+            Region = inRegion ?? throw new ArgumentNullException(nameof(inRegion));
+            ExpectedOutput = expectOutput ?? throw new ArgumentNullException(nameof(expectOutput));
         }
 
         public string Name { get; }

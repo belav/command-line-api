@@ -11,9 +11,7 @@ namespace System.CommandLine.Tests.Builder
         public void Global_options_are_added_to_the_root_command()
         {
             var globalOption = new Option("global");
-            var builder = new CommandLineBuilder().AddGlobalOption(
-                globalOption
-            );
+            var builder = new CommandLineBuilder().AddGlobalOption(globalOption);
 
             Parser parser = builder.Build();
 

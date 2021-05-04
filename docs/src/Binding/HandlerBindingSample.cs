@@ -33,9 +33,7 @@ namespace Binding
                 }
             );
 
-            await command.InvokeAsync(
-                "--an-int 123 --a-string \"Hello world!\" "
-            );
+            await command.InvokeAsync("--an-int 123 --a-string \"Hello world!\" ");
 
             #endregion
 
@@ -48,9 +46,7 @@ namespace Binding
 
             var command = new RootCommand { new Option<bool>("--a-bool") };
 
-            command.Handler = CommandHandler.Create(
-                (bool aBool) => Console.WriteLine(aBool)
-            );
+            command.Handler = CommandHandler.Create((bool aBool) => Console.WriteLine(aBool));
 
             await command.InvokeAsync("");
             await command.InvokeAsync("--a-bool");
@@ -93,10 +89,7 @@ namespace Binding
         {
             #region Enum
 
-            var command = new RootCommand
-            {
-                new Option<System.IO.FileAccess>("--an-enum")
-            };
+            var command = new RootCommand { new Option<System.IO.FileAccess>("--an-enum") };
 
             command.Handler = CommandHandler.Create(
                 (FileAccess anEnum) => Console.WriteLine(anEnum)
@@ -139,10 +132,7 @@ namespace Binding
         {
             #region FileSystemTypes
 
-            var command = new RootCommand
-            {
-                new Option<FileInfo>("-f").ExistingOnly()
-            };
+            var command = new RootCommand { new Option<FileInfo>("-f").ExistingOnly() };
 
             command.Handler = CommandHandler.Create(
                 (FileSystemInfo f) =>

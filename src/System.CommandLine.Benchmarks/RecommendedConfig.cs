@@ -32,11 +32,7 @@ namespace System.CommandLine.Benchmarks
                 .WithArtifactsPath(artifactsPath.FullName)
                 .With(MemoryDiagnoser.Default)
                 .With(JsonExporter.Full)
-                .With(
-                    StatisticColumn.Median,
-                    StatisticColumn.Min,
-                    StatisticColumn.Max
-                );
+                .With(StatisticColumn.Median, StatisticColumn.Min, StatisticColumn.Max);
 #pragma warning restore CA1062 // Validate arguments of public methods
     }
 }

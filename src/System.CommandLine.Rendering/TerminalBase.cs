@@ -9,8 +9,7 @@ namespace System.CommandLine.Rendering
     {
         protected TerminalBase(IConsole console)
         {
-            Console = console ??
-            throw new ArgumentNullException(nameof(console));
+            Console = console ?? throw new ArgumentNullException(nameof(console));
         }
 
         public abstract void Clear();

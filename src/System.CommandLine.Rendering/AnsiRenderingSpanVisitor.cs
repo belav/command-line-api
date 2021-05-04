@@ -12,71 +12,44 @@ namespace System.CommandLine.Rendering
         public AnsiRenderingSpanVisitor(IConsole console, Region region)
             : base(console.Out, region) { }
 
-        protected override void SetCursorPosition(
-            int? left = null,
-            int? top = null
-        ) {
+        protected override void SetCursorPosition(int? left = null, int? top = null)
+        {
             if (Region == Region.Scrolling)
             {
-                Writer.WriteLine(
-                    Cursor.Move.ToLocation(left: left + 1).EscapeSequence
-                );
+                Writer.WriteLine(Cursor.Move.ToLocation(left: left + 1).EscapeSequence);
             }
             else
             {
-                Writer.Write(
-                    Cursor.Move.ToLocation(
-                        left: left + 1,
-                        top: top + 1
-                    ).EscapeSequence
-                );
+                Writer.Write(Cursor.Move.ToLocation(left: left + 1, top: top + 1).EscapeSequence);
             }
         }
 
-        public override void VisitForegroundColorSpan(
-            ForegroundColorSpan span
-        ) {
+        public override void VisitForegroundColorSpan(ForegroundColorSpan span)
+        {
             AnsiControlCode controlCode;
 
             if (span.RgbColor is RgbColor rgb)
             {
-                controlCode = Color.Foreground.Rgb(
-                    rgb.Red,
-                    rgb.Green,
-                    rgb.Blue
-                );
+                controlCode = Color.Foreground.Rgb(rgb.Red, rgb.Green, rgb.Blue);
             }
-            else if (
-                !_foregroundColorControlCodeMappings.TryGetValue(
-                    span.Name,
-                    out controlCode
-                )
-            ) {
+            else if (!_foregroundColorControlCodeMappings.TryGetValue(span.Name, out controlCode))
+            {
                 return;
             }
 
             Writer.Write(controlCode.EscapeSequence);
         }
 
-        public override void VisitBackgroundColorSpan(
-            BackgroundColorSpan span
-        ) {
+        public override void VisitBackgroundColorSpan(BackgroundColorSpan span)
+        {
             AnsiControlCode controlCode;
 
             if (span.RgbColor is RgbColor rgb)
             {
-                controlCode = Color.Background.Rgb(
-                    rgb.Red,
-                    rgb.Green,
-                    rgb.Blue
-                );
+                controlCode = Color.Background.Rgb(rgb.Red, rgb.Green, rgb.Blue);
             }
-            else if (
-                !_backgroundColorControlCodeMappings.TryGetValue(
-                    span.Name,
-                    out controlCode
-                )
-            ) {
+            else if (!_backgroundColorControlCodeMappings.TryGetValue(span.Name, out controlCode))
+            {
                 return;
             }
 
@@ -85,25 +58,16 @@ namespace System.CommandLine.Rendering
 
         public override void VisitStyleSpan(StyleSpan span)
         {
-            if (
-                _styleControlCodeMappings.TryGetValue(
-                    span.Name,
-                    out var controlCode
-                )
-            ) {
+            if (_styleControlCodeMappings.TryGetValue(span.Name, out var controlCode))
+            {
                 Writer.Write(controlCode.EscapeSequence);
             }
         }
 
-        public override void VisitCursorControlSpan(
-            CursorControlSpan cursorControlSpan
-        ) {
-            if (
-                _styleControlCodeMappings.TryGetValue(
-                    cursorControlSpan.Name,
-                    out var controlCode
-                )
-            ) {
+        public override void VisitCursorControlSpan(CursorControlSpan cursorControlSpan)
+        {
+            if (_styleControlCodeMappings.TryGetValue(cursorControlSpan.Name, out var controlCode))
+            {
                 Writer.Write(controlCode.EscapeSequence);
             }
         }
@@ -123,24 +87,12 @@ namespace System.CommandLine.Rendering
             [nameof(ForegroundColorSpan.White)] = Color.Foreground.White,
             [nameof(ForegroundColorSpan.DarkGray)] = Color.Foreground.DarkGray,
             [nameof(ForegroundColorSpan.LightRed)] = Color.Foreground.LightRed,
-            [
-                nameof(ForegroundColorSpan.LightGreen)
-            ] = Color.Foreground.LightGreen,
-            [
-                nameof(ForegroundColorSpan.LightYellow)
-            ] = Color.Foreground.LightYellow,
-            [
-                nameof(ForegroundColorSpan.LightBlue)
-            ] = Color.Foreground.LightBlue,
-            [
-                nameof(ForegroundColorSpan.LightMagenta)
-            ] = Color.Foreground.LightMagenta,
-            [
-                nameof(ForegroundColorSpan.LightCyan)
-            ] = Color.Foreground.LightCyan,
-            [
-                nameof(ForegroundColorSpan.LightGray)
-            ] = Color.Foreground.LightGray,
+            [nameof(ForegroundColorSpan.LightGreen)] = Color.Foreground.LightGreen,
+            [nameof(ForegroundColorSpan.LightYellow)] = Color.Foreground.LightYellow,
+            [nameof(ForegroundColorSpan.LightBlue)] = Color.Foreground.LightBlue,
+            [nameof(ForegroundColorSpan.LightMagenta)] = Color.Foreground.LightMagenta,
+            [nameof(ForegroundColorSpan.LightCyan)] = Color.Foreground.LightCyan,
+            [nameof(ForegroundColorSpan.LightGray)] = Color.Foreground.LightGray,
         };
 
         private static readonly Dictionary<string,
@@ -158,29 +110,16 @@ namespace System.CommandLine.Rendering
             [nameof(BackgroundColorSpan.White)] = Color.Background.White,
             [nameof(BackgroundColorSpan.DarkGray)] = Color.Background.DarkGray,
             [nameof(BackgroundColorSpan.LightRed)] = Color.Background.LightRed,
-            [
-                nameof(BackgroundColorSpan.LightGreen)
-            ] = Color.Background.LightGreen,
-            [
-                nameof(BackgroundColorSpan.LightYellow)
-            ] = Color.Background.LightYellow,
-            [
-                nameof(BackgroundColorSpan.LightBlue)
-            ] = Color.Background.LightBlue,
-            [
-                nameof(BackgroundColorSpan.LightMagenta)
-            ] = Color.Background.LightMagenta,
-            [
-                nameof(BackgroundColorSpan.LightCyan)
-            ] = Color.Background.LightCyan,
-            [
-                nameof(BackgroundColorSpan.LightGray)
-            ] = Color.Background.LightGray,
+            [nameof(BackgroundColorSpan.LightGreen)] = Color.Background.LightGreen,
+            [nameof(BackgroundColorSpan.LightYellow)] = Color.Background.LightYellow,
+            [nameof(BackgroundColorSpan.LightBlue)] = Color.Background.LightBlue,
+            [nameof(BackgroundColorSpan.LightMagenta)] = Color.Background.LightMagenta,
+            [nameof(BackgroundColorSpan.LightCyan)] = Color.Background.LightCyan,
+            [nameof(BackgroundColorSpan.LightGray)] = Color.Background.LightGray,
         };
 
         private static readonly Dictionary<string,
-            AnsiControlCode> _styleControlCodeMappings = new Dictionary<string,
-            AnsiControlCode>
+            AnsiControlCode> _styleControlCodeMappings = new Dictionary<string, AnsiControlCode>
         {
             [nameof(StyleSpan.AttributesOff)] = Ansi.Text.AttributesOff,
             [nameof(StyleSpan.BlinkOff)] = Ansi.Text.BlinkOff,

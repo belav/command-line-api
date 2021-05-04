@@ -69,8 +69,7 @@ namespace System.CommandLine.Rendering.Tests
 
     public class RecordingSpanVisitor : TextSpanVisitor
     {
-        public override void VisitUnknownSpan(TextSpan span) =>
-            VisitedSpans.Add(span);
+        public override void VisitUnknownSpan(TextSpan span) => VisitedSpans.Add(span);
 
         public override void VisitContainerSpan(ContainerSpan span)
         {
@@ -79,19 +78,15 @@ namespace System.CommandLine.Rendering.Tests
             base.VisitContainerSpan(span);
         }
 
-        public override void VisitContentSpan(ContentSpan span) =>
+        public override void VisitContentSpan(ContentSpan span) => VisitedSpans.Add(span);
+
+        public override void VisitForegroundColorSpan(ForegroundColorSpan span) =>
             VisitedSpans.Add(span);
 
-        public override void VisitForegroundColorSpan(
-            ForegroundColorSpan span
-        ) => VisitedSpans.Add(span);
-
-        public override void VisitBackgroundColorSpan(
-            BackgroundColorSpan span
-        ) => VisitedSpans.Add(span);
-
-        public override void VisitStyleSpan(StyleSpan span) =>
+        public override void VisitBackgroundColorSpan(BackgroundColorSpan span) =>
             VisitedSpans.Add(span);
+
+        public override void VisitStyleSpan(StyleSpan span) => VisitedSpans.Add(span);
 
         public List<TextSpan> VisitedSpans { get; } = new List<TextSpan>();
     }

@@ -18,8 +18,7 @@ namespace System.CommandLine.Suggest.Tests
         private readonly FileInfo _endToEndTestApp;
         private readonly FileInfo _dotnetSuggest;
         private readonly (string, string)[] _environmentVariables;
-        private readonly DirectoryInfo _dotnetHostDir =
-            DotnetMuxer.Path.Directory;
+        private readonly DirectoryInfo _dotnetHostDir = DotnetMuxer.Path.Directory;
         private static string _testRoot;
 
         public DotnetSuggestEndToEndTests(ITestOutputHelper output)
@@ -28,10 +27,7 @@ namespace System.CommandLine.Suggest.Tests
 
             // delete sentinel files for EndToEndTestApp in order to trigger registration when it's run
             var sentinelsDir = new DirectoryInfo(
-                Path.Combine(
-                    Path.GetTempPath(),
-                    "system-commandline-sentinel-files"
-                )
+                Path.Combine(Path.GetTempPath(), "system-commandline-sentinel-files")
             );
 
             if (sentinelsDir.Exists)
@@ -44,10 +40,7 @@ namespace System.CommandLine.Suggest.Tests
                 }
             }
 
-            var currentDirectory = Path.Combine(
-                Directory.GetCurrentDirectory(),
-                "TestAssets"
-            );
+            var currentDirectory = Path.Combine(Directory.GetCurrentDirectory(), "TestAssets");
 
             _endToEndTestApp = new DirectoryInfo(currentDirectory).GetFiles(
                     "EndToEndTestApp".ExecutableName()
@@ -77,10 +70,7 @@ namespace System.CommandLine.Suggest.Tests
 
         private static void PrepareTestHomeDirectoryToAvoidPolluteBuildMachineHome()
         {
-            _testRoot = Path.Combine(
-                Path.GetTempPath(),
-                Path.GetRandomFileName()
-            );
+            _testRoot = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             Directory.CreateDirectory(_testRoot);
         }
 
@@ -96,9 +86,7 @@ namespace System.CommandLine.Suggest.Tests
                 environmentVariables: _environmentVariables
             );
 
-            stdOut.ToString()
-                .Should()
-                .Be($"--apple{NewLine}--banana{NewLine}--durian{NewLine}");
+            stdOut.ToString().Should().Be($"--apple{NewLine}--banana{NewLine}--durian{NewLine}");
         }
 
         [ReleaseBuildOnlyFact]
@@ -131,9 +119,7 @@ namespace System.CommandLine.Suggest.Tests
 
             stdErr.ToString().Should().BeEmpty();
 
-            stdOut.ToString()
-                .Should()
-                .Be($"--apple{NewLine}--banana{NewLine}--durian{NewLine}");
+            stdOut.ToString().Should().Be($"--apple{NewLine}--banana{NewLine}--durian{NewLine}");
         }
 
         [ReleaseBuildOnlyFact]

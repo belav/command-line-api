@@ -23,8 +23,7 @@ namespace System.CommandLine.Builder
 
         public ResponseFileHandling ResponseFileHandling { get; set; }
 
-        internal Func<BindingContext,
-            IHelpBuilder>? HelpBuilderFactory { get; set; }
+        internal Func<BindingContext, IHelpBuilder>? HelpBuilderFactory { get; set; }
         internal Action<IHelpBuilder>? ConfigureHelp { get; set; }
 
         internal HelpOption? HelpOption { get; set; }
@@ -55,17 +54,13 @@ namespace System.CommandLine.Builder
             return parser;
         }
 
-        internal void AddMiddleware(
-            InvocationMiddleware middleware,
-            MiddlewareOrder order
-        ) {
+        internal void AddMiddleware(InvocationMiddleware middleware, MiddlewareOrder order)
+        {
             _middlewareList.Add((middleware, (int)order));
         }
 
-        internal void AddMiddleware(
-            InvocationMiddleware middleware,
-            MiddlewareOrderInternal order
-        ) {
+        internal void AddMiddleware(InvocationMiddleware middleware, MiddlewareOrderInternal order)
+        {
             _middlewareList.Add((middleware, (int)order));
         }
     }

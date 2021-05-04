@@ -22,10 +22,7 @@ namespace System.CommandLine.Rendering.Tests
         {
             var span = new TextSpanFormatter().ParseToSpan($"some text");
 
-            span.Should()
-                .BeOfType<ContentSpan>()
-                .Which.Content.Should()
-                .Be("some text");
+            span.Should().BeOfType<ContentSpan>().Which.Content.Should().Be("some text");
         }
 
         [Fact]
@@ -47,9 +44,7 @@ namespace System.CommandLine.Rendering.Tests
                         new ContentSpan(" text")
                     ),
                     options =>
-                        options.WithStrictOrdering()
-                            .Excluding(s => s.Parent)
-                            .Excluding(s => s.Root)
+                        options.WithStrictOrdering().Excluding(s => s.Parent).Excluding(s => s.Root)
                 );
         }
 
@@ -72,9 +67,7 @@ namespace System.CommandLine.Rendering.Tests
                         TextSpan.Empty()
                     ),
                     options =>
-                        options.WithStrictOrdering()
-                            .Excluding(s => s.Parent)
-                            .Excluding(s => s.Root)
+                        options.WithStrictOrdering().Excluding(s => s.Parent).Excluding(s => s.Root)
                 );
         }
 
@@ -90,8 +83,7 @@ namespace System.CommandLine.Rendering.Tests
 
             if (expectedCount > 1)
             {
-                var containerSpan =
-                    span.Should().BeOfType<ContainerSpan>().Subject;
+                var containerSpan = span.Should().BeOfType<ContainerSpan>().Subject;
 
                 output.WriteLine(containerSpan.ToString());
 
@@ -126,8 +118,7 @@ namespace System.CommandLine.Rendering.Tests
 
             if (expectedCount > 1)
             {
-                var containerSpan =
-                    span.Should().BeOfType<ContainerSpan>().Subject;
+                var containerSpan = span.Should().BeOfType<ContainerSpan>().Subject;
 
                 output.WriteLine(containerSpan.ToString());
 

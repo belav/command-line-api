@@ -9,14 +9,11 @@ namespace System.CommandLine.Parsing
     public static class ArgumentResultExtensions
     {
         [return: MaybeNull]
-        public static object? GetValueOrDefault(
-            this ArgumentResult argumentResult
-        ) => argumentResult.GetValueOrDefault<object?>();
+        public static object? GetValueOrDefault(this ArgumentResult argumentResult) =>
+            argumentResult.GetValueOrDefault<object?>();
 
         [return: MaybeNull]
-        public static T GetValueOrDefault<T>(
-            this ArgumentResult argumentResult
-        ) =>
+        public static T GetValueOrDefault<T>(this ArgumentResult argumentResult) =>
             argumentResult.GetArgumentConversionResult()
                 .ConvertIfNeeded(argumentResult, typeof(T))
                 .GetValueOrDefault<T>();

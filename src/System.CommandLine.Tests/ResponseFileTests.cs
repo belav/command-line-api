@@ -44,9 +44,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_response_file_specified_it_loads_options_from_response_file()
         {
-            var result = new Option("--flag").Parse(
-                $"@{ResponseFile("--flag")}"
-            );
+            var result = new Option("--flag").Parse($"@{ResponseFile("--flag")}");
 
             result.HasOption("--flag").Should().BeTrue();
         }
@@ -56,11 +54,9 @@ namespace System.CommandLine.Tests
         {
             var responseFile = ResponseFile("--flag", "--flag2", "123");
 
-            var result = new RootCommand
-            {
-                new Option("--flag"),
-                new Option<int>("--flag2")
-            }.Parse($"@{responseFile}");
+            var result = new RootCommand { new Option("--flag"), new Option<int>("--flag2") }.Parse(
+                $"@{responseFile}"
+            );
 
             result.HasOption("--flag").Should().BeTrue();
             result.ValueForOption("--flag2").Should().Be(123);
@@ -72,9 +68,7 @@ namespace System.CommandLine.Tests
         {
             var responseFile = ResponseFile("one", "two", "three");
 
-            var result = new RootCommand { new Argument<string[]>() }.Parse(
-                $"@{responseFile}"
-            );
+            var result = new RootCommand { new Argument<string[]>() }.Parse($"@{responseFile}");
 
             result.CommandResult.Tokens.Select(t => t.Value)
                 .Should()
@@ -131,9 +125,7 @@ namespace System.CommandLine.Tests
         {
             var responseFile = ResponseFile("--flag", "", "123");
 
-            var result = new CommandLineBuilder().AddOption(
-                    new Option<int>("--flag")
-                )
+            var result = new CommandLineBuilder().AddOption(new Option<int>("--flag"))
                 .Build()
                 .Parse($"@{responseFile}");
 
@@ -153,11 +145,9 @@ namespace System.CommandLine.Tests
                 "--flag2"
             );
 
-            var result = new RootCommand
-            {
-                new Option("--flag"),
-                new Option("--flag2")
-            }.Parse($"@{responseFile}");
+            var result = new RootCommand { new Option("--flag"), new Option("--flag2") }.Parse(
+                $"@{responseFile}"
+            );
 
             result.HasOption("--flag").Should().BeTrue();
             result.HasOption("--flag2").Should().BeTrue();
@@ -167,35 +157,25 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_response_file_does_not_exist_then_error_is_returned()
         {
-            var result = new RootCommand
-            {
-                new Option("--flag"),
-                new Option("--flag2")
-            }.Parse("@nonexistent.rsp");
+            var result = new RootCommand { new Option("--flag"), new Option("--flag2") }.Parse(
+                "@nonexistent.rsp"
+            );
 
             result.HasOption("--flag").Should().BeFalse();
             result.HasOption("--flag2").Should().BeFalse();
             result.Errors.Should().HaveCount(1);
-            result.Errors.Single()
-                .Message.Should()
-                .Be("Response file not found 'nonexistent.rsp'");
+            result.Errors.Single().Message.Should().Be("Response file not found 'nonexistent.rsp'");
         }
 
         [Fact]
         public void When_response_filepath_is_not_specified_then_error_is_returned()
         {
-            var result = new RootCommand
-            {
-                new Option("--flag"),
-                new Option("--flag2")
-            }.Parse("@");
+            var result = new RootCommand { new Option("--flag"), new Option("--flag2") }.Parse("@");
 
             result.HasOption("--flag").Should().BeFalse();
             result.HasOption("--flag2").Should().BeFalse();
             result.Errors.Should().HaveCount(1);
-            result.Errors.Single()
-                .Message.Should()
-                .Be("Unrecognized command or argument '@'");
+            result.Errors.Single().Message.Should().Be("Unrecognized command or argument '@'");
         }
 
         [Fact]
@@ -203,19 +183,11 @@ namespace System.CommandLine.Tests
         {
             var nonexistent = Path.GetTempFileName();
 
-            using (
-                File.Open(
-                    nonexistent,
-                    FileMode.Open,
-                    FileAccess.ReadWrite,
-                    FileShare.None
-                )
-            ) {
-                var result = new RootCommand
-                {
-                    new Option("--flag"),
-                    new Option("--flag2")
-                }.Parse($"@{nonexistent}");
+            using (File.Open(nonexistent, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            {
+                var result = new RootCommand { new Option("--flag"), new Option("--flag2") }.Parse(
+                    $"@{nonexistent}"
+                );
 
                 result.HasOption("--flag").Should().BeFalse();
                 result.HasOption("--flag2").Should().BeFalse();
@@ -240,9 +212,7 @@ namespace System.CommandLine.Tests
                 new Option<string>("--flag"),
                 new Option<int>("--flag2")
             };
-            var parser = new CommandLineBuilder(
-                rootCommand
-            ).ParseResponseFileAs(
+            var parser = new CommandLineBuilder(rootCommand).ParseResponseFileAs(
                     ResponseFileHandling.ParseArgsAsSpaceSeparated
                 )
                 .Build();
@@ -266,9 +236,7 @@ namespace System.CommandLine.Tests
             var result = parser.Parse("@file.rsp");
 
             result.Tokens.Should()
-                .Contain(
-                    t => t.Value == "@file.rsp" && t.Type == TokenType.Argument
-                );
+                .Contain(t => t.Value == "@file.rsp" && t.Type == TokenType.Argument);
             result.Errors.Should().HaveCount(0);
         }
 
@@ -297,19 +265,12 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_response_file_options_or_arguments_contain_trailing_spaces_they_are_ignored()
         {
-            var responseFile = ResponseFile(
-                "--option1 ",
-                "value1 ",
-                "--option2\t",
-                "2\t"
-            );
+            var responseFile = ResponseFile("--option1 ", "value1 ", "--option2\t", "2\t");
 
             var option1 = new Option<string>("--option1");
             var option2 = new Option<int>("--option2");
 
-            var result = new RootCommand { option1, option2 }.Parse(
-                $"@{responseFile}"
-            );
+            var result = new RootCommand { option1, option2 }.Parse($"@{responseFile}");
             result.ValueForOption("--option1").Should().Be("value1");
             result.ValueForOption("--option2").Should().Be(2);
         }
@@ -317,19 +278,12 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_response_file_options_or_arguments_contain_leading_spaces_they_are_ignored()
         {
-            var responseFile = ResponseFile(
-                " --option1",
-                " value1",
-                "\t--option2",
-                "\t2"
-            );
+            var responseFile = ResponseFile(" --option1", " value1", "\t--option2", "\t2");
 
             var option1 = new Option<string>("--option1");
             var option2 = new Option<int>("--option2");
 
-            var result = new RootCommand { option1, option2 }.Parse(
-                $"@{responseFile}"
-            );
+            var result = new RootCommand { option1, option2 }.Parse($"@{responseFile}");
             result.ValueForOption("--option1").Should().Be("value1");
             result.ValueForOption("--option2").Should().Be(2);
             result.Errors.Should().BeEmpty();
@@ -338,19 +292,12 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_response_file_options_or_arguments_contain_trailing_and_leading_spaces_they_are_ignored()
         {
-            var responseFile = ResponseFile(
-                " --option1 ",
-                " value1 ",
-                "\t--option2\t",
-                "\t2\t"
-            );
+            var responseFile = ResponseFile(" --option1 ", " value1 ", "\t--option2\t", "\t2\t");
 
             var option1 = new Option<string>("--option1");
             var option2 = new Option<int>("--option2");
 
-            var result = new RootCommand { option1, option2 }.Parse(
-                $"@{responseFile}"
-            );
+            var result = new RootCommand { option1, option2 }.Parse($"@{responseFile}");
             result.ValueForOption("--option1").Should().Be("value1");
             result.ValueForOption("--option2").Should().Be(2);
             result.Errors.Should().BeEmpty();

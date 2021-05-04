@@ -11,8 +11,7 @@ namespace System.CommandLine.Rendering
     {
         private static readonly Regex _formattableStringParser;
 
-        private readonly Dictionary<Type,
-            Func<object, TextSpan>> _formatters = new Dictionary<Type,
+        private readonly Dictionary<Type, Func<object, TextSpan>> _formatters = new Dictionary<Type,
             Func<object, TextSpan>>();
 
         static TextSpanFormatter()
@@ -94,11 +93,8 @@ namespace System.CommandLine.Rendering
 
         object IFormatProvider.GetFormat(Type formatType) => this;
 
-        string ICustomFormatter.Format(
-            string format,
-            object arg,
-            IFormatProvider formatProvider
-        ) {
+        string ICustomFormatter.Format(string format, object arg, IFormatProvider formatProvider)
+        {
             return Format(arg).ToString();
         }
 
@@ -121,33 +117,19 @@ namespace System.CommandLine.Rendering
             {
                 var partIndex = 0;
 
-                foreach (
-                    Match match in _formattableStringParser.Matches(
-                        formattableString.Format
-                    )
-                ) {
+                foreach (Match match in _formattableStringParser.Matches(formattableString.Format))
+                {
                     if (match.Value != "")
                     {
-                        if (
-                            match.Value.StartsWith("{") &&
-                            match.Value.EndsWith("}")
-                        ) {
+                        if (match.Value.StartsWith("{") && match.Value.EndsWith("}"))
+                        {
                             var arg = args[partIndex++];
 
                             if (match.Value.Contains(":"))
                             {
-                                var formatString =
-                                    match.Value.Split(
-                                        new[] { '{', ':', '}' },
-                                        4
-                                    )[2];
+                                var formatString = match.Value.Split(new[] { '{', ':', '}' }, 4)[2];
 
-                                yield return Format(
-                                    string.Format(
-                                        "{0:" + formatString + "}",
-                                        arg
-                                    )
-                                );
+                                yield return Format(string.Format("{0:" + formatString + "}", arg));
                             }
                             else
                             {

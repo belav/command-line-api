@@ -7,9 +7,8 @@ namespace System.CommandLine
 {
     public static class SymbolExtensions
     {
-        internal static IReadOnlyList<IArgument> Arguments(
-            this ISymbol symbol
-        ) {
+        internal static IReadOnlyList<IArgument> Arguments(this ISymbol symbol)
+        {
             switch (symbol)
             {
                 case IOption option:
