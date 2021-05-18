@@ -15,9 +15,8 @@ namespace System.CommandLine.Rendering.Tests
 
         [Theory]
         [MemberData(nameof(TestCases))]
-        public void In_ansi_mode_word_wrap_wraps_correctly(
-            RenderingTestCase @case
-        ) {
+        public void In_ansi_mode_word_wrap_wraps_correctly(RenderingTestCase @case)
+        {
             new ConsoleRenderer(_terminal, OutputMode.Ansi).RenderToRegion(
                 @case.InputSpan,
                 @case.Region
@@ -26,10 +25,7 @@ namespace System.CommandLine.Rendering.Tests
             var output = _terminal.RenderOperations();
 
             output.Should()
-                .BeEquivalentTo(
-                    @case.ExpectedOutput,
-                    options => options.WithStrictOrdering()
-                );
+                .BeEquivalentTo(@case.ExpectedOutput, options => options.WithStrictOrdering());
         }
 
         [Theory]
@@ -70,8 +66,7 @@ namespace System.CommandLine.Rendering.Tests
             var outputFromInputWithoutAnsiCodes = terminalWithoutAnsiCodes.Out.ToString();
             var outputFromInputWithAnsiCodes = terminalWithAnsiCodes.Out.ToString();
 
-            outputFromInputWithAnsiCodes.Should()
-                .Be(outputFromInputWithoutAnsiCodes);
+            outputFromInputWithAnsiCodes.Should().Be(outputFromInputWithoutAnsiCodes);
         }
 
         public static IEnumerable<object[]> TestCases()
@@ -108,11 +103,7 @@ namespace System.CommandLine.Rendering.Tests
                     name: testCaseName,
                     rendering: $"{ForegroundColorSpan.Red()}The quick brown fox jumps over the lazy dog.",
                     inRegion: new Region(0, 0, 3, 4),
-                    Line(
-                        0,
-                        0,
-                        $"{Ansi.Color.Foreground.Red.EscapeSequence}The"
-                    ),
+                    Line(0, 0, $"{Ansi.Color.Foreground.Red.EscapeSequence}The"),
                     Line(0, 1, $"qui"),
                     Line(0, 2, $"bro"),
                     Line(0, 3, $"fox")
@@ -122,11 +113,7 @@ namespace System.CommandLine.Rendering.Tests
                     name: testCaseName,
                     rendering: $"{ForegroundColorSpan.Red()}The quick brown fox jumps over the lazy dog.",
                     inRegion: new Region(12, 12, 3, 4),
-                    Line(
-                        12,
-                        12,
-                        $"{Ansi.Color.Foreground.Red.EscapeSequence}The"
-                    ),
+                    Line(12, 12, $"{Ansi.Color.Foreground.Red.EscapeSequence}The"),
                     Line(12, 13, $"qui"),
                     Line(12, 14, $"bro"),
                     Line(12, 15, $"fox")
@@ -141,11 +128,7 @@ namespace System.CommandLine.Rendering.Tests
                     Line(0, 0, $"The"),
                     Line(0, 1, $"qui"),
                     Line(0, 2, $"bro"),
-                    Line(
-                        0,
-                        3,
-                        $"fox{Ansi.Color.Foreground.Default.EscapeSequence}"
-                    )
+                    Line(0, 3, $"fox{Ansi.Color.Foreground.Default.EscapeSequence}")
                 );
 
                 yield return new RenderingTestCase(
@@ -155,11 +138,7 @@ namespace System.CommandLine.Rendering.Tests
                     Line(12, 12, $"The"),
                     Line(12, 13, $"qui"),
                     Line(12, 14, $"bro"),
-                    Line(
-                        12,
-                        15,
-                        $"fox{Ansi.Color.Foreground.Default.EscapeSequence}"
-                    )
+                    Line(12, 15, $"fox{Ansi.Color.Foreground.Default.EscapeSequence}")
                 );
 
                 testCaseName = $"{nameof(ControlSpan)}s around a word inside a {nameof(ContentSpan)}";
@@ -169,16 +148,8 @@ namespace System.CommandLine.Rendering.Tests
                     rendering: $"The quick {ForegroundColorSpan.Rgb(139, 69, 19)}brown{ForegroundColorSpan.Reset()} fox jumps over the lazy dog.",
                     inRegion: new Region(0, 0, 3, 4),
                     Line(0, 0, $"The"),
-                    Line(
-                        0,
-                        1,
-                        $"qui{Ansi.Color.Foreground.Rgb(139, 69, 19).EscapeSequence}"
-                    ),
-                    Line(
-                        0,
-                        2,
-                        $"bro{Ansi.Color.Foreground.Default.EscapeSequence}"
-                    ),
+                    Line(0, 1, $"qui{Ansi.Color.Foreground.Rgb(139, 69, 19).EscapeSequence}"),
+                    Line(0, 2, $"bro{Ansi.Color.Foreground.Default.EscapeSequence}"),
                     Line(0, 3, $"fox")
                 );
 
@@ -187,16 +158,8 @@ namespace System.CommandLine.Rendering.Tests
                     rendering: $"The quick {ForegroundColorSpan.Rgb(139, 69, 19)}brown{ForegroundColorSpan.Reset()} fox jumps over the lazy dog.",
                     inRegion: new Region(12, 12, 3, 4),
                     Line(12, 12, $"The"),
-                    Line(
-                        12,
-                        13,
-                        $"qui{Ansi.Color.Foreground.Rgb(139, 69, 19).EscapeSequence}"
-                    ),
-                    Line(
-                        12,
-                        14,
-                        $"bro{Ansi.Color.Foreground.Default.EscapeSequence}"
-                    ),
+                    Line(12, 13, $"qui{Ansi.Color.Foreground.Rgb(139, 69, 19).EscapeSequence}"),
+                    Line(12, 14, $"bro{Ansi.Color.Foreground.Default.EscapeSequence}"),
                     Line(12, 15, $"fox")
                 );
 

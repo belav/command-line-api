@@ -16,9 +16,7 @@ namespace System.CommandLine.Invocation
         {
             if (maxLevenshteinDistance <= 0)
             {
-                throw new ArgumentOutOfRangeException(
-                    nameof(maxLevenshteinDistance)
-                );
+                throw new ArgumentOutOfRangeException(nameof(maxLevenshteinDistance));
             }
 
             _maxLevenshteinDistance = maxLevenshteinDistance;
@@ -31,8 +29,7 @@ namespace System.CommandLine.Invocation
                 var token = result.UnmatchedTokens[i];
                 string suggestions = string.Join(
                     ", or ",
-                    GetPossibleTokens(result.CommandResult.Command, token)
-                        .Select(x => $"'{x}'")
+                    GetPossibleTokens(result.CommandResult.Command, token).Select(x => $"'{x}'")
                 );
 
                 if (suggestions.Length > 0)
@@ -44,38 +41,26 @@ namespace System.CommandLine.Invocation
             }
         }
 
-        private IEnumerable<string> GetPossibleTokens(
-            ISymbol targetSymbol,
-            string token
-        ) {
-            IEnumerable<string> possibleMatches = targetSymbol.Children.Where(
-                    x => !x.IsHidden
-                )
+        private IEnumerable<string> GetPossibleTokens(ISymbol targetSymbol, string token)
+        {
+            IEnumerable<string> possibleMatches = targetSymbol.Children.Where(x => !x.IsHidden)
                 .OfType<IIdentifierSymbol>()
                 .Where(x => x.Aliases.Count > 0)
                 .Select(
                     symbol =>
                         symbol.Aliases.Union(symbol.Aliases)
                             .OrderBy(x => GetDistance(token, x))
-                            .ThenByDescending(
-                                x => GetStartsWithDistance(token, x)
-                            )
+                            .ThenByDescending(x => GetStartsWithDistance(token, x))
                             .First()
                 );
 
             int? bestDistance = null;
             return possibleMatches.Select(
-                    possibleMatch =>
-                        (
-                            possibleMatch,
-                            distance: GetDistance(token, possibleMatch)
-                        )
+                    possibleMatch => (possibleMatch, distance: GetDistance(token, possibleMatch))
                 )
                 .Where(tuple => tuple.distance <= _maxLevenshteinDistance)
                 .OrderBy(tuple => tuple.distance)
-                .ThenByDescending(
-                    tuple => GetStartsWithDistance(token, tuple.possibleMatch)
-                )
+                .ThenByDescending(tuple => GetStartsWithDistance(token, tuple.possibleMatch))
                 .TakeWhile(
                     tuple =>
                     {
@@ -93,11 +78,7 @@ namespace System.CommandLine.Invocation
         private static int GetStartsWithDistance(string first, string second)
         {
             int i;
-            for (
-                i = 0;
-                i < first.Length && i < second.Length && first[i] == second[i];
-                i++
-            ) { }
+            for (i = 0; i < first.Length && i < second.Length && first[i] == second[i]; i++) { }
             return i;
         }
 
@@ -148,9 +129,7 @@ namespace System.CommandLine.Invocation
                 {
                     int dist1 = rows[curRow][j] + 1;
                     int dist2 = rows[nextRow][j - 1] + 1;
-                    int dist3 =
-                        rows[curRow][j - 1] +
-                        (first[i - 1].Equals(second[j - 1]) ? 0 : 1);
+                    int dist3 = rows[curRow][j - 1] + (first[i - 1].Equals(second[j - 1]) ? 0 : 1);
 
                     rows[nextRow][j] = Math.Min(dist1, Math.Min(dist2, dist3));
                 }

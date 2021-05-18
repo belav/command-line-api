@@ -28,12 +28,10 @@ namespace System.CommandLine.Hosting
             InvocationContext context = null,
             ILoggerFactory loggerFactory = null
         ) {
-            Options = options?.Value ??
-            throw new ArgumentNullException(nameof(options));
-            Environment = environment ??
-            throw new ArgumentNullException(nameof(environment));
-            ApplicationLifetime = applicationLifetime ??
-            throw new ArgumentNullException(nameof(applicationLifetime));
+            Options = options?.Value ?? throw new ArgumentNullException(nameof(options));
+            Environment = environment ?? throw new ArgumentNullException(nameof(environment));
+            ApplicationLifetime = applicationLifetime
+            ?? throw new ArgumentNullException(nameof(applicationLifetime));
 
             // if InvocationLifetime is added outside of a System.CommandLine
             // invocation pipeline context will be null.
@@ -94,17 +92,9 @@ namespace System.CommandLine.Hosting
 
         private void OnApplicationStarted()
         {
-            Logger.LogInformation(
-                "Application started. Press Ctrl+C to shut down."
-            );
-            Logger.LogInformation(
-                "Hosting environment: {envName}",
-                Environment.EnvironmentName
-            );
-            Logger.LogInformation(
-                "Content root path: {contentRoot}",
-                Environment.ContentRootPath
-            );
+            Logger.LogInformation("Application started. Press Ctrl+C to shut down.");
+            Logger.LogInformation("Hosting environment: {envName}", Environment.EnvironmentName);
+            Logger.LogInformation("Content root path: {contentRoot}", Environment.ContentRootPath);
         }
 
         private void OnApplicationStopping()

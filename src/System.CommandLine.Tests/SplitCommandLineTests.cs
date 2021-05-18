@@ -50,34 +50,24 @@ namespace System.CommandLine.Tests
             string prefix,
             char delimiter
         ) {
-            var optionAndArgument =
-                $@"{prefix}the-option{delimiter}""c:\temp files\""";
+            var optionAndArgument = $@"{prefix}the-option{delimiter}""c:\temp files\""";
 
             var commandLine = $"the-command {optionAndArgument}";
 
             CommandLineStringSplitter.Instance.Split(commandLine)
                 .Should()
-                .BeEquivalentSequenceTo(
-                    "the-command",
-                    optionAndArgument.Replace("\"", "")
-                );
+                .BeEquivalentSequenceTo("the-command", optionAndArgument.Replace("\"", ""));
         }
 
         [Fact]
         public void It_handles_multiple_options_with_quoted_arguments()
         {
             var source = Directory.GetCurrentDirectory();
-            var destination = Path.Combine(
-                Directory.GetCurrentDirectory(),
-                ".trash"
-            );
+            var destination = Path.Combine(Directory.GetCurrentDirectory(), ".trash");
 
-            var commandLine =
-                $"move --from \"{source}\" --to \"{destination}\"";
+            var commandLine = $"move --from \"{source}\" --to \"{destination}\"";
 
-            var tokenized = CommandLineStringSplitter.Instance.Split(
-                commandLine
-            );
+            var tokenized = CommandLineStringSplitter.Instance.Split(commandLine);
 
             _output.WriteLine(commandLine);
 
@@ -87,13 +77,7 @@ namespace System.CommandLine.Tests
             }
 
             tokenized.Should()
-                .BeEquivalentSequenceTo(
-                    "move",
-                    "--from",
-                    source,
-                    "--to",
-                    destination
-                );
+                .BeEquivalentSequenceTo("move", "--from", source, "--to", destination);
         }
     }
 }

@@ -10,8 +10,7 @@ namespace System.CommandLine.Parsing
         private protected readonly List<Token> _tokens = new List<Token>();
         private Resources? _validationMessages;
         private readonly Dictionary<IArgument,
-            ArgumentResult> _defaultArgumentValues = new Dictionary<IArgument,
-            ArgumentResult>();
+            ArgumentResult> _defaultArgumentValues = new Dictionary<IArgument, ArgumentResult>();
 
         private protected SymbolResult(ISymbol symbol, SymbolResult? parent)
         {
@@ -55,9 +54,7 @@ namespace System.CommandLine.Parsing
 
         protected internal Resources ValidationMessages
         {
-            get =>
-                _validationMessages ??= Parent?.ValidationMessages ??
-                Resources.Instance;
+            get => _validationMessages ??= Parent?.ValidationMessages ?? Resources.Instance;
             set => _validationMessages = value;
         }
 
@@ -69,21 +66,14 @@ namespace System.CommandLine.Parsing
         public virtual CommandResult? FindResultFor(ICommand command) =>
             Root?.FindResultFor(command);
 
-        public virtual OptionResult? FindResultFor(IOption option) =>
-            Root?.FindResultFor(option);
+        public virtual OptionResult? FindResultFor(IOption option) => Root?.FindResultFor(option);
 
-        internal ArgumentResult GetOrCreateDefaultArgumentResult(
-            Argument argument
-        ) =>
-            _defaultArgumentValues.GetOrAdd(
-                argument,
-                arg => new ArgumentResult(argument, this)
-            );
+        internal ArgumentResult GetOrCreateDefaultArgumentResult(Argument argument) =>
+            _defaultArgumentValues.GetOrAdd(argument, arg => new ArgumentResult(argument, this));
 
         internal virtual bool UseDefaultValueFor(IArgument argument) => false;
 
-        public override string ToString() =>
-            $"{GetType().Name}: {this.Token()}";
+        public override string ToString() => $"{GetType().Name}: {this.Token()}";
 
         internal ParseError? UnrecognizedArgumentError(Argument argument)
         {

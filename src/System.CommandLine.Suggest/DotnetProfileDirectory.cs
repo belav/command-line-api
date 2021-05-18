@@ -13,31 +13,22 @@ namespace System.CommandLine.Suggest
         private const string DotnetProfileDirectoryName = ".dotnet";
 
         private static string PlatformHomeVariableName =>
-            RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-                ? "USERPROFILE"
-                : "HOME";
+            RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "USERPROFILE" : "HOME";
 
         public static bool TryGet(out string dotnetProfileDirectory)
         {
             dotnetProfileDirectory = null;
-            var home = Environment.GetEnvironmentVariable(
-                DotnetHomeVariableName
-            );
+            var home = Environment.GetEnvironmentVariable(DotnetHomeVariableName);
             if (string.IsNullOrEmpty(home))
             {
-                home = Environment.GetEnvironmentVariable(
-                    PlatformHomeVariableName
-                );
+                home = Environment.GetEnvironmentVariable(PlatformHomeVariableName);
                 if (string.IsNullOrEmpty(home))
                 {
                     return false;
                 }
             }
 
-            dotnetProfileDirectory = Path.Combine(
-                home,
-                DotnetProfileDirectoryName
-            );
+            dotnetProfileDirectory = Path.Combine(home, DotnetProfileDirectoryName);
             return true;
         }
     }

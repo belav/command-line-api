@@ -6,12 +6,10 @@ using System.CommandLine.Collections;
 
 namespace System.CommandLine.Binding
 {
-    internal class ArgumentConversionResultSet
-        : AliasedSet<ArgumentConversionResult>
+    internal class ArgumentConversionResultSet : AliasedSet<ArgumentConversionResult>
     {
-        protected override IReadOnlyCollection<string> GetAliases(
-            ArgumentConversionResult item
-        ) {
+        protected override IReadOnlyCollection<string> GetAliases(ArgumentConversionResult item)
+        {
             return new[] { item.Argument.Name };
         }
     }

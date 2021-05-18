@@ -20,8 +20,7 @@ namespace System.CommandLine.Suggest
                 return;
             }
 
-            var muxerDir =
-                new FileInfo(fxDepsFile).Directory?.Parent?.Parent?.Parent;
+            var muxerDir = new FileInfo(fxDepsFile).Directory?.Parent?.Parent?.Parent;
 
             if (muxerDir == null)
             {

@@ -17,17 +17,13 @@ namespace System.CommandLine.Binding
     {
         private IConsole _console;
         private readonly Dictionary<Type,
-            ModelBinder> _modelBindersByValueDescriptor = new Dictionary<Type,
-            ModelBinder>();
+            ModelBinder> _modelBindersByValueDescriptor = new Dictionary<Type, ModelBinder>();
 
-        public BindingContext(
-            ParseResult parseResult,
-            IConsole? console = default
-        ) {
+        public BindingContext(ParseResult parseResult, IConsole? console = default)
+        {
             _console = console ?? new SystemConsole();
 
-            ParseResult = parseResult ??
-            throw new ArgumentNullException(nameof(parseResult));
+            ParseResult = parseResult ?? throw new ArgumentNullException(nameof(parseResult));
             ServiceProvider = new ServiceProvider(this);
         }
 
@@ -56,10 +52,7 @@ namespace System.CommandLine.Binding
         internal ServiceProvider ServiceProvider { get; }
 
         public void AddModelBinder(ModelBinder binder) =>
-            _modelBindersByValueDescriptor.Add(
-                binder.ValueDescriptor.ValueType,
-                binder
-            );
+            _modelBindersByValueDescriptor.Add(binder.ValueDescriptor.ValueType, binder);
 
         public ModelBinder GetModelBinder(IValueDescriptor valueDescriptor)
         {
@@ -74,10 +67,8 @@ namespace System.CommandLine.Binding
             return new ModelBinder(valueDescriptor);
         }
 
-        public void AddService(
-            Type serviceType,
-            Func<IServiceProvider, object> factory
-        ) {
+        public void AddService(Type serviceType, Func<IServiceProvider, object> factory)
+        {
             ServiceProvider.AddService(serviceType, factory);
         }
 
@@ -93,13 +84,11 @@ namespace System.CommandLine.Binding
 
         internal bool TryGetValueSource(
             IValueDescriptor valueDescriptor,
-            [MaybeNullWhen(false)]out IValueSource valueSource
+            [MaybeNullWhen(false)]
+            out IValueSource valueSource
         ) {
-            if (
-                ServiceProvider.AvailableServiceTypes.Contains(
-                    valueDescriptor.ValueType
-                )
-            ) {
+            if (ServiceProvider.AvailableServiceTypes.Contains(valueDescriptor.ValueType))
+            {
                 valueSource = new ServiceProviderValueSource();
                 return true;
             }
@@ -115,35 +104,22 @@ namespace System.CommandLine.Binding
         ) {
             if (valueSource.TryGetValue(valueDescriptor, this, out var value))
             {
-                if (
-                    value is null ||
-                    valueDescriptor.ValueType.IsInstanceOfType(value)
-                ) {
-                    boundValue = new BoundValue(
-                        value,
-                        valueDescriptor,
-                        valueSource
-                    );
+                if (value is null || valueDescriptor.ValueType.IsInstanceOfType(value))
+                {
+                    boundValue = new BoundValue(value, valueDescriptor, valueSource);
                     return true;
                 }
                 else
                 {
                     var parsed = ArgumentConverter.ConvertObject(
-                        valueDescriptor as
-                        IArgument ??
-                        new Argument(valueDescriptor.ValueName),
+                        valueDescriptor as IArgument ?? new Argument(valueDescriptor.ValueName),
                         valueDescriptor.ValueType,
                         value
                     );
 
-                    if (
-                        parsed is SuccessfulArgumentConversionResult successful
-                    ) {
-                        boundValue = new BoundValue(
-                            successful.Value,
-                            valueDescriptor,
-                            valueSource
-                        );
+                    if (parsed is SuccessfulArgumentConversionResult successful)
+                    {
+                        boundValue = new BoundValue(successful.Value, valueDescriptor, valueSource);
                         return true;
                     }
                 }

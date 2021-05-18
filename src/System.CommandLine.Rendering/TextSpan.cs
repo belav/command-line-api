@@ -29,10 +29,8 @@ namespace System.CommandLine.Rendering
 
         public int End => Start + ContentLength;
 
-        internal virtual void RecalculatePositions(
-            ContainerSpan parent,
-            int start
-        ) {
+        internal virtual void RecalculatePositions(ContainerSpan parent, int start)
+        {
             Parent = parent;
             _root = parent.Root;
             Start = start;

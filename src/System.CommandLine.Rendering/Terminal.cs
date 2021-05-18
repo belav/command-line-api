@@ -2,11 +2,8 @@
 {
     public static class Terminal
     {
-        public static void Render(
-            this ITerminal terminal,
-            TextSpan span,
-            Region region = null
-        ) {
+        public static void Render(this ITerminal terminal, TextSpan span, Region region = null)
+        {
             if (terminal is IRenderable t)
             {
                 var renderer = new ConsoleRenderer(terminal, t.OutputMode);
@@ -53,9 +50,10 @@
             ITerminal terminal;
 
             if (
-                preferVirtualTerminal &&
-                VirtualTerminalMode.TryEnable() is VirtualTerminalMode virtualTerminalMode &&
-                virtualTerminalMode.IsEnabled
+                preferVirtualTerminal
+                && VirtualTerminalMode.TryEnable()
+                    is VirtualTerminalMode virtualTerminalMode
+                && virtualTerminalMode.IsEnabled
             ) {
                 terminal = new VirtualTerminal(console, virtualTerminalMode);
             }

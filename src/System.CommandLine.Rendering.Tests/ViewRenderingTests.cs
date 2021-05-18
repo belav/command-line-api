@@ -38,8 +38,7 @@ namespace System.CommandLine.Rendering.Tests
                     c =>
                     {
                         c.BindingContext.AddService(
-                            s =>
-                                new ParseResultView(s.GetService<ParseResult>())
+                            s => new ParseResultView(s.GetService<ParseResult>())
                         );
                     }
                 )

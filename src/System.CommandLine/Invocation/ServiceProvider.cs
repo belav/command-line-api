@@ -13,8 +13,7 @@ namespace System.CommandLine.Invocation
 {
     internal class ServiceProvider : IServiceProvider
     {
-        private readonly Dictionary<Type,
-            Func<IServiceProvider, object?>> _services;
+        private readonly Dictionary<Type, Func<IServiceProvider, object?>> _services;
 
         public ServiceProvider(BindingContext bindingContext)
         {
@@ -34,13 +33,10 @@ namespace System.CommandLine.Invocation
         public void AddService<T>(Func<IServiceProvider, T> factory) =>
             _services[typeof(T)] = p => factory(p)!;
 
-        public void AddService(
-            Type serviceType,
-            Func<IServiceProvider, object?> factory
-        ) => _services[serviceType] = factory;
+        public void AddService(Type serviceType, Func<IServiceProvider, object?> factory) =>
+            _services[serviceType] = factory;
 
-        public IReadOnlyCollection<Type> AvailableServiceTypes =>
-            _services.Keys;
+        public IReadOnlyCollection<Type> AvailableServiceTypes => _services.Keys;
 
         public object? GetService(Type serviceType)
         {

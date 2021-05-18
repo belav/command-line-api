@@ -21,23 +21,13 @@ namespace System.CommandLine.Tests
                     "the-command"
                 )
                 {
-                    new Argument<string>
-                    {
-                        Arity = new ArgumentArity(3, 3),
-                        Name = "several"
-                    },
-                    new Argument<string>
-                    {
-                        Arity = ArgumentArity.ZeroOrMore,
-                        Name = "one"
-                    }
+                    new Argument<string> { Arity = new ArgumentArity(3, 3), Name = "several" },
+                    new Argument<string> { Arity = ArgumentArity.ZeroOrMore, Name = "one" }
                 };
 
                 var result = command.Parse("1 2 3 4");
 
-                var several = result.ValueForArgument<IEnumerable<string>>(
-                    "several"
-                );
+                var several = result.ValueForArgument<IEnumerable<string>>("several");
 
                 var one = result.ValueForArgument<IEnumerable<string>>("one");
 
@@ -96,9 +86,7 @@ namespace System.CommandLine.Tests
 
                 parseResult.ValueForArgument("first").Should().Be("one");
 
-                parseResult.ValueForArgument<string>("second")
-                    .Should()
-                    .Be("two");
+                parseResult.ValueForArgument<string>("second").Should().Be("two");
 
                 parseResult.ValueForArgument<string[]>("third")
                     .Should()
@@ -110,12 +98,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void Multiple_arguments_of_unspecified_type_are_parsed_correctly()
             {
-                var sourceArg = new Argument(
-                    "source"
-                )
-                {
-                    Arity = ArgumentArity.ExactlyOne
-                };
+                var sourceArg = new Argument("source") { Arity = ArgumentArity.ExactlyOne };
                 var destinationArg = new Argument(
                     "destination"
                 )
@@ -126,15 +109,9 @@ namespace System.CommandLine.Tests
 
                 var result = root.Parse("src.txt dest.txt");
 
-                result.FindResultFor(sourceArg)
-                    .GetValueOrDefault()
-                    .Should()
-                    .Be("src.txt");
+                result.FindResultFor(sourceArg).GetValueOrDefault().Should().Be("src.txt");
 
-                result.FindResultFor(destinationArg)
-                    .GetValueOrDefault()
-                    .Should()
-                    .Be("dest.txt");
+                result.FindResultFor(destinationArg).GetValueOrDefault().Should().Be("dest.txt");
             }
 
             [Fact]
@@ -151,10 +128,7 @@ namespace System.CommandLine.Tests
 
                 result.ValueForArgument(ints)
                     .Should()
-                    .BeEquivalentTo(
-                        new[] { 1, 2, 3 },
-                        options => options.WithStrictOrdering()
-                    );
+                    .BeEquivalentTo(new[] { 1, 2, 3 }, options => options.WithStrictOrdering());
 
                 result.ValueForArgument(strings)
                     .Should()
@@ -178,21 +152,14 @@ namespace System.CommandLine.Tests
 
                 result.ValueForArgument(ints)
                     .Should()
-                    .BeEquivalentTo(
-                        new[] { 1, 2, 3 },
-                        options => options.WithStrictOrdering()
-                    );
+                    .BeEquivalentTo(new[] { 1, 2, 3 }, options => options.WithStrictOrdering());
 
                 result.ValueForArgument(strings).Should().Be("four");
 
-                result.UnparsedTokens.Should()
-                    .ContainSingle()
-                    .Which.Should()
-                    .Be("five");
+                result.UnparsedTokens.Should().ContainSingle().Which.Should().Be("five");
             }
 
-            [Fact(
-                Skip = "https://github.com/dotnet/command-line-api/issues/1143")]
+            [Fact(Skip = "https://github.com/dotnet/command-line-api/issues/1143")]
             public void tokens_that_cannot_be_converted_by_multiple_arity_option_flow_to_next_single_arity_argument()
             {
                 var option = new Option<int[]>("-i");
@@ -205,10 +172,7 @@ namespace System.CommandLine.Tests
                 result.FindResultFor(option)
                     .GetValueOrDefault()
                     .Should()
-                    .BeEquivalentTo(
-                        new[] { 1, 2, 3 },
-                        options => options.WithStrictOrdering()
-                    );
+                    .BeEquivalentTo(new[] { 1, 2, 3 }, options => options.WithStrictOrdering());
 
                 result.FindResultFor(argument).Should().Be("four");
             }

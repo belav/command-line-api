@@ -73,34 +73,24 @@ namespace System.CommandLine.Rendering.Views
             return rv;
         }
 
-        internal static ContentView Create(
-            object content,
-            TextSpanFormatter formatter
-        ) {
+        internal static ContentView Create(object content, TextSpanFormatter formatter)
+        {
             if (content == null)
                 return new ContentView(TextSpan.Empty());
             return CreateView((dynamic)content, formatter);
         }
 
-        private static ContentView CreateView(
-            string stringContent,
-            TextSpanFormatter _
-        ) => new ContentView(stringContent);
+        private static ContentView CreateView(string stringContent, TextSpanFormatter _) =>
+            new ContentView(stringContent);
 
-        private static ContentView CreateView(
-            TextSpan span,
-            TextSpanFormatter _
-        ) => new ContentView(span);
+        private static ContentView CreateView(TextSpan span, TextSpanFormatter _) =>
+            new ContentView(span);
 
-        private static ContentView CreateView<T>(
-            IObservable<T> observable,
-            TextSpanFormatter _
-        ) => FromObservable(observable);
+        private static ContentView CreateView<T>(IObservable<T> observable, TextSpanFormatter _) =>
+            FromObservable(observable);
 
-        private static ContentView CreateView(
-            object value,
-            TextSpanFormatter formatter
-        ) => new ContentView(formatter.Format(value));
+        private static ContentView CreateView(object value, TextSpanFormatter formatter) =>
+            new ContentView(formatter.Format(value));
 
         private class Observer<T> : IObserver<T>
         {
@@ -108,10 +98,8 @@ namespace System.CommandLine.Rendering.Views
             private readonly Func<T, FormattableString> _formatProvider;
             private readonly TextSpanFormatter _textSpanFormatter = new TextSpanFormatter();
 
-            public Observer(
-                ContentView contentView,
-                Func<T, FormattableString> formatProvider
-            ) {
+            public Observer(ContentView contentView, Func<T, FormattableString> formatProvider)
+            {
                 _contentView = contentView;
                 _formatProvider = formatProvider;
             }
@@ -122,9 +110,7 @@ namespace System.CommandLine.Rendering.Views
 
             public void OnNext(T value)
             {
-                _contentView.Span = _textSpanFormatter.ParseToSpan(
-                    _formatProvider(value)
-                );
+                _contentView.Span = _textSpanFormatter.ParseToSpan(_formatProvider(value));
                 _contentView.OnUpdated();
             }
         }

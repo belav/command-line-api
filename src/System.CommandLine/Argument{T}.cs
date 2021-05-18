@@ -35,12 +35,9 @@ namespace System.CommandLine
         /// <param name="getDefaultValue">The delegate to invoke to return the default value.</param>
         /// <param name="description">The description of the argument, shown in help.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="getDefaultValue"/> is null.</exception>
-        public Argument(
-            string name,
-            Func<T> getDefaultValue,
-            string? description = null
-        )
-            : this(name) {
+        public Argument(string name, Func<T> getDefaultValue, string? description = null)
+            : this(name)
+        {
             if (getDefaultValue is null)
             {
                 throw new ArgumentNullException(nameof(getDefaultValue));
@@ -97,10 +94,7 @@ namespace System.CommandLine
                 SetDefaultValueFactory(argumentResult => parse(argumentResult));
             }
 
-            ConvertArguments = (
-                ArgumentResult argumentResult,
-                out object? value
-            ) =>
+            ConvertArguments = (ArgumentResult argumentResult, out object? value) =>
             {
                 var result = parse(argumentResult);
 

@@ -7,11 +7,9 @@ namespace System.CommandLine.Rendering
     {
         private readonly VirtualTerminalMode _virtualTerminalMode;
 
-        public VirtualTerminal(
-            IConsole console,
-            VirtualTerminalMode virtualTerminalMode
-        )
-            : base(console) {
+        public VirtualTerminal(IConsole console, VirtualTerminalMode virtualTerminalMode)
+            : base(console)
+        {
             _virtualTerminalMode = virtualTerminalMode;
         }
 
@@ -33,19 +31,13 @@ namespace System.CommandLine.Rendering
         public override int CursorLeft
         {
             get => System.Console.CursorLeft;
-            set =>
-                Console.Out.Write(
-                    Ansi.Cursor.Move.ToLocation(left: value + 1).EscapeSequence
-                );
+            set => Console.Out.Write(Ansi.Cursor.Move.ToLocation(left: value + 1).EscapeSequence);
         }
 
         public override int CursorTop
         {
             get => System.Console.CursorTop;
-            set =>
-                Console.Out.Write(
-                    Ansi.Cursor.Move.ToLocation(top: value + 1).EscapeSequence
-                );
+            set => Console.Out.Write(Ansi.Cursor.Move.ToLocation(top: value + 1).EscapeSequence);
         }
 
         protected override void Dispose(bool disposing)
@@ -60,10 +52,7 @@ namespace System.CommandLine.Rendering
 
         public override void SetCursorPosition(int left, int top) =>
             Console.Out.Write(
-                Ansi.Cursor.Move.ToLocation(
-                    left: left + 1,
-                    top: top + 1
-                ).EscapeSequence
+                Ansi.Cursor.Move.ToLocation(left: left + 1, top: top + 1).EscapeSequence
             );
 
         public override void HideCursor()

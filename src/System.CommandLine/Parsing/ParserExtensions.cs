@@ -13,16 +13,10 @@ namespace System.CommandLine.Parsing
             string commandLine,
             IConsole? console = null
         ) =>
-            parser.Invoke(
-                CommandLineStringSplitter.Instance.Split(commandLine).ToArray(),
-                console
-            );
+            parser.Invoke(CommandLineStringSplitter.Instance.Split(commandLine).ToArray(), console);
 
-        public static int Invoke(
-            this Parser parser,
-            string[] args,
-            IConsole? console = null
-        ) => parser.Parse(args).Invoke(console);
+        public static int Invoke(this Parser parser, string[] args, IConsole? console = null) =>
+            parser.Parse(args).Invoke(console);
 
         public static Task<int> InvokeAsync(
             this Parser parser,
@@ -40,10 +34,8 @@ namespace System.CommandLine.Parsing
             IConsole? console = null
         ) => await parser.Parse(args).InvokeAsync(console);
 
-        public static ParseResult Parse(
-            this Parser parser,
-            string commandLine
-        ) {
+        public static ParseResult Parse(this Parser parser, string commandLine)
+        {
             var splitter = CommandLineStringSplitter.Instance;
 
             var readOnlyCollection = splitter.Split(commandLine).ToArray();

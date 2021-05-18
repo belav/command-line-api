@@ -15,8 +15,7 @@ namespace System.CommandLine.Rendering
             OutputMode mode = OutputMode.Auto,
             bool resetAfterRender = false
         ) {
-            _console = console ??
-            throw new ArgumentNullException(nameof(console));
+            _console = console ?? throw new ArgumentNullException(nameof(console));
             _mode = mode;
 
             _terminal = console as ITerminal;
@@ -32,8 +31,7 @@ namespace System.CommandLine.Rendering
             RenderToRegion(formatted, region);
         }
 
-        public void Append(FormattableString value) =>
-            Append(Formatter.ParseToSpan(value));
+        public void Append(FormattableString value) => Append(Formatter.ParseToSpan(value));
 
         public void Append(TextSpan span)
         {
@@ -81,10 +79,7 @@ namespace System.CommandLine.Rendering
             switch (_mode)
             {
                 case OutputMode.NonAnsi:
-                    visitor = new NonAnsiRenderingSpanVisitor(
-                        _terminal,
-                        region
-                    );
+                    visitor = new NonAnsiRenderingSpanVisitor(_terminal, region);
                     break;
                 case OutputMode.Ansi:
                     visitor = new AnsiRenderingSpanVisitor(_console, region);
@@ -92,13 +87,7 @@ namespace System.CommandLine.Rendering
                 case OutputMode.PlainText:
                     visitor = new FileRenderingSpanVisitor(
                         _console.Out,
-                        new Region(
-                            region.Left,
-                            region.Top,
-                            region.Width,
-                            region.Height,
-                            false
-                        )
+                        new Region(region.Left, region.Top, region.Width, region.Height, false)
                     );
                     break;
                 default:

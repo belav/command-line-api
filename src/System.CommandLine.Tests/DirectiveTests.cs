@@ -16,9 +16,7 @@ namespace System.CommandLine.Tests
         {
             var option = new Option("-y");
 
-            var result = option.Parse(
-                $"{RootCommand.ExecutableName} [parse] -y"
-            );
+            var result = option.Parse($"{RootCommand.ExecutableName} [parse] -y");
 
             result.UnmatchedTokens.Should().BeEmpty();
         }
@@ -78,9 +76,7 @@ namespace System.CommandLine.Tests
 
             var result = option.Parse($"{directive} -y");
 
-            result.Directives.TryGetValues(expectedKey, out var values)
-                .Should()
-                .BeTrue();
+            result.Directives.TryGetValues(expectedKey, out var values).Should().BeTrue();
             values.Should().BeEquivalentTo(expectedValue);
         }
 
@@ -91,9 +87,7 @@ namespace System.CommandLine.Tests
 
             var result = option.Parse("[parse] -y");
 
-            result.Directives.TryGetValues("parse", out var values)
-                .Should()
-                .BeTrue();
+            result.Directives.TryGetValues("parse", out var values).Should().BeTrue();
             values.Should().BeEmpty();
         }
 
@@ -130,9 +124,7 @@ namespace System.CommandLine.Tests
 
             var result = option.Parse("[directive:one] [directive:two] -a");
 
-            result.Directives.TryGetValues("directive", out var values)
-                .Should()
-                .BeTrue();
+            result.Directives.TryGetValues("directive", out var values).Should().BeTrue();
             values.Should().BeEquivalentTo("one", "two");
         }
 
@@ -159,9 +151,7 @@ namespace System.CommandLine.Tests
             var result = parser.Parse("[hello]");
 
             result.Directives.Count().Should().Be(0);
-            result.CommandResult.Tokens.Select(t => t.Value)
-                .Should()
-                .BeEquivalentTo("[hello]");
+            result.CommandResult.Tokens.Select(t => t.Value).Should().BeEquivalentTo("[hello]");
         }
     }
 }

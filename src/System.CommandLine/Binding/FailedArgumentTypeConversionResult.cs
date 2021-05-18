@@ -5,18 +5,14 @@ using System.Linq;
 
 namespace System.CommandLine.Binding
 {
-    internal class FailedArgumentTypeConversionResult
-        : FailedArgumentConversionResult
+    internal class FailedArgumentTypeConversionResult : FailedArgumentConversionResult
     {
         internal FailedArgumentTypeConversionResult(
             IArgument argument,
             Type expectedType,
             string value
         )
-            : base(
-                argument,
-                FormatErrorMessage(argument, expectedType, value)
-            ) { }
+            : base(argument, FormatErrorMessage(argument, expectedType, value)) { }
 
         private static string FormatErrorMessage(
             IArgument argument,

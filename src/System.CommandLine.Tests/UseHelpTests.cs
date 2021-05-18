@@ -24,9 +24,7 @@ namespace System.CommandLine.Tests
             var subcommand = new Command("subcommand");
             command.AddCommand(subcommand);
 
-            var parser = new CommandLineBuilder().AddCommand(command)
-                .UseHelp()
-                .Build();
+            var parser = new CommandLineBuilder().AddCommand(command).UseHelp().Build();
 
             var result = parser.Parse("command subcommand --help");
 
@@ -34,9 +32,7 @@ namespace System.CommandLine.Tests
 
             _console.Out.ToString()
                 .Should()
-                .Contain(
-                    $"{RootCommand.ExecutableName} [options] command subcommand"
-                );
+                .Contain($"{RootCommand.ExecutableName} [options] command subcommand");
         }
 
         [Fact]
@@ -48,9 +44,7 @@ namespace System.CommandLine.Tests
             subcommand.Handler = CommandHandler.Create(() => wasCalled = true);
             command.AddCommand(subcommand);
 
-            var parser = new CommandLineBuilder().AddCommand(command)
-                .UseHelp()
-                .Build();
+            var parser = new CommandLineBuilder().AddCommand(command).UseHelp().Build();
 
             await parser.InvokeAsync("command subcommand --help", _console);
 
@@ -64,9 +58,7 @@ namespace System.CommandLine.Tests
         [InlineData("/?")]
         public async Task UseHelp_accepts_default_values(string value)
         {
-            var parser = new CommandLineBuilder().AddCommand(
-                    new Command("command")
-                )
+            var parser = new CommandLineBuilder().AddCommand(new Command("command"))
                 .UseHelp()
                 .Build();
 
@@ -81,9 +73,7 @@ namespace System.CommandLine.Tests
             var command = new Command("command");
             command.AddOption(new Option("-h"));
 
-            var parser = new CommandLineBuilder().AddCommand(command)
-                .UseHelp()
-                .Build();
+            var parser = new CommandLineBuilder().AddCommand(command).UseHelp().Build();
 
             var result = parser.Parse("command -h");
 
@@ -129,14 +119,9 @@ namespace System.CommandLine.Tests
         [Fact]
         public void There_are_no_parse_errors_when_help_is_invoked_on_a_command_with_required_options()
         {
-            var command = new RootCommand
-            {
-                new Option<string>("-x") { IsRequired = true },
-            };
+            var command = new RootCommand { new Option<string>("-x") { IsRequired = true }, };
 
-            var result = new CommandLineBuilder(command).UseHelp()
-                .Build()
-                .Parse("-h");
+            var result = new CommandLineBuilder(command).UseHelp().Build().Parse("-h");
 
             result.Errors.Should().BeEmpty();
         }
@@ -149,9 +134,7 @@ namespace System.CommandLine.Tests
         ) {
             var root = new RootCommand { new Command("inner") };
 
-            var parser = new CommandLineBuilder(root).UseHelp()
-                .UseHelp()
-                .Build();
+            var parser = new CommandLineBuilder(root).UseHelp().UseHelp().Build();
 
             parser.Invoke(commandline, _console);
 

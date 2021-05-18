@@ -64,23 +64,15 @@ namespace System.CommandLine.Benchmarks.DragonFruit
             string classNamePrefix = "ABCClass",
             string methodNamePrefix = "Method"
         ) {
-            IEnumerable<string> testMethodsCodeSnapshot = Enumerable.Range(
-                    0,
-                    methodsPerClassCount
-                )
-                .Select(
-                    i => $"public int {methodNamePrefix}_{i}() {{ return 0; }} "
-                );
+            IEnumerable<string> testMethodsCodeSnapshot = Enumerable.Range(0, methodsPerClassCount)
+                .Select(i => $"public int {methodNamePrefix}_{i}() {{ return 0; }} ");
 
-            IEnumerable<string> testClassesCodeSnapshot = Enumerable.Range(
-                    0,
-                    classesCount
-                )
+            IEnumerable<string> testClassesCodeSnapshot = Enumerable.Range(0, classesCount)
                 .Select(
                     i =>
-                        "namespace PerfTestApp { " +
-                        $"public class {classNamePrefix}_{i} {{ {string.Concat(testMethodsCodeSnapshot)} }} " +
-                        "} \n"
+                        "namespace PerfTestApp { "
+                        + $"public class {classNamePrefix}_{i} {{ {string.Concat(testMethodsCodeSnapshot)} }} "
+                        + "} \n"
                 );
 
             string entryPointCodeSnapshot =
@@ -98,14 +90,11 @@ namespace System.CommandLine.Benchmarks.DragonFruit
               }
              ";
 
-            return string.Concat(testClassesCodeSnapshot) +
-            entryPointCodeSnapshot;
+            return string.Concat(testClassesCodeSnapshot) + entryPointCodeSnapshot;
         }
 
-        private string CreateTestAssemblyInTempFile(
-            int classesCount,
-            int methodsPerClassCount
-        ) {
+        private string CreateTestAssemblyInTempFile(int classesCount, int methodsPerClassCount)
+        {
             string testSourceCode = GenerateTestAssemblySourceCode(
                 classesCount,
                 methodsPerClassCount
@@ -137,13 +126,8 @@ namespace System.CommandLine.Benchmarks.DragonFruit
                 TestAssemblySize.methodsPerClassCount
             );
 
-            _testAssembly = Assembly.Load(
-                File.ReadAllBytes(_testAssemblyFilePath)
-            );
-            _testAssemblyXmlDocsFilePath = _testAssemblyFilePath.Replace(
-                ".dll",
-                ".xml"
-            );
+            _testAssembly = Assembly.Load(File.ReadAllBytes(_testAssemblyFilePath));
+            _testAssemblyXmlDocsFilePath = _testAssemblyFilePath.Replace(".dll", ".xml");
         }
 
         [Benchmark(Description = "ExecuteAssemblyAsync entry point search.")]

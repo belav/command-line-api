@@ -25,9 +25,7 @@ namespace System.CommandLine.Benchmarks.CommandLine
         {
             var option = new Option("--0123456789");
 
-            _testParser = new CommandLineBuilder().AddOption(option)
-                .UseTypoCorrections()
-                .Build();
+            _testParser = new CommandLineBuilder().AddOption(option).UseTypoCorrections().Build();
         }
 
         public IEnumerable<BdnParam<ParseResult>> GenerateTestParseResults() =>
@@ -49,9 +47,7 @@ namespace System.CommandLine.Benchmarks.CommandLine
                 "--1023546789",
                 "--1023546798",
                 "--1032546798"
-            }.Select(
-                opt => new BdnParam<ParseResult>(_testParser.Parse(opt), opt)
-            );
+            }.Select(opt => new BdnParam<ParseResult>(_testParser.Parse(opt), opt));
 
         [Benchmark]
         [ArgumentsSource(nameof(GenerateTestParseResults))]

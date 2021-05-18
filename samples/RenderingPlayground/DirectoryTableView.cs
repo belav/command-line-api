@@ -16,11 +16,7 @@ namespace RenderingPlayground
             }
 
             Add(new ContentView("\n"));
-            Add(
-                new ContentView(
-                    Span($"Directory: {directory.FullName.Rgb(235, 30, 180)}")
-                )
-            );
+            Add(new ContentView(Span($"Directory: {directory.FullName.Rgb(235, 30, 180)}")));
             Add(new ContentView("\n"));
 
             var tableView = new TableView<FileSystemInfo>();
@@ -30,8 +26,7 @@ namespace RenderingPlayground
                 .ToList();
 
             tableView.AddColumn(
-                cellValue: f =>
-                    f is DirectoryInfo ? f.Name.LightGreen() : f.Name.White(),
+                cellValue: f => f is DirectoryInfo ? f.Name.LightGreen() : f.Name.White(),
                 header: new ContentView("Name".Underline())
             );
 
@@ -47,9 +42,7 @@ namespace RenderingPlayground
 
             Add(tableView);
 
-            Formatter.AddFormatter<DateTime>(
-                d => $"{d:d} {ForegroundColorSpan.DarkGray()}{d:t}"
-            );
+            Formatter.AddFormatter<DateTime>(d => $"{d:d} {ForegroundColorSpan.DarkGray()}{d:t}");
         }
 
         TextSpan Span(FormattableString formattableString)
@@ -62,7 +55,6 @@ namespace RenderingPlayground
             return Formatter.Format(obj);
         }
 
-        protected TextSpanFormatter Formatter { get; } =
-            new TextSpanFormatter();
+        protected TextSpanFormatter Formatter { get; } = new TextSpanFormatter();
     }
 }

@@ -48,7 +48,6 @@ namespace System.CommandLine.Rendering.Views
 
         public IEnumerator<T> GetEnumerator() => _children.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() =>
-            ((IEnumerable)_children).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_children).GetEnumerator();
     }
 }

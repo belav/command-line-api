@@ -16,18 +16,11 @@ namespace System.CommandLine.Tests
             [Theory]
             [InlineData("outer xyz")]
             [InlineData("outer inner xyz")]
-            public void An_argument_can_be_specified_in_more_than_one_position(
-                string commandLine
-            ) {
+            public void An_argument_can_be_specified_in_more_than_one_position(string commandLine)
+            {
                 var argument = new Argument<string> { Name = "the-argument" };
 
-                var command = new Command(
-                    "outer"
-                )
-                {
-                    new Command("inner") { argument },
-                    argument
-                };
+                var command = new Command("outer") { new Command("inner") { argument }, argument };
 
                 var parseResult = command.Parse(commandLine);
 
@@ -46,13 +39,7 @@ namespace System.CommandLine.Tests
             ) {
                 var argument = new Argument<string> { Name = "the-argument" };
 
-                var command = new Command(
-                    "outer"
-                )
-                {
-                    new Command("inner") { argument },
-                    argument
-                };
+                var command = new Command("outer") { new Command("inner") { argument }, argument };
 
                 var parseResult = command.Parse(commandLine);
 
@@ -62,18 +49,11 @@ namespace System.CommandLine.Tests
             [Theory]
             [InlineData("outer --the-option xyz")]
             [InlineData("outer inner --the-option xyz")]
-            public void An_option_can_be_specified_in_more_than_one_position(
-                string commandLine
-            ) {
+            public void An_option_can_be_specified_in_more_than_one_position(string commandLine)
+            {
                 var option = new Option<string>("--the-option");
 
-                var command = new Command(
-                    "outer"
-                )
-                {
-                    new Command("inner") { option },
-                    option
-                };
+                var command = new Command("outer") { new Command("inner") { option }, option };
 
                 var parseResult = command.Parse(commandLine);
 
@@ -92,13 +72,7 @@ namespace System.CommandLine.Tests
             ) {
                 var option = new Option<string>("--the-option");
 
-                var command = new Command(
-                    "outer"
-                )
-                {
-                    new Command("inner") { option },
-                    option
-                };
+                var command = new Command("outer") { new Command("inner") { option }, option };
 
                 var parseResult = command.Parse(commandLine);
 
@@ -131,8 +105,7 @@ namespace System.CommandLine.Tests
                 var result = outer.Parse(commandLine);
 
                 result.Errors.Should().BeEmpty();
-                result.CommandResult.Parent.Symbol.Name.Should()
-                    .Be(expectedParent);
+                result.CommandResult.Parent.Symbol.Name.Should().Be(expectedParent);
             }
 
             [Fact]
@@ -140,25 +113,13 @@ namespace System.CommandLine.Tests
             {
                 var option = new Option<string>("--the-option");
 
-                var sprocket = new Command(
-                    "sprocket"
-                )
-                {
-                    new Command("add") { option }
-                };
+                var sprocket = new Command("sprocket") { new Command("add") { option } };
 
-                var widget = new Command(
-                    "widget"
-                )
-                {
-                    new Command("add") { option }
-                };
+                var widget = new Command("widget") { new Command("add") { option } };
 
                 var root = new RootCommand { sprocket, widget };
 
-                option.Parents.Select(p => p.Name)
-                    .Should()
-                    .BeEquivalentTo("add", "add");
+                option.Parents.Select(p => p.Name).Should().BeEquivalentTo("add", "add");
 
                 option.Parents.SelectMany(p => p.Parents)
                     .Select(p => p.Name)

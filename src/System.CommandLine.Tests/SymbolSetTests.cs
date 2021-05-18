@@ -160,8 +160,7 @@ namespace System.CommandLine.Tests
         }
     }
 
-    public class SymbolResultSetTests
-        : AliasedSetTests<SymbolResult, SymbolResultSet>
+    public class SymbolResultSetTests : AliasedSetTests<SymbolResult, SymbolResultSet>
     {
         public override SymbolResultSet CreateSet(Symbol symbol)
         {
@@ -170,9 +169,7 @@ namespace System.CommandLine.Tests
             var commandLine = symbol switch
             {
                 Command command => command.Name,
-                Option option => option.Aliases.First() +
-                "  " +
-                "argument-value",
+                Option option => option.Aliases.First() + "  " + "argument-value",
                 Argument argument => "argument-value",
                 _ => throw new ArgumentOutOfRangeException()
             };

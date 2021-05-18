@@ -24,11 +24,8 @@ namespace System.CommandLine.Hosting
                 {
                     var argsRemaining = invocation.ParseResult.UnparsedTokens.ToArray();
                     var hostBuilder =
-                        hostBuilderFactory?.Invoke(argsRemaining) ??
-                        new HostBuilder();
-                    hostBuilder.Properties[
-                        typeof(InvocationContext)
-                    ] = invocation;
+                        hostBuilderFactory?.Invoke(argsRemaining) ?? new HostBuilder();
+                    hostBuilder.Properties[typeof(InvocationContext)] = invocation;
 
                     hostBuilder.ConfigureHostConfiguration(
                         config =>
@@ -45,9 +42,7 @@ namespace System.CommandLine.Hosting
                             services.AddSingleton(invocation);
                             services.AddSingleton(invocation.BindingContext);
                             services.AddSingleton(invocation.Console);
-                            services.AddTransient(
-                                _ => invocation.InvocationResult
-                            );
+                            services.AddTransient(_ => invocation.InvocationResult);
                             services.AddTransient(_ => invocation.ParseResult);
                         }
                     );
@@ -56,10 +51,7 @@ namespace System.CommandLine.Hosting
 
                     using var host = hostBuilder.Build();
 
-                    invocation.BindingContext.AddService(
-                        typeof(IHost),
-                        _ => host
-                    );
+                    invocation.BindingContext.AddService(typeof(IHost), _ => host);
 
                     await host.StartAsync();
 
@@ -100,23 +92,19 @@ namespace System.CommandLine.Hosting
                 (opts, serviceProvider) =>
                 {
                     var modelBinder =
-                        serviceProvider.GetService<ModelBinder<TOptions>>() ??
-                        new ModelBinder<TOptions>();
+                        serviceProvider.GetService<ModelBinder<TOptions>>()
+                        ?? new ModelBinder<TOptions>();
                     var bindingContext = serviceProvider.GetRequiredService<BindingContext>();
                     modelBinder.UpdateInstance(opts, bindingContext);
                 }
             );
         }
 
-        public static IHostBuilder UseCommandHandler<TCommand, THandler>(
-            this IHostBuilder builder
-        )
+        public static IHostBuilder UseCommandHandler<TCommand, THandler>(this IHostBuilder builder)
             where TCommand : Command
-            where THandler : ICommandHandler {
-            return builder.UseCommandHandler(
-                typeof(TCommand),
-                typeof(THandler)
-            );
+            where THandler : ICommandHandler
+        {
+            return builder.UseCommandHandler(typeof(TCommand), typeof(THandler));
         }
 
         public static IHostBuilder UseCommandHandler(
@@ -141,11 +129,11 @@ namespace System.CommandLine.Hosting
             }
 
             if (
-                builder.Properties[
-                    typeof(InvocationContext)
-                ] is InvocationContext invocation &&
-                invocation.ParseResult.CommandResult.Command is Command command &&
-                command.GetType() == commandType
+                builder.Properties[typeof(InvocationContext)]
+                    is InvocationContext invocation
+                && invocation.ParseResult.CommandResult.Command
+                    is Command command
+                && command.GetType() == commandType
             ) {
                 invocation.BindingContext.AddService(
                     handlerType,
@@ -166,18 +154,14 @@ namespace System.CommandLine.Hosting
             return builder;
         }
 
-        public static InvocationContext GetInvocationContext(
-            this IHostBuilder hostBuilder
-        ) {
-            _ = hostBuilder ??
-            throw new ArgumentNullException(nameof(hostBuilder));
+        public static InvocationContext GetInvocationContext(this IHostBuilder hostBuilder)
+        {
+            _ = hostBuilder ?? throw new ArgumentNullException(nameof(hostBuilder));
 
             if (
-                hostBuilder.Properties.TryGetValue(
-                    typeof(InvocationContext),
-                    out var ctxObj
-                ) &&
-                ctxObj is InvocationContext invocationContext
+                hostBuilder.Properties.TryGetValue(typeof(InvocationContext), out var ctxObj)
+                && ctxObj
+                    is InvocationContext invocationContext
             )
                 return invocationContext;
 
@@ -186,17 +170,14 @@ namespace System.CommandLine.Hosting
             );
         }
 
-        public static InvocationContext GetInvocationContext(
-            this HostBuilderContext context
-        ) {
+        public static InvocationContext GetInvocationContext(this HostBuilderContext context)
+        {
             _ = context ?? throw new ArgumentNullException(nameof(context));
 
             if (
-                context.Properties.TryGetValue(
-                    typeof(InvocationContext),
-                    out var ctxObj
-                ) &&
-                ctxObj is InvocationContext invocationContext
+                context.Properties.TryGetValue(typeof(InvocationContext), out var ctxObj)
+                && ctxObj
+                    is InvocationContext invocationContext
             )
                 return invocationContext;
 
@@ -207,14 +188,10 @@ namespace System.CommandLine.Hosting
 
         public static IHost GetHost(this InvocationContext invocationContext)
         {
-            _ = invocationContext ??
-            throw new ArgumentNullException(
-                paramName: nameof(invocationContext)
-            );
+            _ = invocationContext
+            ?? throw new ArgumentNullException(paramName: nameof(invocationContext));
             var hostModelBinder = new ModelBinder<IHost>();
-            return (IHost)hostModelBinder.CreateInstance(
-                invocationContext.BindingContext
-            );
+            return (IHost)hostModelBinder.CreateInstance(invocationContext.BindingContext);
         }
     }
 }

@@ -14,26 +14,18 @@ namespace System.CommandLine.Binding
         ) {
             if (!string.IsNullOrEmpty(valueDescriptor.ValueName))
             {
-                CommandResult? commandResult =
-                    bindingContext?.ParseResult.CommandResult;
+                CommandResult? commandResult = bindingContext?.ParseResult.CommandResult;
 
                 while (commandResult != null)
                 {
-                    if (
-                        commandResult.TryGetValueForOption(
-                            valueDescriptor,
-                            out var optionValue
-                        )
-                    ) {
+                    if (commandResult.TryGetValueForOption(valueDescriptor, out var optionValue))
+                    {
                         boundValue = optionValue;
                         return true;
                     }
 
                     if (
-                        commandResult.TryGetValueForArgument(
-                            valueDescriptor,
-                            out var argumentValue
-                        )
+                        commandResult.TryGetValueForArgument(valueDescriptor, out var argumentValue)
                     ) {
                         boundValue = argumentValue;
                         return true;

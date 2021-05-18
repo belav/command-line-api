@@ -13,10 +13,8 @@ namespace System.CommandLine.Binding
 
         private readonly ConstructorInfo _constructorInfo;
 
-        internal ConstructorDescriptor(
-            ConstructorInfo constructorInfo,
-            ModelDescriptor parent
-        ) {
+        internal ConstructorDescriptor(ConstructorInfo constructorInfo, ModelDescriptor parent)
+        {
             Parent = parent;
             _constructorInfo = constructorInfo;
         }

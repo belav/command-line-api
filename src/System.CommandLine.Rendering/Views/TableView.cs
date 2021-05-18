@@ -77,22 +77,13 @@ namespace System.CommandLine.Rendering.Views
             if (_gridInitialized)
                 return;
 
-            Layout.SetColumns(
-                Columns.Select(x => x.ColumnDefinition).ToArray()
-            );
+            Layout.SetColumns(Columns.Select(x => x.ColumnDefinition).ToArray());
             Layout.SetRows(
-                Enumerable.Repeat(
-                        RowDefinition.SizeToContent(),
-                        Items.Count + 1
-                    )
-                    .ToArray()
+                Enumerable.Repeat(RowDefinition.SizeToContent(), Items.Count + 1).ToArray()
             );
 
-            for (
-                int columnIndex = 0;
-                columnIndex < Columns.Count;
-                columnIndex++
-            ) {
+            for (int columnIndex = 0; columnIndex < Columns.Count; columnIndex++)
+            {
                 if (Columns[columnIndex].Header is View header)
                 {
                     Layout.SetChild(header, columnIndex, 0);
@@ -102,17 +93,10 @@ namespace System.CommandLine.Rendering.Views
             for (int itemIndex = 0; itemIndex < Items.Count; itemIndex++)
             {
                 TItem item = Items[itemIndex];
-                for (
-                    int columnIndex = 0;
-                    columnIndex < Columns.Count;
-                    columnIndex++
-                ) {
-                    if (
-                        Columns[columnIndex].GetCell(
-                            item,
-                            renderer.Formatter
-                        ) is View cell
-                    ) {
+                for (int columnIndex = 0; columnIndex < Columns.Count; columnIndex++)
+                {
+                    if (Columns[columnIndex].GetCell(item, renderer.Formatter) is View cell)
+                    {
                         Layout.SetChild(cell, columnIndex, itemIndex + 1);
                     }
                 }
@@ -135,10 +119,9 @@ namespace System.CommandLine.Rendering.Views
                 ColumnDefinition columnDefinition
             ) {
                 Header = header;
-                ColumnDefinition = columnDefinition ??
-                throw new ArgumentNullException(nameof(columnDefinition));
-                _cellValue = cellValue ??
-                throw new ArgumentNullException(nameof(cellValue));
+                ColumnDefinition = columnDefinition
+                ?? throw new ArgumentNullException(nameof(columnDefinition));
+                _cellValue = cellValue ?? throw new ArgumentNullException(nameof(cellValue));
             }
 
             public View GetCell(TItem item, TextSpanFormatter formatter)

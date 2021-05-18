@@ -12,9 +12,7 @@ namespace RenderingPlayground
         public ProcessesView(Process[] processes)
         {
             var formatter = new TextSpanFormatter();
-            formatter.AddFormatter<TimeSpan>(
-                t => new ContentSpan(t.ToString(@"hh\:mm\:ss"))
-            );
+            formatter.AddFormatter<TimeSpan>(t => new ContentSpan(t.ToString(@"hh\:mm\:ss")));
 
             Add(new ContentView(""));
             Add(new ContentView("Processes"));
@@ -22,18 +20,9 @@ namespace RenderingPlayground
 
             var table = new TableView<Process> { Items = processes };
             table.AddColumn(p => p.Id, new ContentView("PID".Underline()));
-            table.AddColumn(
-                p => Name(p),
-                new ContentView("COMMAND".Underline())
-            );
-            table.AddColumn(
-                p => p.PrivilegedProcessorTime,
-                new ContentView("TIME".Underline())
-            );
-            table.AddColumn(
-                p => p.Threads.Count,
-                new ContentView("#TH".Underline())
-            );
+            table.AddColumn(p => Name(p), new ContentView("COMMAND".Underline()));
+            table.AddColumn(p => p.PrivilegedProcessorTime, new ContentView("TIME".Underline()));
+            table.AddColumn(p => p.Threads.Count, new ContentView("#TH".Underline()));
             table.AddColumn(
                 p => p.PrivateMemorySize64.Abbreviate(),
                 new ContentView("MEM".Underline())
@@ -64,13 +53,7 @@ namespace RenderingPlayground
 
     internal static class IntExtensions
     {
-        private static readonly string[] _suffixes = {
-            "b",
-            "K",
-            "M",
-            "G",
-            "T"
-        };
+        private static readonly string[] _suffixes = { "b", "K", "M", "G", "T" };
 
         public static string Abbreviate(this long value)
         {
@@ -88,32 +71,26 @@ namespace RenderingPlayground
 
         public static DateTime StartTime = DateTime.UtcNow;
 
-        public static IObservable<ProcessorTime> TrackCpuUsage(
-            this Process process
-        ) {
+        public static IObservable<ProcessorTime> TrackCpuUsage(this Process process)
+        {
             var processorCount = Environment.ProcessorCount;
             var trackingStartedAt = process.TotalProcessorTime;
             var lastCheckedAt = DateTime.UtcNow;
             var previousCpuTime = new TimeSpan(0);
 
-            return Observable.ToObservable(GetTime())
-                .Delay(TimeSpan.FromSeconds(1))
-                .Repeat();
+            return Observable.ToObservable(GetTime()).Delay(TimeSpan.FromSeconds(1)).Repeat();
 
             IEnumerable<ProcessorTime> GetTime()
             {
-                var currentCpuTime =
-                    process.TotalProcessorTime - trackingStartedAt;
+                var currentCpuTime = process.TotalProcessorTime - trackingStartedAt;
 
                 var usageSinceLastCheck =
-                    (currentCpuTime - previousCpuTime).TotalSeconds /
-                    (processorCount *
-                    DateTime.UtcNow.Subtract(lastCheckedAt).TotalSeconds);
+                    (currentCpuTime - previousCpuTime).TotalSeconds
+                    / (processorCount * DateTime.UtcNow.Subtract(lastCheckedAt).TotalSeconds);
 
                 var usageTotal =
-                    currentCpuTime.TotalSeconds /
-                    (processorCount *
-                    DateTime.UtcNow.Subtract(StartTime).TotalSeconds);
+                    currentCpuTime.TotalSeconds
+                    / (processorCount * DateTime.UtcNow.Subtract(StartTime).TotalSeconds);
 
                 lastCheckedAt = DateTime.UtcNow;
 

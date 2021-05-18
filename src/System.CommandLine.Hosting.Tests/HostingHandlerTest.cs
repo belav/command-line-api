@@ -31,14 +31,12 @@ namespace System.CommandLine.Hosting.Tests
                                     services.AddTransient(x => service);
                                 }
                             )
-                            .UseCommandHandler<MyCommand,
-                                MyCommand.MyHandler>();
+                            .UseCommandHandler<MyCommand, MyCommand.MyHandler>();
                     }
                 )
                 .Build();
 
-            var result =
-                await parser.InvokeAsync(new string[] { "--int-option", "54" });
+            var result = await parser.InvokeAsync(new string[] { "--int-option", "54" });
 
             service.Value.Should().Be(54);
         }
@@ -55,14 +53,12 @@ namespace System.CommandLine.Hosting.Tests
                                     services.AddTransient<MyService>();
                                 }
                             )
-                            .UseCommandHandler<MyCommand,
-                                MyCommand.MyHandler>();
+                            .UseCommandHandler<MyCommand, MyCommand.MyHandler>();
                     }
                 )
                 .Build();
 
-            var result =
-                await parser.InvokeAsync(new string[] { "--int-option", "54" });
+            var result = await parser.InvokeAsync(new string[] { "--int-option", "54" });
 
             result.Should().Be(54);
         }
@@ -81,25 +77,18 @@ namespace System.CommandLine.Hosting.Tests
                                 services =>
                                 {
                                     services.AddTransient<MyService>(
-                                        _ =>
-                                            new MyService()
-                                            {
-                                                Action = () => 100
-                                            }
+                                        _ => new MyService() { Action = () => 100 }
                                     );
                                 }
                             )
                             .UseCommandHandler<MyCommand, MyCommand.MyHandler>()
-                            .UseCommandHandler<MyOtherCommand,
-                                MyOtherCommand.MyHandler>();
+                            .UseCommandHandler<MyOtherCommand, MyOtherCommand.MyHandler>();
                     }
                 )
                 .Build();
 
             var result =
-                await parser.InvokeAsync(
-                    new string[] { "mycommand", "--int-option", "54" }
-                );
+                await parser.InvokeAsync(new string[] { "mycommand", "--int-option", "54" });
 
             result.Should().Be(54);
 
@@ -125,16 +114,12 @@ namespace System.CommandLine.Hosting.Tests
                                     services.AddSingleton<MyService>(service);
                                 }
                             )
-                            .UseCommandHandler<MyOtherCommand,
-                                MyOtherCommand.MyHandler>();
+                            .UseCommandHandler<MyOtherCommand, MyOtherCommand.MyHandler>();
                     }
                 )
                 .Build();
 
-            var result =
-                await parser.InvokeAsync(
-                    new string[] { "myothercommand", "TEST" }
-                );
+            var result = await parser.InvokeAsync(new string[] { "myothercommand", "TEST" });
 
             service.StringValue.Should().Be("TEST");
         }

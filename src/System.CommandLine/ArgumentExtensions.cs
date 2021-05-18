@@ -42,9 +42,8 @@ namespace System.CommandLine
             return argument;
         }
 
-        public static Argument<FileInfo> ExistingOnly(
-            this Argument<FileInfo> argument
-        ) {
+        public static Argument<FileInfo> ExistingOnly(this Argument<FileInfo> argument)
+        {
             argument.AddValidator(
                 symbol =>
                     symbol.Tokens.Select(t => t.Value)
@@ -55,9 +54,8 @@ namespace System.CommandLine
             return argument;
         }
 
-        public static Argument<DirectoryInfo> ExistingOnly(
-            this Argument<DirectoryInfo> argument
-        ) {
+        public static Argument<DirectoryInfo> ExistingOnly(this Argument<DirectoryInfo> argument)
+        {
             argument.AddValidator(
                 symbol =>
                     symbol.Tokens.Select(t => t.Value)
@@ -68,20 +66,13 @@ namespace System.CommandLine
             return argument;
         }
 
-        public static Argument<FileSystemInfo> ExistingOnly(
-            this Argument<FileSystemInfo> argument
-        ) {
+        public static Argument<FileSystemInfo> ExistingOnly(this Argument<FileSystemInfo> argument)
+        {
             argument.AddValidator(
                 symbol =>
                     symbol.Tokens.Select(t => t.Value)
-                        .Where(
-                            filePath =>
-                                !Directory.Exists(filePath) &&
-                                !File.Exists(filePath)
-                        )
-                        .Select(
-                            symbol.ValidationMessages.FileOrDirectoryDoesNotExist
-                        )
+                        .Where(filePath => !Directory.Exists(filePath) && !File.Exists(filePath))
+                        .Select(symbol.ValidationMessages.FileOrDirectoryDoesNotExist)
                         .FirstOrDefault()
             );
             return argument;
@@ -100,9 +91,8 @@ namespace System.CommandLine
                             .FirstOrDefault()
                 );
             }
-            else if (
-                typeof(IEnumerable<DirectoryInfo>).IsAssignableFrom(typeof(T))
-            ) {
+            else if (typeof(IEnumerable<DirectoryInfo>).IsAssignableFrom(typeof(T)))
+            {
                 argument.AddValidator(
                     a =>
                         a.Tokens.Select(t => t.Value)
@@ -117,13 +107,9 @@ namespace System.CommandLine
                     a =>
                         a.Tokens.Select(t => t.Value)
                             .Where(
-                                filePath =>
-                                    !Directory.Exists(filePath) &&
-                                    !File.Exists(filePath)
+                                filePath => !Directory.Exists(filePath) && !File.Exists(filePath)
                             )
-                            .Select(
-                                a.ValidationMessages.FileOrDirectoryDoesNotExist
-                            )
+                            .Select(a.ValidationMessages.FileOrDirectoryDoesNotExist)
                             .FirstOrDefault()
                 );
             }
@@ -131,10 +117,9 @@ namespace System.CommandLine
             return argument;
         }
 
-        public static TArgument LegalFilePathsOnly<TArgument>(
-            this TArgument argument
-        )
-            where TArgument : Argument {
+        public static TArgument LegalFilePathsOnly<TArgument>(this TArgument argument)
+            where TArgument : Argument
+        {
             var invalidPathChars = Path.GetInvalidPathChars();
 
             argument.AddValidator(
@@ -146,9 +131,7 @@ namespace System.CommandLine
 
                         // File class no longer check invalid character
                         // https://blogs.msdn.microsoft.com/jeremykuhne/2018/03/09/custom-directory-enumeration-in-net-core-2-1/
-                        var invalidCharactersIndex = token.Value.IndexOfAny(
-                            invalidPathChars
-                        );
+                        var invalidCharactersIndex = token.Value.IndexOfAny(invalidPathChars);
 
                         if (invalidCharactersIndex >= 0)
                         {
@@ -165,10 +148,9 @@ namespace System.CommandLine
             return argument;
         }
 
-        public static TArgument LegalFileNamesOnly<TArgument>(
-            this TArgument argument
-        )
-            where TArgument : Argument {
+        public static TArgument LegalFileNamesOnly<TArgument>(this TArgument argument)
+            where TArgument : Argument
+        {
             var invalidFileNameChars = Path.GetInvalidFileNameChars();
 
             argument.AddValidator(
@@ -177,9 +159,7 @@ namespace System.CommandLine
                     for (var i = 0; i < symbol.Tokens.Count; i++)
                     {
                         var token = symbol.Tokens[i];
-                        var invalidCharactersIndex = token.Value.IndexOfAny(
-                            invalidFileNameChars
-                        );
+                        var invalidCharactersIndex = token.Value.IndexOfAny(invalidFileNameChars);
 
                         if (invalidCharactersIndex >= 0)
                         {
@@ -196,14 +176,9 @@ namespace System.CommandLine
             return argument;
         }
 
-        public static ParseResult Parse(
-            this Argument argument,
-            string commandLine
-        ) =>
-            new Parser(
-                new CommandLineConfiguration(
-                    new[] { new RootCommand { argument }, }
-                )
-            ).Parse(commandLine);
+        public static ParseResult Parse(this Argument argument, string commandLine) =>
+            new Parser(new CommandLineConfiguration(new[] { new RootCommand { argument }, })).Parse(
+                commandLine
+            );
     }
 }

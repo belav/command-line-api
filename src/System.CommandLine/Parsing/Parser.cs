@@ -9,8 +9,7 @@ namespace System.CommandLine.Parsing
     {
         public Parser(CommandLineConfiguration configuration)
         {
-            Configuration = configuration ??
-            throw new ArgumentNullException(nameof(configuration));
+            Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         public Parser(params Symbol[] symbols)
@@ -21,10 +20,8 @@ namespace System.CommandLine.Parsing
 
         public CommandLineConfiguration Configuration { get; }
 
-        public ParseResult Parse(
-            IReadOnlyList<string> arguments,
-            string? rawInput = null
-        ) {
+        public ParseResult Parse(IReadOnlyList<string> arguments, string? rawInput = null)
+        {
             var tokenizeResult = arguments.Tokenize(Configuration);
 
             var operation = new ParseOperation(tokenizeResult, Configuration);

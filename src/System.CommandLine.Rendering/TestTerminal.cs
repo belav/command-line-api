@@ -55,9 +55,7 @@ namespace System.CommandLine.Rendering
                         _ansiCodeBuffer.Clear();
 
                         RecordEvent(
-                            new AnsiControlCodeWritten(
-                                new AnsiControlCode(escapeSequence)
-                            )
+                            new AnsiControlCodeWritten(new AnsiControlCode(escapeSequence))
                         );
                     }
                 }
@@ -137,9 +135,7 @@ namespace System.CommandLine.Rendering
             _cursorLeft = left;
             _cursorTop = top;
 
-            RecordEvent(
-                new CursorPositionChanged(new Point(_cursorLeft, _cursorTop))
-            );
+            RecordEvent(new CursorPositionChanged(new Point(_cursorLeft, _cursorTop)));
         }
 
         private void RecordEvent(ConsoleEvent @event)
@@ -159,17 +155,11 @@ namespace System.CommandLine.Rendering
 
                 if (escapeSequence.EndsWith("H"))
                 {
-                    var positionFinder = new Regex(
-                        @"\x1b\[(?<line>[0-9]*);(?<column>[0-9]*)H"
-                    );
+                    var positionFinder = new Regex(@"\x1b\[(?<line>[0-9]*);(?<column>[0-9]*)H");
                     var match = positionFinder.Match(escapeSequence);
                     var column = int.Parse(match.Groups["column"].Value);
                     var line = int.Parse(match.Groups["line"].Value);
-                    RecordEvent(
-                        new CursorPositionChanged(
-                            new Point(column - 1, line - 1)
-                        )
-                    );
+                    RecordEvent(new CursorPositionChanged(new Point(column - 1, line - 1)));
                     return;
                 }
             }
@@ -226,9 +216,7 @@ namespace System.CommandLine.Rendering
                 switch (@event)
                 {
                     case AnsiControlCodeWritten ansiControlCodeWritten:
-                        buffer.Append(
-                            ansiControlCodeWritten.Code.EscapeSequence
-                        );
+                        buffer.Append(ansiControlCodeWritten.Code.EscapeSequence);
                         break;
                     case ContentWritten contentWritten:
                         buffer.Append(contentWritten.Content);
@@ -238,10 +226,7 @@ namespace System.CommandLine.Rendering
                         {
                             if (buffer.Length > 0)
                             {
-                                yield return new TextRendered(
-                                    buffer.ToString(),
-                                    position
-                                );
+                                yield return new TextRendered(buffer.ToString(), position);
                                 buffer.Clear();
                             }
 
@@ -275,8 +260,7 @@ namespace System.CommandLine.Rendering
         {
             public AnsiControlCodeWritten(AnsiControlCode ansiControlCode)
             {
-                Code = ansiControlCode ??
-                throw new ArgumentNullException(nameof(ansiControlCode));
+                Code = ansiControlCode ?? throw new ArgumentNullException(nameof(ansiControlCode));
             }
 
             public AnsiControlCode Code { get; }

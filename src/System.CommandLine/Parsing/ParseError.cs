@@ -9,10 +9,7 @@ namespace System.CommandLine.Parsing
         {
             if (string.IsNullOrWhiteSpace(message))
             {
-                throw new ArgumentException(
-                    "Value cannot be null or whitespace.",
-                    nameof(message)
-                );
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(message));
             }
 
             Message = message;

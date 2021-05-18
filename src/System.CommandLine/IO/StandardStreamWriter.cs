@@ -27,10 +27,8 @@ namespace System.CommandLine.IO
             writer.Write(Environment.NewLine);
         }
 
-        public static void WriteLine(
-            this IStandardStreamWriter writer,
-            string value
-        ) {
+        public static void WriteLine(this IStandardStreamWriter writer, string value)
+        {
             if (writer is null)
             {
                 throw new ArgumentNullException(nameof(writer));

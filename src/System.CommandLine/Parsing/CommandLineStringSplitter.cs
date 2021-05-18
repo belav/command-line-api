@@ -93,8 +93,7 @@ namespace System.CommandLine.Parsing
             {
                 if (skipQuoteAtIndex is null)
                 {
-                    return memory.Slice(startTokenIndex, IndexOfEndOfToken())
-                        .ToString();
+                    return memory.Slice(startTokenIndex, IndexOfEndOfToken()).ToString();
                 }
                 else
                 {

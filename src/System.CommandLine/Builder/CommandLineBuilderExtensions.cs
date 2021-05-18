@@ -22,9 +22,7 @@ namespace System.CommandLine.Builder
         private static readonly Lazy<string> _assemblyVersion = new Lazy<string>(
             () =>
             {
-                var assembly =
-                    Assembly.GetEntryAssembly() ??
-                    Assembly.GetExecutingAssembly();
+                var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
                 var assemblyVersionAttribute = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
                 if (assemblyVersionAttribute is null)
                 {
@@ -37,49 +35,40 @@ namespace System.CommandLine.Builder
             }
         );
 
-        public static TBuilder AddArgument<TBuilder>(
-            this TBuilder builder,
-            Argument argument
-        )
-            where TBuilder : CommandBuilder {
+        public static TBuilder AddArgument<TBuilder>(this TBuilder builder, Argument argument)
+            where TBuilder : CommandBuilder
+        {
             builder.AddArgument(argument);
 
             return builder;
         }
 
-        public static TBuilder AddCommand<TBuilder>(
-            this TBuilder builder,
-            Command command
-        )
-            where TBuilder : CommandBuilder {
+        public static TBuilder AddCommand<TBuilder>(this TBuilder builder, Command command)
+            where TBuilder : CommandBuilder
+        {
             builder.AddCommand(command);
 
             return builder;
         }
 
-        public static TBuilder AddOption<TBuilder>(
-            this TBuilder builder,
-            Option option
-        )
-            where TBuilder : CommandBuilder {
+        public static TBuilder AddOption<TBuilder>(this TBuilder builder, Option option)
+            where TBuilder : CommandBuilder
+        {
             builder.AddOption(option);
 
             return builder;
         }
 
-        public static TBuilder AddGlobalOption<TBuilder>(
-            this TBuilder builder,
-            Option option
-        )
-            where TBuilder : CommandBuilder {
+        public static TBuilder AddGlobalOption<TBuilder>(this TBuilder builder, Option option)
+            where TBuilder : CommandBuilder
+        {
             builder.AddGlobalOption(option);
 
             return builder;
         }
 
-        public static CommandLineBuilder CancelOnProcessTermination(
-            this CommandLineBuilder builder
-        ) {
+        public static CommandLineBuilder CancelOnProcessTermination(this CommandLineBuilder builder)
+        {
             builder.AddMiddleware(
                 async (context, next) =>
                 {
@@ -88,13 +77,9 @@ namespace System.CommandLine.Builder
                     ConsoleCancelEventHandler? consoleHandler = null;
                     EventHandler? processExitHandler = null;
 
-                    context.CancellationHandlingAdded += (
-                        CancellationTokenSource cts
-                    ) =>
+                    context.CancellationHandlingAdded += (CancellationTokenSource cts) =>
                     {
-                        blockProcessExit = new ManualResetEventSlim(
-                            initialState: false
-                        );
+                        blockProcessExit = new ManualResetEventSlim(initialState: false);
                         cancellationHandlingAdded = true;
                         consoleHandler = (_, args) =>
                         {
@@ -181,15 +166,12 @@ namespace System.CommandLine.Builder
             return builder;
         }
 
-        public static CommandLineBuilder RegisterWithDotnetSuggest(
-            this CommandLineBuilder builder
-        ) {
+        public static CommandLineBuilder RegisterWithDotnetSuggest(this CommandLineBuilder builder)
+        {
             builder.AddMiddleware(
                 async (context, next) =>
                 {
-                    var feature = new FeatureRegistration(
-                        "dotnet-suggest-registration"
-                    );
+                    var feature = new FeatureRegistration("dotnet-suggest-registration");
 
                     await feature.EnsureRegistered(
                         async () =>
@@ -245,8 +227,7 @@ namespace System.CommandLine.Builder
                 {
                     if (context.ParseResult.Directives.Contains("debug"))
                     {
-                        const string environmentVariableName =
-                            "DOTNET_COMMANDLINE_DEBUG_PROCESSES";
+                        const string environmentVariableName = "DOTNET_COMMANDLINE_DEBUG_PROCESSES";
 
                         var process = Diagnostics.Process.GetCurrentProcess();
                         string debuggableProcessNames = GetEnvironmentVariable(
@@ -268,15 +249,9 @@ namespace System.CommandLine.Builder
                         }
                         else
                         {
-                            string[] processNames = debuggableProcessNames.Split(
-                                ';'
-                            );
-                            if (
-                                processNames.Contains(
-                                    process.ProcessName,
-                                    StringComparer.Ordinal
-                                )
-                            ) {
+                            string[] processNames = debuggableProcessNames.Split(';');
+                            if (processNames.Contains(process.ProcessName, StringComparer.Ordinal))
+                            {
                                 var processId = process.Id;
 
                                 context.Console.Out.WriteLine(
@@ -313,25 +288,16 @@ namespace System.CommandLine.Builder
             builder.AddMiddleware(
                 (context, next) =>
                 {
-                    if (
-                        context.ParseResult.Directives.TryGetValues(
-                            "env",
-                            out var directives
-                        )
-                    ) {
+                    if (context.ParseResult.Directives.TryGetValues("env", out var directives))
+                    {
                         foreach (var envDirective in directives)
                         {
-                            var components = envDirective.Split(
-                                new[] { '=' },
-                                count: 2
-                            );
+                            var components = envDirective.Split(new[] { '=' }, count: 2);
                             var variable = components.Length > 0
                                 ? components[0].Trim()
                                 : string.Empty;
-                            if (
-                                string.IsNullOrEmpty(variable) ||
-                                components.Length < 2
-                            ) {
+                            if (string.IsNullOrEmpty(variable) || components.Length < 2)
+                            {
                                 continue;
                             }
                             var value = components[1].Trim();
@@ -347,9 +313,8 @@ namespace System.CommandLine.Builder
             return builder;
         }
 
-        public static CommandLineBuilder UseDefaults(
-            this CommandLineBuilder builder
-        ) {
+        public static CommandLineBuilder UseDefaults(this CommandLineBuilder builder)
+        {
             return builder.UseVersionOption()
                 .UseHelp()
                 .UseEnvironmentVariableDirective()
@@ -401,9 +366,8 @@ namespace System.CommandLine.Builder
             }
         }
 
-        public static CommandLineBuilder UseHelp(
-            this CommandLineBuilder builder
-        ) {
+        public static CommandLineBuilder UseHelp(this CommandLineBuilder builder)
+        {
             return builder.UseHelp(new HelpOption());
         }
 
@@ -446,8 +410,7 @@ namespace System.CommandLine.Builder
             where THelpBuilder : IHelpBuilder {
             if (configureHelp is  {  } )
             {
-                builder.ConfigureHelp = helpBuilder =>
-                    configureHelp((THelpBuilder)helpBuilder);
+                builder.ConfigureHelp = helpBuilder => configureHelp((THelpBuilder)helpBuilder);
             }
             else
             {
@@ -505,9 +468,7 @@ namespace System.CommandLine.Builder
                 {
                     if (context.ParseResult.Directives.Contains("parse"))
                     {
-                        context.InvocationResult = new ParseDirectiveResult(
-                            errorExitCode
-                        );
+                        context.InvocationResult = new ParseDirectiveResult(errorExitCode);
                     }
                     else
                     {
@@ -529,9 +490,7 @@ namespace System.CommandLine.Builder
                 {
                     if (context.ParseResult.Errors.Count > 0)
                     {
-                        context.InvocationResult = new ParseErrorResult(
-                            errorExitCode
-                        );
+                        context.InvocationResult = new ParseErrorResult(errorExitCode);
                     }
                     else
                     {
@@ -543,18 +502,13 @@ namespace System.CommandLine.Builder
             return builder;
         }
 
-        public static CommandLineBuilder UseSuggestDirective(
-            this CommandLineBuilder builder
-        ) {
+        public static CommandLineBuilder UseSuggestDirective(this CommandLineBuilder builder)
+        {
             builder.AddMiddleware(
                 async (context, next) =>
                 {
-                    if (
-                        context.ParseResult.Directives.TryGetValues(
-                            "suggest",
-                            out var values
-                        )
-                    ) {
+                    if (context.ParseResult.Directives.TryGetValues("suggest", out var values))
+                    {
                         int position;
 
                         if (values.FirstOrDefault() is  {  } positionString)
@@ -563,13 +517,10 @@ namespace System.CommandLine.Builder
                         }
                         else
                         {
-                            position = context.ParseResult.RawInput?.Length ??
-                            0;
+                            position = context.ParseResult.RawInput?.Length ?? 0;
                         }
 
-                        context.InvocationResult = new SuggestDirectiveResult(
-                            position
-                        );
+                        context.InvocationResult = new SuggestDirectiveResult(position);
                     }
                     else
                     {
@@ -590,17 +541,12 @@ namespace System.CommandLine.Builder
                 async (context, next) =>
                 {
                     if (
-                        context.ParseResult.UnmatchedTokens.Count > 0 &&
-                        context.ParseResult.CommandResult.Command.TreatUnmatchedTokensAsErrors
+                        context.ParseResult.UnmatchedTokens.Count > 0
+                        && context.ParseResult.CommandResult.Command.TreatUnmatchedTokensAsErrors
                     ) {
-                        var typoCorrection = new TypoCorrection(
-                            maxLevenshteinDistance
-                        );
+                        var typoCorrection = new TypoCorrection(maxLevenshteinDistance);
 
-                        typoCorrection.ProvideSuggestions(
-                            context.ParseResult,
-                            context.Console
-                        );
+                        typoCorrection.ProvideSuggestions(context.ParseResult, context.Console);
                     }
                     await next(context);
                 },
@@ -651,23 +597,15 @@ namespace System.CommandLine.Builder
             builder.AddMiddleware(
                 async (context, next) =>
                 {
-                    if (
-                        context.ParseResult.FindResultFor(
-                            versionOption
-                        ) is  {  } result
-                    ) {
-                        if (
-                            result.ArgumentConversionResult.ErrorMessage is  {  }
-                        ) {
-                            context.InvocationResult = new ParseErrorResult(
-                                errorExitCode
-                            );
+                    if (context.ParseResult.FindResultFor(versionOption) is  {  } result)
+                    {
+                        if (result.ArgumentConversionResult.ErrorMessage is  {  } )
+                        {
+                            context.InvocationResult = new ParseErrorResult(errorExitCode);
                         }
                         else
                         {
-                            context.Console.Out.WriteLine(
-                                _assemblyVersion.Value
-                            );
+                            context.Console.Out.WriteLine(_assemblyVersion.Value);
                         }
                     }
                     else
@@ -681,10 +619,8 @@ namespace System.CommandLine.Builder
             return builder;
         }
 
-        private static bool ShowHelp(
-            InvocationContext context,
-            IOption helpOption
-        ) {
+        private static bool ShowHelp(InvocationContext context, IOption helpOption)
+        {
             if (context.ParseResult.FindResultFor(helpOption) != null)
             {
                 context.InvocationResult = new HelpResult();

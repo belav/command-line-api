@@ -12,8 +12,7 @@ namespace System.CommandLine.Rendering.Tests
         [Fact]
         public void Content_span_length_is_the_same_as_the_contained_string_length()
         {
-            new ContentSpan("the content").ContentLength.Should()
-                .Be("the content".Length);
+            new ContentSpan("the content").ContentLength.Should().Be("the content".Length);
         }
 
         [Fact]
@@ -40,9 +39,7 @@ namespace System.CommandLine.Rendering.Tests
         public void Root_returns_the_outermost_parent_span()
         {
             var inner = new ContainerSpan();
-            var root = new ContainerSpan(
-                new ContainerSpan(new ContainerSpan(inner))
-            );
+            var root = new ContainerSpan(new ContainerSpan(new ContainerSpan(inner)));
 
             inner.Root.Should().BeSameAs(root);
         }
@@ -76,10 +73,7 @@ namespace System.CommandLine.Rendering.Tests
                 ForegroundColorSpan.Reset()
             );
 
-            var outerContainer = new ContainerSpan(
-                new ContentSpan("first"),
-                innerContainerSpan
-            );
+            var outerContainer = new ContainerSpan(new ContentSpan("first"), innerContainerSpan);
 
             innerContainerSpan[0].Start.Should().Be("first".Length);
             innerContainerSpan[1].Start.Should().Be("first".Length);

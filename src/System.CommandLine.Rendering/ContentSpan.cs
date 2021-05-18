@@ -16,8 +16,7 @@ namespace System.CommandLine.Rendering
 
         public override string ToString() => Content;
 
-        protected bool Equals(ContentSpan other) =>
-            string.Equals(Content, other.Content);
+        protected bool Equals(ContentSpan other) => string.Equals(Content, other.Content);
 
         public override bool Equals(object obj)
         {

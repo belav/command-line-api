@@ -43,8 +43,7 @@ namespace System.CommandLine
                         location = commandLineArgs[0];
                     }
                 }
-                return Path.GetFileNameWithoutExtension(location)
-                    .Replace(" ", "");
+                return Path.GetFileNameWithoutExtension(location).Replace(" ", "");
             }
         );
 
@@ -63,9 +62,8 @@ namespace System.CommandLine
 
         private protected override void RemoveAlias(string alias)
         {
-            if (
-                !string.Equals(alias, ExecutableName, StringComparison.Ordinal)
-            ) {
+            if (!string.Equals(alias, ExecutableName, StringComparison.Ordinal))
+            {
                 base.RemoveAlias(alias);
             }
         }

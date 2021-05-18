@@ -13,9 +13,7 @@ namespace System.CommandLine.Benchmarks
     {
         static int Main(string[] args)
         {
-            var result = BenchmarkSwitcher.FromAssembly(
-                    typeof(Program).Assembly
-                )
+            var result = BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly)
 #if DEBUG
                 .Run(args, new DebugInProcessConfig());
             Console.ReadLine();
@@ -25,9 +23,7 @@ namespace System.CommandLine.Benchmarks
                     RecommendedConfig.Create(
                         artifactsPath: new DirectoryInfo(
                             Path.Combine(
-                                Path.GetDirectoryName(
-                                    typeof(Program).Assembly.Location
-                                ),
+                                Path.GetDirectoryName(typeof(Program).Assembly.Location),
                                 "BenchmarkDotNet.Artifacts"
                             )
                         ),
@@ -46,11 +42,10 @@ namespace System.CommandLine.Benchmarks
             if (
                 result.Any(
                     summary =>
-                        summary.HasCriticalValidationErrors ||
-                        summary.Reports.Any(
+                        summary.HasCriticalValidationErrors
+                        || summary.Reports.Any(
                             report =>
-                                !report.BuildResult.IsBuildSuccess ||
-                                !report.ExecuteResults.Any()
+                                !report.BuildResult.IsBuildSuccess || !report.ExecuteResults.Any()
                         )
                 )
             )

@@ -14,8 +14,7 @@ namespace System.CommandLine.Tests
         {
             var option = new Option<string>("-x", () => "default");
 
-            var result = new RootCommand { option }.Parse("-x")
-                .FindResultFor(option);
+            var result = new RootCommand { option }.Parse("-x").FindResultFor(option);
 
             result.Tokens.Should().BeEmpty();
         }
@@ -23,12 +22,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void HasOption_can_be_used_to_check_the_presence_of_an_option()
         {
-            var command = new Command(
-                "the-command"
-            )
-            {
-                new Option(new[] { "-h", "--help" })
-            };
+            var command = new Command("the-command") { new Option(new[] { "-h", "--help" }) };
 
             var result = command.Parse("the-command -h");
 
@@ -57,18 +51,8 @@ namespace System.CommandLine.Tests
                 "outer"
             )
             {
-                new Command(
-                    "inner-one"
-                )
-                {
-                    new Argument { Arity = ArgumentArity.Zero }
-                },
-                new Command(
-                    "inner-two"
-                )
-                {
-                    new Argument { Arity = ArgumentArity.Zero }
-                }
+                new Command("inner-one") { new Argument { Arity = ArgumentArity.Zero } },
+                new Command("inner-two") { new Argument { Arity = ArgumentArity.Zero } }
             };
 
             var result = new Parser(command).Parse("outer inner-one inner-two");
@@ -76,9 +60,7 @@ namespace System.CommandLine.Tests
             result.CommandResult.Symbol.Name.Should().Be("inner-one");
             result.Errors.Count.Should().Be(1);
 
-            var result2 = new Parser(command).Parse(
-                "outer inner-two inner-one"
-            );
+            var result2 = new Parser(command).Parse("outer inner-two inner-one");
 
             result2.CommandResult.Symbol.Name.Should().Be("inner-two");
             result2.Errors.Count.Should().Be(1);
@@ -96,10 +78,7 @@ namespace System.CommandLine.Tests
                 result.ValueForOption<string>(string.Empty);
             };
 
-            action.Should()
-                .Throw<ArgumentException>(
-                    "Value cannot be null or whitespace."
-                );
+            action.Should().Throw<ArgumentException>("Value cannot be null or whitespace.");
         }
     }
 }

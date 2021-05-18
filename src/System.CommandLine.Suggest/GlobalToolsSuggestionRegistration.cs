@@ -14,8 +14,7 @@ namespace System.CommandLine.Suggest
 
         public GlobalToolsSuggestionRegistration(
             string dotnetProfileDirectory = null,
-            IEnumerable<string> filesNameWithoutExtensionUnderDotnetProfileTools =
-                null
+            IEnumerable<string> filesNameWithoutExtensionUnderDotnetProfileTools = null
         ) {
             var directory = dotnetProfileDirectory;
             if (directory == null)
@@ -23,12 +22,10 @@ namespace System.CommandLine.Suggest
                 DotnetProfileDirectory.TryGet(out directory);
             }
 
-            _nullableToolsShimPath = directory != null
-                ? Path.Combine(directory, "tools")
-                : null;
+            _nullableToolsShimPath = directory != null ? Path.Combine(directory, "tools") : null;
 
-            _filesNameWithoutExtensionUnderDotnetProfileTools = filesNameWithoutExtensionUnderDotnetProfileTools ??
-            FileEnumerator.EnumerateFilesWithoutExtension(
+            _filesNameWithoutExtensionUnderDotnetProfileTools = filesNameWithoutExtensionUnderDotnetProfileTools
+            ?? FileEnumerator.EnumerateFilesWithoutExtension(
                 new DirectoryInfo(_nullableToolsShimPath)
             );
         }

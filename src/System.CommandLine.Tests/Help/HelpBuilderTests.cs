@@ -49,18 +49,16 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Synopsis_section_keeps_added_newlines()
         {
-            var command = new RootCommand(
-                $"test{NewLine}\r\ndescription with\nline breaks"
-            );
+            var command = new RootCommand($"test{NewLine}\r\ndescription with\nline breaks");
 
             _helpBuilder.Write(command);
 
             var expected =
-                $"{_executableName}{NewLine}" +
-                $"{_indentation}test{NewLine}" +
-                $"{_indentation}{NewLine}" +
-                $"{_indentation}description with{NewLine}" +
-                $"{_indentation}line breaks{NewLine}{NewLine}";
+                $"{_executableName}{NewLine}"
+                + $"{_indentation}test{NewLine}"
+                + $"{_indentation}{NewLine}"
+                + $"{_indentation}description with{NewLine}"
+                + $"{_indentation}line breaks{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -69,9 +67,9 @@ namespace System.CommandLine.Tests.Help
         public void Synopsis_section_properly_wraps_description()
         {
             var longSynopsisText =
-                $"test\t" +
-                $"description with some tabs that is long enough to wrap to a\t" +
-                $"new line";
+                $"test\t"
+                + $"description with some tabs that is long enough to wrap to a\t"
+                + $"new line";
 
             var command = new RootCommand(description: longSynopsisText);
 
@@ -79,9 +77,9 @@ namespace System.CommandLine.Tests.Help
             helpBuilder.Write(command);
 
             var expected =
-                $@"{_executableName}{NewLine}" +
-                $"{_indentation}test\tdescription with some tabs that is long enough to wrap to a\t{NewLine}" +
-                $"{_indentation}new line{NewLine}{NewLine}";
+                $@"{_executableName}{NewLine}"
+                + $"{_indentation}test\tdescription with some tabs that is long enough to wrap to a\t{NewLine}"
+                + $"{_indentation}new line{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -124,12 +122,7 @@ namespace System.CommandLine.Tests.Help
             )
             {
                 argument,
-                new Option(
-                    new[] { "-v", "--verbosity" }
-                )
-                {
-                    Description = "Sets the verbosity"
-                }
+                new Option(new[] { "-v", "--verbosity" }) { Description = "Sets the verbosity" }
             };
             var rootCommand = new RootCommand();
             rootCommand.AddCommand(command);
@@ -137,8 +130,8 @@ namespace System.CommandLine.Tests.Help
             new HelpBuilder(_console, LargeMaxWidth).Write(command);
 
             var expected =
-                $"Usage:{NewLine}" +
-                $"{_indentation}{_executableName} [options] the-command {expectedDescriptor}";
+                $"Usage:{NewLine}"
+                + $"{_indentation}{_executableName} [options] the-command {expectedDescriptor}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -180,8 +173,8 @@ namespace System.CommandLine.Tests.Help
             _helpBuilder.Write(command);
 
             var expected =
-                $"Usage:{NewLine}" +
-                $"{_indentation}{_executableName} [options] the-command {expectedDescriptor}";
+                $"Usage:{NewLine}"
+                + $"{_indentation}{_executableName} [options] the-command {expectedDescriptor}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -201,8 +194,8 @@ namespace System.CommandLine.Tests.Help
             _helpBuilder.Write(innerEr);
 
             var expected =
-                $"Usage:{NewLine}" +
-                $"{_indentation}{_executableName} [options] outer inner inner-er";
+                $"Usage:{NewLine}"
+                + $"{_indentation}{_executableName} [options] outer inner inner-er";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -230,8 +223,8 @@ namespace System.CommandLine.Tests.Help
             _helpBuilder.Write(inner);
 
             var expected =
-                $"Usage:{NewLine}" +
-                $"{_indentation}outer [options] [<outer-args>...] inner [<inner-args>...]";
+                $"Usage:{NewLine}"
+                + $"{_indentation}outer [options] [<outer-args>...] inner [<inner-args>...]";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -258,9 +251,7 @@ namespace System.CommandLine.Tests.Help
 
             _helpBuilder.Write(subcommand);
 
-            _console.Out.ToString()
-                .Should()
-                .NotContain("<additional arguments>");
+            _console.Out.ToString().Should().NotContain("<additional arguments>");
         }
 
         [Fact]
@@ -285,10 +276,7 @@ namespace System.CommandLine.Tests.Help
                 "command help"
             )
             {
-                new Argument<string[]>
-                {
-                    Name = $"outer args {NewLine}\r\nwith new\nlines"
-                },
+                new Argument<string[]> { Name = $"outer args {NewLine}\r\nwith new\nlines" },
                 new Command(
                     "inner-command",
                     "command help"
@@ -301,11 +289,11 @@ namespace System.CommandLine.Tests.Help
             _helpBuilder.Write(outer);
 
             var expected =
-                $"Usage:{NewLine}" +
-                $"{_indentation}outer-command [<outer args {NewLine}" +
-                $"{_indentation}{NewLine}" +
-                $"{_indentation}with new{NewLine}" +
-                $"{_indentation}lines>...] [command]{NewLine}{NewLine}";
+                $"Usage:{NewLine}"
+                + $"{_indentation}outer-command [<outer args {NewLine}"
+                + $"{_indentation}{NewLine}"
+                + $"{_indentation}with new{NewLine}"
+                + $"{_indentation}lines>...] [command]{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -320,10 +308,7 @@ namespace System.CommandLine.Tests.Help
                 "command help"
             )
             {
-                new Argument<string[]>
-                {
-                    Name = "outer args long enough to wrap to a new line"
-                },
+                new Argument<string[]> { Name = "outer args long enough to wrap to a new line" },
                 new Command(
                     "inner-command",
                     "command help"
@@ -340,9 +325,9 @@ namespace System.CommandLine.Tests.Help
             helpBuilder.Write(outerCommand);
 
             var expected =
-                $"Usage:{NewLine}" +
-                $"{_indentation}System.CommandLine outer-command [<outer args long enough to wrap {NewLine}" +
-                $"{_indentation}to a new line>...] [command]{NewLine}{NewLine}";
+                $"Usage:{NewLine}"
+                + $"{_indentation}System.CommandLine outer-command [<outer args long enough to wrap {NewLine}"
+                + $"{_indentation}to a new line>...] [command]{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -353,24 +338,16 @@ namespace System.CommandLine.Tests.Help
             var commandName = "the-command";
             var visibleArgName = "visible";
             var command = new Command(commandName, "Does things");
-            var hiddenArg = new Argument<int>
-            {
-                Name = "hidden",
-                IsHidden = true
-            };
-            var visibleArg = new Argument<int>
-            {
-                Name = visibleArgName,
-                IsHidden = false
-            };
+            var hiddenArg = new Argument<int> { Name = "hidden", IsHidden = true };
+            var visibleArg = new Argument<int> { Name = visibleArgName, IsHidden = false };
             command.AddArgument(hiddenArg);
             command.AddArgument(visibleArg);
 
             _helpBuilder.Write(command);
 
             var expected =
-                $"Usage:{NewLine}" +
-                $"{_indentation}{commandName} <{visibleArgName}>{NewLine}{NewLine}";
+                $"Usage:{NewLine}"
+                + $"{_indentation}{commandName} <{visibleArgName}>{NewLine}{NewLine}";
 
             string help = _console.Out.ToString();
             help.Should().Contain(expected);
@@ -494,8 +471,8 @@ namespace System.CommandLine.Tests.Help
             };
 
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}<the-arg>{_columnPadding}Help text from HelpDetail";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}<the-arg>{_columnPadding}Help text from HelpDetail";
 
             _helpBuilder.Write(command);
 
@@ -526,8 +503,8 @@ namespace System.CommandLine.Tests.Help
             command.AddArgument(visibleArg);
 
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}<{visibleArgName}>{_columnPadding}{visibleDesc}{NewLine}{NewLine}";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}<{visibleArgName}>{_columnPadding}{visibleDesc}{NewLine}{NewLine}";
 
             _helpBuilder.Write(command);
             var help = _console.Out.ToString();
@@ -554,8 +531,8 @@ namespace System.CommandLine.Tests.Help
 
             help.Should()
                 .Contain(
-                    $"Arguments:{NewLine}" +
-                    $"  <reused>{_columnPadding}This argument is valid on both outer and inner commands{NewLine}{NewLine}"
+                    $"Arguments:{NewLine}"
+                    + $"  <reused>{_columnPadding}This argument is valid on both outer and inner commands{NewLine}{NewLine}"
                 );
         }
 
@@ -587,9 +564,9 @@ namespace System.CommandLine.Tests.Help
             };
 
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}<outer-command-arg>    {_columnPadding}The argument for the outer command{NewLine}" +
-                $"{_indentation}<the-inner-command-arg>{_columnPadding}The argument for the inner command";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}<outer-command-arg>    {_columnPadding}The argument for the outer command{NewLine}"
+                + $"{_indentation}<the-inner-command-arg>{_columnPadding}The argument for the inner command";
 
             _helpBuilder.Write(inner);
 
@@ -615,10 +592,10 @@ namespace System.CommandLine.Tests.Help
             _helpBuilder.Write(command);
 
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}<outer-command-arg>{_columnPadding}The argument{NewLine}" +
-                $"{_indentation}                   {_columnPadding}for the{NewLine}" +
-                $"{_indentation}                   {_columnPadding}inner command{NewLine}{NewLine}";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}<outer-command-arg>{_columnPadding}The argument{NewLine}"
+                + $"{_indentation}                   {_columnPadding}for the{NewLine}"
+                + $"{_indentation}                   {_columnPadding}inner command{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -644,12 +621,12 @@ namespace System.CommandLine.Tests.Help
             helpBuilder.Write(command);
 
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}<outer-com{_columnPadding}The {NewLine}" +
-                $"{_indentation}mand-arg> {_columnPadding}argument{NewLine}" +
-                $"{_indentation}          {_columnPadding}for the{NewLine}" +
-                $"{_indentation}          {_columnPadding}inner {NewLine}" +
-                $"{_indentation}          {_columnPadding}command{NewLine}{NewLine}";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}<outer-com{_columnPadding}The {NewLine}"
+                + $"{_indentation}mand-arg> {_columnPadding}argument{NewLine}"
+                + $"{_indentation}          {_columnPadding}for the{NewLine}"
+                + $"{_indentation}          {_columnPadding}inner {NewLine}"
+                + $"{_indentation}          {_columnPadding}command{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -658,9 +635,9 @@ namespace System.CommandLine.Tests.Help
         public void Arguments_section_properly_wraps_description()
         {
             var longCmdText =
-                $"Argument\t" +
-                $"for inner command with some tabs that is long enough to wrap to a\t" +
-                $"new line";
+                $"Argument\t"
+                + $"for inner command with some tabs that is long enough to wrap to a\t"
+                + $"new line";
 
             var command = new Command(
                 "outer",
@@ -680,9 +657,9 @@ namespace System.CommandLine.Tests.Help
             helpBuilder.Write(command);
 
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}<outer-command-arg>{_columnPadding}Argument\tfor inner command with some tabs that {NewLine}" +
-                $"{_indentation}                   {_columnPadding}is long enough to wrap to a\tnew line{NewLine}{NewLine}";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}<outer-command-arg>{_columnPadding}Argument\tfor inner command with some tabs that {NewLine}"
+                + $"{_indentation}                   {_columnPadding}is long enough to wrap to a\tnew line{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -690,8 +667,7 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Arguments_section_properly_wraps()
         {
-            var name =
-                "argument-name-for-a-command-that-is-long-enough-to-wrap-to-a-new-line";
+            var name = "argument-name-for-a-command-that-is-long-enough-to-wrap-to-a-new-line";
             var description =
                 "Argument description for a command with line breaks that is long enough to wrap to a new line.";
 
@@ -704,11 +680,11 @@ namespace System.CommandLine.Tests.Help
             helpBuilder.Write(command);
 
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}<argument-name-for-a-command-that{_columnPadding}Argument description for a {NewLine}" +
-                $"{_indentation}-is-long-enough-to-wrap-to-a-new-{_columnPadding}command with line breaks that is {NewLine}" +
-                $"{_indentation}line>                            {_columnPadding}long enough to wrap to a new {NewLine}" +
-                $"{_indentation}                                 {_columnPadding}line.{NewLine}{NewLine}";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}<argument-name-for-a-command-that{_columnPadding}Argument description for a {NewLine}"
+                + $"{_indentation}-is-long-enough-to-wrap-to-a-new-{_columnPadding}command with line breaks that is {NewLine}"
+                + $"{_indentation}line>                            {_columnPadding}long enough to wrap to a new {NewLine}"
+                + $"{_indentation}                                 {_columnPadding}line.{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -716,9 +692,8 @@ namespace System.CommandLine.Tests.Help
         [Theory]
         [InlineData(typeof(bool))]
         [InlineData(typeof(bool?))]
-        public void Command_argument_descriptor_is_empty_for_boolean_values(
-            Type type
-        ) {
+        public void Command_argument_descriptor_is_empty_for_boolean_values(Type type)
+        {
             var description = "This is the argument description";
 
             var command = new Command(
@@ -733,9 +708,7 @@ namespace System.CommandLine.Tests.Help
 
             helpBuilder.Write(command);
 
-            var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}{_columnPadding}{description}";
+            var expected = $"Arguments:{NewLine}" + $"{_indentation}{_columnPadding}{description}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -743,9 +716,8 @@ namespace System.CommandLine.Tests.Help
         [Theory]
         [InlineData(typeof(FileAccess))]
         [InlineData(typeof(FileAccess?))]
-        public void Command_argument_descriptor_indicates_enums_values(
-            Type type
-        ) {
+        public void Command_argument_descriptor_indicates_enums_values(Type type)
+        {
             var description = "This is the argument description";
 
             var command = new Command(
@@ -761,8 +733,8 @@ namespace System.CommandLine.Tests.Help
             helpBuilder.Write(command);
 
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}<Read|ReadWrite|Write>{_columnPadding}{description}";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}<Read|ReadWrite|Write>{_columnPadding}{description}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -770,9 +742,8 @@ namespace System.CommandLine.Tests.Help
         [Theory]
         [InlineData(typeof(bool))]
         [InlineData(typeof(bool?))]
-        public void Option_argument_descriptor_is_empty_for_boolean_values(
-            Type type
-        ) {
+        public void Option_argument_descriptor_is_empty_for_boolean_values(Type type)
+        {
             var description = "This is the option description";
 
             var command = new Command(
@@ -787,17 +758,14 @@ namespace System.CommandLine.Tests.Help
 
             helpBuilder.Write(command);
 
-            _console.Out.ToString()
-                .Should()
-                .Contain($"--opt{_columnPadding}{description}");
+            _console.Out.ToString().Should().Contain($"--opt{_columnPadding}{description}");
         }
 
         [Theory]
         [InlineData(typeof(FileAccess))]
         [InlineData(typeof(FileAccess?))]
-        public void Option_argument_descriptor_indicates_enums_values(
-            Type type
-        ) {
+        public void Option_argument_descriptor_indicates_enums_values(Type type)
+        {
             var description = "This is the argument description";
 
             var command = new Command(
@@ -814,9 +782,7 @@ namespace System.CommandLine.Tests.Help
 
             _console.Out.ToString()
                 .Should()
-                .Contain(
-                    $"--opt <Read|ReadWrite|Write>{_columnPadding}{description}"
-                );
+                .Contain($"--opt <Read|ReadWrite|Write>{_columnPadding}{description}");
         }
 
         [Fact]
@@ -829,13 +795,7 @@ namespace System.CommandLine.Tests.Help
             };
             argument.SetDefaultValue("the-arg-value");
 
-            var command = new Command(
-                "the-command",
-                "Help text from description"
-            )
-            {
-                argument
-            };
+            var command = new Command("the-command", "Help text from description") { argument };
 
             HelpBuilder helpBuilder = GetHelpBuilder(SmallMaxWidth);
 
@@ -870,9 +830,9 @@ namespace System.CommandLine.Tests.Help
             var help = _console.Out.ToString();
 
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}<the-arg>      {_columnPadding}[default: the-arg-value]{NewLine}" +
-                $"{_indentation}<the-other-arg>{_columnPadding}[default: the-other-arg-value]{NewLine}";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}<the-arg>      {_columnPadding}[default: the-arg-value]{NewLine}"
+                + $"{_indentation}<the-other-arg>{_columnPadding}[default: the-other-arg-value]{NewLine}";
 
             help.Should().Contain(expected);
         }
@@ -893,8 +853,8 @@ namespace System.CommandLine.Tests.Help
 
             _helpBuilder.Write(command);
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}<filter-size>{_columnPadding}[default: 0|2|4]{NewLine}{NewLine}";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}<filter-size>{_columnPadding}[default: 0|2|4]{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -902,24 +862,15 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Command_arguments_can_customize_default_value()
         {
-            var argument = new Argument<string>(
-                "some-arg",
-                getDefaultValue: () => "not 42"
-            );
-            var command = new Command(
-                "the-command",
-                "command help"
-            )
-            {
-                argument
-            };
+            var argument = new Argument<string>("some-arg", getDefaultValue: () => "not 42");
+            var command = new Command("the-command", "command help") { argument };
 
             _helpBuilder.Customize(argument, defaultValue: "42");
 
             _helpBuilder.Write(command);
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}<some-arg>{_columnPadding}[default: 42]{NewLine}{NewLine}";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}<some-arg>{_columnPadding}[default: 42]{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -927,24 +878,15 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Command_arguments_can_customize_dedescriptor()
         {
-            var argument = new Argument<string>(
-                "some-arg",
-                getDefaultValue: () => "not 42"
-            );
-            var command = new Command(
-                "the-command",
-                "command help"
-            )
-            {
-                argument
-            };
+            var argument = new Argument<string>("some-arg", getDefaultValue: () => "not 42");
+            var command = new Command("the-command", "command help") { argument };
 
             _helpBuilder.Customize(argument, descriptor: "some-other-arg");
 
             _helpBuilder.Write(command);
             var expected =
-                $"Arguments:{NewLine}" +
-                $"{_indentation}some-other-arg{_columnPadding}[default: not 42]{NewLine}{NewLine}";
+                $"Arguments:{NewLine}"
+                + $"{_indentation}some-other-arg{_columnPadding}[default: not 42]{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1007,12 +949,8 @@ namespace System.CommandLine.Tests.Help
         public void Options_section_does_not_contain_option_with_HelpDefinition_that_IsHidden()
         {
             var command = new Command("the-command");
-            command.AddOption(
-                new Option("-x", "Is Hidden") { IsHidden = true }
-            );
-            command.AddOption(
-                new Option("-n", "Not Hidden") { IsHidden = false }
-            );
+            command.AddOption(new Option("-x", "Is Hidden") { IsHidden = true });
+            command.AddOption(new Option("-n", "Not Hidden") { IsHidden = false });
 
             _helpBuilder.Write(command);
 
@@ -1031,23 +969,14 @@ namespace System.CommandLine.Tests.Help
                 "Help text for the command"
             )
             {
-                new Option(
-                    new[] { "-a", "--aaa" },
-                    "An option with 8 characters"
-                ),
-                new Option(
-                    new[] { "-b", "--bbbbbbbbbb" },
-                    "An option with 15 characters"
-                )
+                new Option(new[] { "-a", "--aaa" }, "An option with 8 characters"),
+                new Option(new[] { "-b", "--bbbbbbbbbb" }, "An option with 15 characters")
             };
 
             _helpBuilder.Write(command);
 
             var help = _console.Out.ToString();
-            var lines = help.Split(
-                new[] { '\r', '\n' },
-                StringSplitOptions.RemoveEmptyEntries
-            );
+            var lines = help.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             var optionA = lines.Last(line => line.Contains("-a"));
             var optionB = lines.Last(line => line.Contains("-b"));
@@ -1065,10 +994,7 @@ namespace System.CommandLine.Tests.Help
                 "Help Test"
             )
             {
-                new Option(
-                    new[] { "-multi", "--alt-option" },
-                    "HelpDetail for option"
-                )
+                new Option(new[] { "-multi", "--alt-option" }, "HelpDetail for option")
             };
 
             _helpBuilder.Write(command);
@@ -1086,10 +1012,7 @@ namespace System.CommandLine.Tests.Help
                 "Help Test"
             )
             {
-                new Option(
-                    new[] { "--m", "--alt-option" },
-                    "HelpDetail for option"
-                )
+                new Option(new[] { "--m", "--alt-option" }, "HelpDetail for option")
             };
 
             _helpBuilder.Write(command);
@@ -1105,20 +1028,17 @@ namespace System.CommandLine.Tests.Help
                 "Help text for the command"
             )
             {
-                new Option(
-                    new[] { "-a", "--aaa" },
-                    $"Help{NewLine}for \r\n the\noption"
-                )
+                new Option(new[] { "-a", "--aaa" }, $"Help{NewLine}for \r\n the\noption")
             };
 
             _helpBuilder.Write(command);
 
             var expected =
-                $"Options:{NewLine}" +
-                $"{_indentation}-a, --aaa{_columnPadding}Help{NewLine}" +
-                $"{_indentation}         {_columnPadding}for {NewLine}" +
-                $"{_indentation}         {_columnPadding} the{NewLine}" +
-                $"{_indentation}         {_columnPadding}option{NewLine}{NewLine}";
+                $"Options:{NewLine}"
+                + $"{_indentation}-a, --aaa{_columnPadding}Help{NewLine}"
+                + $"{_indentation}         {_columnPadding}for {NewLine}"
+                + $"{_indentation}         {_columnPadding} the{NewLine}"
+                + $"{_indentation}         {_columnPadding}option{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1127,9 +1047,9 @@ namespace System.CommandLine.Tests.Help
         public void Options_section_properly_wraps_description()
         {
             var longOptionText =
-                $"The option\t" +
-                $"with some tabs that is long enough to wrap to a\t" +
-                $"new line";
+                $"The option\t"
+                + $"with some tabs that is long enough to wrap to a\t"
+                + $"new line";
 
             var command = new Command(
                 "test-command",
@@ -1143,9 +1063,9 @@ namespace System.CommandLine.Tests.Help
             helpBuilder.Write(command);
 
             var expected =
-                $"Options:{NewLine}" +
-                $"{_indentation}-a, --aaa{_columnPadding}The option\twith some tabs that is long enough to wrap to {NewLine}" +
-                $"{_indentation}         {_columnPadding}a\tnew line{NewLine}{NewLine}";
+                $"Options:{NewLine}"
+                + $"{_indentation}-a, --aaa{_columnPadding}The option\twith some tabs that is long enough to wrap to {NewLine}"
+                + $"{_indentation}         {_columnPadding}a\tnew line{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1153,8 +1073,7 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Options_section_properly_wraps()
         {
-            var alias =
-                "--option-alias-for-a-command-that-is-long-enough-to-wrap-to-a-new-line";
+            var alias = "--option-alias-for-a-command-that-is-long-enough-to-wrap-to-a-new-line";
             var description = "Option description that is long enough to wrap.";
 
             var command = new RootCommand { new Option(alias, description) };
@@ -1163,10 +1082,10 @@ namespace System.CommandLine.Tests.Help
             helpBuilder.Write(command);
 
             var expected =
-                $"Options:{NewLine}" +
-                $"{_indentation}--option-alias-for-a-command-that{_columnPadding}Option description that is long {NewLine}" +
-                $"{_indentation}-is-long-enough-to-wrap-to-a-new-{_columnPadding}enough to wrap.{NewLine}" +
-                $"{_indentation}line{NewLine}{NewLine}";
+                $"Options:{NewLine}"
+                + $"{_indentation}--option-alias-for-a-command-that{_columnPadding}Option description that is long {NewLine}"
+                + $"{_indentation}-is-long-enough-to-wrap-to-a-new-{_columnPadding}enough to wrap.{NewLine}"
+                + $"{_indentation}line{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1174,10 +1093,7 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Required_options_are_indicated()
         {
-            var command = new RootCommand
-            {
-                new Option("--required") { IsRequired = true }
-            };
+            var command = new RootCommand { new Option("--required") { IsRequired = true } };
 
             _helpBuilder.Write(command);
 
@@ -1216,10 +1132,7 @@ namespace System.CommandLine.Tests.Help
 
             var help = _console.Out.ToString();
 
-            help.Should()
-                .Contain(
-                    $"-?, -h, --help{_columnPadding}Show help and usage information"
-                );
+            help.Should().Contain($"-?, -h, --help{_columnPadding}Show help and usage information");
         }
 
         [Fact]
@@ -1237,10 +1150,7 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Options_aliases_differing_only_by_prefix_are_deduplicated_favoring_double_dashed_prefixes()
         {
-            var command = new RootCommand
-            {
-                new Option(new[] { "--long", "/long" })
-            };
+            var command = new RootCommand { new Option(new[] { "--long", "/long" }) };
 
             _helpBuilder.Write(command);
 
@@ -1262,28 +1172,16 @@ namespace System.CommandLine.Tests.Help
 
             _helpBuilder.Write(command);
             var help = _console.Out.ToString()
-                .Split(
-                    new[] { '\n', '\r' },
-                    StringSplitOptions.RemoveEmptyEntries
-                )
+                .Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(l => l.Trim());
 
-            help.Should()
-                .ContainInOrder(
-                    "-f, --first",
-                    "-s, --second",
-                    "--third",
-                    "-l, --last"
-                );
+            help.Should().ContainInOrder("-f, --first", "-s, --second", "--third", "-l, --last");
         }
 
         [Fact]
         public void Option_aliases_are_shown_before_long_names_regardless_of_alphabetical_order()
         {
-            var command = new RootCommand
-            {
-                new Option(new[] { "-z", "-a", "--zzz", "--aaa" })
-            };
+            var command = new RootCommand { new Option(new[] { "-z", "-a", "--zzz", "--aaa" }) };
 
             _helpBuilder.Write(command);
 
@@ -1335,8 +1233,8 @@ namespace System.CommandLine.Tests.Help
 
             _helpBuilder.Write(command);
             var expected =
-                $"Options:{NewLine}" +
-                $"{_indentation}--filter-size <filter-size>{_columnPadding}[default: 0|2|4]{NewLine}{NewLine}";
+                $"Options:{NewLine}"
+                + $"{_indentation}--filter-size <filter-size>{_columnPadding}[default: 0|2|4]{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1360,8 +1258,8 @@ namespace System.CommandLine.Tests.Help
 
             _helpBuilder.Write(command);
             var expected =
-                $"Options:{NewLine}" +
-                $"{_indentation}--prefixes <prefixes>{_columnPadding}[default: ^(TODO|BUG)|^HACK]{NewLine}{NewLine}";
+                $"Options:{NewLine}"
+                + $"{_indentation}--prefixes <prefixes>{_columnPadding}[default: ^(TODO|BUG)|^HACK]{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1369,18 +1267,15 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Option_can_customize_default_value()
         {
-            var option = new Option<string>(
-                "--the-option",
-                getDefaultValue: () => "not 42"
-            );
+            var option = new Option<string>("--the-option", getDefaultValue: () => "not 42");
             var command = new Command("the-command", "command help") { option };
 
             _helpBuilder.Customize(option, defaultValue: "42");
 
             _helpBuilder.Write(command);
             var expected =
-                $"Options:{NewLine}" +
-                $"{_indentation}--the-option <the-option>{_columnPadding}[default: 42]{NewLine}{NewLine}";
+                $"Options:{NewLine}"
+                + $"{_indentation}--the-option <the-option>{_columnPadding}[default: 42]{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1388,18 +1283,15 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Option_can_customize_descriptor()
         {
-            var option = new Option<string>(
-                "--the-option",
-                "option description"
-            );
+            var option = new Option<string>("--the-option", "option description");
             var command = new Command("the-command", "command help") { option };
 
             _helpBuilder.Customize(option, descriptor: "other-name");
 
             _helpBuilder.Write(command);
             var expected =
-                $"Options:{NewLine}" +
-                $"{_indentation}other-name{_columnPadding}option description{NewLine}{NewLine}";
+                $"Options:{NewLine}"
+                + $"{_indentation}other-name{_columnPadding}option description{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1434,14 +1326,7 @@ namespace System.CommandLine.Tests.Help
 
             var sibling = new Command("sibling", "sibling description");
 
-            var outer = new Command(
-                "outer",
-                "outer description"
-            )
-            {
-                sibling,
-                inner
-            };
+            var outer = new Command("outer", "outer description") { sibling, inner };
 
             _helpBuilder.Write(inner);
 
@@ -1469,11 +1354,11 @@ namespace System.CommandLine.Tests.Help
             _helpBuilder.Write(command);
 
             var expected =
-                $"Commands:{NewLine}" +
-                $"{_indentation}inner <inner-args>{_columnPadding}inner{NewLine}" +
-                $"{_indentation}                  {_columnPadding}command help {NewLine}" +
-                $"{_indentation}                  {_columnPadding} with {NewLine}" +
-                $"{_indentation}                  {_columnPadding}newlines{NewLine}{NewLine}";
+                $"Commands:{NewLine}"
+                + $"{_indentation}inner <inner-args>{_columnPadding}inner{NewLine}"
+                + $"{_indentation}                  {_columnPadding}command help {NewLine}"
+                + $"{_indentation}                  {_columnPadding} with {NewLine}"
+                + $"{_indentation}                  {_columnPadding}newlines{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1482,9 +1367,9 @@ namespace System.CommandLine.Tests.Help
         public void Subcommands_properly_wraps_description()
         {
             var longSubcommandDescription =
-                $"The\t" +
-                $"subcommand with some tabs that is long enough to wrap to a\t" +
-                $"new line";
+                $"The\t"
+                + $"subcommand with some tabs that is long enough to wrap to a\t"
+                + $"new line";
 
             var helpBuilder = GetHelpBuilder(SmallMaxWidth);
 
@@ -1507,9 +1392,9 @@ namespace System.CommandLine.Tests.Help
             helpBuilder.Write(command);
 
             var expected =
-                $"Commands:{NewLine}" +
-                $"{_indentation}inner-command <inner-args>{_columnPadding}The\tsubcommand with some tabs that is {NewLine}" +
-                $"{_indentation}                          {_columnPadding}long enough to wrap to a\tnew line{NewLine}{NewLine}";
+                $"Commands:{NewLine}"
+                + $"{_indentation}inner-command <inner-args>{_columnPadding}The\tsubcommand with some tabs that is {NewLine}"
+                + $"{_indentation}                          {_columnPadding}long enough to wrap to a\tnew line{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1517,8 +1402,7 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Subcommands_section_properly_wraps()
         {
-            var name =
-                "subcommand-name-that-is-long-enough-to-wrap-to-a-new-line";
+            var name = "subcommand-name-that-is-long-enough-to-wrap-to-a-new-line";
             var description =
                 "Subcommand description that is really long. So long that it caused the line to wrap.";
 
@@ -1528,10 +1412,10 @@ namespace System.CommandLine.Tests.Help
             helpBuilder.Write(command);
 
             var expected =
-                $"Commands:{NewLine}" +
-                $"{_indentation}subcommand-name-that-is-long-enou{_columnPadding}Subcommand description that is {NewLine}" +
-                $"{_indentation}gh-to-wrap-to-a-new-line         {_columnPadding}really long. So long that it {NewLine}" +
-                $"{_indentation}                                 {_columnPadding}caused the line to wrap.{NewLine}{NewLine}";
+                $"Commands:{NewLine}"
+                + $"{_indentation}subcommand-name-that-is-long-enou{_columnPadding}Subcommand description that is {NewLine}"
+                + $"{_indentation}gh-to-wrap-to-a-new-line         {_columnPadding}really long. So long that it {NewLine}"
+                + $"{_indentation}                                 {_columnPadding}caused the line to wrap.{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1553,18 +1437,8 @@ namespace System.CommandLine.Tests.Help
         public void Subcommand_help_does_not_contain_hidden_command()
         {
             var command = new Command("the-command", "Does things.");
-            var hiddenSubCommand = new Command(
-                "the-hidden"
-            )
-            {
-                IsHidden = true
-            };
-            var visibleSubCommand = new Command(
-                "the-visible"
-            )
-            {
-                IsHidden = false
-            };
+            var hiddenSubCommand = new Command("the-hidden") { IsHidden = true };
+            var visibleSubCommand = new Command("the-visible") { IsHidden = false };
             command.AddCommand(hiddenSubCommand);
             command.AddCommand(visibleSubCommand);
 
@@ -1580,16 +1454,8 @@ namespace System.CommandLine.Tests.Help
         {
             var command = new Command("the-command", "Does things.");
             var subCommand = new Command("the-subcommand");
-            var hidden = new Argument<int>()
-            {
-                Name = "the-hidden",
-                IsHidden = true
-            };
-            var visible = new Argument<int>()
-            {
-                Name = "the-visible",
-                IsHidden = false
-            };
+            var hidden = new Argument<int>() { Name = "the-hidden", IsHidden = true };
+            var visible = new Argument<int>() { Name = "the-visible", IsHidden = false };
             subCommand.AddArgument(hidden);
             subCommand.AddArgument(visible);
             command.AddCommand(subCommand);
@@ -1604,24 +1470,15 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Subcommand_can_customize_descriptor()
         {
-            var subcommand = new Command(
-                "subcommand",
-                "subcommand description"
-            );
-            var command = new Command(
-                "the-command",
-                "command help"
-            )
-            {
-                subcommand
-            };
+            var subcommand = new Command("subcommand", "subcommand description");
+            var command = new Command("the-command", "command help") { subcommand };
 
             _helpBuilder.Customize(subcommand, descriptor: "other-name");
 
             _helpBuilder.Write(command);
             var expected =
-                $"Commands:{NewLine}" +
-                $"{_indentation}other-name{_columnPadding}subcommand description{NewLine}{NewLine}";
+                $"Commands:{NewLine}"
+                + $"{_indentation}other-name{_columnPadding}subcommand description{NewLine}{NewLine}";
 
             _console.Out.ToString().Should().Contain(expected);
         }
@@ -1707,14 +1564,7 @@ namespace System.CommandLine.Tests.Help
             )
             {
                 new Argument<string> { Name = "outer-args" },
-                new Command(
-                    "inner",
-                    $"inner command help"
-                )
-                {
-                    argument,
-                    otherArgument
-                }
+                new Command("inner", $"inner command help") { argument, otherArgument }
             };
 
             HelpBuilder helpBuilder = GetHelpBuilder(LargeMaxWidth);
@@ -1723,10 +1573,7 @@ namespace System.CommandLine.Tests.Help
 
             var help = _console.Out.ToString();
 
-            help.Should()
-                .Contain(
-                    $"[the-arg: the-arg-value, the-other-arg: the-other-arg-value]"
-                );
+            help.Should().Contain($"[the-arg: the-arg-value, the-other-arg: the-other-arg-value]");
         }
 
         [Theory]
@@ -1741,8 +1588,7 @@ namespace System.CommandLine.Tests.Help
             Assert.Equal("maxWidth", ex.ParamName);
         }
 
-        private class CustomHelpBuilderThatAddsTextAfterDefaultText
-            : HelpBuilder
+        private class CustomHelpBuilderThatAddsTextAfterDefaultText : HelpBuilder
         {
             private readonly string _theTextToAdd;
 

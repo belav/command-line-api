@@ -18,12 +18,9 @@ namespace System.CommandLine.Tests.Binding
             [InlineData(typeof(int))]
             [InlineData(typeof(string))]
             [InlineData(typeof(DirectoryInfo))]
-            public void It_provides_the_names_of_the_handler_parameters(
-                Type parameterType
-            ) {
-                var method = typeof(HandlerDescriptorTests).GetMethod(
-                        nameof(Handler)
-                    )
+            public void It_provides_the_names_of_the_handler_parameters(Type parameterType)
+            {
+                var method = typeof(HandlerDescriptorTests).GetMethod(nameof(Handler))
                     .MakeGenericMethod(parameterType);
 
                 var descriptor = HandlerDescriptor.FromMethodInfo(method);
@@ -37,12 +34,9 @@ namespace System.CommandLine.Tests.Binding
             [InlineData(typeof(int))]
             [InlineData(typeof(string))]
             [InlineData(typeof(DirectoryInfo))]
-            public void It_provides_the_types_of_the_handler_parameters(
-                Type parameterType
-            ) {
-                var method = typeof(HandlerDescriptorTests).GetMethod(
-                        nameof(Handler)
-                    )
+            public void It_provides_the_types_of_the_handler_parameters(Type parameterType)
+            {
+                var method = typeof(HandlerDescriptorTests).GetMethod(nameof(Handler))
                     .MakeGenericMethod(parameterType);
 
                 var descriptor = HandlerDescriptor.FromMethodInfo(method);
@@ -59,12 +53,9 @@ namespace System.CommandLine.Tests.Binding
             [InlineData(typeof(int))]
             [InlineData(typeof(string))]
             [InlineData(typeof(DirectoryInfo))]
-            public void It_provides_the_names_of_the_handler_parameters(
-                Type parameterType
-            ) {
-                var method = typeof(HandlerDescriptorTests).GetMethod(
-                        nameof(Handler)
-                    )
+            public void It_provides_the_names_of_the_handler_parameters(Type parameterType)
+            {
+                var method = typeof(HandlerDescriptorTests).GetMethod(nameof(Handler))
                     .MakeGenericMethod(parameterType);
 
                 var descriptor = HandlerDescriptor.FromMethodInfo(method);
@@ -78,12 +69,9 @@ namespace System.CommandLine.Tests.Binding
             [InlineData(typeof(int))]
             [InlineData(typeof(string))]
             [InlineData(typeof(DirectoryInfo))]
-            public void It_provides_the_types_of_the_handler_parameters(
-                Type parameterType
-            ) {
-                var method = typeof(HandlerDescriptorTests).GetMethod(
-                        nameof(Handler)
-                    )
+            public void It_provides_the_types_of_the_handler_parameters(Type parameterType)
+            {
+                var method = typeof(HandlerDescriptorTests).GetMethod(nameof(Handler))
                     .MakeGenericMethod(parameterType);
 
                 var descriptor = HandlerDescriptor.FromMethodInfo(method);

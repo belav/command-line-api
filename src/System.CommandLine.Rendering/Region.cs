@@ -36,10 +36,8 @@ namespace System.CommandLine.Rendering
                 throw new ArgumentOutOfRangeException(nameof(left));
             }
 
-            Height = height ??
-            (Console.IsOutputRedirected ? 100 : Console.WindowHeight);
-            Width = width ??
-            (Console.IsOutputRedirected ? 100 : Console.WindowWidth);
+            Height = height ?? (Console.IsOutputRedirected ? 100 : Console.WindowHeight);
+            Width = width ?? (Console.IsOutputRedirected ? 100 : Console.WindowWidth);
             Top = top;
             Left = left;
 
@@ -63,7 +61,6 @@ namespace System.CommandLine.Rendering
 
         public bool IsOverwrittenOnRender { get; }
 
-        public override string ToString() =>
-            $" {Width}w × {Height}h @ {Left}x, {Top}y";
+        public override string ToString() => $" {Width}w × {Height}h @ {Left}x, {Top}y";
     }
 }

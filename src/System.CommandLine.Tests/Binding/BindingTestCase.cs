@@ -35,11 +35,6 @@ namespace System.CommandLine.Tests.Binding
             Action<T> assertBoundValue,
             string variationName = null
         ) =>
-            new BindingTestCase(
-                commandLine,
-                typeof(T),
-                o => assertBoundValue((T)o),
-                variationName
-            );
+            new BindingTestCase(commandLine, typeof(T), o => assertBoundValue((T)o), variationName);
     }
 }

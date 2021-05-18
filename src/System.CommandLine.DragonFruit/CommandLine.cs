@@ -47,13 +47,7 @@ namespace System.CommandLine.DragonFruit
             );
 
             //TODO The xml docs file name and location can be customized using <DocumentationFile> project property.
-            return await InvokeMethodAsync(
-                args,
-                entryMethod,
-                xmlDocsFilePath,
-                null,
-                console
-            );
+            return await InvokeMethodAsync(args, entryMethod, xmlDocsFilePath, null, console);
         }
 
         /// <summary>
@@ -86,13 +80,7 @@ namespace System.CommandLine.DragonFruit
             );
 
             //TODO The xml docs file name and location can be customized using <DocumentationFile> project property.
-            return InvokeMethod(
-                args,
-                entryMethod,
-                xmlDocsFilePath,
-                null,
-                console
-            );
+            return InvokeMethod(args, entryMethod, xmlDocsFilePath, null, console);
         }
 
         public static async Task<int> InvokeMethodAsync(
@@ -119,15 +107,9 @@ namespace System.CommandLine.DragonFruit
             return parser.Invoke(args, console);
         }
 
-        private static Parser BuildParser(
-            MethodInfo method,
-            string xmlDocsFilePath,
-            object target
-        ) {
-            var builder = new CommandLineBuilder().ConfigureRootCommandFromMethod(
-                    method,
-                    target
-                )
+        private static Parser BuildParser(MethodInfo method, string xmlDocsFilePath, object target)
+        {
+            var builder = new CommandLineBuilder().ConfigureRootCommandFromMethod(method, target)
                 .ConfigureHelpFromXmlComments(method, xmlDocsFilePath)
                 .UseDefaults()
                 .UseAnsiTerminalWhenAvailable();
@@ -182,10 +164,8 @@ namespace System.CommandLine.DragonFruit
             }
 
             if (
-                method.GetParameters()
-                    .FirstOrDefault(
-                        p => _argumentParameterNames.Contains(p.Name)
-                    ) is ParameterInfo argsParam
+                method.GetParameters().FirstOrDefault(p => _argumentParameterNames.Contains(p.Name))
+                    is ParameterInfo argsParam
             ) {
                 var argument = new Argument
                 {
@@ -228,26 +208,19 @@ namespace System.CommandLine.DragonFruit
 
             if (
                 XmlDocReader.TryLoad(
-                    xmlDocsFilePath ??
-                    GetDefaultXmlDocsFileLocation(
-                        method.DeclaringType.Assembly
-                    ),
+                    xmlDocsFilePath ?? GetDefaultXmlDocsFileLocation(method.DeclaringType.Assembly),
                     out var xmlDocs
                 )
             ) {
                 if (
-                    xmlDocs.TryGetMethodDescription(
-                        method,
-                        out CommandHelpMetadata metadata
-                    ) &&
-                    metadata.Description != null
+                    xmlDocs.TryGetMethodDescription(method, out CommandHelpMetadata metadata)
+                    && metadata.Description != null
                 ) {
                     builder.Command.Description = metadata.Description;
                     var options = builder.Options.ToArray();
 
-                    foreach (
-                        var parameterDescription in metadata.ParameterDescriptions
-                    ) {
+                    foreach (var parameterDescription in metadata.ParameterDescriptions)
+                    {
                         var kebabCasedParameterName = parameterDescription.Key.ToKebabCase();
 
                         var option = options.FirstOrDefault(
@@ -260,11 +233,8 @@ namespace System.CommandLine.DragonFruit
                         }
                         else
                         {
-                            for (
-                                var i = 0;
-                                i < builder.Command.Arguments.Count;
-                                i++
-                            ) {
+                            for (var i = 0; i < builder.Command.Arguments.Count; i++)
+                            {
                                 var argument = builder.Command.Arguments[i];
                                 if (
                                     string.Equals(
@@ -367,10 +337,7 @@ namespace System.CommandLine.DragonFruit
             // than the entry-assembly, then return nothing.
             if (assembly == Assembly.GetEntryAssembly())
             {
-                return Path.Combine(
-                    AppContext.BaseDirectory,
-                    assembly.GetName().Name + ".xml"
-                );
+                return Path.Combine(AppContext.BaseDirectory, assembly.GetName().Name + ".xml");
             }
 
             return string.Empty;

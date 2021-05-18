@@ -10,10 +10,7 @@ namespace System.CommandLine.Suggest
         public SuggestionShellScriptException(string message)
             : base(message) { }
 
-        public SuggestionShellScriptException(
-            string message,
-            Exception innerException
-        )
+        public SuggestionShellScriptException(string message, Exception innerException)
             : base(message, innerException) { }
     }
 }

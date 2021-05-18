@@ -119,10 +119,7 @@ namespace System.CommandLine.Rendering.Tests
 
             var expected = "red blue green or a little of each.";
 
-            renderer.RenderToRegion(
-                span,
-                new Region(0, 0, expected.Length, 1, false)
-            );
+            renderer.RenderToRegion(span, new Region(0, 0, expected.Length, 1, false));
 
             _terminal.Out.ToString().Should().Be(expected);
         }
@@ -138,10 +135,7 @@ namespace System.CommandLine.Rendering.Tests
 
             var expected = "red blue green or a little of each.";
 
-            renderer.RenderToRegion(
-                span,
-                new Region(0, 0, expected.Length, 1, false)
-            );
+            renderer.RenderToRegion(span, new Region(0, 0, expected.Length, 1, false));
 
             _terminal.Out.ToString().Should().Be(expected);
         }

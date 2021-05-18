@@ -52,8 +52,8 @@ namespace System.CommandLine.Parsing
 
             RawInput = rawInput;
 
-            _errors = errors ??
-            (parser.Configuration.RootCommand.TreatUnmatchedTokensAsErrors
+            _errors = errors
+            ?? (parser.Configuration.RootCommand.TreatUnmatchedTokensAsErrors
                 ? new List<ParseError>(unmatchedTokens.Count)
                 : new List<ParseError>());
 
@@ -93,25 +93,19 @@ namespace System.CommandLine.Parsing
         public IReadOnlyList<string> UnparsedTokens =>
             _unparsedTokens.Select(t => t.Value).ToArray();
 
-        public object? ValueForOption(string alias) =>
-            ValueForOption<object?>(alias);
+        public object? ValueForOption(string alias) => ValueForOption<object?>(alias);
 
-        public object? ValueForOption(Option option) =>
-            ValueForOption<object?>(option);
+        public object? ValueForOption(Option option) => ValueForOption<object?>(option);
 
-        public object? ValueForArgument(string alias) =>
-            ValueForArgument<object?>(alias);
+        public object? ValueForArgument(string alias) => ValueForArgument<object?>(alias);
 
-        public object? ValueForArgument(Argument argument) =>
-            ValueForArgument<object?>(argument);
+        public object? ValueForArgument(Argument argument) => ValueForArgument<object?>(argument);
 
         [return: MaybeNull]
         public T ValueForArgument<T>(Argument<T> argument)
         {
-            if (
-                FindResultFor(argument) is  {  } result &&
-                result.GetValueOrDefault<T>() is  {  } t
-            ) {
+            if (FindResultFor(argument) is  {  } result && result.GetValueOrDefault<T>() is  {  } t)
+            {
                 return t;
             }
 
@@ -121,10 +115,8 @@ namespace System.CommandLine.Parsing
         [return: MaybeNull]
         public T ValueForArgument<T>(Argument argument)
         {
-            if (
-                FindResultFor(argument) is  {  } result &&
-                result.GetValueOrDefault<T>() is  {  } t
-            ) {
+            if (FindResultFor(argument) is  {  } result && result.GetValueOrDefault<T>() is  {  } t)
+            {
                 return t;
             }
 
@@ -136,17 +128,11 @@ namespace System.CommandLine.Parsing
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentException(
-                    "Value cannot be null or whitespace.",
-                    nameof(name)
-                );
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(name));
             }
 
-            if (
-                CommandResult.Children.GetByAlias(
-                    name
-                ) is ArgumentResult argumentResult
-            ) {
+            if (CommandResult.Children.GetByAlias(name) is ArgumentResult argumentResult)
+            {
                 return argumentResult.GetValueOrDefault<T>();
             }
             else
@@ -158,10 +144,8 @@ namespace System.CommandLine.Parsing
         [return: MaybeNull]
         public T ValueForOption<T>(Option<T> option)
         {
-            if (
-                FindResultFor(option) is  {  } result &&
-                result.GetValueOrDefault<T>() is  {  } t
-            ) {
+            if (FindResultFor(option) is  {  } result && result.GetValueOrDefault<T>() is  {  } t)
+            {
                 return t;
             }
 
@@ -171,10 +155,8 @@ namespace System.CommandLine.Parsing
         [return: MaybeNull]
         public T ValueForOption<T>(Option option)
         {
-            if (
-                FindResultFor(option) is  {  } result &&
-                result.GetValueOrDefault<T>() is  {  } t
-            ) {
+            if (FindResultFor(option) is  {  } result && result.GetValueOrDefault<T>() is  {  } t)
+            {
                 return t;
             }
 
@@ -186,17 +168,11 @@ namespace System.CommandLine.Parsing
         {
             if (string.IsNullOrWhiteSpace(alias))
             {
-                throw new ArgumentException(
-                    "Value cannot be null or whitespace.",
-                    nameof(alias)
-                );
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(alias));
             }
 
-            if (
-                CommandResult.Children.GetByAlias(
-                    alias
-                ) is OptionResult optionResult
-            ) {
+            if (CommandResult.Children.GetByAlias(alias) is OptionResult optionResult)
+            {
                 return optionResult.GetValueOrDefault<T>();
             }
             else
@@ -205,8 +181,7 @@ namespace System.CommandLine.Parsing
             }
         }
 
-        public override string ToString() =>
-            $"{nameof(ParseResult)}: {this.Diagram()}";
+        public override string ToString() => $"{nameof(ParseResult)}: {this.Diagram()}";
 
         public ArgumentResult? FindResultFor(IArgument argument) =>
             _rootCommandResult.FindResultFor(argument);

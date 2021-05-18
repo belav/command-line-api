@@ -20,13 +20,7 @@ namespace System.CommandLine
             Func<object?>? getDefaultValue = null,
             IArgumentArity? arity = null
         )
-            : this(
-                new[] { alias },
-                description,
-                argumentType,
-                getDefaultValue,
-                arity
-            ) { }
+            : this(new[] { alias }, description, argumentType, getDefaultValue, arity) { }
 
         public Option(
             string[] aliases,
@@ -35,18 +29,11 @@ namespace System.CommandLine
             Func<object?>? getDefaultValue = null,
             IArgumentArity? arity = null
         )
-            : this(
-                aliases,
-                description,
-                CreateArgument(argumentType, getDefaultValue, arity)
-            ) { }
+            : this(aliases, description, CreateArgument(argumentType, getDefaultValue, arity)) { }
 
-        internal Option(
-            string[] aliases,
-            string? description,
-            Argument? argument
-        )
-            : base(description) {
+        internal Option(string[] aliases, string? description, Argument? argument)
+            : base(description)
+        {
             if (aliases is null)
             {
                 throw new ArgumentNullException(nameof(aliases));
@@ -77,9 +64,8 @@ namespace System.CommandLine
             Func<object?>? getDefaultValue,
             IArgumentArity? arity
         ) {
-            if (
-                argumentType is null && getDefaultValue is null && arity is null
-            ) {
+            if (argumentType is null && getDefaultValue is null && arity is null)
+            {
                 return null;
             }
 
@@ -159,8 +145,7 @@ namespace System.CommandLine
             _unprefixedAliases.Add(unprefixedAlias!);
         }
 
-        public void AddValidator(ValidateSymbol<OptionResult> validate) =>
-            Validators.Add(validate);
+        public void AddValidator(ValidateSymbol<OptionResult> validate) => Validators.Add(validate);
 
         public bool HasAliasIgnorePrefix(string alias) =>
             _unprefixedAliases.Contains(alias.RemovePrefix());
@@ -184,12 +169,9 @@ namespace System.CommandLine
 
         bool IValueDescriptor.HasDefaultValue => Argument.HasDefaultValue;
 
-        object? IValueDescriptor.GetDefaultValue() =>
-            Argument.GetDefaultValue();
+        object? IValueDescriptor.GetDefaultValue() => Argument.GetDefaultValue();
 
         private protected override string DefaultName =>
-            _implicitName ??= Aliases.OrderBy(a => a.Length)
-                .Last()
-                .RemovePrefix();
+            _implicitName ??= Aliases.OrderBy(a => a.Length).Last().RemovePrefix();
     }
 }

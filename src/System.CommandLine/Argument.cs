@@ -70,10 +70,8 @@ namespace System.CommandLine
                 {
                     if (ArgumentType.CanBeBoundFromScalarValue())
                     {
-                        if (
-                            Arity.MaximumNumberOfValues == 1 &&
-                            ArgumentType == typeof(bool)
-                        ) {
+                        if (Arity.MaximumNumberOfValues == 1 && ArgumentType == typeof(bool))
+                        {
                             _convertArguments = ArgumentConverter.TryConvertBoolArgument;
                         }
                         else
@@ -113,9 +111,7 @@ namespace System.CommandLine
         public Type ArgumentType
         {
             get => _argumentType;
-            set =>
-                _argumentType = value ??
-                throw new ArgumentNullException(nameof(value));
+            set => _argumentType = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         private protected override string DefaultName
@@ -198,11 +194,10 @@ namespace System.CommandLine
         /// </summary>
         /// <param name="getDefaultValue">The delegate to invoke to return the default value.</param>
         /// <remarks>In this overload, the <see cref="ArgumentResult"/> is provided to the delegate.</remarks>
-        public void SetDefaultValueFactory(
-            Func<ArgumentResult, object?> getDefaultValue
-        ) {
-            _defaultValueFactory = getDefaultValue ??
-            throw new ArgumentNullException(nameof(getDefaultValue));
+        public void SetDefaultValueFactory(Func<ArgumentResult, object?> getDefaultValue)
+        {
+            _defaultValueFactory = getDefaultValue
+            ?? throw new ArgumentNullException(nameof(getDefaultValue));
         }
 
         /// <summary>
@@ -210,8 +205,7 @@ namespace System.CommandLine
         /// </summary>
         public bool HasDefaultValue => _defaultValueFactory != null;
 
-        internal static Argument None =>
-            new Argument { Arity = ArgumentArity.Zero };
+        internal static Argument None => new Argument { Arity = ArgumentArity.Zero };
 
         internal void AddAllowedValues(IEnumerable<string> values)
         {

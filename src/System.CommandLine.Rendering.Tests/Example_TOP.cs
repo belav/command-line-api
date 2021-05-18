@@ -230,10 +230,7 @@ PID    COMMAND      %CPU TIME     #TH   #WQ  #PORT MEM    PURG   CMPRS  PGRP  PP
 
             _terminal = new TestTerminal { Width = 150 };
 
-            consoleRenderer = new ConsoleRenderer(
-                _terminal,
-                OutputMode.PlainText
-            );
+            consoleRenderer = new ConsoleRenderer(_terminal, OutputMode.PlainText);
         }
 
         [Fact]

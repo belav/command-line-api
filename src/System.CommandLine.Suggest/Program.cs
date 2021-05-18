@@ -9,9 +9,7 @@ namespace System.CommandLine.Suggest
 {
     public class Program
     {
-        internal static string DOTNET_SUGGEST_LOGGING = nameof(
-            DOTNET_SUGGEST_LOGGING
-        );
+        internal static string DOTNET_SUGGEST_LOGGING = nameof(DOTNET_SUGGEST_LOGGING);
 
         public static async Task<int> Main(string[] args)
         {

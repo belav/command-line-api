@@ -16,11 +16,7 @@ namespace System.CommandLine.Suggest.Tests
         public void Path_is_in_global_tools()
         {
             var dotnetProfileDirectory = Path.GetTempPath();
-            var validToolsPath = Path.Combine(
-                dotnetProfileDirectory,
-                "tools",
-                "play"
-            );
+            var validToolsPath = Path.Combine(dotnetProfileDirectory, "tools", "play");
             var fileInfo = new FileInfo(validToolsPath);
             var suggestionRegistration = new GlobalToolsSuggestionRegistration(
                 dotnetProfileDirectory,
@@ -36,10 +32,7 @@ namespace System.CommandLine.Suggest.Tests
         public void Invalid_global_tools_returns_null()
         {
             var dotnetProfileDirectory = Path.GetTempPath();
-            var invalidToolsPath = Path.Combine(
-                dotnetProfileDirectory,
-                "not-valid"
-            );
+            var invalidToolsPath = Path.Combine(dotnetProfileDirectory, "not-valid");
             var fileInfo = new FileInfo(invalidToolsPath);
             var suggestionRegistration = new GlobalToolsSuggestionRegistration(
                 dotnetProfileDirectory,
@@ -65,15 +58,9 @@ namespace System.CommandLine.Suggest.Tests
             registrationPairs.Should()
                 .BeEquivalentTo(
                     new Registration(
-                        Path.Combine(
-                            dotnetProfileDirectory,
-                            "tools",
-                            "dotnet-suggest"
-                        )
+                        Path.Combine(dotnetProfileDirectory, "tools", "dotnet-suggest")
                     ),
-                    new Registration(
-                        Path.Combine(dotnetProfileDirectory, "tools", "t-rex")
-                    )
+                    new Registration(Path.Combine(dotnetProfileDirectory, "tools", "t-rex"))
                 );
         }
     }

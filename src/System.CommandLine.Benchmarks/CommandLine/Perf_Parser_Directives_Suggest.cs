@@ -28,21 +28,11 @@ namespace System.CommandLine.Benchmarks.CommandLine
                 "eat"
             )
             {
-                new Option<string>("--fruit").AddSuggestions(
-                    "apple",
-                    "banana",
-                    "cherry"
-                ),
-                new Option<string>("--vegetable").AddSuggestions(
-                    "asparagus",
-                    "broccoli",
-                    "carrot"
-                )
+                new Option<string>("--fruit").AddSuggestions("apple", "banana", "cherry"),
+                new Option<string>("--vegetable").AddSuggestions("asparagus", "broccoli", "carrot")
             };
 
-            _testParser = new CommandLineBuilder(
-                eatCommand
-            ).UseSuggestDirective().Build();
+            _testParser = new CommandLineBuilder(eatCommand).UseSuggestDirective().Build();
         }
 
         [Params("[suggest:4] \"eat\"", "[suggest:13] \"eat --fruit\"")]

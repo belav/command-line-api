@@ -17,10 +17,7 @@ namespace System.CommandLine.Benchmarks.CommandLine
         private string _testSymbolsAsString;
         private Parser _testParser;
 
-        private IEnumerable<Option> GenerateTestOptions(
-            int count,
-            IArgumentArity arity
-        ) =>
+        private IEnumerable<Option> GenerateTestOptions(int count, IArgumentArity arity) =>
             Enumerable.Range(0, count)
                 .Select(
                     i =>
@@ -59,10 +56,7 @@ namespace System.CommandLine.Benchmarks.CommandLine
         [GlobalSetup(Target = nameof(ParserFromOptionsWithArguments_Parse))]
         public void SetupParserFromOptionsWithArguments_Parse()
         {
-            var testSymbolsArr = GenerateTestOptions(
-                    TestOptionsCount,
-                    ArgumentArity.OneOrMore
-                )
+            var testSymbolsArr = GenerateTestOptions(TestOptionsCount, ArgumentArity.OneOrMore)
                 .ToArray();
             _testParser = new Parser(testSymbolsArr);
             _testSymbolsAsString = GenerateTestOptionsWithArgumentsAsStringExpr(

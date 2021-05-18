@@ -32,11 +32,8 @@ namespace System.CommandLine.Benchmarks.CommandLine
         [Params(1, 2, 5)]
         public int TestCommandsDepth;
 
-        private void GenerateTestNestedCommands(
-            Command parent,
-            int depth,
-            int countPerLevel
-        ) {
+        private void GenerateTestNestedCommands(Command parent, int depth, int countPerLevel)
+        {
             if (depth == 0)
                 return;
 
@@ -55,22 +52,14 @@ namespace System.CommandLine.Benchmarks.CommandLine
             string rootCommandName = "root";
             var rootCommand = new Command(rootCommandName);
             _testSymbolsAsString = rootCommandName;
-            GenerateTestNestedCommands(
-                rootCommand,
-                TestCommandsDepth,
-                TestCommandsDepth
-            );
+            GenerateTestNestedCommands(rootCommand, TestCommandsDepth, TestCommandsDepth);
 
             // Choose only one path from the commands tree for the test arguments string
             ISymbol currentCmd = rootCommand;
             while (currentCmd.Children.Count > 0)
             {
                 currentCmd = currentCmd.Children[0];
-                _testSymbolsAsString = string.Join(
-                    " ",
-                    _testSymbolsAsString,
-                    currentCmd.Name
-                );
+                _testSymbolsAsString = string.Join(" ", _testSymbolsAsString, currentCmd.Name);
             }
 
             _rootCommand = rootCommand;
@@ -84,11 +73,9 @@ namespace System.CommandLine.Benchmarks.CommandLine
         }
 
         [Benchmark]
-        public Parser ParserFromNestedCommands_Ctor() =>
-            new Parser(_rootCommand);
+        public Parser ParserFromNestedCommands_Ctor() => new Parser(_rootCommand);
 
         [Benchmark]
-        public ParseResult Parser_Parse() =>
-            _testParser.Parse(_testSymbolsAsString);
+        public ParseResult Parser_Parse() => _testParser.Parse(_testSymbolsAsString);
     }
 }

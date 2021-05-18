@@ -13,12 +13,10 @@ namespace System.CommandLine.Binding
         private readonly MethodInfo _handlerMethodInfo;
         private readonly object? _invocationTarget;
 
-        public MethodInfoHandlerDescriptor(
-            MethodInfo handlerMethodInfo,
-            object? target = null
-        ) {
-            _handlerMethodInfo = handlerMethodInfo ??
-            throw new ArgumentNullException(nameof(handlerMethodInfo));
+        public MethodInfoHandlerDescriptor(MethodInfo handlerMethodInfo, object? target = null)
+        {
+            _handlerMethodInfo = handlerMethodInfo
+            ?? throw new ArgumentNullException(nameof(handlerMethodInfo));
             _invocationTarget = target;
         }
 
@@ -30,11 +28,7 @@ namespace System.CommandLine.Binding
             }
             else
             {
-                return new ModelBindingCommandHandler(
-                    _handlerMethodInfo,
-                    this,
-                    _invocationTarget
-                );
+                return new ModelBindingCommandHandler(_handlerMethodInfo, this, _invocationTarget);
             }
         }
 
@@ -42,7 +36,6 @@ namespace System.CommandLine.Binding
             ModelDescriptor.FromType(_handlerMethodInfo.DeclaringType);
 
         protected override IEnumerable<ParameterDescriptor> InitializeParameterDescriptors() =>
-            _handlerMethodInfo.GetParameters()
-                .Select(p => new ParameterDescriptor(p, this));
+            _handlerMethodInfo.GetParameters().Select(p => new ParameterDescriptor(p, this));
     }
 }

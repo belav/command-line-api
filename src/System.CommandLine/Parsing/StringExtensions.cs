@@ -11,22 +11,13 @@ namespace System.CommandLine.Parsing
 {
     public static class StringExtensions
     {
-        private static readonly string[] _optionPrefixStrings = {
-            "--",
-            "-",
-            "/"
-        };
+        private static readonly string[] _optionPrefixStrings = { "--", "-", "/" };
         private static readonly char[] _argumentDelimiters = { ':', '=' };
 
-        internal static bool ContainsCaseInsensitive(
-            this string source,
-            string value
-        ) => source.IndexOfCaseInsensitive(value) >= 0;
+        internal static bool ContainsCaseInsensitive(this string source, string value) =>
+            source.IndexOfCaseInsensitive(value) >= 0;
 
-        internal static int IndexOfCaseInsensitive(
-            this string source,
-            string value
-        ) =>
+        internal static int IndexOfCaseInsensitive(this string source, string value) =>
             CultureInfo.InvariantCulture.CompareInfo.IndexOf(
                 source,
                 value,
@@ -47,9 +38,8 @@ namespace System.CommandLine.Parsing
             return rawAlias;
         }
 
-        internal static (string? Prefix, string Alias) SplitPrefix(
-            this string rawAlias
-        ) {
+        internal static (string? Prefix, string Alias) SplitPrefix(this string rawAlias)
+        {
             for (var i = 0; i < _optionPrefixStrings.Length; i++)
             {
                 var prefix = _optionPrefixStrings[i];
@@ -96,10 +86,10 @@ namespace System.CommandLine.Parsing
                 if (!foundEndOfDirectives)
                 {
                     if (
-                        arg.StartsWith("[", StringComparison.Ordinal) &&
-                        arg.EndsWith("]", StringComparison.Ordinal) &&
-                        arg[1] != ']' &&
-                        arg[1] != ':'
+                        arg.StartsWith("[", StringComparison.Ordinal)
+                        && arg.EndsWith("]", StringComparison.Ordinal)
+                        && arg[1] != ']'
+                        && arg[1] != ':'
                     ) {
                         tokenList.Add(Directive(arg));
                         continue;
@@ -112,18 +102,16 @@ namespace System.CommandLine.Parsing
                 }
 
                 if (
-                    arg.GetResponseFileReference() is  {  } filePath &&
-                    configuration.ResponseFileHandling !=
-                    ResponseFileHandling.Disabled
+                    arg.GetResponseFileReference()
+                        is  {  } filePath
+                    && configuration.ResponseFileHandling != ResponseFileHandling.Disabled
                 ) {
                     ReadResponseFile(filePath, i);
                     continue;
                 }
 
-                if (
-                    configuration.EnablePosixBundling &&
-                    CanBeUnbundled(arg, out var replacement)
-                ) {
+                if (configuration.EnablePosixBundling && CanBeUnbundled(arg, out var replacement))
+                {
                     argList.InsertRange(i + 1, replacement);
                     argList.RemoveAt(i);
                     arg = argList[i];
@@ -132,16 +120,14 @@ namespace System.CommandLine.Parsing
                 if (arg.TrySplitIntoSubtokens(out var first, out var rest))
                 {
                     if (
-                        knownTokens.TryGetValue(first!, out var token) &&
-                        token.Type == TokenType.Option
+                        knownTokens.TryGetValue(first!, out var token)
+                        && token.Type == TokenType.Option
                     ) {
                         tokenList.Add(Option(first!));
 
                         // trim outer quotes in case of, e.g., -x="why"
                         var secondPartWithOuterQuotesRemoved = rest!.Trim('"');
-                        tokenList.Add(
-                            Argument(secondPartWithOuterQuotesRemoved)
-                        );
+                        tokenList.Add(Argument(secondPartWithOuterQuotesRemoved));
                     }
                     else
                     {
@@ -149,18 +135,18 @@ namespace System.CommandLine.Parsing
                     }
                 }
                 else if (
-                    !knownTokens.ContainsKey(arg) ||
+                    !knownTokens.ContainsKey(arg)
+                    ||
                     // if token matches the current command name, consider it an argument
-                    currentCommand?.HasAlias(arg) ==
-                    true
+                    currentCommand?.HasAlias(arg) == true
                 ) {
                     tokenList.Add(Argument(arg));
                 }
                 else
                 {
                     if (
-                        knownTokens.TryGetValue(arg, out var token) &&
-                        token.Type == TokenType.Option
+                        knownTokens.TryGetValue(arg, out var token)
+                        && token.Type == TokenType.Option
                     ) {
                         tokenList.Add(Option(arg));
                     }
@@ -186,31 +172,23 @@ namespace System.CommandLine.Parsing
                     }
                 }
 
-                Token Argument(string value) =>
-                    new Token(value, TokenType.Argument, i);
+                Token Argument(string value) => new Token(value, TokenType.Argument, i);
 
-                Token Command(string value) =>
-                    new Token(value, TokenType.Command, i);
+                Token Command(string value) => new Token(value, TokenType.Command, i);
 
-                Token Option(string value) =>
-                    new Token(value, TokenType.Option, i);
+                Token Option(string value) => new Token(value, TokenType.Option, i);
 
-                Token EndOfArguments() =>
-                    new Token("--", TokenType.EndOfArguments, i);
+                Token EndOfArguments() => new Token("--", TokenType.EndOfArguments, i);
 
-                Token Operand(string value) =>
-                    new Token(value, TokenType.Operand, i);
+                Token Operand(string value) => new Token(value, TokenType.Operand, i);
 
-                Token Directive(string value) =>
-                    new Token(value, TokenType.Directive, i);
+                Token Directive(string value) => new Token(value, TokenType.Directive, i);
             }
 
             return new TokenizeResult(tokenList, errorList);
 
-            bool CanBeUnbundled(
-                string arg,
-                out IReadOnlyList<string>? replacement
-            ) {
+            bool CanBeUnbundled(string arg, out IReadOnlyList<string>? replacement)
+            {
                 replacement = null;
 
                 if (arg.Length < 2)
@@ -231,12 +209,12 @@ namespace System.CommandLine.Parsing
 
                 // don't unbundle if the last token is an option expecting an argument
                 if (
-                    tokenList[tokenList.Count - 1] is  {  } lastToken &&
-                    lastToken.Type == TokenType.Option &&
-                    currentCommand?.Children.GetByAlias(
-                        lastToken.Value
-                    ) is IOption option &&
-                    option.Argument.Arity.MinimumNumberOfValues > 0
+                    tokenList[tokenList.Count - 1]
+                        is  {  } lastToken
+                    && lastToken.Type == TokenType.Option
+                    && currentCommand?.Children.GetByAlias(lastToken.Value)
+                        is IOption option
+                    && option.Argument.Arity.MinimumNumberOfValues > 0
                 ) {
                     return false;
                 }
@@ -272,10 +250,8 @@ namespace System.CommandLine.Parsing
 
                     foreach (var token in knownTokens.Values)
                     {
-                        if (
-                            token.Type == TokenType.Option &&
-                            token.UnprefixedValue == c.ToString()
-                        ) {
+                        if (token.Type == TokenType.Option && token.UnprefixedValue == c.ToString())
+                        {
                             return token;
                         }
                     }
@@ -328,9 +304,7 @@ namespace System.CommandLine.Parsing
                             }
                         }
 
-                        var option =
-                            currentCommand?.Children.GetByAlias(token.Value) as
-                            IOption;
+                        var option = currentCommand?.Children.GetByAlias(token.Value) as IOption;
                         builder.Add(token.Value);
 
                         // Here we're at an impass, because if we don't have the `IOption`
@@ -339,10 +313,8 @@ namespace System.CommandLine.Parsing
                         // `CanBeUnbundled` check to take the decision.
                         // A better option is probably introducing a new token-type, and resolve
                         // this after we have the correct model available.
-                        var requiresArgument =
-                            option?.Argument.Arity.MinimumNumberOfValues > 0;
-                        lastTokenHasArgument = option?.Argument.Arity.MaximumNumberOfValues >
-                        0;
+                        var requiresArgument = option?.Argument.Arity.MinimumNumberOfValues > 0;
+                        lastTokenHasArgument = option?.Argument.Arity.MaximumNumberOfValues > 0;
 
                         // If i == arg.Length - 1, we're already at the end of the string
                         // so no need for the custom handling of argument.
@@ -379,9 +351,7 @@ namespace System.CommandLine.Parsing
                 }
                 catch (FileNotFoundException)
                 {
-                    var message = configuration.ValidationMessages.ResponseFileNotFound(
-                        filePath
-                    );
+                    var message = configuration.ValidationMessages.ResponseFileNotFound(filePath);
 
                     errorList.Add(new TokenizeError(message));
                 }
@@ -422,10 +392,8 @@ namespace System.CommandLine.Parsing
                 }
 
                 if (
-                    potentialRootCommand != null &&
-                    commandLineConfiguration.RootCommand.HasAlias(
-                        potentialRootCommand
-                    )
+                    potentialRootCommand != null
+                    && commandLineConfiguration.RootCommand.HasAlias(potentialRootCommand)
                 ) {
                     list.AddRange(args);
                     return list;
@@ -568,12 +536,8 @@ namespace System.CommandLine.Parsing
                 {
                     if (p.GetResponseFileReference() is  {  } path)
                     {
-                        foreach (
-                            var q in ExpandResponseFile(
-                                path,
-                                responseFileHandling
-                            )
-                        ) {
+                        foreach (var q in ExpandResponseFile(path, responseFileHandling))
+                        {
                             yield return q;
                         }
                     }
@@ -601,11 +565,8 @@ namespace System.CommandLine.Parsing
                         break;
                     case ResponseFileHandling.ParseArgsAsSpaceSeparated:
 
-                        foreach (
-                            var word in CommandLineStringSplitter.Instance.Split(
-                                arg
-                            )
-                        ) {
+                        foreach (var word in CommandLineStringSplitter.Instance.Split(arg))
+                        {
                             yield return word;
                         }
                         break;
@@ -613,9 +574,8 @@ namespace System.CommandLine.Parsing
             }
         }
 
-        private static Dictionary<string, Token> ValidTokens(
-            this ICommand command
-        ) {
+        private static Dictionary<string, Token> ValidTokens(this ICommand command)
+        {
             var tokens = new Dictionary<string, Token>();
 
             for (
@@ -625,21 +585,12 @@ namespace System.CommandLine.Parsing
             ) {
                 var commandAlias = command.Aliases.ElementAt(commandAliasIndex);
 
-                tokens.Add(
-                    commandAlias,
-                    new Token(commandAlias, TokenType.Command, -1)
-                );
+                tokens.Add(commandAlias, new Token(commandAlias, TokenType.Command, -1));
 
-                for (
-                    var childIndex = 0;
-                    childIndex < command.Children.Count;
-                    childIndex++
-                ) {
-                    if (
-                        command.Children[
-                            childIndex
-                        ] is IIdentifierSymbol identifier
-                    ) {
+                for (var childIndex = 0; childIndex < command.Children.Count; childIndex++)
+                {
+                    if (command.Children[childIndex] is IIdentifierSymbol identifier)
+                    {
                         foreach (var childAlias in identifier.Aliases)
                         {
                             switch (identifier)
@@ -647,21 +598,13 @@ namespace System.CommandLine.Parsing
                                 case ICommand _:
                                     tokens.TryAdd(
                                         childAlias,
-                                        new Token(
-                                            childAlias,
-                                            TokenType.Command,
-                                            -1
-                                        )
+                                        new Token(childAlias, TokenType.Command, -1)
                                     );
                                     break;
                                 case IOption _:
                                     tokens.TryAdd(
                                         childAlias,
-                                        new Token(
-                                            childAlias,
-                                            TokenType.Option,
-                                            -1
-                                        )
+                                        new Token(childAlias, TokenType.Option, -1)
                                     );
                                     break;
                             }

@@ -20,15 +20,11 @@ namespace System.CommandLine.Tests.Invocation
         private const int SIGTERM = 15;
 
         [LinuxOnlyTheory]
-        [InlineData(
-            SIGINT,
-            Skip = "https://github.com/dotnet/command-line-api/issues/1206")] // Console.CancelKeyPress
+        [InlineData(SIGINT, Skip = "https://github.com/dotnet/command-line-api/issues/1206")] // Console.CancelKeyPress
         [InlineData(SIGTERM)] // AppDomain.CurrentDomain.ProcessExit
-        public async Task CancelOnProcessTermination_cancels_on_process_termination(
-            int signo
-        ) {
-            const string ChildProcessWaiting =
-                "Waiting for the command to be cancelled";
+        public async Task CancelOnProcessTermination_cancels_on_process_termination(int signo)
+        {
+            const string ChildProcessWaiting = "Waiting for the command to be cancelled";
             const int CancelledExitCode = 42;
 
             Func<string[], Task<int>> childProgram = (
@@ -79,8 +75,7 @@ namespace System.CommandLine.Tests.Invocation
                 System.Diagnostics.Process process = program.Process;
 
                 // Wait for the child to be in the command handler.
-                string childState =
-                    await process.StandardOutput.ReadLineAsync();
+                string childState = await process.StandardOutput.ReadLineAsync();
                 childState.Should().Be(ChildProcessWaiting);
 
                 // Request termination

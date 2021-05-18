@@ -15,29 +15,22 @@ namespace System.CommandLine.Suggest.Tests
 {
     public class SuggestionDispatcherTests
     {
-        private static readonly string _currentExeName =
-            RootCommand.ExecutableName;
+        private static readonly string _currentExeName = RootCommand.ExecutableName;
 
-        private static readonly string _dotnetExeFullPath =
-            DotnetMuxer.Path.FullName;
+        private static readonly string _dotnetExeFullPath = DotnetMuxer.Path.FullName;
 
         private static readonly string _dotnetFormatExeFullPath = RuntimeInformation.IsOSPlatform(
-                OSPlatform.Windows
-            )
-            ? @"C:\Program Files\dotnet-format.exe"
-            : "/bin/dotnet-format";
+            OSPlatform.Windows
+        ) ? @"C:\Program Files\dotnet-format.exe" : "/bin/dotnet-format";
 
         private static readonly string _netExeFullPath = RuntimeInformation.IsOSPlatform(
-                OSPlatform.Windows
-            )
-            ? @"C:\Windows\System32\net.exe"
-            : "/bin/net";
+            OSPlatform.Windows
+        ) ? @"C:\Windows\System32\net.exe" : "/bin/net";
 
         private static Registration CurrentExeRegistrationPair() =>
             new Registration(CurrentExeFullPath());
 
-        private static string CurrentExeFullPath() =>
-            Path.GetFullPath(_currentExeName);
+        private static string CurrentExeFullPath() => Path.GetFullPath(_currentExeName);
 
         [Fact]
         public async Task InvokeAsync_executes_registered_executable()
@@ -89,8 +82,7 @@ namespace System.CommandLine.Suggest.Tests
 
             var expectedPosition = 57 - _currentExeName.Length;
 
-            receivedTargetExeArgs.Should()
-                .Be($"[suggest:{expectedPosition}] \"add\"");
+            receivedTargetExeArgs.Should().Be($"[suggest:{expectedPosition}] \"add\"");
         }
 
         [Theory]
@@ -129,8 +121,7 @@ namespace System.CommandLine.Suggest.Tests
         private static string[] PrepareArgs(string args)
         {
             var formattableString = args.Replace("$", "");
-            return CommandLineStringSplitter.Instance.Split(formattableString)
-                .ToArray();
+            return CommandLineStringSplitter.Instance.Split(formattableString).ToArray();
         }
 
         [Fact]
@@ -141,20 +132,14 @@ namespace System.CommandLine.Suggest.Tests
                     @"get -p 10 -e ""testcli.exe"" -- command op"
                 ))
             );
-            (await InvokeAsync(args, new TestSuggestionRegistration())).Should()
-                .BeEmpty();
+            (await InvokeAsync(args, new TestSuggestionRegistration())).Should().BeEmpty();
         }
 
         [Fact]
         public async Task When_command_suggestions_use_process_that_remains_open_it_returns_empty_string()
         {
-            var provider = new TestSuggestionRegistration(
-                new Registration(CurrentExeFullPath())
-            );
-            var dispatcher = new SuggestionDispatcher(
-                provider,
-                new TestSuggestionStore()
-            );
+            var provider = new TestSuggestionRegistration(new Registration(CurrentExeFullPath()));
+            var dispatcher = new SuggestionDispatcher(provider, new TestSuggestionStore());
             dispatcher.Timeout = TimeSpan.FromMilliseconds(1);
             var testConsole = new TestConsole();
 
@@ -171,9 +156,7 @@ namespace System.CommandLine.Suggest.Tests
         [Fact]
         public async Task List_command_gets_all_executable_names()
         {
-            string _kiwiFruitExeFullPath = RuntimeInformation.IsOSPlatform(
-                    OSPlatform.Windows
-                )
+            string _kiwiFruitExeFullPath = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
                 ? @"C:\Program Files\kiwi-fruit.exe"
                 : "/bin/kiwi-fruit";
 
@@ -207,8 +190,7 @@ namespace System.CommandLine.Suggest.Tests
 
             await dispatcher.InvokeAsync(args);
 
-            Registration addedRegistration = provider.FindAllRegistrations()
-                .Single();
+            Registration addedRegistration = provider.FindAllRegistrations().Single();
             addedRegistration.ExecutablePath.Should().Be(_netExeFullPath);
         }
 
@@ -260,12 +242,8 @@ namespace System.CommandLine.Suggest.Tests
                     return $"unexpected value for {nameof(exeFileName)}: {exeFileName}";
                 }
 
-                if (
-                    !Regex.IsMatch(
-                        suggestionTargetArguments,
-                        @"\[suggest:\d+\] add"
-                    )
-                ) {
+                if (!Regex.IsMatch(suggestionTargetArguments, @"\[suggest:\d+\] add"))
+                {
                     return $"unexpected value for {nameof(suggestionTargetArguments)}: {suggestionTargetArguments}";
                 }
 
@@ -275,14 +253,10 @@ namespace System.CommandLine.Suggest.Tests
 
         private class AnonymousSuggestionStore : ISuggestionStore
         {
-            private readonly Func<string,
-                string,
-                TimeSpan,
-                string> _getSuggestions;
+            private readonly Func<string, string, TimeSpan, string> _getSuggestions;
 
-            public AnonymousSuggestionStore(
-                Func<string, string, TimeSpan, string> getSuggestions
-            ) {
+            public AnonymousSuggestionStore(Func<string, string, TimeSpan, string> getSuggestions)
+            {
                 _getSuggestions = getSuggestions;
             }
 
@@ -291,11 +265,7 @@ namespace System.CommandLine.Suggest.Tests
                 string suggestionTargetArguments,
                 TimeSpan timeout
             ) {
-                return _getSuggestions(
-                    exeFileName,
-                    suggestionTargetArguments,
-                    timeout
-                );
+                return _getSuggestions(exeFileName, suggestionTargetArguments, timeout);
             }
         }
     }

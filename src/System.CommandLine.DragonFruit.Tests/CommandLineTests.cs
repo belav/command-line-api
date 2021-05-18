@@ -64,9 +64,7 @@ namespace System.CommandLine.DragonFruit.Tests
 
             var stdOut = _terminal.Out.ToString();
 
-            stdOut.Should()
-                .Contain("<args>  These are arguments")
-                .And.Contain("Arguments:");
+            stdOut.Should().Contain("<args>  These are arguments").And.Contain("Arguments:");
             stdOut.Should()
                 .ContainAll("--name <name>", "Specifies the name option")
                 .And.Contain("Options:");
@@ -88,9 +86,7 @@ namespace System.CommandLine.DragonFruit.Tests
 
             var stdOut = _terminal.Out.ToString();
 
-            stdOut.Should()
-                .Contain("<args>  These are arguments")
-                .And.Contain("Arguments:");
+            stdOut.Should().Contain("<args>  These are arguments").And.Contain("Arguments:");
             stdOut.Should()
                 .ContainAll("--name <name>", "Specifies the name option")
                 .And.Contain("Options:");
@@ -146,10 +142,7 @@ namespace System.CommandLine.DragonFruit.Tests
                 );
 
             exitCode.Should().Be(1);
-            _terminal.Error.ToString()
-                .Should()
-                .NotBeEmpty()
-                .And.Contain("--unknown");
+            _terminal.Error.ToString().Should().NotBeEmpty().And.Contain("--unknown");
             _terminal.ForegroundColor.Should().Be(ConsoleColor.Red);
         }
 
@@ -167,10 +160,7 @@ namespace System.CommandLine.DragonFruit.Tests
             );
 
             exitCode.Should().Be(1);
-            _terminal.Error.ToString()
-                .Should()
-                .NotBeEmpty()
-                .And.Contain("--unknown");
+            _terminal.Error.ToString().Should().NotBeEmpty().And.Contain("--unknown");
             _terminal.ForegroundColor.Should().Be(ConsoleColor.Red);
         }
 
@@ -189,10 +179,7 @@ namespace System.CommandLine.DragonFruit.Tests
                 );
 
             exitCode.Should().Be(1);
-            _terminal.Error.ToString()
-                .Should()
-                .NotBeEmpty()
-                .And.Contain("This threw an error");
+            _terminal.Error.ToString().Should().NotBeEmpty().And.Contain("This threw an error");
             _terminal.ForegroundColor.Should().Be(ConsoleColor.Red);
         }
 
@@ -210,10 +197,7 @@ namespace System.CommandLine.DragonFruit.Tests
             );
 
             exitCode.Should().Be(1);
-            _terminal.Error.ToString()
-                .Should()
-                .NotBeEmpty()
-                .And.Contain("This threw an error");
+            _terminal.Error.ToString().Should().NotBeEmpty().And.Contain("This threw an error");
             _terminal.ForegroundColor.Should().Be(ConsoleColor.Red);
         }
     }

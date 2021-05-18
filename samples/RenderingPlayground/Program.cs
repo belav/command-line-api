@@ -65,10 +65,7 @@ namespace RenderingPlayground
                 case SampleName.Colors:
 
                     {
-                        var screen = new ScreenView(
-                            renderer: consoleRenderer,
-                            console
-                        );
+                        var screen = new ScreenView(renderer: consoleRenderer, console);
                         screen.Child = new ColorsView(text ?? "*");
 
                         screen.Render(region);
@@ -101,17 +98,11 @@ namespace RenderingPlayground
                         var table = new TableView<Process>
                         {
                             Items = Process.GetProcesses()
-                                .Where(
-                                    x =>
-                                        !string.IsNullOrEmpty(x.MainWindowTitle)
-                                )
+                                .Where(x => !string.IsNullOrEmpty(x.MainWindowTitle))
                                 .OrderBy(p => p.ProcessName)
                                 .ToList()
                         };
-                        table.AddColumn(
-                            process => $"{process.ProcessName} ",
-                            "Name"
-                        );
+                        table.AddColumn(process => $"{process.ProcessName} ", "Name");
                         table.AddColumn(
                             process =>
                                 ContentView.FromObservable(
@@ -135,28 +126,17 @@ namespace RenderingPlayground
                 case SampleName.Clock:
 
                     {
-                        var screen = new ScreenView(
-                            renderer: consoleRenderer,
-                            console
-                        );
+                        var screen = new ScreenView(renderer: consoleRenderer, console);
                         var lastTime = DateTime.Now;
-                        var clockObservable = new BehaviorSubject<DateTime>(
-                            lastTime
-                        );
-                        var clockView = ContentView.FromObservable(
-                            clockObservable,
-                            x => $"{x:T}"
-                        );
+                        var clockObservable = new BehaviorSubject<DateTime>(lastTime);
+                        var clockView = ContentView.FromObservable(clockObservable, x => $"{x:T}");
                         screen.Child = clockView;
                         screen.Render();
 
                         while (!Console.KeyAvailable)
                         {
-                            if (
-                                DateTime.Now -
-                                lastTime >
-                                TimeSpan.FromSeconds(1)
-                            ) {
+                            if (DateTime.Now - lastTime > TimeSpan.FromSeconds(1))
+                            {
                                 lastTime = DateTime.Now;
                                 clockObservable.OnNext(lastTime);
                             }
@@ -166,17 +146,12 @@ namespace RenderingPlayground
                 case SampleName.GridLayout:
 
                     {
-                        var screen = new ScreenView(
-                            renderer: consoleRenderer,
-                            console
-                        );
+                        var screen = new ScreenView(renderer: consoleRenderer, console);
                         var content = new ContentView(
                             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum for Kevin."
                         );
                         var smallContent = new ContentView("Kevin Bost");
-                        var longContent = new ContentView(
-                            "Hacking on System.CommandLine"
-                        );
+                        var longContent = new ContentView("Hacking on System.CommandLine");
 
                         var gridView = new GridView();
                         gridView.SetColumns(
@@ -184,10 +159,7 @@ namespace RenderingPlayground
                             ColumnDefinition.Star(1),
                             ColumnDefinition.Star(0.5)
                         );
-                        gridView.SetRows(
-                            RowDefinition.Star(0.5),
-                            RowDefinition.Star(0.5)
-                        );
+                        gridView.SetRows(RowDefinition.Star(0.5), RowDefinition.Star(0.5));
 
                         gridView.SetChild(smallContent, 0, 0);
                         gridView.SetChild(longContent, 0, 1);
@@ -205,18 +177,15 @@ namespace RenderingPlayground
                     {
                         var gridView = new GridView();
                         gridView.SetColumns(ColumnDefinition.SizeToContent());
-                        gridView.SetRows(
-                            RowDefinition.SizeToContent(),
-                            RowDefinition.Star(1)
-                        );
+                        gridView.SetRows(RowDefinition.SizeToContent(), RowDefinition.Star(1));
                         var content = new ContentView(
-                            "Instructions:\n" +
-                            $"DIRECTION ARROWS move the cursor; CTRL moves 2 instead of 1.\n" +
-                            "PAGE UP/DOWN scrolls up/down.\n" +
-                            "S saves the cursor position, R restores it.\n" +
-                            "ENTER navigates to the start of the next line; CTRL moves 2 instead of 1.\n" +
-                            "L moves to location (3, 9).\n" +
-                            "ESC quits."
+                            "Instructions:\n"
+                            + $"DIRECTION ARROWS move the cursor; CTRL moves 2 instead of 1.\n"
+                            + "PAGE UP/DOWN scrolls up/down.\n"
+                            + "S saves the cursor position, R restores it.\n"
+                            + "ENTER navigates to the start of the next line; CTRL moves 2 instead of 1.\n"
+                            + "L moves to location (3, 9).\n"
+                            + "ESC quits."
                         );
                         gridView.SetChild(content, 0, 0);
                         gridView.SetChild(new ColorsView("#"), 0, 1);
@@ -231,9 +200,7 @@ namespace RenderingPlayground
                         screen.Render(region);
 
                         // move the cursor to the home position.
-                        console.Out.Write(
-                            $"{Ansi.Cursor.Move.ToUpperLeftCorner}"
-                        );
+                        console.Out.Write($"{Ansi.Cursor.Move.ToUpperLeftCorner}");
                         console.Out.Write($"{Ansi.Cursor.Show}");
 
                         // input seems not to be supported by the interfaces; how can this be got without using Console?
@@ -243,69 +210,44 @@ namespace RenderingPlayground
                         Console.TreatControlCAsInput = true;
                         while (key.Key != ConsoleKey.Escape)
                         {
-                            var lines = !key.Modifiers.HasFlag(
-                                    ConsoleModifiers.Control
-                                )
+                            var lines = !key.Modifiers.HasFlag(ConsoleModifiers.Control)
                                 ? default
                                 : 2;
                             switch (key.Key)
                             {
                                 case ConsoleKey.DownArrow:
-                                    console.Out.Write(
-                                        $"{Ansi.Cursor.Move.Down(lines)}"
-                                    );
+                                    console.Out.Write($"{Ansi.Cursor.Move.Down(lines)}");
                                     break;
                                 case ConsoleKey.UpArrow:
-                                    console.Out.Write(
-                                        $"{Ansi.Cursor.Move.Up(lines)}"
-                                    );
+                                    console.Out.Write($"{Ansi.Cursor.Move.Up(lines)}");
                                     break;
                                 case ConsoleKey.RightArrow:
-                                    console.Out.Write(
-                                        $"{Ansi.Cursor.Move.Right(lines)}"
-                                    );
+                                    console.Out.Write($"{Ansi.Cursor.Move.Right(lines)}");
                                     break;
                                 case ConsoleKey.LeftArrow:
-                                    console.Out.Write(
-                                        $"{Ansi.Cursor.Move.Left(lines)}"
-                                    );
+                                    console.Out.Write($"{Ansi.Cursor.Move.Left(lines)}");
                                     break;
                                 case ConsoleKey.PageUp:
-                                    console.Out.Write(
-                                        $"{Ansi.Cursor.Scroll.DownOne}"
-                                    );
+                                    console.Out.Write($"{Ansi.Cursor.Scroll.DownOne}");
                                     break;
                                 case ConsoleKey.PageDown:
-                                    console.Out.Write(
-                                        $"{Ansi.Cursor.Scroll.UpOne}"
-                                    );
+                                    console.Out.Write($"{Ansi.Cursor.Scroll.UpOne}");
                                     break;
                                 case ConsoleKey.Enter:
-                                    console.Out.Write(
-                                        $"{Ansi.Cursor.Move.NextLine(lines)}"
-                                    );
+                                    console.Out.Write($"{Ansi.Cursor.Move.NextLine(lines)}");
                                     break;
                                 case ConsoleKey.S:
-                                    console.Out.Write(
-                                        $"{Ansi.Cursor.SavePosition}"
-                                    );
+                                    console.Out.Write($"{Ansi.Cursor.SavePosition}");
                                     break;
                                 case ConsoleKey.R:
-                                    console.Out.Write(
-                                        $"{Ansi.Cursor.RestorePosition}"
-                                    );
+                                    console.Out.Write($"{Ansi.Cursor.RestorePosition}");
                                     break;
                                 case ConsoleKey.L:
-                                    console.Out.Write(
-                                        $"{Ansi.Cursor.Move.ToLocation(3, 9)}"
-                                    );
+                                    console.Out.Write($"{Ansi.Cursor.Move.ToLocation(3, 9)}");
                                     break;
                                 case ConsoleKey.C:
-                                    if (
-                                        key.Modifiers.HasFlag(
-                                            ConsoleModifiers.Control
-                                        )
-                                    ) {
+                                    if (key.Modifiers.HasFlag(ConsoleModifiers.Control))
+                                    {
                                         // mimic the standard CTRL+C behaviour.
                                         Environment.Exit(1);
                                     }
@@ -328,10 +270,7 @@ namespace RenderingPlayground
                     }
                     else
                     {
-                        var screen = new ScreenView(
-                            renderer: consoleRenderer,
-                            console
-                        );
+                        var screen = new ScreenView(renderer: consoleRenderer, console);
                         var stackLayout = new StackLayoutView();
                         var content1 = new ContentView("Hello World!");
                         var content2 = new ContentView(
@@ -353,10 +292,8 @@ namespace RenderingPlayground
             }
         }
 
-        private static void Console_CancelKeyPress(
-            object sender,
-            ConsoleCancelEventArgs e
-        ) {
+        private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        {
             throw new NotImplementedException();
         }
     }

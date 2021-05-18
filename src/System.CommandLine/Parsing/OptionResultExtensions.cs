@@ -11,15 +11,10 @@ namespace System.CommandLine.Parsing
         internal static ArgumentConversionResult ConvertIfNeeded(
             this OptionResult optionResult,
             Type type
-        ) =>
-            optionResult.ArgumentConversionResult.ConvertIfNeeded(
-                optionResult,
-                type
-            );
+        ) => optionResult.ArgumentConversionResult.ConvertIfNeeded(optionResult, type);
 
-        public static object? GetValueOrDefault(
-            this OptionResult optionResult
-        ) => optionResult.GetValueOrDefault<object?>();
+        public static object? GetValueOrDefault(this OptionResult optionResult) =>
+            optionResult.GetValueOrDefault<object?>();
 
         [return: MaybeNull]
         public static T GetValueOrDefault<T>(this OptionResult optionResult) =>

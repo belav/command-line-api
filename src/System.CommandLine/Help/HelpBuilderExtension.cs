@@ -28,11 +28,7 @@ namespace System.CommandLine.Help
             string? descriptor = null,
             string? defaultValue = null
         ) {
-            helpBuilder.Customize(
-                argument,
-                () => descriptor,
-                () => defaultValue
-            );
+            helpBuilder.Customize(argument, () => descriptor, () => defaultValue);
         }
     }
 }

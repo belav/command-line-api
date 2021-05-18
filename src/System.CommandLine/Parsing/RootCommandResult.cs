@@ -70,9 +70,7 @@ namespace System.CommandLine.Parsing
                 case IOption option:
                     return FindResultFor(option);
                 default:
-                    throw new ArgumentException(
-                        $"Unsupported symbol type: {symbol.GetType()}"
-                    );
+                    throw new ArgumentException($"Unsupported symbol type: {symbol.GetType()}");
             }
         }
 
@@ -83,16 +81,10 @@ namespace System.CommandLine.Parsing
             switch (result)
             {
                 case ArgumentResult argumentResult:
-                    _allArgumentResults!.Add(
-                        argumentResult.Argument,
-                        argumentResult
-                    );
+                    _allArgumentResults!.Add(argumentResult.Argument, argumentResult);
                     break;
                 case CommandResult commandResult:
-                    _allCommandResults!.Add(
-                        commandResult.Command,
-                        commandResult
-                    );
+                    _allCommandResults!.Add(commandResult.Command, commandResult);
                     break;
                 case OptionResult optionResult:
                     _allOptionResults!.Add(optionResult.Option, optionResult);

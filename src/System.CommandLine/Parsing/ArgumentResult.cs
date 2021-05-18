@@ -41,9 +41,7 @@ namespace System.CommandLine.Parsing
 
             if (PassedOnTokens is  {  } )
             {
-                throw new InvalidOperationException(
-                    $"{nameof(OnlyTake)} can only be called once."
-                );
+                throw new InvalidOperationException($"{nameof(OnlyTake)} can only be called once.");
             }
 
             if (numberOfTokens == 0)
@@ -53,9 +51,7 @@ namespace System.CommandLine.Parsing
 
             var passedOnTokensCount = _tokens.Count - numberOfTokens;
 
-            PassedOnTokens = new List<Token>(
-                _tokens.GetRange(numberOfTokens, passedOnTokensCount)
-            );
+            PassedOnTokens = new List<Token>(_tokens.GetRange(numberOfTokens, passedOnTokensCount));
 
             _tokens.RemoveRange(numberOfTokens, passedOnTokensCount);
         }
@@ -87,14 +83,16 @@ namespace System.CommandLine.Parsing
         private ArgumentConversionResult Convert(IArgument argument)
         {
             if (
-                ShouldCheckArity() &&
-                Parent is  {  }  &&
-                ArgumentArity.Validate(
+                ShouldCheckArity()
+                && Parent
+                    is  {  }
+                && ArgumentArity.Validate(
                     Parent,
                     argument,
                     argument.Arity.MinimumNumberOfValues,
                     argument.Arity.MaximumNumberOfValues
-                ) is FailedArgumentConversionResult failedResult
+                )
+                    is FailedArgumentConversionResult failedResult
             ) {
                 return failedResult;
             }
@@ -109,17 +107,11 @@ namespace System.CommandLine.Parsing
 
                     if (string.IsNullOrEmpty(argumentResult.ErrorMessage))
                     {
-                        return ArgumentConversionResult.Success(
-                            arg,
-                            defaultValue
-                        );
+                        return ArgumentConversionResult.Success(arg, defaultValue);
                     }
                     else
                     {
-                        return ArgumentConversionResult.Failure(
-                            arg,
-                            argumentResult.ErrorMessage!
-                        );
+                        return ArgumentConversionResult.Failure(arg, argumentResult.ErrorMessage!);
                     }
                 }
 
@@ -144,8 +136,8 @@ namespace System.CommandLine.Parsing
 
                     return ArgumentConversionResult.Failure(
                         argument,
-                        ErrorMessage ??
-                        $"Invalid: {Parent.Token()} {string.Join(" ", Tokens.Select(t => t.Value))}"
+                        ErrorMessage
+                        ?? $"Invalid: {Parent.Token()} {string.Join(" ", Tokens.Select(t => t.Value))}"
                     );
                 }
             }
@@ -165,8 +157,7 @@ namespace System.CommandLine.Parsing
             }
 
             bool ShouldCheckArity() =>
-                !(Parent is OptionResult optionResult &&
-                optionResult.IsImplicit);
+                !(Parent is OptionResult optionResult && optionResult.IsImplicit);
         }
     }
 }

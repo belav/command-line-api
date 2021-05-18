@@ -19,20 +19,14 @@ namespace System.CommandLine.Invocation
         public void Apply(InvocationContext context)
         {
             var commandLineToSuggest =
-                context.ParseResult.Tokens.LastOrDefault(
-                    t => t.Type != TokenType.Directive
-                )?.Value ??
-                "";
+                context.ParseResult.Tokens.LastOrDefault(t => t.Type != TokenType.Directive)?.Value
+                ?? "";
 
-            var suggestionParseResult = context.Parser.Parse(
-                commandLineToSuggest
-            );
+            var suggestionParseResult = context.Parser.Parse(commandLineToSuggest);
 
             var suggestions = suggestionParseResult.GetSuggestions(_position);
 
-            context.Console.Out.WriteLine(
-                string.Join(Environment.NewLine, suggestions)
-            );
+            context.Console.Out.WriteLine(string.Join(Environment.NewLine, suggestions));
         }
     }
 }

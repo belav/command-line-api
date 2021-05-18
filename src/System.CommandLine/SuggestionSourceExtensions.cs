@@ -7,10 +7,8 @@ namespace System.CommandLine
 {
     public static class SuggestionSourceExtensions
     {
-        public static void Add(
-            this SuggestionSourceList suggestionSources,
-            SuggestDelegate suggest
-        ) {
+        public static void Add(this SuggestionSourceList suggestionSources, SuggestDelegate suggest)
+        {
             if (suggestionSources is null)
             {
                 throw new ArgumentNullException(nameof(suggestionSources));
@@ -38,9 +36,7 @@ namespace System.CommandLine
                 throw new ArgumentNullException(nameof(suggestions));
             }
 
-            suggestionSources.Add(
-                new AnonymousSuggestionSource((_, __) => suggestions)
-            );
+            suggestionSources.Add(new AnonymousSuggestionSource((_, __) => suggestions));
         }
     }
 }

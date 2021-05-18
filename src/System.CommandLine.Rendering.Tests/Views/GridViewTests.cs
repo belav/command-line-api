@@ -31,10 +31,7 @@ namespace System.CommandLine.Rendering.Tests.Views
         public void Empty_fixed_sized_grid_returns_fixed_region()
         {
             var grid = new GridView();
-            grid.SetColumns(
-                ColumnDefinition.Fixed(7),
-                ColumnDefinition.Star(3)
-            );
+            grid.SetColumns(ColumnDefinition.Fixed(7), ColumnDefinition.Star(3));
             grid.SetRows(RowDefinition.Fixed(3), RowDefinition.Star(7));
 
             var console = new TestConsole();
@@ -49,14 +46,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         public void Empty_size_to_content_grid_do_not_take_up_space()
         {
             var grid = new GridView();
-            grid.SetColumns(
-                ColumnDefinition.SizeToContent(),
-                ColumnDefinition.SizeToContent()
-            );
-            grid.SetRows(
-                RowDefinition.SizeToContent(),
-                RowDefinition.SizeToContent()
-            );
+            grid.SetColumns(ColumnDefinition.SizeToContent(), ColumnDefinition.SizeToContent());
+            grid.SetRows(RowDefinition.SizeToContent(), RowDefinition.SizeToContent());
 
             var console = new TestConsole();
             var renderer = new ConsoleRenderer(console);
@@ -107,14 +98,10 @@ namespace System.CommandLine.Rendering.Tests.Views
         [Theory]
         [InlineData(OutputMode.Ansi)]
         [InlineData(OutputMode.NonAnsi)]
-        public void Fixed_grid_lays_out_fixed_rows_and_columns(
-            OutputMode outputMode
-        ) {
+        public void Fixed_grid_lays_out_fixed_rows_and_columns(OutputMode outputMode)
+        {
             var grid = new GridView();
-            grid.SetColumns(
-                ColumnDefinition.Fixed(6),
-                ColumnDefinition.Fixed(4)
-            );
+            grid.SetColumns(ColumnDefinition.Fixed(6), ColumnDefinition.Fixed(4));
             grid.SetRows(RowDefinition.Fixed(1), RowDefinition.Fixed(2));
             grid.SetChild(new ContentView("The quick"), 0, 0);
             grid.SetChild(new ContentView("brown fox"), 1, 0);
@@ -149,14 +136,8 @@ namespace System.CommandLine.Rendering.Tests.Views
             OutputMode outputMode
         ) {
             var grid = new GridView();
-            grid.SetColumns(
-                ColumnDefinition.SizeToContent(),
-                ColumnDefinition.SizeToContent()
-            );
-            grid.SetRows(
-                RowDefinition.SizeToContent(),
-                RowDefinition.SizeToContent()
-            );
+            grid.SetColumns(ColumnDefinition.SizeToContent(), ColumnDefinition.SizeToContent());
+            grid.SetRows(RowDefinition.SizeToContent(), RowDefinition.SizeToContent());
             grid.SetChild(new ContentView("The quick"), 0, 0);
             grid.SetChild(new ContentView("brown fox"), 1, 0);
             grid.SetChild(new ContentView("jumped over"), 0, 1);
@@ -186,14 +167,8 @@ namespace System.CommandLine.Rendering.Tests.Views
             OutputMode outputMode
         ) {
             var grid = new GridView();
-            grid.SetColumns(
-                ColumnDefinition.SizeToContent(),
-                ColumnDefinition.SizeToContent()
-            );
-            grid.SetRows(
-                RowDefinition.SizeToContent(),
-                RowDefinition.SizeToContent()
-            );
+            grid.SetColumns(ColumnDefinition.SizeToContent(), ColumnDefinition.SizeToContent());
+            grid.SetRows(RowDefinition.SizeToContent(), RowDefinition.SizeToContent());
             grid.SetChild(new ContentView("The quick"), 0, 0);
             grid.SetChild(new ContentView("brown fox"), 1, 0);
             grid.SetChild(new ContentView("jumped over"), 0, 1);

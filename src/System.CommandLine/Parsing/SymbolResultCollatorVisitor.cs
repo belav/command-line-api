@@ -21,21 +21,18 @@ namespace System.CommandLine.Parsing
             OptionResults.Add(optionResult.Option, optionResult);
         }
 
-        protected override void VisitCommandResult(
-            CommandResult commandResult
-        ) {
+        protected override void VisitCommandResult(CommandResult commandResult)
+        {
             CommandResults.Add(commandResult.Command, commandResult);
         }
 
-        protected override void VisitRootCommandResult(
-            RootCommandResult rootCommandResult
-        ) {
+        protected override void VisitRootCommandResult(RootCommandResult rootCommandResult)
+        {
             CommandResults.Add(rootCommandResult.Command, rootCommandResult);
         }
 
-        protected override void VisitArgumentResult(
-            ArgumentResult argumentResult
-        ) {
+        protected override void VisitArgumentResult(ArgumentResult argumentResult)
+        {
             ArgumentResults.Add(argumentResult.Argument, argumentResult);
         }
     }

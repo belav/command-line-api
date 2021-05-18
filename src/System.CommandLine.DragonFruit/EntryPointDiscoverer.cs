@@ -20,11 +20,7 @@ namespace System.CommandLine.DragonFruit
             if (!string.IsNullOrWhiteSpace(entryPointFullTypeName))
             {
                 var typeInfo =
-                    assembly.GetType(
-                        entryPointFullTypeName,
-                        false,
-                        false
-                    )?.GetTypeInfo();
+                    assembly.GetType(entryPointFullTypeName, false, false)?.GetTypeInfo();
                 if (typeInfo == null)
                 {
                     throw new InvalidProgramException(
@@ -37,10 +33,7 @@ namespace System.CommandLine.DragonFruit
             {
                 foreach (
                     var type in assembly.DefinedTypes.Where(t => t.IsClass)
-                        .Where(
-                            t =>
-                                !t.IsDefined(typeof(CompilerGeneratedAttribute))
-                        )
+                        .Where(t => !t.IsDefined(typeof(CompilerGeneratedAttribute)))
                 ) {
                     FindMainMethodCandidates(type, candidates);
                 }
@@ -70,30 +63,19 @@ namespace System.CommandLine.DragonFruit
             return candidates[0];
         }
 
-        private static void FindMainMethodCandidates(
-            TypeInfo type,
-            List<MethodInfo> candidates
-        ) {
+        private static void FindMainMethodCandidates(TypeInfo type, List<MethodInfo> candidates)
+        {
             foreach (
                 var method in type.GetMethods(
-                        BindingFlags.Static |
-                        BindingFlags.Public |
-                        BindingFlags.NonPublic
+                        BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic
                     )
-                    .Where(
-                        m =>
-                            string.Equals(
-                                "Main",
-                                m.Name,
-                                StringComparison.OrdinalIgnoreCase
-                            )
-                    )
+                    .Where(m => string.Equals("Main", m.Name, StringComparison.OrdinalIgnoreCase))
             ) {
                 if (
-                    method.ReturnType == typeof(void) ||
-                    method.ReturnType == typeof(int) ||
-                    method.ReturnType == typeof(Task) ||
-                    method.ReturnType == typeof(Task<int>)
+                    method.ReturnType == typeof(void)
+                    || method.ReturnType == typeof(int)
+                    || method.ReturnType == typeof(Task)
+                    || method.ReturnType == typeof(Task<int>)
                 ) {
                     candidates.Add(method);
                 }

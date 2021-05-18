@@ -64,26 +64,15 @@ namespace System.CommandLine
             GetResourceString(Properties.Resources.FileDoesNotExist, filePath);
 
         public virtual string FileOrDirectoryDoesNotExist(string path) =>
-            GetResourceString(
-                Properties.Resources.FileOrDirectoryDoesNotExist,
-                path
-            );
+            GetResourceString(Properties.Resources.FileOrDirectoryDoesNotExist, path);
 
         public virtual string InvalidCharactersInPath(char invalidChar) =>
-            GetResourceString(
-                Properties.Resources.InvalidCharactersInPath,
-                invalidChar
-            );
+            GetResourceString(Properties.Resources.InvalidCharactersInPath, invalidChar);
 
         public virtual string InvalidCharactersInFileName(char invalidChar) =>
-            GetResourceString(
-                Properties.Resources.InvalidCharactersInFileName,
-                invalidChar
-            );
+            GetResourceString(Properties.Resources.InvalidCharactersInFileName, invalidChar);
 
-        public virtual string RequiredArgumentMissing(
-            SymbolResult symbolResult
-        ) =>
+        public virtual string RequiredArgumentMissing(SymbolResult symbolResult) =>
             symbolResult is CommandResult
                 ? GetResourceString(
                         Properties.Resources.CommandRequiredArgumentMissing,
@@ -95,9 +84,7 @@ namespace System.CommandLine
                     );
 
         public virtual string RequiredCommandWasNotProvided() =>
-            GetResourceString(
-                Properties.Resources.RequiredCommandWasNotProvided
-            );
+            GetResourceString(Properties.Resources.RequiredCommandWasNotProvided);
 
         public virtual string UnrecognizedArgument(
             string unrecognizedArg,
@@ -110,26 +97,13 @@ namespace System.CommandLine
             );
 
         public virtual string UnrecognizedCommandOrArgument(string arg) =>
-            GetResourceString(
-                Properties.Resources.UnrecognizedCommandOrArgument,
-                arg
-            );
+            GetResourceString(Properties.Resources.UnrecognizedCommandOrArgument, arg);
 
         public virtual string ResponseFileNotFound(string filePath) =>
-            GetResourceString(
-                Properties.Resources.ResponseFileNotFound,
-                filePath
-            );
+            GetResourceString(Properties.Resources.ResponseFileNotFound, filePath);
 
-        public virtual string ErrorReadingResponseFile(
-            string filePath,
-            IOException e
-        ) =>
-            GetResourceString(
-                Properties.Resources.ErrorReadingResponseFile,
-                filePath,
-                e.Message
-            );
+        public virtual string ErrorReadingResponseFile(string filePath, IOException e) =>
+            GetResourceString(Properties.Resources.ErrorReadingResponseFile, filePath, e.Message);
 
         public virtual string HelpOptionDescription() =>
             GetResourceString(Properties.Resources.HelpOptionDescription);
@@ -144,9 +118,7 @@ namespace System.CommandLine
             GetResourceString(Properties.Resources.HelpUsageCommandTitle);
 
         public virtual string HelpUsageAdditionalArguments() =>
-            GetResourceString(
-                Properties.Resources.HelpUsageAdditionalArguments
-            );
+            GetResourceString(Properties.Resources.HelpUsageAdditionalArguments);
 
         public virtual string HelpArgumentsTitle() =>
             GetResourceString(Properties.Resources.HelpArgumentsTitle);
@@ -158,22 +130,16 @@ namespace System.CommandLine
             GetResourceString(Properties.Resources.HelpOptionsRequired);
 
         public virtual string HelpArgumentDefaultValueTitle() =>
-            GetResourceString(
-                Properties.Resources.HelpArgumentDefaultValueTitle
-            );
+            GetResourceString(Properties.Resources.HelpArgumentDefaultValueTitle);
 
         public virtual string HelpCommandsTitle() =>
             GetResourceString(Properties.Resources.HelpCommandsTitle);
 
         public virtual string HelpAdditionalArgumentsTitle() =>
-            GetResourceString(
-                Properties.Resources.HelpAdditionalArgumentsTitle
-            );
+            GetResourceString(Properties.Resources.HelpAdditionalArgumentsTitle);
 
         public virtual string HelpAdditionalArgumentsDescription() =>
-            GetResourceString(
-                Properties.Resources.HelpAdditionalArgumentsDescription
-            );
+            GetResourceString(Properties.Resources.HelpAdditionalArgumentsDescription);
 
         protected virtual string GetResourceString(
             string resourceString,

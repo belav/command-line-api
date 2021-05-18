@@ -19,11 +19,8 @@ namespace System.CommandLine.Parsing
 
                 if (valueDescriptor.ValueName.IsMatch(argument.Name))
                 {
-                    if (
-                        commandResult.FindResultFor(
-                            argument
-                        ) is  {  } argumentResult
-                    ) {
+                    if (commandResult.FindResultFor(argument) is  {  } argumentResult)
+                    {
                         value = argumentResult.GetValueOrDefault();
                     }
                     else
@@ -49,16 +46,13 @@ namespace System.CommandLine.Parsing
             {
                 var option = (Option)options[i];
 
-                if (
-                    !option.DisallowBinding &&
-                    valueDescriptor.ValueName.IsMatch(option)
-                ) {
+                if (!option.DisallowBinding && valueDescriptor.ValueName.IsMatch(option))
+                {
                     var optionResult = commandResult.FindResultFor(option);
 
                     if (
-                        optionResult?.ConvertIfNeeded(
-                            valueDescriptor.ValueType
-                        ) is SuccessfulArgumentConversionResult successful
+                        optionResult?.ConvertIfNeeded(valueDescriptor.ValueType)
+                            is SuccessfulArgumentConversionResult successful
                     ) {
                         value = successful.Value;
                         return true;
