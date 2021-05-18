@@ -103,7 +103,7 @@ namespace System.CommandLine.Parsing
 
                 if (
                     arg.GetResponseFileReference()
-                        is  {  } filePath
+                        is { } filePath
                     && configuration.ResponseFileHandling != ResponseFileHandling.Disabled
                 ) {
                     ReadResponseFile(filePath, i);
@@ -155,7 +155,7 @@ namespace System.CommandLine.Parsing
                         // when a subcommand is encountered, re-scope which tokens are valid
                         ISymbolSet symbolSet;
 
-                        if (currentCommand is  {  } subcommand)
+                        if (currentCommand is { } subcommand)
                         {
                             symbolSet = subcommand.Children;
                         }
@@ -210,7 +210,7 @@ namespace System.CommandLine.Parsing
                 // don't unbundle if the last token is an option expecting an argument
                 if (
                     tokenList[tokenList.Count - 1]
-                        is  {  } lastToken
+                        is { } lastToken
                     && lastToken.Type == TokenType.Option
                     && currentCommand?.Children.GetByAlias(lastToken.Value)
                         is IOption option
@@ -534,7 +534,7 @@ namespace System.CommandLine.Parsing
 
                 foreach (var p in SplitLine(line))
                 {
-                    if (p.GetResponseFileReference() is  {  } path)
+                    if (p.GetResponseFileReference() is { } path)
                     {
                         foreach (var q in ExpandResponseFile(path, responseFileHandling))
                         {

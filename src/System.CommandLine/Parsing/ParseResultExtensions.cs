@@ -190,7 +190,7 @@ namespace System.CommandLine.Parsing
             }
 
             return parseResult.FindResultFor(option)
-                is  {  } ;
+                is { };
         }
 
         public static bool HasOption(this ParseResult parseResult, string alias)

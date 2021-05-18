@@ -19,7 +19,7 @@ namespace System.CommandLine.Parsing
 
                 if (valueDescriptor.ValueName.IsMatch(argument.Name))
                 {
-                    if (commandResult.FindResultFor(argument) is  {  } argumentResult)
+                    if (commandResult.FindResultFor(argument) is { } argumentResult)
                     {
                         value = argumentResult.GetValueOrDefault();
                     }

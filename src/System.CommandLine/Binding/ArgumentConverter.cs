@@ -69,7 +69,7 @@ namespace System.CommandLine.Binding
         ) {
             type ??= typeof(string);
 
-            if (TypeDescriptor.GetConverter(type) is  {  } typeConverter)
+            if (TypeDescriptor.GetConverter(type) is { } typeConverter)
             {
                 if (typeConverter.CanConvertFrom(typeof(string)))
                 {
@@ -127,7 +127,7 @@ namespace System.CommandLine.Binding
                 {
                     case FailedArgumentTypeConversionResult _:
                     case FailedArgumentConversionResult _:
-                        if (argumentResult is  {  } )
+                        if (argumentResult is { })
                         {
                             argumentResult.OnlyTake(i);
 
@@ -182,7 +182,7 @@ namespace System.CommandLine.Binding
 
         internal static bool HasStringTypeConverter(this Type type) =>
             TypeDescriptor.GetConverter(type)
-                is  {  } typeConverter
+                is { } typeConverter
             && typeConverter.CanConvertFrom(typeof(string));
 
         private static FailedArgumentConversionResult Failure(

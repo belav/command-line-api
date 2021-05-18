@@ -85,7 +85,7 @@ namespace System.CommandLine
                         {
                             if (
                                 alias
-                                    is  {  } suggestion
+                                    is { } suggestion
                                 && suggestion.ContainsCaseInsensitive(textToMatch)
                             ) {
                                 suggestions.Add(suggestion);
@@ -97,9 +97,7 @@ namespace System.CommandLine
                             var suggestion in argument.GetSuggestions(parseResult, textToMatch)
                         ) {
                             if (
-                                suggestion
-                                    is  {  }
-                                && suggestion.ContainsCaseInsensitive(textToMatch)
+                                suggestion is { } && suggestion.ContainsCaseInsensitive(textToMatch)
                             ) {
                                 suggestions.Add(suggestion);
                             }

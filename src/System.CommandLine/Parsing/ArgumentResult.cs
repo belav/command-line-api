@@ -19,11 +19,7 @@ namespace System.CommandLine.Parsing
 
         public IArgument Argument { get; }
 
-        internal IReadOnlyList<Token>? PassedOnTokens
-        {
-            get;
-            private set;
-        }
+        internal IReadOnlyList<Token>? PassedOnTokens { get; private set; }
 
         internal ArgumentConversionResult GetArgumentConversionResult() =>
             _conversionResult ??= Convert(Argument);
@@ -39,7 +35,7 @@ namespace System.CommandLine.Parsing
                 );
             }
 
-            if (PassedOnTokens is  {  } )
+            if (PassedOnTokens is { })
             {
                 throw new InvalidOperationException($"{nameof(OnlyTake)} can only be called once.");
             }
@@ -85,7 +81,7 @@ namespace System.CommandLine.Parsing
             if (
                 ShouldCheckArity()
                 && Parent
-                    is  {  }
+                    is { }
                 && ArgumentArity.Validate(
                     Parent,
                     argument,

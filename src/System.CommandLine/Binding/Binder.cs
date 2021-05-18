@@ -28,7 +28,7 @@ namespace System.CommandLine.Binding
 
                 if (
                     TypeDescriptor.GetConverter(type)
-                        is  {  } typeConverter
+                        is { } typeConverter
                     && typeConverter.CanConvertFrom(typeof(string))
                 ) {
                     return true;
@@ -39,7 +39,7 @@ namespace System.CommandLine.Binding
                     return true;
                 }
 
-                if (GetItemTypeIfEnumerable(type) is  {  } itemType)
+                if (GetItemTypeIfEnumerable(type) is { } itemType)
                 {
                     type = itemType;
                     continue;
@@ -59,7 +59,7 @@ namespace System.CommandLine.Binding
                 return "";
             }
 
-            if (GetItemTypeIfEnumerable(type) is  {  } itemType)
+            if (GetItemTypeIfEnumerable(type) is { } itemType)
             {
                 if (type.IsArray)
                 {
@@ -115,7 +115,7 @@ namespace System.CommandLine.Binding
 
             return enumerableInterface?.GenericTypeArguments switch
             {
-                 { Length: 1 } genericTypeArguments => genericTypeArguments[0],
+                { Length: 1 } genericTypeArguments => genericTypeArguments[0],
                 _ => null
             };
         }

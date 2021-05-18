@@ -24,11 +24,7 @@ namespace System.CommandLine.Parsing
 
         public List<ParseError> Errors { get; } = new List<ParseError>();
 
-        public RootCommandNode? RootCommandNode
-        {
-            get;
-            private set;
-        }
+        public RootCommandNode? RootCommandNode { get; private set; }
 
         public List<Token> UnmatchedTokens { get; } = new List<Token>();
 
@@ -141,7 +137,7 @@ namespace System.CommandLine.Parsing
 
             for (var i = 0; i < commandNode.Command.Arguments.Count; i++)
             {
-                if (commandNode.Command.Arguments[i] is  {  } arg && !IsFull(arg))
+                if (commandNode.Command.Arguments[i] is { } arg && !IsFull(arg))
                 {
                     argument = arg;
                     break;

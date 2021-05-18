@@ -23,11 +23,7 @@ namespace System.CommandLine.Rendering
 
         protected IStandardStreamWriter Writer { get; }
 
-        protected int LinesWritten
-        {
-            get;
-            private set;
-        }
+        protected int LinesWritten { get; private set; }
 
         protected Region Region { get; }
 

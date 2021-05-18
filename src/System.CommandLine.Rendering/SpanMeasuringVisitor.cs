@@ -26,11 +26,7 @@ namespace System.CommandLine.Rendering
             }
         }
 
-        public int Width
-        {
-            get;
-            private set;
-        }
+        public int Width { get; private set; }
         public int Height => LinesWritten;
 
         private int LinesWritten { get; set; }

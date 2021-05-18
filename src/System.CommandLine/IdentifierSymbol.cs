@@ -36,7 +36,7 @@ namespace System.CommandLine
                     );
                 }
 
-                if (_specifiedName is  {  } )
+                if (_specifiedName is { })
                 {
                     RemoveAlias(_specifiedName);
                 }

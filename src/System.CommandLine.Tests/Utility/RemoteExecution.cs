@@ -24,11 +24,7 @@ namespace System.CommandLine.Tests.Utility
             _exceptionFile = exceptionFile;
         }
 
-        public Process Process
-        {
-            get;
-            private set;
-        }
+        public Process Process { get; private set; }
         public string ClassName { get; }
         public string MethodName { get; }
 
