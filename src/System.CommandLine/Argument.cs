@@ -38,11 +38,7 @@ namespace System.CommandLine
             }
         }
 
-        internal HashSet<string>? AllowedValues
-        {
-            get;
-            private set;
-        }
+        internal HashSet<string>? AllowedValues { get; private set; }
 
         /// <summary>
         /// Gets or sets the arity of the argument.

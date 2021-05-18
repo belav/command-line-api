@@ -259,7 +259,7 @@ namespace System.CommandLine.Help
                 {
                     sb.Length--;
 
-                    if (end is  {  } )
+                    if (end is { })
                     {
                         while (end.Count > 0)
                         {
@@ -394,7 +394,7 @@ namespace System.CommandLine.Help
             if (
                 Customizations.TryGetValue(symbol, out Customization customization)
                 && customization.GetDescriptor?.Invoke()
-                    is  {  } setDescriptor
+                    is { } setDescriptor
             ) {
                 descriptor = setDescriptor;
             }
@@ -474,14 +474,14 @@ namespace System.CommandLine.Help
             if (
                 Customizations.TryGetValue(parent, out Customization customization)
                 && customization.GetDefaultValue?.Invoke()
-                    is  {  } parentSetDefaultValue
+                    is { } parentSetDefaultValue
             ) {
                 defaultValue = parentSetDefaultValue;
             }
             else if (
                 Customizations.TryGetValue(argument, out customization)
                 && customization.GetDefaultValue?.Invoke()
-                    is  {  } setDefaultValue
+                    is { } setDefaultValue
             ) {
                 defaultValue = setDefaultValue;
             }
@@ -513,7 +513,7 @@ namespace System.CommandLine.Help
             if (
                 Customizations.TryGetValue(argument, out Customization customization)
                 && customization.GetDescriptor?.Invoke()
-                    is  {  } setDescriptor
+                    is { } setDescriptor
             ) {
                 return setDescriptor;
             }

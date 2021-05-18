@@ -15,17 +15,9 @@ namespace System.CommandLine.Rendering
 
         public TextSpan Root => _root ?? (_root = this);
 
-        public ContainerSpan Parent
-        {
-            get;
-            private set;
-        }
+        public ContainerSpan Parent { get; private set; }
 
-        public int Start
-        {
-            get;
-            private set;
-        }
+        public int Start { get; private set; }
 
         public int End => Start + ContentLength;
 

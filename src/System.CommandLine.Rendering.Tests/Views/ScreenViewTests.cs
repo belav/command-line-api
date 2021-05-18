@@ -164,11 +164,7 @@ namespace System.CommandLine.Rendering.Tests.Views
                 }
             }
 
-            public int PostInvocationCount
-            {
-                get;
-                private set;
-            }
+            public int PostInvocationCount { get; private set; }
             public override void Post(SendOrPostCallback d, object state)
             {
                 PostInvocationCount++;

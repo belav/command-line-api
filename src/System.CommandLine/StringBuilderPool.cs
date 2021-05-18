@@ -50,7 +50,7 @@ namespace System.CommandLine
             {
                 if (
                     Interlocked.Exchange(ref _pool[i], null)
-                        is  {  } builderReference
+                        is { } builderReference
                     && builderReference.TryGetTarget(out var builder)
                 ) {
                     return builder.Clear();

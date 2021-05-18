@@ -408,7 +408,7 @@ namespace System.CommandLine.Builder
             Action<THelpBuilder>? configureHelp
         )
             where THelpBuilder : IHelpBuilder {
-            if (configureHelp is  {  } )
+            if (configureHelp is { })
             {
                 builder.ConfigureHelp = helpBuilder => configureHelp((THelpBuilder)helpBuilder);
             }
@@ -511,7 +511,7 @@ namespace System.CommandLine.Builder
                     {
                         int position;
 
-                        if (values.FirstOrDefault() is  {  } positionString)
+                        if (values.FirstOrDefault() is { } positionString)
                         {
                             position = int.Parse(positionString);
                         }
@@ -597,9 +597,9 @@ namespace System.CommandLine.Builder
             builder.AddMiddleware(
                 async (context, next) =>
                 {
-                    if (context.ParseResult.FindResultFor(versionOption) is  {  } result)
+                    if (context.ParseResult.FindResultFor(versionOption) is { } result)
                     {
-                        if (result.ArgumentConversionResult.ErrorMessage is  {  } )
+                        if (result.ArgumentConversionResult.ErrorMessage is { })
                         {
                             context.InvocationResult = new ParseErrorResult(errorExitCode);
                         }
