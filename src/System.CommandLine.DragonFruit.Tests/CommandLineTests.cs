@@ -22,8 +22,7 @@ namespace System.CommandLine.DragonFruit.Tests
         [Fact]
         public async Task It_executes_method_with_string_option()
         {
-            int exitCode =
-                await CommandLine.InvokeMethodAsync(
+            int exitCode = await CommandLine.InvokeMethodAsync(
                     new[] { "--name", "Wayne" },
                     TestProgram.TestMainMethodInfo,
                     null,
@@ -51,8 +50,7 @@ namespace System.CommandLine.DragonFruit.Tests
         [Fact]
         public async Task It_shows_help_text_based_on_XML_documentation_comments()
         {
-            int exitCode =
-                await CommandLine.InvokeMethodAsync(
+            int exitCode = await CommandLine.InvokeMethodAsync(
                     new[] { "--help" },
                     TestProgram.TestMainMethodInfo,
                     null,
@@ -96,8 +94,7 @@ namespace System.CommandLine.DragonFruit.Tests
         [Fact]
         public async Task It_executes_method_with_string_option_with_default()
         {
-            int exitCode =
-                await CommandLine.InvokeMethodAsync(
+            int exitCode = await CommandLine.InvokeMethodAsync(
                     Array.Empty<string>(),
                     TestProgram.TestMainMethodInfoWithDefault,
                     null,
@@ -132,8 +129,7 @@ namespace System.CommandLine.DragonFruit.Tests
         {
             Action action = TestMainThatThrows;
 
-            int exitCode =
-                await CommandLine.InvokeMethodAsync(
+            int exitCode = await CommandLine.InvokeMethodAsync(
                     new[] { "--unknown" },
                     action.Method,
                     null,
@@ -169,8 +165,7 @@ namespace System.CommandLine.DragonFruit.Tests
         {
             Action action = TestMainThatThrows;
 
-            int exitCode =
-                await CommandLine.InvokeMethodAsync(
+            int exitCode = await CommandLine.InvokeMethodAsync(
                     Array.Empty<string>(),
                     action.Method,
                     null,

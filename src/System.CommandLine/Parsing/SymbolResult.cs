@@ -9,8 +9,8 @@ namespace System.CommandLine.Parsing
     {
         private protected readonly List<Token> _tokens = new List<Token>();
         private Resources? _validationMessages;
-        private readonly Dictionary<IArgument,
-            ArgumentResult> _defaultArgumentValues = new Dictionary<IArgument, ArgumentResult>();
+        private readonly Dictionary<IArgument, ArgumentResult> _defaultArgumentValues =
+            new Dictionary<IArgument, ArgumentResult>();
 
         private protected SymbolResult(ISymbol symbol, SymbolResult? parent)
         {

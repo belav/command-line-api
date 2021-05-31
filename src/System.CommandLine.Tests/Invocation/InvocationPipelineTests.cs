@@ -162,19 +162,13 @@ namespace System.CommandLine.Tests.Invocation
                 }
             );
 
-            var parser = new CommandLineBuilder().UseMiddleware(
-                    async (context, next) =>
+            var parser = new CommandLineBuilder().UseMiddleware(async (context, next) =>
                     {
-                        var tokens = context.ParseResult.Tokens.Select(t => t.Value)
-                            .Concat(new[] { "implicit-inner-command" })
-                            .ToArray();
+                        var tokens = context.ParseResult.Tokens.Select(t => t.Value).Concat(new[] { "implicit-inner-command" }).ToArray();
 
                         context.ParseResult = context.Parser.Parse(tokens);
                         await next(context);
-                    }
-                )
-                .AddCommand(command)
-                .Build();
+                    }).AddCommand(command).Build();
 
             await parser.InvokeAsync("the-command", new TestConsole());
 
@@ -196,15 +190,11 @@ namespace System.CommandLine.Tests.Invocation
                 }
             );
 
-            var parser = new CommandLineBuilder().UseMiddleware(
-                    async (context, next) =>
+            var parser = new CommandLineBuilder().UseMiddleware(async (context, next) =>
                     {
                         middlewareWasCalled = true;
                         await Task.Yield();
-                    }
-                )
-                .AddCommand(command)
-                .Build();
+                    }).AddCommand(command).Build();
 
             await parser.InvokeAsync("the-command", new TestConsole());
 
@@ -227,15 +217,11 @@ namespace System.CommandLine.Tests.Invocation
                 }
             );
 
-            var parser = new CommandLineBuilder().UseMiddleware(
-                    async (context, next) =>
+            var parser = new CommandLineBuilder().UseMiddleware(async (context, next) =>
                     {
                         middlewareWasCalled = true;
                         await Task.Yield();
-                    }
-                )
-                .AddCommand(command)
-                .Build();
+                    }).AddCommand(command).Build();
 
             parser.Invoke("the-command", new TestConsole());
 
@@ -272,8 +258,7 @@ namespace System.CommandLine.Tests.Invocation
 
             HelpBuilder createdHelpBuilder = null;
 
-            Func<BindingContext, IHelpBuilder> helpBuilderFactory =
-                context =>
+            Func<BindingContext, IHelpBuilder> helpBuilderFactory = context =>
                 {
                     factoryWasCalled = true;
                     return createdHelpBuilder = new HelpBuilder(context.Console);

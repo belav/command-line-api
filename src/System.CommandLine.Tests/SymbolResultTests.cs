@@ -74,9 +74,9 @@ namespace System.CommandLine.Tests
             var result = command.Parse("");
 
             Action action = () =>
-            {
-                result.ValueForOption<string>(string.Empty);
-            };
+                {
+                    result.ValueForOption<string>(string.Empty);
+                };
 
             action.Should().Throw<ArgumentException>("Value cannot be null or whitespace.");
         }

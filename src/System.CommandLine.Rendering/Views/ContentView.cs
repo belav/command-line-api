@@ -19,10 +19,8 @@ namespace System.CommandLine.Rendering.Views
 
         public override void Render(ConsoleRenderer renderer, Region region)
         {
-            if (renderer == null)
-                throw new ArgumentNullException(nameof(renderer));
-            if (region == null)
-                throw new ArgumentNullException(nameof(region));
+            if (renderer == null) throw new ArgumentNullException(nameof(renderer));
+            if (region == null) throw new ArgumentNullException(nameof(region));
 
             renderer.RenderToRegion(Span, region);
         }
@@ -75,8 +73,7 @@ namespace System.CommandLine.Rendering.Views
 
         internal static ContentView Create(object content, TextSpanFormatter formatter)
         {
-            if (content == null)
-                return new ContentView(TextSpan.Empty());
+            if (content == null) return new ContentView(TextSpan.Empty());
             return CreateView((dynamic)content, formatter);
         }
 

@@ -13,8 +13,8 @@ namespace System.CommandLine.Binding
         private const BindingFlags CommonBindingFlags =
             BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance;
 
-        private static readonly ConcurrentDictionary<Type,
-            ModelDescriptor> _modelDescriptors = new ConcurrentDictionary<Type, ModelDescriptor>();
+        private static readonly ConcurrentDictionary<Type, ModelDescriptor> _modelDescriptors =
+            new ConcurrentDictionary<Type, ModelDescriptor>();
 
         private List<PropertyDescriptor>? _propertyDescriptors;
         private List<ConstructorDescriptor>? _constructorDescriptors;

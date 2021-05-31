@@ -13,13 +13,10 @@ namespace System.CommandLine.Hosting
             ParseResult commandline,
             string name
         ) {
-            if (commandline is null)
-                throw new ArgumentNullException(nameof(commandline));
-            if (name is null)
-                throw new ArgumentNullException(nameof(name));
+            if (commandline is null) throw new ArgumentNullException(nameof(commandline));
+            if (name is null) throw new ArgumentNullException(nameof(name));
 
-            if (!commandline.Directives.TryGetValues(name, out var directives))
-                return config;
+            if (!commandline.Directives.TryGetValues(name, out var directives)) return config;
 
             var kvpSeparator = new[] { '=' };
             return config.AddInMemoryCollection(

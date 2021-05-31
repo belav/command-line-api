@@ -102,10 +102,8 @@ namespace System.CommandLine.Invocation
 
             int n = first.Length,
                 m = second.Length;
-            if (n == 0)
-                return m;
-            if (m == 0)
-                return n;
+            if (n == 0) return m;
+            if (m == 0) return n;
 
             // Rather than maintain an entire matrix (which would require O(n*m) space),
             // just store the current row and the next row, each of which has a length m+1,

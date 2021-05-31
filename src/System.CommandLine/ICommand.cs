@@ -20,11 +20,15 @@ namespace System.CommandLine
         /// <summary>
         /// Gets the <see cref="IArgument">arguments</see> that can be provided to the command.
         /// </summary>
-        IReadOnlyList<IArgument> Arguments { get; }
+        IReadOnlyList<
+            IArgument
+        > Arguments { get; }
 
         /// <summary>
         /// Gets the <see cref="IOption">options</see> that can be provided to the command.
         /// </summary>
-        IReadOnlyList<IOption> Options { get; }
+        IReadOnlyList<
+            IOption
+        > Options { get; }
     }
 }

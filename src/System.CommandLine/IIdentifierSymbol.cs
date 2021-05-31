@@ -13,7 +13,9 @@ namespace System.CommandLine
         /// <summary>
         /// Gets the set of alternative strings that can be used on the command line to specify the symbol.
         /// </summary>
-        IReadOnlyCollection<string> Aliases { get; }
+        IReadOnlyCollection<
+            string
+        > Aliases { get; }
 
         /// <summary>
         /// Determines whether the alias has already been defined.

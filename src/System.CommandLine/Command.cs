@@ -174,10 +174,14 @@ namespace System.CommandLine
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <inheritdoc />
-        IReadOnlyList<IArgument> ICommand.Arguments => Arguments;
+        IReadOnlyList<
+            IArgument
+        > ICommand.Arguments => Arguments;
 
         /// <inheritdoc />
-        IReadOnlyList<IOption> ICommand.Options => Options;
+        IReadOnlyList<
+            IOption
+        > ICommand.Options => Options;
 
         internal Parser? ImplicitParser { get; set; }
     }

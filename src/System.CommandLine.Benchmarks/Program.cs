@@ -35,8 +35,7 @@ namespace System.CommandLine.Benchmarks
                 );
 #endif
             // an empty summary means that initial filtering and validation did not allow to run
-            if (!result.Any())
-                return 1;
+            if (!result.Any()) return 1;
 
             // if anything has failed, it's an error
             if (

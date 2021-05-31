@@ -23,7 +23,9 @@ namespace System.CommandLine.Builder
             () =>
             {
                 var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-                var assemblyVersionAttribute = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+                var assemblyVersionAttribute = assembly.GetCustomAttribute<
+                    AssemblyInformationalVersionAttribute
+                >();
                 if (assemblyVersionAttribute is null)
                 {
                     return assembly.GetName().Version.ToString();
@@ -183,9 +185,8 @@ namespace System.CommandLine.Builder
                             {
                                 var currentProcessFullPath =
                                     Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-                                var currentProcessFileNameWithoutExtension = Path.GetFileNameWithoutExtension(
-                                    currentProcessFullPath
-                                );
+                                var currentProcessFileNameWithoutExtension =
+                                    Path.GetFileNameWithoutExtension(currentProcessFullPath);
 
                                 var dotnetSuggestProcess = Process.StartProcess(
                                     command: "dotnet-suggest",

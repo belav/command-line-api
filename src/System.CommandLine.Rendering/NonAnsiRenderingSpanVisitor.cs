@@ -76,8 +76,8 @@ namespace System.CommandLine.Rendering
             }
         }
 
-        private static readonly Dictionary<string,
-            ConsoleColor> _backgroundColorMappings = new Dictionary<string, ConsoleColor>
+        private static readonly Dictionary<string, ConsoleColor> _backgroundColorMappings =
+            new Dictionary<string, ConsoleColor>
         {
             [nameof(BackgroundColorSpan.Black)] = ConsoleColor.Black,
             [nameof(BackgroundColorSpan.Red)] = ConsoleColor.DarkRed,
@@ -97,8 +97,8 @@ namespace System.CommandLine.Rendering
             [nameof(BackgroundColorSpan.LightGray)] = ConsoleColor.Gray,
         };
 
-        private static readonly Dictionary<string,
-            ConsoleColor> _foregroundColorMappings = new Dictionary<string, ConsoleColor>
+        private static readonly Dictionary<string, ConsoleColor> _foregroundColorMappings =
+            new Dictionary<string, ConsoleColor>
         {
             [nameof(ForegroundColorSpan.Black)] = ConsoleColor.Black,
             [nameof(ForegroundColorSpan.Red)] = ConsoleColor.DarkRed,

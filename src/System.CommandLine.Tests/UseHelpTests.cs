@@ -215,14 +215,9 @@ namespace System.CommandLine.Tests
             var command = new RootCommand { option };
 
             var console = new TestConsole();
-            var parser = new CommandLineBuilder(command).UseHelp<HelpBuilder>(
-                    builder =>
-                    {
+            var parser = new CommandLineBuilder(command).UseHelp<HelpBuilder>(builder => {
                         builder.Customize(option, descriptor: "-x (eXtreme)");
-                    }
-                )
-                .UseHelpBuilder(context => new CustomHelpBuilder())
-                .Build();
+                    }).UseHelpBuilder(context => new CustomHelpBuilder()).Build();
 
             Action action = () => parser.Invoke("-h", console);
             action.Should().Throw<InvalidCastException>();

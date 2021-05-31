@@ -23,7 +23,9 @@ namespace System.CommandLine.Rendering.Views
 
         private GridView Layout { get; } = new GridView();
 
-        private readonly List<ITableViewColumn<TItem>> _columns = new List<ITableViewColumn<TItem>>();
+        private readonly List<ITableViewColumn<TItem>> _columns = new List<
+            ITableViewColumn<TItem>
+        >();
         public IReadOnlyList<ITableViewColumn<TItem>> Columns => _columns;
 
         public TableView()
@@ -74,8 +76,7 @@ namespace System.CommandLine.Rendering.Views
 
         private void EnsureInitialized(ConsoleRenderer renderer)
         {
-            if (_gridInitialized)
-                return;
+            if (_gridInitialized) return;
 
             Layout.SetColumns(Columns.Select(x => x.ColumnDefinition).ToArray());
             Layout.SetRows(

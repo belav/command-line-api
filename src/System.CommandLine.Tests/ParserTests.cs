@@ -137,9 +137,9 @@ namespace System.CommandLine.Tests
         public void Two_options_cannot_have_conflicting_aliases()
         {
             Action create = () => new Parser(
-                new Option(new[] { "-o", "--one" }),
-                new Option(new[] { "-t", "--one" })
-            );
+                    new Option(new[] { "-o", "--one" }),
+                    new Option(new[] { "-t", "--one" })
+                );
 
             create.Should()
                 .Throw<ArgumentException>()

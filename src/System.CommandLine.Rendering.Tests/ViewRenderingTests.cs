@@ -34,15 +34,11 @@ namespace System.CommandLine.Rendering.Tests
                 )
             };
 
-            var parser = new CommandLineBuilder(command).UseMiddleware(
-                    c =>
-                    {
+            var parser = new CommandLineBuilder(command).UseMiddleware(c => {
                         c.BindingContext.AddService(
                             s => new ParseResultView(s.GetService<ParseResult>())
                         );
-                    }
-                )
-                .Build();
+                    }).Build();
 
             var terminal = new TestTerminal { IsAnsiTerminal = false };
 

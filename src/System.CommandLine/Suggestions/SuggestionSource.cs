@@ -9,9 +9,10 @@ namespace System.CommandLine.Suggestions
 {
     public static class SuggestionSource
     {
-        private static readonly ConcurrentDictionary<Type,
-            ISuggestionSource> _suggestionSourcesByType = new ConcurrentDictionary<Type,
-            ISuggestionSource>();
+        private static readonly ConcurrentDictionary<
+            Type,
+            ISuggestionSource
+        > _suggestionSourcesByType = new ConcurrentDictionary<Type, ISuggestionSource>();
 
         private static readonly string[] _trueAndFalse = { bool.FalseString, bool.TrueString };
 

@@ -131,7 +131,10 @@ namespace System.CommandLine.Help
         protected IEnumerable<HelpItem> GetCommandArguments(ICommand command)
         {
             //TODO: This shows all parent arguments not just the first level
-            return command.RecurseWhileNotNull(c => c.Parents.FirstOrDefaultOfType<ICommand>()).Reverse().SelectMany(GetArguments).Distinct();
+            return command.RecurseWhileNotNull(c => c.Parents.FirstOrDefaultOfType<ICommand>())
+                .Reverse()
+                .SelectMany(GetArguments)
+                .Distinct();
 
             IEnumerable<HelpItem> GetArguments(ICommand command)
             {
@@ -285,8 +288,7 @@ namespace System.CommandLine.Help
 
         protected void RenderAsColumns(params HelpItem[] items)
         {
-            if (items.Length == 0)
-                return;
+            if (items.Length == 0) return;
             int windowWidth = MaxWidth;
 
             int firstColumnWidth = items.Select(x => x.Descriptor.Length).Max();
@@ -344,8 +346,7 @@ namespace System.CommandLine.Help
 
         private static IEnumerable<string> WrapItem(string item, int maxWidth)
         {
-            if (string.IsNullOrWhiteSpace(item))
-                yield break;
+            if (string.IsNullOrWhiteSpace(item)) yield break;
             //First handle existing new lines
             var parts = item.Split(new string[] { "\r\n", "\n", }, StringSplitOptions.None);
 
@@ -454,8 +455,7 @@ namespace System.CommandLine.Help
                 var defaultArguments = arguments.Where(x => !x.IsHidden && x.HasDefaultValue)
                     .ToArray();
 
-                if (defaultArguments.Length == 0)
-                    return "";
+                if (defaultArguments.Length == 0) return "";
 
                 var isSingleArgument = defaultArguments.Length == 1;
                 var argumentDefaultValues = defaultArguments.Select(

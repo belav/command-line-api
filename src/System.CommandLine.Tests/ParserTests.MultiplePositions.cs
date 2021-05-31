@@ -90,7 +90,10 @@ namespace System.CommandLine.Tests
                     "reused"
                 )
                 {
-                    Handler = CommandHandler.Create(() =>  { })
+                    Handler = CommandHandler.Create(
+                        () =>
+                        { }
+                    )
                 };
                 reusedCommand.Add(new Option<string>("--the-option"));
 

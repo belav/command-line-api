@@ -859,7 +859,15 @@ namespace System.CommandLine.Tests
         public void A_command_with_subcommands_is_valid_to_invoke_if_it_has_a_handler()
         {
             var outer = new Command("outer");
-            var inner = new Command("inner") { Handler = CommandHandler.Create(() =>  { }) };
+            var inner = new Command(
+                "inner"
+            )
+            {
+                Handler = CommandHandler.Create(
+                    () =>
+                    { }
+                )
+            };
             var innerer = new Command("inner-er");
             outer.AddCommand(inner);
             inner.AddCommand(innerer);
