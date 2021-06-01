@@ -216,8 +216,7 @@ namespace System.CommandLine.Tests.Utility
         {
             int argc;
             var argv = CommandLineToArgvW(commandLine, out argc);
-            if (argv == IntPtr.Zero)
-                throw new Win32Exception();
+            if (argv == IntPtr.Zero) throw new Win32Exception();
             try
             {
                 var args = new string[argc];

@@ -74,8 +74,7 @@ namespace System.CommandLine.Rendering.Views
 
         private void EnsureInitialized(ConsoleRenderer renderer)
         {
-            if (_gridInitialized)
-                return;
+            if (_gridInitialized) return;
 
             Layout.SetColumns(Columns.Select(x => x.ColumnDefinition).ToArray());
             Layout.SetRows(

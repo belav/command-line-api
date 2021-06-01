@@ -86,8 +86,7 @@ namespace System.CommandLine.Hosting
             this OptionsBuilder<TOptions> optionsBuilder
         )
             where TOptions : class {
-            if (optionsBuilder is null)
-                throw new ArgumentNullException(nameof(optionsBuilder));
+            if (optionsBuilder is null) throw new ArgumentNullException(nameof(optionsBuilder));
             return optionsBuilder.Configure<IServiceProvider>(
                 (opts, serviceProvider) =>
                 {
