@@ -34,8 +34,7 @@ namespace System.CommandLine.Benchmarks.CommandLine
 
         private void GenerateTestNestedCommands(Command parent, int depth, int countPerLevel)
         {
-            if (depth == 0)
-                return;
+            if (depth == 0) return;
 
             for (int i = 0; i < countPerLevel; i++)
             {
