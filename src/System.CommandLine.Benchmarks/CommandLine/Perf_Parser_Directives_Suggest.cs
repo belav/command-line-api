@@ -24,9 +24,7 @@ namespace System.CommandLine.Benchmarks.CommandLine
         {
             _nullConsole = new NullConsole();
 
-            var eatCommand = new Command(
-                "eat"
-            )
+            var eatCommand = new Command("eat")
             {
                 new Option<string>("--fruit").AddSuggestions("apple", "banana", "cherry"),
                 new Option<string>("--vegetable").AddSuggestions("asparagus", "broccoli", "carrot")

@@ -5,8 +5,7 @@ namespace System.CommandLine.Rendering.Views
 {
     public class StackLayoutView : LayoutView<View>
     {
-        public StackLayoutView()
-            : this(Orientation.Vertical) { }
+        public StackLayoutView() : this(Orientation.Vertical) { }
 
         public StackLayoutView(Orientation orientation)
         {

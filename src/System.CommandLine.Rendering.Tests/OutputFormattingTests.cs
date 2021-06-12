@@ -75,8 +75,7 @@ namespace System.CommandLine.Rendering.Tests
 
         private class TimeSpanView : ContentView<TimeSpan>
         {
-            public TimeSpanView(TimeSpan value)
-                : base(value) { }
+            public TimeSpanView(TimeSpan value) : base(value) { }
         }
 
         private class ProcessTimesView : TableView<ProcessInfo>

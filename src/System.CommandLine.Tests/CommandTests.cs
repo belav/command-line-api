@@ -16,9 +16,7 @@ namespace System.CommandLine.Tests
         public CommandTests()
         {
             _parser = new Parser(
-                new Command(
-                    "outer"
-                )
+                new Command("outer")
                 {
                     new Command("inner") { new Option("--option", arity: ArgumentArity.ExactlyOne) }
                 }
@@ -145,9 +143,7 @@ namespace System.CommandLine.Tests
             string input,
             string expectedCommand
         ) {
-            var outer = new Command(
-                "outer"
-            )
+            var outer = new Command("outer")
             {
                 new Command("inner") { new Command("inner-er") },
                 new Command("sibling")
@@ -203,9 +199,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void It_retains_argument_name_when_it_is_provided()
         {
-            var command = new Command(
-                "-alias"
-            )
+            var command = new Command("-alias")
             {
                 new Argument { Name = "arg", Arity = ArgumentArity.ZeroOrOne }
             };

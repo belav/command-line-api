@@ -373,9 +373,8 @@ namespace System.CommandLine.Parsing
 
                                 var optionResult = new OptionResult(option, null, commandResult);
 
-                                var childArgumentResult = optionResult.GetOrCreateDefaultArgumentResult(
-                                    option.Argument
-                                );
+                                var childArgumentResult =
+                                    optionResult.GetOrCreateDefaultArgumentResult(option.Argument);
 
                                 optionResult.Children.Add(childArgumentResult);
                                 commandResult.Children.Add(optionResult);

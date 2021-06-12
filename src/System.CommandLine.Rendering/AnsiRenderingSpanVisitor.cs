@@ -9,8 +9,8 @@ namespace System.CommandLine.Rendering
 {
     internal class AnsiRenderingSpanVisitor : ContentRenderingSpanVisitor
     {
-        public AnsiRenderingSpanVisitor(IConsole console, Region region)
-            : base(console.Out, region) { }
+        public AnsiRenderingSpanVisitor(IConsole console, Region region) : base(console.Out, region)
+        { }
 
         protected override void SetCursorPosition(int? left = null, int? top = null)
         {
@@ -72,9 +72,10 @@ namespace System.CommandLine.Rendering
             }
         }
 
-        private static readonly Dictionary<string,
-            AnsiControlCode> _foregroundColorControlCodeMappings = new Dictionary<string,
-            AnsiControlCode>
+        private static readonly Dictionary<
+            string,
+            AnsiControlCode
+        > _foregroundColorControlCodeMappings = new Dictionary<string, AnsiControlCode>
         {
             [nameof(ForegroundColorSpan.Reset)] = Color.Foreground.Default,
             [nameof(ForegroundColorSpan.Black)] = Color.Foreground.Black,
@@ -95,9 +96,10 @@ namespace System.CommandLine.Rendering
             [nameof(ForegroundColorSpan.LightGray)] = Color.Foreground.LightGray,
         };
 
-        private static readonly Dictionary<string,
-            AnsiControlCode> _backgroundColorControlCodeMappings = new Dictionary<string,
-            AnsiControlCode>
+        private static readonly Dictionary<
+            string,
+            AnsiControlCode
+        > _backgroundColorControlCodeMappings = new Dictionary<string, AnsiControlCode>
         {
             [nameof(BackgroundColorSpan.Reset)] = Color.Background.Default,
             [nameof(BackgroundColorSpan.Black)] = Color.Background.Black,
@@ -118,21 +120,21 @@ namespace System.CommandLine.Rendering
             [nameof(BackgroundColorSpan.LightGray)] = Color.Background.LightGray,
         };
 
-        private static readonly Dictionary<string,
-            AnsiControlCode> _styleControlCodeMappings = new Dictionary<string, AnsiControlCode>
-        {
-            [nameof(StyleSpan.AttributesOff)] = Ansi.Text.AttributesOff,
-            [nameof(StyleSpan.BlinkOff)] = Ansi.Text.BlinkOff,
-            [nameof(StyleSpan.BlinkOn)] = Ansi.Text.BlinkOn,
-            [nameof(StyleSpan.BoldOff)] = Ansi.Text.BoldOff,
-            [nameof(StyleSpan.BoldOn)] = Ansi.Text.BoldOn,
-            [nameof(StyleSpan.HiddenOn)] = Ansi.Text.HiddenOn,
-            [nameof(StyleSpan.ReverseOn)] = Ansi.Text.ReverseOn,
-            [nameof(StyleSpan.ReverseOff)] = Ansi.Text.ReverseOff,
-            [nameof(StyleSpan.StandoutOff)] = Ansi.Text.StandoutOff,
-            [nameof(StyleSpan.StandoutOn)] = Ansi.Text.StandoutOn,
-            [nameof(StyleSpan.UnderlinedOff)] = Ansi.Text.UnderlinedOff,
-            [nameof(StyleSpan.UnderlinedOn)] = Ansi.Text.UnderlinedOn,
-        };
+        private static readonly Dictionary<string, AnsiControlCode> _styleControlCodeMappings =
+            new Dictionary<string, AnsiControlCode>
+            {
+                [nameof(StyleSpan.AttributesOff)] = Ansi.Text.AttributesOff,
+                [nameof(StyleSpan.BlinkOff)] = Ansi.Text.BlinkOff,
+                [nameof(StyleSpan.BlinkOn)] = Ansi.Text.BlinkOn,
+                [nameof(StyleSpan.BoldOff)] = Ansi.Text.BoldOff,
+                [nameof(StyleSpan.BoldOn)] = Ansi.Text.BoldOn,
+                [nameof(StyleSpan.HiddenOn)] = Ansi.Text.HiddenOn,
+                [nameof(StyleSpan.ReverseOn)] = Ansi.Text.ReverseOn,
+                [nameof(StyleSpan.ReverseOff)] = Ansi.Text.ReverseOff,
+                [nameof(StyleSpan.StandoutOff)] = Ansi.Text.StandoutOff,
+                [nameof(StyleSpan.StandoutOn)] = Ansi.Text.StandoutOn,
+                [nameof(StyleSpan.UnderlinedOff)] = Ansi.Text.UnderlinedOff,
+                [nameof(StyleSpan.UnderlinedOn)] = Ansi.Text.UnderlinedOn,
+            };
     }
 }

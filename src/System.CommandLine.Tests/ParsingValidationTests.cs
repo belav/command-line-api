@@ -278,9 +278,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void LegalFilePathsOnly_rejects_command_arguments_containing_invalid_path_characters()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument<string>().LegalFilePathsOnly()
                 };
@@ -300,9 +298,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void LegalFilePathsOnly_rejects_option_arguments_containing_invalid_path_characters()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Option<string>("-x").LegalFilePathsOnly()
                 };
@@ -322,9 +318,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void LegalFilePathsOnly_accepts_command_arguments_containing_valid_path_characters()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument<string[]>().LegalFilePathsOnly()
                 };
@@ -345,9 +339,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void LegalFilePathsOnly_accepts_option_arguments_containing_valid_path_characters()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Option<string[]>("-x").LegalFilePathsOnly()
                 };
@@ -371,9 +363,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void LegalFileNamesOnly_rejects_command_arguments_containing_invalid_file_name_characters()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument<string>().LegalFileNamesOnly()
                 };
@@ -394,9 +384,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void LegalFileNamesOnly_rejects_option_arguments_containing_invalid_file_name_characters()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Option<string>("-x").LegalFileNamesOnly()
                 };
@@ -417,9 +405,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void LegalFileNamesOnly_accepts_command_arguments_containing_valid_file_name_characters()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument<string[]>().LegalFileNamesOnly()
                 };
@@ -437,9 +423,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void LegalFileNamesOnly_accepts_option_arguments_containing_valid_file_name_characters()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Option<string[]>("-x").LegalFileNamesOnly()
                 };
@@ -494,9 +478,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void A_command_argument_can_be_invalid_based_on_directory_existence()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
                     new Argument<DirectoryInfo>("to").ExistingOnly()
                 };
@@ -516,9 +498,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void An_option_argument_can_be_invalid_based_on_directory_existence()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
                     new Option<DirectoryInfo>("--to").ExistingOnly()
                 };
@@ -555,9 +535,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void An_option_argument_can_be_invalid_based_on_file_or_directory_existence()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
                     new Option<FileSystemInfo>("--to").ExistingOnly()
                 };
@@ -577,9 +555,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void A_command_argument_with_multiple_files_can_be_invalid_based_on_file_existence()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
                     new Argument<IEnumerable<FileInfo>>("to").ExistingOnly()
                 };
@@ -599,9 +575,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void An_option_argument_with_multiple_files_can_be_invalid_based_on_file_existence()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
                     new Option<IEnumerable<FileInfo>>("--to").ExistingOnly()
                 };
@@ -621,9 +595,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void A_command_argument_with_multiple_directories_can_be_invalid_based_on_directory_existence()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
                     new Argument<List<DirectoryInfo>>("to").ExistingOnly()
                 };
@@ -643,9 +615,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void An_option_argument_with_multiple_directories_can_be_invalid_based_on_directory_existence()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
                     new Option<DirectoryInfo[]>("--to").ExistingOnly()
                 };
@@ -665,13 +635,9 @@ namespace System.CommandLine.Tests
             [Fact]
             public void A_command_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_file_existence()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
-                    new Argument<FileSystemInfo[]>(
-                        "to"
-                    )
+                    new Argument<FileSystemInfo[]>("to")
                     {
                         Arity = ArgumentArity.ZeroOrMore
                     }.ExistingOnly(),
@@ -692,9 +658,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void An_option_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_file_existence()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
                     new Option<FileSystemInfo[]>("--to").ExistingOnly()
                 };
@@ -713,9 +677,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void A_command_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_directory_existence()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
                     new Argument<FileSystemInfo>("to").ExistingOnly()
                 };
@@ -735,9 +697,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void An_option_argument_with_multiple_FileSystemInfos_can_be_invalid_based_on_directory_existence()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
                     new Option<FileSystemInfo[]>("--to").ExistingOnly()
                 };
@@ -790,9 +750,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void Option_argument_does_not_return_errors_when_Directory_exists()
             {
-                var command = new Command(
-                    "move"
-                )
+                var command = new Command("move")
                 {
                     new Option<DirectoryInfo>("--to").ExistingOnly()
                 };
@@ -859,7 +817,7 @@ namespace System.CommandLine.Tests
         public void A_command_with_subcommands_is_valid_to_invoke_if_it_has_a_handler()
         {
             var outer = new Command("outer");
-            var inner = new Command("inner") { Handler = CommandHandler.Create(() =>  { }) };
+            var inner = new Command("inner") { Handler = CommandHandler.Create(() => { }) };
             var innerer = new Command("inner-er");
             outer.AddCommand(inner);
             inner.AddCommand(innerer);

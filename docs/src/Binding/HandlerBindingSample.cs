@@ -152,9 +152,7 @@ namespace Binding
 
         public static async Task<int> ComplexTypes()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option<int>("--an-int"),
                 new Option<string>("--a-string")

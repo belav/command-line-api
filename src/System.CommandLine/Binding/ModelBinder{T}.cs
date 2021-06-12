@@ -7,8 +7,7 @@ namespace System.CommandLine.Binding
 {
     public class ModelBinder<TModel> : ModelBinder
     {
-        public ModelBinder()
-            : base(typeof(TModel)) { }
+        public ModelBinder() : base(typeof(TModel)) { }
 
         public void BindMemberFromValue<TValue>(
             Expression<Func<TModel, TValue>> property,

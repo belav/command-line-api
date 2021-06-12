@@ -37,9 +37,7 @@ namespace System.CommandLine.Suggest
                 SuggestionShellScriptHandler.Handle
             );
 
-            ListCommand = new Command(
-                "list"
-            )
+            ListCommand = new Command("list")
             {
                 Description = "Lists apps registered for suggestions",
                 Handler = CommandHandler.Create<IConsole>(
@@ -47,20 +45,14 @@ namespace System.CommandLine.Suggest
                 )
             };
 
-            GetCommand = new Command(
-                "get",
-                "Gets suggestions from the specified executable"
-            )
+            GetCommand = new Command("get", "Gets suggestions from the specified executable")
             {
                 ExecutableOption,
                 PositionOption
             };
             GetCommand.Handler = CommandHandler.Create<ParseResult, IConsole>(Get);
 
-            RegisterCommand = new Command(
-                "register",
-                "Registers an app for suggestions"
-            )
+            RegisterCommand = new Command("register", "Registers an app for suggestions")
             {
                 new Option<string>(
                     "--command-path",

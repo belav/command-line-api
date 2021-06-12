@@ -12,8 +12,7 @@ namespace System.CommandLine.Rendering
             : base(rgbColor, Ansi.Color.Foreground.Rgb(rgbColor.Red, rgbColor.Green, rgbColor.Blue))
         { }
 
-        public ForegroundColorSpan(byte r, byte g, byte b)
-            : this(new RgbColor(r, g, b)) { }
+        public ForegroundColorSpan(byte r, byte g, byte b) : this(new RgbColor(r, g, b)) { }
 
         public static ForegroundColorSpan Reset() =>
             new ForegroundColorSpan(nameof(Reset), Ansi.Color.Foreground.Default);

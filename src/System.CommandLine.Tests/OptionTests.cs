@@ -229,10 +229,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Argument_retains_name_when_it_is_provided()
         {
-            var option = new Option(
-                "-alias",
-                arity: ArgumentArity.ZeroOrOne
-            )
+            var option = new Option("-alias", arity: ArgumentArity.ZeroOrOne)
             {
                 ArgumentHelpName = "arg"
             };
@@ -360,9 +357,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Single_option_arg_is_matched_when_disallowing_multiple_args_per_option_token()
         {
-            var option = new Option<string[]>(
-                "--option"
-            )
+            var option = new Option<string[]>("--option")
             {
                 AllowMultipleArgumentsPerToken = false
             };
@@ -379,9 +374,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Multiple_option_args_are_matched_with_multiple_option_tokens_when_disallowing_multiple_args_per_option_token()
         {
-            var option = new Option<string[]>(
-                "--option"
-            )
+            var option = new Option<string[]>("--option")
             {
                 AllowMultipleArgumentsPerToken = false
             };

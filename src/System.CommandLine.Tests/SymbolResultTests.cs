@@ -32,9 +32,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void HasOption_can_be_used_to_check_the_presence_of_an_implicit_option()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option<int>(new[] { "-c", "--count" }, () => 5)
             };
@@ -47,9 +45,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_will_not_accept_a_command_if_a_sibling_command_has_already_been_accepted()
         {
-            var command = new Command(
-                "outer"
-            )
+            var command = new Command("outer")
             {
                 new Command("inner-one") { new Argument { Arity = ArgumentArity.Zero } },
                 new Command("inner-two") { new Argument { Arity = ArgumentArity.Zero } }

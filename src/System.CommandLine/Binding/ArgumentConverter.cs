@@ -15,8 +15,10 @@ namespace System.CommandLine.Binding
 {
     internal static class ArgumentConverter
     {
-        private static readonly Dictionary<Type,
-            Func<string, object>> _converters = new Dictionary<Type, Func<string, object>>
+        private static readonly Dictionary<Type, Func<string, object>> _converters = new Dictionary<
+            Type,
+            Func<string, object>
+        >
         {
             [typeof(FileSystemInfo)] = value =>
             {

@@ -239,9 +239,7 @@ namespace System.CommandLine.Tests
         {
             var parser = new CommandLineBuilder().EnablePosixBundling(false)
                 .AddCommand(
-                    new Command(
-                        "the-command"
-                    )
+                    new Command("the-command")
                     {
                         new Option("-x"),
                         new Option("-y"),
@@ -259,9 +257,7 @@ namespace System.CommandLine.Tests
         public void Option_long_forms_do_not_get_unbundled()
         {
             var parser = new Parser(
-                new Command(
-                    "the-command"
-                )
+                new Command("the-command")
                 {
                     new Option("--xyz"),
                     new Option("-x"),
@@ -541,9 +537,7 @@ namespace System.CommandLine.Tests
             );
 
             var parser = new Parser(
-                new Command(
-                    "the-command"
-                )
+                new Command("the-command")
                 {
                     animalsOption,
                     vegetablesOption,
@@ -569,9 +563,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_with_multiple_options_is_parsed_correctly()
         {
-            var option = new Command(
-                "outer"
-            )
+            var option = new Command("outer")
             {
                 new Option("--inner1", arity: ArgumentArity.ExactlyOne),
                 new Option("--inner2", arity: ArgumentArity.ExactlyOne)
@@ -594,9 +586,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Relative_order_of_arguments_and_options_within_a_command_does_not_matter()
         {
-            var command = new Command(
-                "move"
-            )
+            var command = new Command("move")
             {
                 new Argument<string[]>(),
                 new Option<string>("-X")
@@ -640,9 +630,7 @@ namespace System.CommandLine.Tests
         {
             var rawSplit = CommandLineStringSplitter.Instance.Split(commandLine);
 
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Argument<string[]>(),
                 new Option<string>("--one"),
@@ -657,9 +645,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void An_outer_command_with_the_same_name_does_not_capture()
         {
-            var command = new Command(
-                "one"
-            )
+            var command = new Command("one")
             {
                 new Command("two") { new Command("three") },
                 new Command("three")
@@ -673,9 +659,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void An_inner_command_with_the_same_name_does_not_capture()
         {
-            var command = new Command(
-                "one"
-            )
+            var command = new Command("one")
             {
                 new Command("two") { new Command("three") },
                 new Command("three")
@@ -689,9 +673,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_nested_commands_all_accept_arguments_then_the_nearest_captures_the_arguments()
         {
-            var command = new Command(
-                "outer"
-            )
+            var command = new Command("outer")
             {
                 new Argument { Arity = ArgumentArity.ZeroOrMore },
                 new Command("inner") { new Argument { Arity = ArgumentArity.ZeroOrMore } }
@@ -707,15 +689,11 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Nested_commands_with_colliding_names_cannot_both_be_applied()
         {
-            var command = new Command(
-                "outer"
-            )
+            var command = new Command("outer")
             {
                 new Argument<string>(),
                 new Command("non-unique") { new Argument<string>() },
-                new Command(
-                    "inner"
-                )
+                new Command("inner")
                 {
                     new Argument<string>(),
                     new Command("non-unique") { new Argument<string>() }
@@ -789,9 +767,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_options_with_the_same_name_are_defined_on_parent_and_child_commands_and_specified_at_the_end_then_it_attaches_to_the_inner_command()
         {
-            var outer = new Command(
-                "outer"
-            )
+            var outer = new Command("outer")
             {
                 new Command("inner") { new Option("-x") },
                 new Option("-x")
@@ -821,9 +797,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Arguments_only_apply_to_the_nearest_command()
         {
-            var outer = new Command(
-                "outer"
-            )
+            var outer = new Command("outer")
             {
                 new Argument<string>(),
                 new Command("inner") { new Argument<string>() }
@@ -852,9 +826,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Subsequent_occurrences_of_tokens_matching_command_names_are_parsed_as_arguments()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Command("complete") { new Argument<string>(), new Option<int>("--position") }
             };
@@ -875,9 +847,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void A_root_command_can_be_omitted_from_the_parsed_args()
         {
-            var command = new Command(
-                "outer"
-            )
+            var command = new Command("outer")
             {
                 new Command("inner") { new Option("-x", arity: ArgumentArity.ExactlyOne) }
             };
@@ -954,9 +924,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Commands_can_have_default_argument_values()
         {
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Argument<string>("the-arg", () => "default")
             };
@@ -1018,9 +986,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_default_argument_value_does_not_override_parsed_value()
         {
-            var command = new Command(
-                "inner"
-            )
+            var command = new Command("inner")
             {
                 new Argument<DirectoryInfo>(
                     () => new DirectoryInfo(Directory.GetCurrentDirectory())
@@ -1038,9 +1004,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Unmatched_options_are_not_split_into_smaller_tokens()
         {
-            var outer = new Command(
-                "outer"
-            )
+            var outer = new Command("outer")
             {
                 new Option("-p"),
                 new Command("inner") { new Argument { Arity = ArgumentArity.OneOrMore } }
@@ -1056,9 +1020,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void The_default_behavior_of_unmatched_tokens_resulting_in_errors_can_be_turned_off()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Argument { Arity = ArgumentArity.ExactlyOne }
             };
@@ -1074,18 +1036,14 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Option_and_Command_can_have_the_same_alias()
         {
-            var innerCommand = new Command(
-                "inner"
-            )
+            var innerCommand = new Command("inner")
             {
                 new Argument { Arity = ArgumentArity.ZeroOrMore }
             };
 
             var option = new Option("--inner");
 
-            var outerCommand = new Command(
-                "outer"
-            )
+            var outerCommand = new Command("outer")
             {
                 innerCommand,
                 option,
@@ -1150,9 +1108,7 @@ namespace System.CommandLine.Tests
         [InlineData("-x:-y")]
         public void Arguments_can_start_with_prefixes_that_make_them_look_like_options(string input)
         {
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Option("-x", arity: ArgumentArity.ZeroOrOne),
                 new Option("-z", arity: ArgumentArity.ZeroOrOne)
@@ -1170,9 +1126,7 @@ namespace System.CommandLine.Tests
         [InlineData("-x:-y")]
         public void Arguments_can_match_the_aliases_of_sibling_options(string input)
         {
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Option("-x", arity: ArgumentArity.ZeroOrOne),
                 new Option("-y", arity: ArgumentArity.ZeroOrOne)
@@ -1246,9 +1200,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_argument_arity_can_be_a_fixed_value_greater_than_1()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Argument { Arity = new ArgumentArity(3, 3) }
             };
@@ -1265,9 +1217,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_argument_arity_can_be_a_range_with_a_lower_bound_greater_than_1()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Argument { Arity = new ArgumentArity(3, 5) }
             };
@@ -1293,9 +1243,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_command_arguments_are_fewer_than_minimum_arity_then_an_error_is_returned()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Argument { Arity = new ArgumentArity(2, 3) }
             };
@@ -1310,9 +1258,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_command_arguments_are_greater_than_maximum_arity_then_an_error_is_returned()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Argument { Arity = new ArgumentArity(2, 3) }
             };
@@ -1389,9 +1335,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_option_arguments_are_greater_than_maximum_arity_then_an_error_is_returned()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option("-x", arity: new ArgumentArity(2, 3))
             };
@@ -1491,8 +1435,7 @@ namespace System.CommandLine.Tests
         [TypeConverter(typeof(CustomCollectionTypeConverter))]
         public class CollectionWithCustomTypeConverter : List<string>
         {
-            public CollectionWithCustomTypeConverter(IEnumerable<string> values)
-                : base(values) { }
+            public CollectionWithCustomTypeConverter(IEnumerable<string> values) : base(values) { }
         }
 
         public class CustomCollectionTypeConverter : TypeConverter

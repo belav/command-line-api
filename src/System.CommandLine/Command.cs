@@ -27,8 +27,7 @@ namespace System.CommandLine
         /// </summary>
         /// <param name="name">The name of the command.</param>
         /// <param name="description">The description of the command, shown in help.</param>
-        public Command(string name, string? description = null)
-            : base(name, description) { }
+        public Command(string name, string? description = null) : base(name, description) { }
 
         /// <summary>
         /// Represents all of the arguments for the command.

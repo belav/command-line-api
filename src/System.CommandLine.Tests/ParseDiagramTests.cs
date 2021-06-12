@@ -14,9 +14,7 @@ namespace System.CommandLine.Tests
         public void Parse_result_diagram_helps_explain_parse_operation()
         {
             var parser = new Parser(
-                new Command(
-                    "the-command"
-                )
+                new Command("the-command")
                 {
                     new Option("-x", arity: ArgumentArity.ExactlyOne),
                     new Option("-y"),
@@ -32,9 +30,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Parse_result_diagram_displays_unmatched_tokens()
         {
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Option<string>("-x").FromAmong("arg1", "arg2", "arg3")
             };
@@ -77,9 +73,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Parse_diagram_indicates_which_tokens_were_applied_to_which_command_argument()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Argument<string> { Name = "first" },
                 new Argument<string> { Name = "second" },
@@ -98,9 +92,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Parse_diagram_indicates_which_tokens_were_applied_to_which_command_argument_for_sequences_of_complex_types()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Argument<FileInfo> { Name = "first" },
                 new Argument<FileInfo> { Name = "second" },

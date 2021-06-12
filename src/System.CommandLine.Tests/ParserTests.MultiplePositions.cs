@@ -86,17 +86,13 @@ namespace System.CommandLine.Tests
                 string commandLine,
                 string expectedParent
             ) {
-                var reusedCommand = new Command(
-                    "reused"
-                )
+                var reusedCommand = new Command("reused")
                 {
-                    Handler = CommandHandler.Create(() =>  { })
+                    Handler = CommandHandler.Create(() => { })
                 };
                 reusedCommand.Add(new Option<string>("--the-option"));
 
-                var outer = new Command(
-                    "outer"
-                )
+                var outer = new Command("outer")
                 {
                     new Command("inner1") { reusedCommand },
                     new Command("inner2") { reusedCommand }

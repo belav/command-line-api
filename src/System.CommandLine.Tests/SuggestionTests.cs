@@ -38,12 +38,11 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_GetSuggestions_returns_available_option_aliases()
         {
-            IReadOnlyCollection<Symbol> symbols =
-                new[] {
-                    new Option("--one", "option one"),
-                    new Option("--two", "option two"),
-                    new Option("--three", "option three")
-                };
+            IReadOnlyCollection<Symbol> symbols = new[] {
+                new Option("--one", "option one"),
+                new Option("--two", "option two"),
+                new Option("--three", "option three")
+            };
             var command1 = new Command("command", "a command");
 
             foreach (var symbol in symbols)
@@ -61,9 +60,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_GetSuggestions_returns_available_subcommands()
         {
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Command("one"),
                 new Command("two"),
@@ -78,9 +75,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_GetSuggestions_returns_available_subcommands_and_option_aliases()
         {
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Command("subcommand"),
                 new Option("--option")
@@ -94,16 +89,14 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_GetSuggestions_returns_available_subcommands_and_option_aliases_and_configured_arguments()
         {
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Command("subcommand", "subcommand"),
                 new Option("--option", "option"),
                 new Argument
                 {
                     Arity = ArgumentArity.OneOrMore,
-                    Suggestions =  { "command-argument" }
+                    Suggestions = { "command-argument" }
                 }
             };
 
@@ -115,9 +108,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_GetSuggestions_without_text_to_match_orders_alphabetically()
         {
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Command("andmythirdsubcommand"),
                 new Command("mysubcommand"),
@@ -147,9 +138,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_GetSuggestions_with_text_to_match_orders_by_match_position_then_alphabetically()
         {
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Command("andmythirdsubcommand"),
                 new Command("mysubcommand"),
@@ -227,9 +216,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_one_option_has_been_specified_then_it_and_its_siblings_will_still_be_suggested()
         {
-            var parser = new Command(
-                "command"
-            )
+            var parser = new Command("command")
             {
                 new Option("--apple"),
                 new Option("--banana"),
@@ -278,9 +265,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_a_subcommand_has_been_specified_then_its_sibling_options_will_be_suggested()
         {
-            var command = new RootCommand(
-                "parent"
-            )
+            var command = new RootCommand("parent")
             {
                 new Command("child"),
                 new Option("--parent-option"),
@@ -296,9 +281,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_a_subcommand_has_been_specified_then_its_sibling_options_with_argument_limit_reached_will_be_not_be_suggested()
         {
-            var command = new RootCommand(
-                "parent"
-            )
+            var command = new RootCommand("parent")
             {
                 new Command("child"),
                 new Option<string>("--parent-option"),
@@ -316,9 +299,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_a_subcommand_has_been_specified_then_its_child_options_will_be_suggested()
         {
-            var command = new RootCommand(
-                "parent"
-            )
+            var command = new RootCommand("parent")
             {
                 new Argument<string>(),
                 new Command("child") { new Option<string>("--child-option") }
@@ -349,9 +330,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_one_option_has_been_partially_specified_then_nonmatching_siblings_will_not_be_suggested()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option("--apple"),
                 new Option("--banana"),
@@ -367,9 +346,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void An_option_can_be_hidden_from_suggestions_by_setting_IsHidden_to_true()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option("--hide-me") { IsHidden = true },
                 new Option("-n", "Not hidden")
@@ -414,9 +391,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Subcommand_names_are_available_as_suggestions()
         {
-            var command = new Command(
-                "test"
-            )
+            var command = new Command("test")
             {
                 new Command("one", "Command one"),
                 new Command("two", "Command two"),
@@ -433,9 +408,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Both_subcommands_and_options_are_available_as_suggestions()
         {
-            var command = new Command(
-                "test"
-            )
+            var command = new Command("test")
             {
                 new Command("one"),
                 new Option("--one"),
@@ -455,9 +428,7 @@ namespace System.CommandLine.Tests
         [InlineData("outer -")]
         public void Option_Getsuggestionsions_are_not_provided_without_matching_prefix(string input)
         {
-            var command = new Command(
-                "outer"
-            )
+            var command = new Command("outer")
             {
                 new Option("--one"),
                 new Option("--two"),
@@ -474,9 +445,7 @@ namespace System.CommandLine.Tests
         public void Option_Getsuggestionsions_can_be_based_on_the_proximate_option()
         {
             var parser = new Parser(
-                new Command(
-                    "outer"
-                )
+                new Command("outer")
                 {
                     new Option("--one"),
                     new Option("--two"),
@@ -496,9 +465,7 @@ namespace System.CommandLine.Tests
         public void Argument_suggestions_can_be_based_on_the_proximate_option()
         {
             var parser = new Parser(
-                new Command(
-                    "outer"
-                )
+                new Command("outer")
                 {
                     new Option("--one", arity: ArgumentArity.ExactlyOne).FromAmong(
                         "one-a",
@@ -518,9 +485,7 @@ namespace System.CommandLine.Tests
         public void Option_Getsuggestionsions_can_be_based_on_the_proximate_option_and_partial_input()
         {
             var parser = new Parser(
-                new Command(
-                    "outer"
-                )
+                new Command("outer")
                 {
                     new Command("one", "Command one"),
                     new Command("two", "Command two"),
@@ -536,9 +501,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Suggestions_can_be_provided_in_the_absence_of_validation()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option("-t", arity: ArgumentArity.ExactlyOne).AddSuggestions(
                     "vegetable",
@@ -558,18 +521,14 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_argument_suggestions_can_be_provided_using_a_delegate()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
-                new Command(
-                    "one"
-                )
+                new Command("one")
                 {
                     new Argument
                     {
                         Arity = ArgumentArity.ExactlyOne,
-                        Suggestions =  { (_, __) => new[] { "vegetable", "mineral", "animal" } }
+                        Suggestions = { (_, __) => new[] { "vegetable", "mineral", "animal" } }
                     }
                 }
             };
@@ -583,9 +542,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Option_argument_suggestions_can_be_provided_using_a_delegate()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option<string>("-x").AddSuggestions(
                     (_, __) => new[] { "vegetable", "mineral", "animal" }
@@ -600,9 +557,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_caller_does_the_tokenizing_then_argument_suggestions_are_based_on_the_proximate_option()
         {
-            var command = new Command(
-                "outer"
-            )
+            var command = new Command("outer")
             {
                 new Option("one", arity: ArgumentArity.ExactlyOne).FromAmong(
                     "one-a",
@@ -631,9 +586,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_caller_does_not_do_the_tokenizing_then_argument_suggestions_are_based_on_the_proximate_option()
         {
-            var command = new Command(
-                "outer"
-            )
+            var command = new Command("outer")
             {
                 new Option("one", arity: ArgumentArity.ExactlyOne).FromAmong(
                     "one-a",
@@ -660,13 +613,9 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_caller_does_the_tokenizing_then_argument_suggestions_are_based_on_the_proximate_command()
         {
-            var outer = new Command(
-                "outer"
-            )
+            var outer = new Command("outer")
             {
-                new Command(
-                    "one"
-                )
+                new Command("one")
                 {
                     new Argument { Arity = ArgumentArity.ExactlyOne }.FromAmong(
                         "one-a",
@@ -674,9 +623,7 @@ namespace System.CommandLine.Tests
                         "one-c"
                     )
                 },
-                new Command(
-                    "two"
-                )
+                new Command("two")
                 {
                     new Argument { Arity = ArgumentArity.ExactlyOne }.FromAmong(
                         "two-a",
@@ -684,9 +631,7 @@ namespace System.CommandLine.Tests
                         "two-c"
                     )
                 },
-                new Command(
-                    "three"
-                )
+                new Command("three")
                 {
                     new Argument { Arity = ArgumentArity.ExactlyOne }.FromAmong(
                         "three-a",
@@ -704,13 +649,9 @@ namespace System.CommandLine.Tests
         [Fact]
         public void When_caller_does_not_do_the_tokenizing_then_argument_suggestions_are_based_on_the_proximate_command()
         {
-            var outer = new Command(
-                "outer"
-            )
+            var outer = new Command("outer")
             {
-                new Command(
-                    "one"
-                )
+                new Command("one")
                 {
                     new Argument { Arity = ArgumentArity.ExactlyOne }.FromAmong(
                         "one-a",
@@ -718,9 +659,7 @@ namespace System.CommandLine.Tests
                         "one-c"
                     )
                 },
-                new Command(
-                    "two"
-                )
+                new Command("two")
                 {
                     new Argument { Arity = ArgumentArity.ExactlyOne }.FromAmong(
                         "two-a",
@@ -728,9 +667,7 @@ namespace System.CommandLine.Tests
                         "two-c"
                     )
                 },
-                new Command(
-                    "three"
-                )
+                new Command("three")
                 {
                     new Argument { Arity = ArgumentArity.ExactlyOne }.FromAmong(
                         "three-a",
@@ -758,9 +695,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Options_that_have_been_specified_to_their_maximum_arity_are_not_suggested()
         {
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Option<string>("--allows-one"),
                 new Option<string[]>("--allows-many")
@@ -788,9 +723,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Option_substring_matching_when_arguments_have_default_values()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option<string>("--implicit", () => "the-default"),
                 new Option<string>("--not", () => "the-default")
@@ -806,8 +739,10 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_unspecified_in_string_command_line_not_ending_with_a_space_then_it_returns_final_token()
             {
-                IReadOnlyCollection<Symbol> symbols =
-                    new[] { new Option("--option1"), new Option("--option2") };
+                IReadOnlyCollection<Symbol> symbols = new[] {
+                    new Option("--option1"),
+                    new Option("--option2")
+                };
                 var command1 = new Command("the-command", "");
 
                 foreach (var symbol in symbols)
@@ -825,8 +760,10 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_unspecified_in_string_command_line_ending_with_a_space_then_it_returns_empty()
             {
-                IReadOnlyCollection<Symbol> symbols =
-                    new[] { new Option("--option1"), new Option("--option2") };
+                IReadOnlyCollection<Symbol> symbols = new[] {
+                    new Option("--option1"),
+                    new Option("--option2")
+                };
                 var command1 = new Command("the-command", "");
 
                 foreach (var symbol in symbols)
@@ -845,9 +782,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_greater_than_input_length_in_a_string_command_line_then_it_returns_empty()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument<string>(),
                     new Option<string>("--option1").FromAmong(
@@ -867,8 +802,10 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_unspecified_in_array_command_line_and_final_token_is_unmatched_then_it_returns_final_token()
             {
-                IReadOnlyCollection<Symbol> symbols =
-                    new[] { new Option("--option1"), new Option("--option2") };
+                IReadOnlyCollection<Symbol> symbols = new[] {
+                    new Option("--option1"),
+                    new Option("--option2")
+                };
                 var command1 = new Command("the-command", "");
 
                 foreach (var symbol in symbols)
@@ -886,8 +823,10 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_unspecified_in_array_command_line_and_final_token_matches_an_command_then_it_returns_empty()
             {
-                IReadOnlyCollection<Symbol> symbols =
-                    new[] { new Option("--option1"), new Option("--option2") };
+                IReadOnlyCollection<Symbol> symbols = new[] {
+                    new Option("--option1"),
+                    new Option("--option2")
+                };
                 var command1 = new Command("the-command", "");
 
                 foreach (var symbol in symbols)
@@ -905,8 +844,10 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_unspecified_in_array_command_line_and_final_token_matches_an_option_then_it_returns_empty()
             {
-                IReadOnlyCollection<Symbol> symbols =
-                    new[] { new Option("--option1"), new Option("--option2") };
+                IReadOnlyCollection<Symbol> symbols = new[] {
+                    new Option("--option1"),
+                    new Option("--option2")
+                };
                 var command1 = new Command("the-command", "");
 
                 foreach (var symbol in symbols)
@@ -924,9 +865,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_unspecified_in_array_command_line_and_final_token_matches_an_argument_then_it_returns_empty()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Option<string>("--option1").FromAmong(
                         "apple",
@@ -954,9 +893,7 @@ namespace System.CommandLine.Tests
                 string commandLine,
                 string expected
             ) {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument { Arity = ArgumentArity.ZeroOrMore }
                 };
@@ -992,13 +929,11 @@ namespace System.CommandLine.Tests
             [Fact]
             public void Enum_suggestions_can_be_configured_without_list_clear()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument<DayOfWeek?>
                     {
-                        Suggestions =  { "mon", "tues", "wed", "thur", "fri", "sat", "sun" }
+                        Suggestions = { "mon", "tues", "wed", "thur", "fri", "sat", "sun" }
                     }
                 };
 

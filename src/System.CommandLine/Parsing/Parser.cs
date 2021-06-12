@@ -12,11 +12,9 @@ namespace System.CommandLine.Parsing
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
-        public Parser(params Symbol[] symbols)
-            : this(new CommandLineConfiguration(symbols)) { }
+        public Parser(params Symbol[] symbols) : this(new CommandLineConfiguration(symbols)) { }
 
-        public Parser()
-            : this(new RootCommand()) { }
+        public Parser() : this(new RootCommand()) { }
 
         public CommandLineConfiguration Configuration { get; }
 

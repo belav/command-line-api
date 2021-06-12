@@ -175,8 +175,7 @@ namespace System.CommandLine.Rendering.Tests.Views
 
             public TestContentView() { }
 
-            public TestContentView(string content)
-                : base(content) { }
+            public TestContentView(string content) : base(content) { }
         }
 
         private class TestObservable : IObservable<string>

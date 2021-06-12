@@ -120,9 +120,7 @@ namespace System.CommandLine.Tests.Binding
 
             var handler = HandlerDescriptor.FromMethodInfo(handlerMethod).GetCommandHandler();
 
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Argument { Name = "value", ArgumentType = type }
             };
@@ -268,9 +266,7 @@ namespace System.CommandLine.Tests.Binding
                 handler = CommandHandler.Create((dynamic)@delegate);
             }
 
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Option("--value", argumentType: testCase.ParameterType)
             };
@@ -336,9 +332,7 @@ namespace System.CommandLine.Tests.Binding
 
             var handler = CommandHandler.Create(captureMethod);
 
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Argument { Name = "value", ArgumentType = c.ParameterType }
             };

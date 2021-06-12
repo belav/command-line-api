@@ -9,8 +9,7 @@ namespace System.CommandLine.Binding
 {
     public class ModelBinder
     {
-        public ModelBinder(Type modelType)
-            : this(new AnonymousValueDescriptor(modelType)) =>
+        public ModelBinder(Type modelType) : this(new AnonymousValueDescriptor(modelType)) =>
             _ = modelType ?? throw new ArgumentNullException(nameof(modelType));
 
         internal ModelBinder(IValueDescriptor valueDescriptor)
@@ -24,8 +23,10 @@ namespace System.CommandLine.Binding
         public ModelDescriptor ModelDescriptor { get; }
         public bool EnforceExplicitBinding { get; set; }
 
-        internal Dictionary<IValueDescriptor,
-            IValueSource> ConstructorArgumentBindingSources { get; } =
+        internal Dictionary<
+            IValueDescriptor,
+            IValueSource
+        > ConstructorArgumentBindingSources { get; } =
             new Dictionary<IValueDescriptor, IValueSource>();
 
         internal Dictionary<IValueDescriptor, IValueSource> MemberBindingSources { get; } =

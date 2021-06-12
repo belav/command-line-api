@@ -11,8 +11,7 @@ namespace System.CommandLine.Parsing
         private Dictionary<ICommand, CommandResult>? _allCommandResults;
         private Dictionary<IOption, OptionResult>? _allOptionResults;
 
-        public RootCommandResult(ICommand command, Token token)
-            : base(command, token) { }
+        public RootCommandResult(ICommand command, Token token) : base(command, token) { }
 
         internal override RootCommandResult Root => this;
 

@@ -14,8 +14,7 @@ namespace System.CommandLine
         public static TArgument AddSuggestions<TArgument>(
             this TArgument argument,
             params string[] values
-        )
-            where TArgument : Argument {
+        ) where TArgument : Argument {
             argument.Suggestions.Add(values);
 
             return argument;
@@ -24,8 +23,7 @@ namespace System.CommandLine
         public static TArgument AddSuggestions<TArgument>(
             this TArgument argument,
             SuggestDelegate suggest
-        )
-            where TArgument : Argument {
+        ) where TArgument : Argument {
             argument.Suggestions.Add(suggest);
 
             return argument;
@@ -34,8 +32,7 @@ namespace System.CommandLine
         public static TArgument FromAmong<TArgument>(
             this TArgument argument,
             params string[] values
-        )
-            where TArgument : Argument {
+        ) where TArgument : Argument {
             argument.AddAllowedValues(values);
             argument.Suggestions.Add(values);
 

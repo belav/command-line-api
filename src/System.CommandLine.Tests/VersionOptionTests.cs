@@ -16,8 +16,7 @@ namespace System.CommandLine.Tests
 {
     public class VersionOptionTests
     {
-        private static readonly string version =
-            (Assembly.GetEntryAssembly()
+        private static readonly string version = (Assembly.GetEntryAssembly()
             ?? Assembly.GetExecutingAssembly()).GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
 
         [Fact]
@@ -67,10 +66,10 @@ namespace System.CommandLine.Tests
         {
             var rootCommand = new RootCommand
             {
-                new Command("subcommand") { Handler = CommandHandler.Create(() =>  { }) },
+                new Command("subcommand") { Handler = CommandHandler.Create(() => { }) },
                 new Option("-x")
             };
-            rootCommand.Handler = CommandHandler.Create(() =>  { });
+            rootCommand.Handler = CommandHandler.Create(() => { });
 
             var parser = new CommandLineBuilder(rootCommand).UseVersionOption().Build();
 
@@ -92,7 +91,7 @@ namespace System.CommandLine.Tests
         {
             var rootCommand = new RootCommand
             {
-                new Command("subcommand") { Handler = CommandHandler.Create(() =>  { }) },
+                new Command("subcommand") { Handler = CommandHandler.Create(() => { }) },
                 new Option("-x")
             };
 
@@ -109,9 +108,9 @@ namespace System.CommandLine.Tests
         {
             var rootCommand = new RootCommand
             {
-                new Command("subcommand") { Handler = CommandHandler.Create(() =>  { }) },
+                new Command("subcommand") { Handler = CommandHandler.Create(() => { }) },
             };
-            rootCommand.Handler = CommandHandler.Create(() =>  { });
+            rootCommand.Handler = CommandHandler.Create(() => { });
 
             var parser = new CommandLineBuilder(rootCommand).UseVersionOption().Build();
 

@@ -5,8 +5,7 @@ namespace System.CommandLine.Rendering
 {
     internal class ScrollingTerminalRegion : Region
     {
-        public ScrollingTerminalRegion()
-            : base(0, 0, isOverwrittenOnRender: false) { }
+        public ScrollingTerminalRegion() : base(0, 0, isOverwrittenOnRender: false) { }
 
         public override int Height => int.MaxValue;
 
