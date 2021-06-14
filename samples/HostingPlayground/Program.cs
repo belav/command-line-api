@@ -33,9 +33,7 @@ namespace HostingPlayground
 
         private static CommandLineBuilder BuildCommandLine()
         {
-            var root = new RootCommand(
-                @"$ dotnet run --name 'Joe'"
-            )
+            var root = new RootCommand(@"$ dotnet run --name 'Joe'")
             {
                 new Option<string>("--name") { IsRequired = true }
             };

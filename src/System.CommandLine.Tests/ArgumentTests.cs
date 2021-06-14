@@ -228,9 +228,7 @@ namespace System.CommandLine.Tests
             {
                 ArgumentResult argumentResult = null;
 
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Option<string>(
                         "-x",
@@ -253,9 +251,7 @@ namespace System.CommandLine.Tests
             {
                 ArgumentResult argumentResult = null;
 
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Option<string>(
                         "-x",
@@ -306,9 +302,7 @@ namespace System.CommandLine.Tests
             {
                 ArgumentResult argumentResult = null;
 
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument<string>(
                         parse: argResult =>
@@ -403,9 +397,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_custom_conversion_fails_then_an_option_does_not_accept_further_arguments()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument<string>(),
                     new Option<string>(
@@ -426,9 +418,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_argument_cannot_be_parsed_as_the_specified_type_then_getting_value_throws()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Option<int>(
                         new[] { "-o", "--one" },

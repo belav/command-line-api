@@ -7,8 +7,7 @@ namespace System.CommandLine.Suggest
     {
         public SuggestionShellScriptException() { }
 
-        public SuggestionShellScriptException(string message)
-            : base(message) { }
+        public SuggestionShellScriptException(string message) : base(message) { }
 
         public SuggestionShellScriptException(string message, Exception innerException)
             : base(message, innerException) { }

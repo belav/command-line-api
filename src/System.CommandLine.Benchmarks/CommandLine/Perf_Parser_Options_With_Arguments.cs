@@ -21,10 +21,7 @@ namespace System.CommandLine.Benchmarks.CommandLine
             Enumerable.Range(0, count)
                 .Select(
                     i =>
-                        new Option(
-                            $"-option{i}",
-                            arity: arity
-                        )
+                        new Option($"-option{i}", arity: arity)
                         {
                             Description = $"Description for -option {i} ...."
                         }

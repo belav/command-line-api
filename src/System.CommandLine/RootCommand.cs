@@ -20,8 +20,7 @@ namespace System.CommandLine
         /// Initializes a new instance of the RootCommand class.
         /// </summary>
         /// <param name="description">The description of the command, shown in help.</param>
-        public RootCommand(string description = "")
-            : base(ExecutableName, description) { }
+        public RootCommand(string description = "") : base(ExecutableName, description) { }
 
         private static readonly Lazy<string> _executablePath = new Lazy<string>(
             () =>

@@ -11,8 +11,7 @@ namespace System.CommandLine.Parsing
     {
         private ArgumentConversionResult? _conversionResult;
 
-        internal ArgumentResult(IArgument argument, SymbolResult? parent)
-            : base(argument, parent)
+        internal ArgumentResult(IArgument argument, SymbolResult? parent) : base(argument, parent)
         {
             Argument = argument;
         }

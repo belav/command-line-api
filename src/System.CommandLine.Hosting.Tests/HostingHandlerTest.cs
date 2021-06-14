@@ -87,8 +87,9 @@ namespace System.CommandLine.Hosting.Tests
                 )
                 .Build();
 
-            var result =
-                await parser.InvokeAsync(new string[] { "mycommand", "--int-option", "54" });
+            var result = await parser.InvokeAsync(
+                    new string[] { "mycommand", "--int-option", "54" }
+                );
 
             result.Should().Be(54);
 
@@ -126,8 +127,7 @@ namespace System.CommandLine.Hosting.Tests
 
         public class MyCommand : Command
         {
-            public MyCommand()
-                : base(name: "mycommand")
+            public MyCommand() : base(name: "mycommand")
             {
                 AddOption(new Option<int>("--int-option")); // or nameof(Handler.IntOption).ToKebabCase() if you don't like the string literal
             }
@@ -154,8 +154,7 @@ namespace System.CommandLine.Hosting.Tests
 
         public class MyOtherCommand : Command
         {
-            public MyOtherCommand()
-                : base(name: "myothercommand")
+            public MyOtherCommand() : base(name: "myothercommand")
             {
                 AddOption(new Option<int>("--int-option")); // or nameof(Handler.IntOption).ToKebabCase() if you don't like the string literal
                 AddArgument(new Argument<string>("One"));

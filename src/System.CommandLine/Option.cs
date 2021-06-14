@@ -19,8 +19,7 @@ namespace System.CommandLine
             Type? argumentType = null,
             Func<object?>? getDefaultValue = null,
             IArgumentArity? arity = null
-        )
-            : this(new[] { alias }, description, argumentType, getDefaultValue, arity) { }
+        ) : this(new[] { alias }, description, argumentType, getDefaultValue, arity) { }
 
         public Option(
             string[] aliases,
@@ -28,8 +27,7 @@ namespace System.CommandLine
             Type? argumentType = null,
             Func<object?>? getDefaultValue = null,
             IArgumentArity? arity = null
-        )
-            : this(aliases, description, CreateArgument(argumentType, getDefaultValue, arity)) { }
+        ) : this(aliases, description, CreateArgument(argumentType, getDefaultValue, arity)) { }
 
         internal Option(string[] aliases, string? description, Argument? argument)
             : base(description)

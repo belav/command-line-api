@@ -285,14 +285,13 @@ namespace System.CommandLine.DragonFruit
         {
             var descriptor = HandlerDescriptor.FromMethodInfo(method);
 
-            var omittedTypes =
-                new[] {
-                    typeof(IConsole),
-                    typeof(InvocationContext),
-                    typeof(BindingContext),
-                    typeof(ParseResult),
-                    typeof(CancellationToken),
-                };
+            var omittedTypes = new[] {
+                typeof(IConsole),
+                typeof(InvocationContext),
+                typeof(BindingContext),
+                typeof(ParseResult),
+                typeof(CancellationToken),
+            };
 
             foreach (
                 var option in descriptor.ParameterDescriptors.Where(

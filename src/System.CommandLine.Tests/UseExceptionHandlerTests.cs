@@ -103,8 +103,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public async Task When_thrown_exception_is_from_cancelation_no_output_is_generated()
         {
-            int resultCode =
-                await new CommandLineBuilder().AddCommand(new Command("the-command"))
+            int resultCode = await new CommandLineBuilder().AddCommand(new Command("the-command"))
                     .UseExceptionHandler()
                     .UseMiddleware(_ => throw new OperationCanceledException())
                     .Build()
@@ -117,8 +116,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public async Task UseExceptionHandler_output_can_be_customized()
         {
-            int resultCode =
-                await new CommandLineBuilder().AddCommand(new Command("the-command"))
+            int resultCode = await new CommandLineBuilder().AddCommand(new Command("the-command"))
                     .UseExceptionHandler(
                         (exception, context) =>
                         {
@@ -137,8 +135,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public async Task UseExceptionHandler_set_custom_result_code()
         {
-            int resultCode =
-                await new CommandLineBuilder().AddCommand(new Command("the-command"))
+            int resultCode = await new CommandLineBuilder().AddCommand(new Command("the-command"))
                     .UseExceptionHandler(errorExitCode: 42)
                     .UseMiddleware(_ => throw new Exception("oops!"))
                     .Build()

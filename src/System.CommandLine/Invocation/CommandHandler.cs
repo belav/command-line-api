@@ -500,7 +500,8 @@ namespace System.CommandLine.Invocation
             T15,
             T16
         >(
-            Func<T1,
+            Func<
+                T1,
                 T2,
                 T3,
                 T4,
@@ -516,7 +517,8 @@ namespace System.CommandLine.Invocation
                 T14,
                 T15,
                 T16,
-                Task<int>> action
+                Task<int>
+            > action
         ) => HandlerDescriptor.FromDelegate(action).GetCommandHandler();
 
         internal static async Task<int> GetExitCodeAsync(object value, InvocationContext context)

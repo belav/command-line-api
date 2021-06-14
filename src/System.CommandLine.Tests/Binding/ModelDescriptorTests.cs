@@ -28,7 +28,8 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void Model_descriptor_describes_the_constructor_parameters_of_the_model_type()
         {
-            var descriptor = ModelDescriptor.FromType<ClassWithSettersAndCtorParametersWithDifferentNames>();
+            var descriptor =
+                ModelDescriptor.FromType<ClassWithSettersAndCtorParametersWithDifferentNames>();
 
             descriptor.ConstructorDescriptors.SelectMany(p => p.ParameterDescriptors)
                 .Select(p => p.ValueName)

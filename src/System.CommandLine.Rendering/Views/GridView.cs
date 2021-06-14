@@ -213,8 +213,7 @@ namespace System.CommandLine.Rendering.Views
                             {
                                 totalWidthForStarSizing = availableWidth;
                             }
-                            int starWidth =
-                                (int)Math.Round(
+                            int starWidth = (int)Math.Round(
                                     column.Value
                                     / totalColumnStarSize
                                     * totalWidthForStarSizing.Value

@@ -113,10 +113,7 @@ namespace RenderingPlayground
                             ColumnDefinition.Star(1)
                         );
 
-                        var screen = new ScreenView(
-                            renderer: consoleRenderer,
-                            console
-                        )
+                        var screen = new ScreenView(renderer: consoleRenderer, console)
                         {
                             Child = table
                         };
@@ -190,10 +187,7 @@ namespace RenderingPlayground
                         gridView.SetChild(content, 0, 0);
                         gridView.SetChild(new ColorsView("#"), 0, 1);
 
-                        var screen = new ScreenView(
-                            renderer: consoleRenderer,
-                            console
-                        )
+                        var screen = new ScreenView(renderer: consoleRenderer, console)
                         {
                             Child = gridView
                         };

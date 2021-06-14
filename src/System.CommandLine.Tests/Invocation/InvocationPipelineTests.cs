@@ -272,12 +272,11 @@ namespace System.CommandLine.Tests.Invocation
 
             HelpBuilder createdHelpBuilder = null;
 
-            Func<BindingContext, IHelpBuilder> helpBuilderFactory =
-                context =>
-                {
-                    factoryWasCalled = true;
-                    return createdHelpBuilder = new HelpBuilder(context.Console);
-                };
+            Func<BindingContext, IHelpBuilder> helpBuilderFactory = context =>
+            {
+                factoryWasCalled = true;
+                return createdHelpBuilder = new HelpBuilder(context.Console);
+            };
 
             var command = new Command("help-command");
             command.Handler = CommandHandler.Create(

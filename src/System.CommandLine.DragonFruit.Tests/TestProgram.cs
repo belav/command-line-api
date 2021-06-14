@@ -11,9 +11,8 @@ namespace System.CommandLine.DragonFruit.Tests
             nameof(TestMain)
         );
 
-        public static readonly MethodInfo TestMainMethodInfoWithDefault = typeof(TestProgram).GetMethod(
-            nameof(TestMainWithDefault)
-        );
+        public static readonly MethodInfo TestMainMethodInfoWithDefault =
+            typeof(TestProgram).GetMethod(nameof(TestMainWithDefault));
 
         /// <summary>
         /// Help for the test program

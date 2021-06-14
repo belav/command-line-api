@@ -45,9 +45,7 @@ namespace System.CommandLine.Rendering.Tests
             var console = new TestConsole();
             OutputMode detectedOutputMode = OutputMode.Auto;
 
-            var command = new Command(
-                "hello"
-            )
+            var command = new Command("hello")
             {
                 Handler = CommandHandler.Create(
                     (IConsole c) =>

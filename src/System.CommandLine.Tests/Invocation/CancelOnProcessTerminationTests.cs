@@ -30,9 +30,7 @@ namespace System.CommandLine.Tests.Invocation
             Func<string[], Task<int>> childProgram = (
                 string[] args
             ) => new CommandLineBuilder().AddCommand(
-                    new Command(
-                        "the-command"
-                    )
+                    new Command("the-command")
                     {
                         Handler = CommandHandler.Create<CancellationToken>(
                             async ct =>

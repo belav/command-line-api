@@ -155,9 +155,7 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void By_default_an_option_with_zero_or_one_argument_parses_as_the_argument_string_value_by_default()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option("-x", arity: ArgumentArity.ZeroOrOne)
             };
@@ -170,9 +168,7 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void By_default_an_option_with_exactly_one_argument_parses_as_the_argument_string_value_by_default()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option("-x", arity: ArgumentArity.ExactlyOne)
             };
@@ -185,9 +181,7 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void When_exactly_one_argument_is_expected_and_none_are_provided_then_getting_value_throws()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option("-x", arity: ArgumentArity.ExactlyOne)
             };
@@ -205,9 +199,7 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void When_zero_or_more_arguments_of_unspecified_type_are_expected_and_none_are_provided_then_getting_value_returns_an_empty_sequence_of_strings()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option("-x", arity: ArgumentArity.ZeroOrMore)
             };
@@ -244,9 +236,7 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void When_one_or_more_arguments_of_unspecified_type_are_expected_and_none_are_provided_then_getting_value_throws()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option("-x", arity: ArgumentArity.OneOrMore)
             };
@@ -264,9 +254,7 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void By_default_an_option_that_allows_multiple_arguments_and_is_passed_multiple_arguments_parses_as_a_sequence_of_strings()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option("-x", arity: ArgumentArity.ZeroOrMore)
             };
@@ -280,9 +268,7 @@ namespace System.CommandLine.Tests.Binding
         [Fact]
         public void By_default_an_option_that_allows_multiple_arguments_and_is_passed_one_argument_parses_as_a_sequence_of_strings()
         {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option("-x", arity: ArgumentArity.ZeroOrMore)
             };
@@ -300,9 +286,7 @@ namespace System.CommandLine.Tests.Binding
         public void When_command_argument_has_arity_greater_than_one_it_captures_arguments_before_and_after_option(
             string commandLine
         ) {
-            var command = new Command(
-                "the-command"
-            )
+            var command = new Command("the-command")
             {
                 new Option<string>("-a"),
                 new Argument<string>("the-arg") { Arity = ArgumentArity.ZeroOrMore }

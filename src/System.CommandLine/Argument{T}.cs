@@ -21,8 +21,7 @@ namespace System.CommandLine
         /// </summary>
         /// <param name="name">The name of the argument.</param>
         /// <param name="description">The description of the argument, shown in help.</param>
-        public Argument(string name, string? description = null)
-            : base(name)
+        public Argument(string name, string? description = null) : base(name)
         {
             ArgumentType = typeof(T);
             Description = description;
@@ -53,8 +52,7 @@ namespace System.CommandLine
         /// </summary>
         /// <param name="getDefaultValue">The delegate to invoke to return the default value.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="getDefaultValue"/> is null.</exception>
-        public Argument(Func<T> getDefaultValue)
-            : this()
+        public Argument(Func<T> getDefaultValue) : this()
         {
             if (getDefaultValue is null)
             {
@@ -77,8 +75,7 @@ namespace System.CommandLine
             ParseArgument<T> parse,
             bool isDefault = false,
             string? description = null
-        )
-            : this() {
+        ) : this() {
             if (!string.IsNullOrWhiteSpace(name))
             {
                 Name = name!;

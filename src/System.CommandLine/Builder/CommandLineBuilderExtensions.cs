@@ -23,7 +23,8 @@ namespace System.CommandLine.Builder
             () =>
             {
                 var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-                var assemblyVersionAttribute = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+                var assemblyVersionAttribute =
+                    assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
                 if (assemblyVersionAttribute is null)
                 {
                     return assembly.GetName().Version.ToString();
@@ -183,9 +184,8 @@ namespace System.CommandLine.Builder
                             {
                                 var currentProcessFullPath =
                                     Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-                                var currentProcessFileNameWithoutExtension = Path.GetFileNameWithoutExtension(
-                                    currentProcessFullPath
-                                );
+                                var currentProcessFileNameWithoutExtension =
+                                    Path.GetFileNameWithoutExtension(currentProcessFullPath);
 
                                 var dotnetSuggestProcess = Process.StartProcess(
                                     command: "dotnet-suggest",
@@ -397,8 +397,7 @@ namespace System.CommandLine.Builder
         public static CommandLineBuilder UseHelp<THelpBuilder>(
             this CommandLineBuilder builder,
             Action<THelpBuilder>? configureHelp
-        )
-            where THelpBuilder : IHelpBuilder {
+        ) where THelpBuilder : IHelpBuilder {
             return builder.UseHelp(new HelpOption(), configureHelp);
         }
 
@@ -406,8 +405,7 @@ namespace System.CommandLine.Builder
             this CommandLineBuilder builder,
             HelpOption helpOption,
             Action<THelpBuilder>? configureHelp
-        )
-            where THelpBuilder : IHelpBuilder {
+        ) where THelpBuilder : IHelpBuilder {
             if (configureHelp is { })
             {
                 builder.ConfigureHelp = helpBuilder => configureHelp((THelpBuilder)helpBuilder);
@@ -422,8 +420,7 @@ namespace System.CommandLine.Builder
         public static TBuilder UseHelpBuilder<TBuilder>(
             this TBuilder builder,
             Func<BindingContext, IHelpBuilder> getHelpBuilder
-        )
-            where TBuilder : CommandLineBuilder {
+        ) where TBuilder : CommandLineBuilder {
             if (builder is null)
             {
                 throw new ArgumentNullException(nameof(builder));

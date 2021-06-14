@@ -12,9 +12,7 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Help_describes_default_values_for_complex_root_command_scenario()
         {
-            var command = new RootCommand(
-                description: "Test description"
-            )
+            var command = new RootCommand(description: "Test description")
             {
                 new Argument<string>("the-root-arg-no-description-no-default"),
                 new Argument<string>(
@@ -22,37 +20,30 @@ namespace System.CommandLine.Tests.Help
                     argResult => "the-root-arg-no-description-default-value",
                     isDefault: true
                 ),
-                new Argument<string>(
-                    "the-root-arg-no-default"
-                )
+                new Argument<string>("the-root-arg-no-default")
                 {
                     Description = "the-root-arg-no-default-description",
                 },
-                new Argument<string>(
-                    "the-root-arg",
-                    () => "the-root-arg-one-value"
-                )
+                new Argument<string>("the-root-arg", () => "the-root-arg-one-value")
                 {
                     Description = "the-root-arg-description"
                 },
-                new Argument<FileAccess>(
-                    "the-root-arg-enum-default",
-                    () => FileAccess.Read
-                )
+                new Argument<FileAccess>("the-root-arg-enum-default", () => FileAccess.Read)
                 {
                     Description = "the-root-arg-enum-default-description",
                     ArgumentType = typeof(FileAccess)
                 },
-                new Option(
-                    aliases: new string[] { "--the-root-option-no-arg", "-trna" }
-                )
+                new Option(aliases: new string[] { "--the-root-option-no-arg", "-trna" })
                 {
                     Description = "the-root-option-no-arg-description",
                     IsRequired = true
                 },
                 new Option<string>(
                     aliases: new string[]
-                    { "--the-root-option-no-description-default-arg", "-trondda" },
+                    {
+                        "--the-root-option-no-description-default-arg",
+                        "-trondda"
+                    },
                     parseArgument: _ => "the-root-option--no-description-default-arg-value",
                     isDefault: true
                 ),

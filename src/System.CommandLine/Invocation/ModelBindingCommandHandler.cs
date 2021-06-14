@@ -37,8 +37,7 @@ namespace System.CommandLine.Invocation
             MethodInfo handlerMethodInfo,
             IMethodDescriptor methodDescriptor,
             object? invocationTarget
-        )
-            : this(handlerMethodInfo, methodDescriptor) {
+        ) : this(handlerMethodInfo, methodDescriptor) {
             _invocationTarget = invocationTarget;
         }
 

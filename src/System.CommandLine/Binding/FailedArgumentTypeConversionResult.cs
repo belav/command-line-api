@@ -11,8 +11,7 @@ namespace System.CommandLine.Binding
             IArgument argument,
             Type expectedType,
             string value
-        )
-            : base(argument, FormatErrorMessage(argument, expectedType, value)) { }
+        ) : base(argument, FormatErrorMessage(argument, expectedType, value)) { }
 
         private static string FormatErrorMessage(
             IArgument argument,

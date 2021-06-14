@@ -174,9 +174,7 @@ namespace System.CommandLine.Tests
         [Fact]
         public async Task It_writes_suggestions_for_partial_option_and_subcommand_aliases_under_root_command_with_an_argument()
         {
-            var command = new Command(
-                "parent"
-            )
+            var command = new Command("parent")
             {
                 new Command("child"),
                 new Option("--option1"),

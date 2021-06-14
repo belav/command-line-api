@@ -87,9 +87,7 @@ namespace System.CommandLine.Tests.Invocation
                 boundFirstName = firstName;
             }
 
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Option("--first-name", arity: ArgumentArity.ExactlyOne)
             };
@@ -135,9 +133,7 @@ namespace System.CommandLine.Tests.Invocation
                 boundAge = age;
             }
 
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Option<string>("--name"),
                 new Option<int>("--age")
@@ -162,9 +158,7 @@ namespace System.CommandLine.Tests.Invocation
                 boundAge = age;
             }
 
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Option<string>(new[] { "-n", "--NAME" }),
                 new Option<int>(new[] { "-a", "--age" })
@@ -183,9 +177,7 @@ namespace System.CommandLine.Tests.Invocation
             string boundName = default;
             int boundAge = default;
 
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Option<string>("--name"),
                 new Option<int>("--age")
@@ -352,9 +344,7 @@ namespace System.CommandLine.Tests.Invocation
         {
             var testClass = new ExecuteTestClass();
 
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Option<string>("--name"),
                 new Option<int>("--age")
@@ -372,9 +362,7 @@ namespace System.CommandLine.Tests.Invocation
         {
             var testClass = new ExecuteTestClass();
 
-            var command = new Command(
-                "command"
-            )
+            var command = new Command("command")
             {
                 new Option<string>("--name"),
                 new Option<int>("--age")

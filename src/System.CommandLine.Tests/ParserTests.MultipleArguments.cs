@@ -17,9 +17,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void Multiple_arguments_can_differ_by_arity()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument<string> { Arity = new ArgumentArity(3, 3), Name = "several" },
                     new Argument<string> { Arity = ArgumentArity.ZeroOrMore, Name = "one" }
@@ -38,9 +36,7 @@ namespace System.CommandLine.Tests
             [Fact]
             public void Multiple_arguments_can_differ_by_type()
             {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument<string> { Name = "the-string" },
                     new Argument<int> { Name = "the-int" }
@@ -72,9 +68,7 @@ namespace System.CommandLine.Tests
             public void When_multiple_arguments_are_present_then_their_order_relative_to_sibling_options_is_not_significant(
                 string commandLine
             ) {
-                var command = new Command(
-                    "the-command"
-                )
+                var command = new Command("the-command")
                 {
                     new Argument<string> { Name = "first" },
                     new Argument<string> { Name = "second" },
@@ -99,9 +93,7 @@ namespace System.CommandLine.Tests
             public void Multiple_arguments_of_unspecified_type_are_parsed_correctly()
             {
                 var sourceArg = new Argument("source") { Arity = ArgumentArity.ExactlyOne };
-                var destinationArg = new Argument(
-                    "destination"
-                )
+                var destinationArg = new Argument("destination")
                 {
                     Arity = ArgumentArity.ExactlyOne
                 };
