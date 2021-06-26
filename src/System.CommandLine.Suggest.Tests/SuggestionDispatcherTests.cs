@@ -128,9 +128,11 @@ namespace System.CommandLine.Suggest.Tests
         public async Task InvokeAsync_with_unknown_suggestion_provider_returns_empty_string()
         {
             string[] args = Enumerable.ToArray(
-                (CommandLineStringSplitter.Instance.Split(
-                    @"get -p 10 -e ""testcli.exe"" -- command op"
-                ))
+                (
+                    CommandLineStringSplitter.Instance.Split(
+                        @"get -p 10 -e ""testcli.exe"" -- command op"
+                    )
+                )
             );
             (await InvokeAsync(args, new TestSuggestionRegistration())).Should().BeEmpty();
         }

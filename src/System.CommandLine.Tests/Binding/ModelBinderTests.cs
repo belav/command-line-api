@@ -105,9 +105,8 @@ namespace System.CommandLine.Tests.Binding
             var parser = new Parser(command);
             var bindingContext = new BindingContext(parser.Parse(""));
 
-            var instance = (ClassWithMultiLetterCtorParameters)binder.CreateInstance(
-                    bindingContext
-                );
+            var instance =
+                (ClassWithMultiLetterCtorParameters)binder.CreateInstance(bindingContext);
 
             instance.StringOption.Should().Be("the default");
         }
@@ -177,9 +176,8 @@ namespace System.CommandLine.Tests.Binding
             var binder = new ModelBinder(typeof(ClassWithCtorParameter<DirectoryInfo>));
             var bindingContext = new BindingContext(command.Parse($"--value \"{tempPath}\""));
 
-            var instance = (ClassWithCtorParameter<DirectoryInfo>)binder.CreateInstance(
-                    bindingContext
-                );
+            var instance =
+                (ClassWithCtorParameter<DirectoryInfo>)binder.CreateInstance(bindingContext);
 
             instance.Value.FullName.Should().Be(tempPath);
         }

@@ -37,12 +37,10 @@ namespace System.CommandLine.Help
         public override int GetHashCode()
         {
             int hashCode = -244751520;
-            hashCode = hashCode
-            * -1521134295
-            + EqualityComparer<string>.Default.GetHashCode(Descriptor);
-            hashCode = hashCode
-            * -1521134295
-            + EqualityComparer<string>.Default.GetHashCode(Description);
+            hashCode =
+                hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Descriptor);
+            hashCode =
+                hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Description);
             return hashCode;
         }
 

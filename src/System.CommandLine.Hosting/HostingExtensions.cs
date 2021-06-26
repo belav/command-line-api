@@ -85,7 +85,8 @@ namespace System.CommandLine.Hosting
         public static OptionsBuilder<TOptions> BindCommandLine<TOptions>(
             this OptionsBuilder<TOptions> optionsBuilder
         ) where TOptions : class {
-            if (optionsBuilder is null) throw new ArgumentNullException(nameof(optionsBuilder));
+            if (optionsBuilder is null)
+                throw new ArgumentNullException(nameof(optionsBuilder));
             return optionsBuilder.Configure<IServiceProvider>(
                 (opts, serviceProvider) =>
                 {
@@ -127,10 +128,8 @@ namespace System.CommandLine.Hosting
             }
 
             if (
-                builder.Properties[typeof(InvocationContext)]
-                    is InvocationContext invocation
-                && invocation.ParseResult.CommandResult.Command
-                    is Command command
+                builder.Properties[typeof(InvocationContext)] is InvocationContext invocation
+                && invocation.ParseResult.CommandResult.Command is Command command
                 && command.GetType() == commandType
             ) {
                 invocation.BindingContext.AddService(
@@ -158,8 +157,7 @@ namespace System.CommandLine.Hosting
 
             if (
                 hostBuilder.Properties.TryGetValue(typeof(InvocationContext), out var ctxObj)
-                && ctxObj
-                    is InvocationContext invocationContext
+                && ctxObj is InvocationContext invocationContext
             )
                 return invocationContext;
 
@@ -174,8 +172,7 @@ namespace System.CommandLine.Hosting
 
             if (
                 context.Properties.TryGetValue(typeof(InvocationContext), out var ctxObj)
-                && ctxObj
-                    is InvocationContext invocationContext
+                && ctxObj is InvocationContext invocationContext
             )
                 return invocationContext;
 
@@ -186,8 +183,9 @@ namespace System.CommandLine.Hosting
 
         public static IHost GetHost(this InvocationContext invocationContext)
         {
-            _ = invocationContext
-            ?? throw new ArgumentNullException(paramName: nameof(invocationContext));
+            _ =
+                invocationContext
+                ?? throw new ArgumentNullException(paramName: nameof(invocationContext));
             var hostModelBinder = new ModelBinder<IHost>();
             return (IHost)hostModelBinder.CreateInstance(invocationContext.BindingContext);
         }

@@ -579,7 +579,8 @@ namespace System.CommandLine.Builder
                 {
                     if (result.FindResultFor(command)?.Children.Count > 1)
                     {
-                        result.ErrorMessage = "--version option cannot be combined with other arguments.";
+                        result.ErrorMessage =
+                            "--version option cannot be combined with other arguments.";
                         return false;
                     }
 

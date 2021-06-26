@@ -101,7 +101,8 @@ namespace System.CommandLine.Benchmarks.DragonFruit
             );
             return Utils.CreateTestAssemblyInTempFileFromString(
                 testSourceCode,
-                new[] {
+                new[]
+                {
                     typeof(object).GetTypeInfo().Assembly.Location,
                     typeof(Enumerable).GetTypeInfo().Assembly.Location,
                 }
@@ -109,7 +110,8 @@ namespace System.CommandLine.Benchmarks.DragonFruit
         }
 
         public IEnumerable<(int classesCount, int methodsPerClassCount)> ValuesForTestAssemblySize =>
-            new[] {
+            new[]
+            {
                 (classesCount: 1, methodsPerClassCount: 1),
                 (classesCount: 10, methodsPerClassCount: 10),
                 (classesCount: 100, methodsPerClassCount: 100)

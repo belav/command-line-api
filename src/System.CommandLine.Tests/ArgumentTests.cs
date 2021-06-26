@@ -215,8 +215,7 @@ namespace System.CommandLine.Tests
             {
                 var argument = new Argument<int>(
                     result => result.Tokens.Select(t => int.Parse(t.Value)).Sum()
-                )
-                {
+                ) {
                     Arity = ArgumentArity.ZeroOrMore
                 };
 
@@ -369,8 +368,7 @@ namespace System.CommandLine.Tests
                             return null;
                         },
                         true
-                    )
-                    {
+                    ) {
                         Arity = new ArgumentArity(0, 2)
                     },
                     new Argument<DirectoryInfo>(
@@ -381,8 +379,7 @@ namespace System.CommandLine.Tests
                             return null;
                         },
                         true
-                    )
-                    {
+                    ) {
                         Arity = ArgumentArity.ExactlyOne
                     }
                 };
@@ -433,7 +430,8 @@ namespace System.CommandLine.Tests
                                 return value;
                             }
 
-                            argumentResult.ErrorMessage = $"'{argumentResult.Tokens.Single().Value}' is not an integer";
+                            argumentResult.ErrorMessage =
+                                $"'{argumentResult.Tokens.Single().Value}' is not an integer";
 
                             return default;
                         }
@@ -475,7 +473,8 @@ namespace System.CommandLine.Tests
                     {
                         result.OnlyTake(3);
 
-                        return new[] {
+                        return new[]
+                        {
                             int.Parse(result.Tokens[0].Value),
                             int.Parse(result.Tokens[1].Value),
                             int.Parse(result.Tokens[2].Value)
@@ -513,7 +512,8 @@ namespace System.CommandLine.Tests
                     {
                         result.OnlyTake(3);
 
-                        return new[] {
+                        return new[]
+                        {
                             int.Parse(result.Tokens[0].Value),
                             int.Parse(result.Tokens[1].Value),
                             int.Parse(result.Tokens[2].Value)
@@ -541,7 +541,8 @@ namespace System.CommandLine.Tests
                     {
                         result.OnlyTake(3);
 
-                        return new[] {
+                        return new[]
+                        {
                             int.Parse(result.Tokens[0].Value),
                             int.Parse(result.Tokens[1].Value),
                             int.Parse(result.Tokens[2].Value)

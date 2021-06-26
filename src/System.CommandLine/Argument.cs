@@ -192,8 +192,8 @@ namespace System.CommandLine
         /// <remarks>In this overload, the <see cref="ArgumentResult"/> is provided to the delegate.</remarks>
         public void SetDefaultValueFactory(Func<ArgumentResult, object?> getDefaultValue)
         {
-            _defaultValueFactory = getDefaultValue
-            ?? throw new ArgumentNullException(nameof(getDefaultValue));
+            _defaultValueFactory =
+                getDefaultValue ?? throw new ArgumentNullException(nameof(getDefaultValue));
         }
 
         /// <summary>

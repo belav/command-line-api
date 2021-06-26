@@ -16,7 +16,8 @@ namespace System.CommandLine.Rendering.Tests
             input.SplitForWrapping()
                 .Should()
                 .BeEquivalentTo(
-                    new[] {
+                    new[]
+                    {
                         "The ",
                         "quick ",
                         "brown\t",

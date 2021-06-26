@@ -830,7 +830,8 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Options_section_is_not_included_if_no_options_configured()
         {
-            var commandLineBuilder = new CommandLineBuilder().AddCommand(
+            var commandLineBuilder =
+                new CommandLineBuilder().AddCommand(
                     new Command("outer", "description for outer")
                 ).Command;
 
@@ -1120,8 +1121,7 @@ namespace System.CommandLine.Tests.Help
                 new Option<List<int>>(
                     "--filter-size",
                     getDefaultValue: () => new List<int>() { 0, 2, 4 }
-                )
-                {
+                ) {
 
                 }
             };
@@ -1142,8 +1142,7 @@ namespace System.CommandLine.Tests.Help
                 new Option<string[]>(
                     "--prefixes",
                     getDefaultValue: () => new[] { "^(TODO|BUG)", "^HACK" }
-                )
-                {
+                ) {
 
                 }
             };

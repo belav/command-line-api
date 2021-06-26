@@ -54,7 +54,8 @@ namespace System.CommandLine.Suggest.Tests
 
             PrepareTestHomeDirectoryToAvoidPolluteBuildMachineHome();
 
-            _environmentVariables = new[] {
+            _environmentVariables = new[]
+            {
                 ("DOTNET_ROOT", _dotnetHostDir.FullName),
                 ("INTERNAL_TEST_DOTNET_SUGGEST_HOME", _testRoot)
             };
@@ -170,8 +171,7 @@ namespace System.CommandLine.Suggest.Tests
 
             var process = new Diagnostics.Process
             {
-                StartInfo =
-                {
+                StartInfo = {
                     Arguments = args,
                     FileName = command,
                     RedirectStandardError = true,

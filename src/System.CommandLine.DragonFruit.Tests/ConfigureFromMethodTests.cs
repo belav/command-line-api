@@ -148,7 +148,8 @@ namespace System.CommandLine.DragonFruit.Tests
         [InlineData(nameof(Method_having_string_array_arguments), typeof(string[]))]
         [InlineData(
             nameof(Method_having_string_array_arguments_with_default_value),
-            typeof(string[]))]
+            typeof(string[])
+        )]
         [InlineData(nameof(Method_having_FileInfo_argument), typeof(FileInfo))]
         [InlineData(nameof(Method_having_FileInfo_argument_with_default_value), typeof(FileInfo))]
         [InlineData(nameof(Method_having_FileInfo_array_args), typeof(FileInfo[]))]

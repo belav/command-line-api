@@ -85,16 +85,19 @@ namespace System.CommandLine
             ValidationMessages = validationMessages ?? Resources.Instance;
             ResponseFileHandling = responseFileHandling;
             Middleware = middlewarePipeline ?? new List<InvocationMiddleware>();
-            HelpBuilderFactory = helpBuilderFactory
-            ?? (context =>
-            {
-                int maxWidth = int.MaxValue;
-                if (context.Console is SystemConsole systemConsole)
-                {
-                    maxWidth = systemConsole.GetWindowWidth();
-                }
-                return new HelpBuilder(context.Console, maxWidth);
-            });
+            HelpBuilderFactory =
+                helpBuilderFactory
+                ?? (
+                    context =>
+                    {
+                        int maxWidth = int.MaxValue;
+                        if (context.Console is SystemConsole systemConsole)
+                        {
+                            maxWidth = systemConsole.GetWindowWidth();
+                        }
+                        return new HelpBuilder(context.Console, maxWidth);
+                    }
+                );
             if (configureHelp != null)
             {
                 var factory = HelpBuilderFactory;

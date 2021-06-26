@@ -32,7 +32,8 @@ namespace System.CommandLine.Rendering.Tests
         public void A_row_is_written_for_each_item_and_a_header_for_each_column(
             OutputMode outputMode
         ) {
-            var options = new[] {
+            var options = new[]
+            {
                 new Option("-s", "a short option"),
                 new Option("--very-long", "a long option")
             };
@@ -57,7 +58,8 @@ namespace System.CommandLine.Rendering.Tests
         [Fact]
         public void A_row_is_written_for_each_item_and_a_header_for_each_column_in_file_mode()
         {
-            var options = new[] {
+            var options = new[]
+            {
                 new Option("-s", "a short option"),
                 new Option("--very-long", "a long option")
             };
@@ -85,7 +87,8 @@ namespace System.CommandLine.Rendering.Tests
         [InlineData(OutputMode.NonAnsi)]
         public void Column_widths_are_aligned_to_the_longest_cell(OutputMode outputMode)
         {
-            var options = new[] {
+            var options = new[]
+            {
                 new Option("-s", "an option"),
                 new Option("--very-long", "an option")
             };
@@ -102,7 +105,8 @@ namespace System.CommandLine.Rendering.Tests
         [Fact]
         public void Column_widths_are_aligned_to_the_longest_cell_in_file_mode()
         {
-            var options = new[] {
+            var options = new[]
+            {
                 new Option("-s", "an option"),
                 new Option("--very-long", "an option")
             };

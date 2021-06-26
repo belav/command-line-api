@@ -133,7 +133,8 @@ namespace System.CommandLine.Tests.Utility
 
             var argumentList = new List<string>();
             argumentList.AddRange(
-                new[] {
+                new[]
+                {
                     "exec",
                     "--runtimeconfig",
                     runtimeConfig,
@@ -207,8 +208,7 @@ namespace System.CommandLine.Tests.Utility
 
         [DllImport("shell32.dll", SetLastError = true)]
         private static extern IntPtr CommandLineToArgvW(
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string lpCmdLine,
+            [MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine,
             out int pNumArgs
         );
 
@@ -216,7 +216,8 @@ namespace System.CommandLine.Tests.Utility
         {
             int argc;
             var argv = CommandLineToArgvW(commandLine, out argc);
-            if (argv == IntPtr.Zero) throw new Win32Exception();
+            if (argv == IntPtr.Zero)
+                throw new Win32Exception();
             try
             {
                 var args = new string[argc];

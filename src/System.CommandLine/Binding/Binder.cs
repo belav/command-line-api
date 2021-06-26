@@ -27,8 +27,7 @@ namespace System.CommandLine.Binding
                 }
 
                 if (
-                    TypeDescriptor.GetConverter(type)
-                        is { } typeConverter
+                    TypeDescriptor.GetConverter(type) is { } typeConverter
                     && typeConverter.CanConvertFrom(typeof(string))
                 ) {
                     return true;
@@ -193,8 +192,7 @@ namespace System.CommandLine.Binding
         internal static bool TryFindConstructorWithSingleParameterOfType(
             this Type type,
             Type parameterType,
-            [NotNullWhen(true)]
-            out ConstructorInfo? ctor
+            [NotNullWhen(true)] out ConstructorInfo? ctor
         ) {
             var (x, _) = type.GetConstructors()
                 .Select(c => (ctor: c, parameters: c.GetParameters()))

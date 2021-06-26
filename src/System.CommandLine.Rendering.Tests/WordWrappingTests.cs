@@ -141,7 +141,8 @@ namespace System.CommandLine.Rendering.Tests
                     Line(12, 15, $"fox{Ansi.Color.Foreground.Default.EscapeSequence}")
                 );
 
-                testCaseName = $"{nameof(ControlSpan)}s around a word inside a {nameof(ContentSpan)}";
+                testCaseName =
+                    $"{nameof(ControlSpan)}s around a word inside a {nameof(ContentSpan)}";
 
                 yield return new RenderingTestCase(
                     name: testCaseName,
@@ -163,7 +164,8 @@ namespace System.CommandLine.Rendering.Tests
                     Line(12, 15, $"fox")
                 );
 
-                testCaseName = $"{nameof(ControlSpan)}s around a word inside a {nameof(ContentSpan)}";
+                testCaseName =
+                    $"{nameof(ControlSpan)}s around a word inside a {nameof(ContentSpan)}";
 
                 yield return new RenderingTestCase(
                     name: testCaseName,

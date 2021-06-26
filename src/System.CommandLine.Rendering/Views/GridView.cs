@@ -108,8 +108,7 @@ namespace System.CommandLine.Rendering.Views
                 for (int column = 0; column < _columns.Count; column++)
                 {
                     if (
-                        ChildLocations[column, row]
-                            is View child
+                        ChildLocations[column, row] is View child
                         && sizes[column, row].Width > 0
                         && sizes[column, row].Height > 0
                     ) {
@@ -153,9 +152,10 @@ namespace System.CommandLine.Rendering.Views
                                 );
                                 break;
                             case SizeMode.Star:
-                                measuredRows[rowIndex] = (int)Math.Round(
-                                    _rows[rowIndex].Value / totalRowStarSize * maxSize.Height
-                                );
+                                measuredRows[rowIndex] =
+                                    (int)Math.Round(
+                                        _rows[rowIndex].Value / totalRowStarSize * maxSize.Height
+                                    );
                                 break;
                             case SizeMode.SizeToContent:
                                 break;
@@ -213,7 +213,8 @@ namespace System.CommandLine.Rendering.Views
                             {
                                 totalWidthForStarSizing = availableWidth;
                             }
-                            int starWidth = (int)Math.Round(
+                            int starWidth =
+                                (int)Math.Round(
                                     column.Value
                                     / totalColumnStarSize
                                     * totalWidthForStarSizing.Value

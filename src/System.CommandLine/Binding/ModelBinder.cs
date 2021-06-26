@@ -14,8 +14,8 @@ namespace System.CommandLine.Binding
 
         internal ModelBinder(IValueDescriptor valueDescriptor)
         {
-            ValueDescriptor = valueDescriptor
-            ?? throw new ArgumentNullException(nameof(valueDescriptor));
+            ValueDescriptor =
+                valueDescriptor ?? throw new ArgumentNullException(nameof(valueDescriptor));
             ModelDescriptor = ModelDescriptor.FromType(valueDescriptor.ValueType);
         }
 
@@ -346,8 +346,7 @@ namespace System.CommandLine.Binding
             if (includeMissingValues)
             {
                 if (
-                    valueDescriptor
-                        is ParameterDescriptor parameterDescriptor
+                    valueDescriptor is ParameterDescriptor parameterDescriptor
                     && parameterDescriptor.AllowsNull
                 ) {
                     return (

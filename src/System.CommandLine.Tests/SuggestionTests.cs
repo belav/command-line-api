@@ -38,7 +38,8 @@ namespace System.CommandLine.Tests
         [Fact]
         public void Command_GetSuggestions_returns_available_option_aliases()
         {
-            IReadOnlyCollection<Symbol> symbols = new[] {
+            IReadOnlyCollection<Symbol> symbols = new[]
+            {
                 new Option("--one", "option one"),
                 new Option("--two", "option two"),
                 new Option("--three", "option three")
@@ -739,7 +740,8 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_unspecified_in_string_command_line_not_ending_with_a_space_then_it_returns_final_token()
             {
-                IReadOnlyCollection<Symbol> symbols = new[] {
+                IReadOnlyCollection<Symbol> symbols = new[]
+                {
                     new Option("--option1"),
                     new Option("--option2")
                 };
@@ -760,7 +762,8 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_unspecified_in_string_command_line_ending_with_a_space_then_it_returns_empty()
             {
-                IReadOnlyCollection<Symbol> symbols = new[] {
+                IReadOnlyCollection<Symbol> symbols = new[]
+                {
                     new Option("--option1"),
                     new Option("--option2")
                 };
@@ -802,7 +805,8 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_unspecified_in_array_command_line_and_final_token_is_unmatched_then_it_returns_final_token()
             {
-                IReadOnlyCollection<Symbol> symbols = new[] {
+                IReadOnlyCollection<Symbol> symbols = new[]
+                {
                     new Option("--option1"),
                     new Option("--option2")
                 };
@@ -823,7 +827,8 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_unspecified_in_array_command_line_and_final_token_matches_an_command_then_it_returns_empty()
             {
-                IReadOnlyCollection<Symbol> symbols = new[] {
+                IReadOnlyCollection<Symbol> symbols = new[]
+                {
                     new Option("--option1"),
                     new Option("--option2")
                 };
@@ -844,7 +849,8 @@ namespace System.CommandLine.Tests
             [Fact]
             public void When_position_is_unspecified_in_array_command_line_and_final_token_matches_an_option_then_it_returns_empty()
             {
-                IReadOnlyCollection<Symbol> symbols = new[] {
+                IReadOnlyCollection<Symbol> symbols = new[]
+                {
                     new Option("--option1"),
                     new Option("--option2")
                 };

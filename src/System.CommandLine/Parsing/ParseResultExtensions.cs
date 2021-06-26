@@ -117,10 +117,8 @@ namespace System.CommandLine.Parsing
             if (symbolResult is ArgumentResult argumentResult)
             {
                 var includeArgumentName =
-                    argumentResult.Argument
-                        is Argument argument
-                    && argument.Parents[0]
-                        is ICommand command
+                    argumentResult.Argument is Argument argument
+                    && argument.Parents[0] is ICommand command
                     && command.Arguments.Count > 1;
 
                 if (includeArgumentName)
@@ -189,8 +187,7 @@ namespace System.CommandLine.Parsing
                 throw new ArgumentNullException(nameof(parseResult));
             }
 
-            return parseResult.FindResultFor(option)
-                is { };
+            return parseResult.FindResultFor(option) is { };
         }
 
         public static bool HasOption(this ParseResult parseResult, string alias)
@@ -284,8 +281,10 @@ namespace System.CommandLine.Parsing
                     {
                         var willAcceptAnArgument =
                             !option.IsImplicit
-                            && (!option.IsArgumentLimitReached
-                            || parseResult.TextToMatch(position).Length > 0);
+                            && (
+                                !option.IsArgumentLimitReached
+                                || parseResult.TextToMatch(position).Length > 0
+                            );
 
                         if (willAcceptAnArgument)
                         {

@@ -104,9 +104,8 @@ namespace System.CommandLine.Hosting.Tests
             ).UseHost(
                     host =>
                     {
-                        var invocation = (InvocationContext)host.Properties[
-                                typeof(InvocationContext)
-                            ];
+                        var invocation =
+                            (InvocationContext)host.Properties[typeof(InvocationContext)];
                         var args = invocation.ParseResult.UnparsedTokens.ToArray();
                         host.ConfigureHostConfiguration(
                             config =>

@@ -75,7 +75,8 @@ namespace System.CommandLine.Rendering.Views
 
         private void EnsureInitialized(ConsoleRenderer renderer)
         {
-            if (_gridInitialized) return;
+            if (_gridInitialized)
+                return;
 
             Layout.SetColumns(Columns.Select(x => x.ColumnDefinition).ToArray());
             Layout.SetRows(
@@ -119,8 +120,8 @@ namespace System.CommandLine.Rendering.Views
                 ColumnDefinition columnDefinition
             ) {
                 Header = header;
-                ColumnDefinition = columnDefinition
-                ?? throw new ArgumentNullException(nameof(columnDefinition));
+                ColumnDefinition =
+                    columnDefinition ?? throw new ArgumentNullException(nameof(columnDefinition));
                 _cellValue = cellValue ?? throw new ArgumentNullException(nameof(cellValue));
             }
 

@@ -8,14 +8,16 @@ namespace System.Diagnostics.CodeAnalysis
 {
     [AttributeUsage(
         AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Property,
-        Inherited = false)]
+        Inherited = false
+    )]
     internal sealed class AllowNullAttribute : Attribute
     {
     }
 
     [AttributeUsage(
         AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Property,
-        Inherited = false)]
+        Inherited = false
+    )]
     internal sealed class DisallowNullAttribute : Attribute
     {
     }
@@ -45,7 +47,8 @@ namespace System.Diagnostics.CodeAnalysis
         | AttributeTargets.Property
         | AttributeTargets.Struct,
         Inherited = false,
-        AllowMultiple = false)]
+        AllowMultiple = false
+    )]
     internal sealed class ExcludeFromCodeCoverageAttribute : Attribute
     {
     }
@@ -55,7 +58,8 @@ namespace System.Diagnostics.CodeAnalysis
         | AttributeTargets.Parameter
         | AttributeTargets.Property
         | AttributeTargets.ReturnValue,
-        Inherited = false)]
+        Inherited = false
+    )]
     internal sealed class MaybeNullAttribute : Attribute
     {
     }
@@ -76,7 +80,8 @@ namespace System.Diagnostics.CodeAnalysis
         | AttributeTargets.Parameter
         | AttributeTargets.Property
         | AttributeTargets.ReturnValue,
-        Inherited = false)]
+        Inherited = false
+    )]
     internal sealed class NotNullAttribute : Attribute
     {
     }
@@ -84,7 +89,8 @@ namespace System.Diagnostics.CodeAnalysis
     [AttributeUsage(
         AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.ReturnValue,
         AllowMultiple = true,
-        Inherited = false)]
+        Inherited = false
+    )]
     internal sealed class NotNullIfNotNullAttribute : Attribute
     {
         public NotNullIfNotNullAttribute(string parameterName) { }

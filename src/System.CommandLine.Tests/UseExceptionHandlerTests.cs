@@ -104,10 +104,10 @@ namespace System.CommandLine.Tests
         public async Task When_thrown_exception_is_from_cancelation_no_output_is_generated()
         {
             int resultCode = await new CommandLineBuilder().AddCommand(new Command("the-command"))
-                    .UseExceptionHandler()
-                    .UseMiddleware(_ => throw new OperationCanceledException())
-                    .Build()
-                    .InvokeAsync("the-command", _console);
+                .UseExceptionHandler()
+                .UseMiddleware(_ => throw new OperationCanceledException())
+                .Build()
+                .InvokeAsync("the-command", _console);
 
             _console.Out.ToString().Should().BeEmpty();
             resultCode.Should().NotBe(0);
@@ -117,16 +117,16 @@ namespace System.CommandLine.Tests
         public async Task UseExceptionHandler_output_can_be_customized()
         {
             int resultCode = await new CommandLineBuilder().AddCommand(new Command("the-command"))
-                    .UseExceptionHandler(
-                        (exception, context) =>
-                        {
-                            context.Console.Out.Write("Well that's awkward.");
-                            context.ExitCode = 22;
-                        }
-                    )
-                    .UseMiddleware(_ => throw new Exception("oops!"))
-                    .Build()
-                    .InvokeAsync("the-command", _console);
+                .UseExceptionHandler(
+                    (exception, context) =>
+                    {
+                        context.Console.Out.Write("Well that's awkward.");
+                        context.ExitCode = 22;
+                    }
+                )
+                .UseMiddleware(_ => throw new Exception("oops!"))
+                .Build()
+                .InvokeAsync("the-command", _console);
 
             _console.Out.ToString().Should().Be("Well that's awkward.");
             resultCode.Should().Be(22);
@@ -136,10 +136,10 @@ namespace System.CommandLine.Tests
         public async Task UseExceptionHandler_set_custom_result_code()
         {
             int resultCode = await new CommandLineBuilder().AddCommand(new Command("the-command"))
-                    .UseExceptionHandler(errorExitCode: 42)
-                    .UseMiddleware(_ => throw new Exception("oops!"))
-                    .Build()
-                    .InvokeAsync("the-command", _console);
+                .UseExceptionHandler(errorExitCode: 42)
+                .UseMiddleware(_ => throw new Exception("oops!"))
+                .Build()
+                .InvokeAsync("the-command", _console);
 
             resultCode.Should().Be(42);
         }

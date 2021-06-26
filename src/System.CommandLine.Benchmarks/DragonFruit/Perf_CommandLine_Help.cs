@@ -27,7 +27,8 @@ namespace System.CommandLine.Benchmarks.DragonFruit
         {
             _testAssemblyFilePath = Utils.CreateTestAssemblyInTempFileFromFile(
                 "Sample1.Main.cs",
-                new[] {
+                new[]
+                {
                     typeof(object).GetTypeInfo().Assembly.Location,
                     typeof(Enumerable).GetTypeInfo().Assembly.Location,
                     typeof(System.CommandLine.Invocation.InvocationContext).GetTypeInfo().Assembly.Location

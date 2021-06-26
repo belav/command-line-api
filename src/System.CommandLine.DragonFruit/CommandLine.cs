@@ -285,7 +285,8 @@ namespace System.CommandLine.DragonFruit
         {
             var descriptor = HandlerDescriptor.FromMethodInfo(method);
 
-            var omittedTypes = new[] {
+            var omittedTypes = new[]
+            {
                 typeof(IConsole),
                 typeof(InvocationContext),
                 typeof(BindingContext),
