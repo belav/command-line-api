@@ -21,16 +21,16 @@ namespace System.CommandLine.Suggest
             ISuggestionRegistration suggestionRegistration,
             ISuggestionStore suggestionStore = null
         ) {
-            _suggestionRegistration = suggestionRegistration
-            ?? throw new ArgumentNullException(nameof(suggestionRegistration));
+            _suggestionRegistration =
+                suggestionRegistration
+                ?? throw new ArgumentNullException(nameof(suggestionRegistration));
 
             _suggestionStore = suggestionStore ?? new SuggestionStore();
 
             CompleteScriptCommand = new Command(
                 "script",
                 "Print complete script for specific shell"
-            )
-            {
+            ) {
                 new Argument<ShellType> { Name = nameof(ShellType) }
             };
             CompleteScriptCommand.Handler = CommandHandler.Create<IConsole, ShellType>(

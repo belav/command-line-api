@@ -30,8 +30,8 @@ namespace System.CommandLine.Hosting
         ) {
             Options = options?.Value ?? throw new ArgumentNullException(nameof(options));
             Environment = environment ?? throw new ArgumentNullException(nameof(environment));
-            ApplicationLifetime = applicationLifetime
-            ?? throw new ArgumentNullException(nameof(applicationLifetime));
+            ApplicationLifetime =
+                applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
 
             // if InvocationLifetime is added outside of a System.CommandLine
             // invocation pipeline context will be null.

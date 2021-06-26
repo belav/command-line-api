@@ -34,8 +34,7 @@ namespace System.CommandLine.Invocation
 
             var process = new Diagnostics.Process
             {
-                StartInfo =
-                {
+                StartInfo = {
                     Arguments = args,
                     FileName = command,
                     RedirectStandardError = true,

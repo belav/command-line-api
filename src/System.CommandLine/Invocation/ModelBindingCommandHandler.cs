@@ -24,13 +24,13 @@ namespace System.CommandLine.Invocation
             MethodInfo handlerMethodInfo,
             IMethodDescriptor methodDescriptor
         ) {
-            _handlerMethodInfo = handlerMethodInfo
-            ?? throw new ArgumentNullException(nameof(handlerMethodInfo));
+            _handlerMethodInfo =
+                handlerMethodInfo ?? throw new ArgumentNullException(nameof(handlerMethodInfo));
             _invocationTargetBinder = _handlerMethodInfo.IsStatic
                 ? null
                 : new ModelBinder(_handlerMethodInfo.ReflectedType);
-            _methodDescriptor = methodDescriptor
-            ?? throw new ArgumentNullException(nameof(methodDescriptor));
+            _methodDescriptor =
+                methodDescriptor ?? throw new ArgumentNullException(nameof(methodDescriptor));
         }
 
         public ModelBindingCommandHandler(
@@ -45,10 +45,10 @@ namespace System.CommandLine.Invocation
             Delegate handlerDelegate,
             IMethodDescriptor methodDescriptor
         ) {
-            _handlerDelegate = handlerDelegate
-            ?? throw new ArgumentNullException(nameof(handlerDelegate));
-            _methodDescriptor = methodDescriptor
-            ?? throw new ArgumentNullException(nameof(methodDescriptor));
+            _handlerDelegate =
+                handlerDelegate ?? throw new ArgumentNullException(nameof(handlerDelegate));
+            _methodDescriptor =
+                methodDescriptor ?? throw new ArgumentNullException(nameof(methodDescriptor));
         }
 
         public async Task<int> InvokeAsync(InvocationContext context)

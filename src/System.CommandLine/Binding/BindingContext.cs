@@ -84,8 +84,7 @@ namespace System.CommandLine.Binding
 
         internal bool TryGetValueSource(
             IValueDescriptor valueDescriptor,
-            [MaybeNullWhen(false)]
-            out IValueSource valueSource
+            [MaybeNullWhen(false)] out IValueSource valueSource
         ) {
             if (ServiceProvider.AvailableServiceTypes.Contains(valueDescriptor.ValueType))
             {

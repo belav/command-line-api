@@ -73,9 +73,9 @@ namespace System.CommandLine.Tests
             var command = new RootCommand { new Option<int>("-x") };
 
             int exitCode = await new CommandLineBuilder().AddCommand(command)
-                    .UseParseDirective(errorExitCode: 42)
-                    .Build()
-                    .InvokeAsync("[parse] -x not-an-int");
+                .UseParseDirective(errorExitCode: 42)
+                .Build()
+                .InvokeAsync("[parse] -x not-an-int");
 
             exitCode.Should().Be(42);
         }

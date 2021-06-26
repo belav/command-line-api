@@ -16,8 +16,10 @@ namespace System.CommandLine.Tests
 {
     public class VersionOptionTests
     {
-        private static readonly string version = (Assembly.GetEntryAssembly()
-            ?? Assembly.GetExecutingAssembly()).GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+        private static readonly string version =
+            (
+                Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()
+            ).GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
 
         [Fact]
         public async Task When_the_version_option_is_specified_then_the_version_is_written_to_standard_out()

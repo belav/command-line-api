@@ -27,7 +27,8 @@ namespace System.CommandLine.Benchmarks.CommandLine
         }
 
         public IEnumerable<string> GenerateTestInputs() =>
-            new[] {
+            new[]
+            {
                 "[directive1] -opt",
                 "[directive1] [directive2] -opt",
                 "[directive1:1] [directive2:2] -opt",

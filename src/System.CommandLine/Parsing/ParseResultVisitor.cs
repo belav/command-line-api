@@ -230,11 +230,9 @@ namespace System.CommandLine.Parsing
                 var option = options[i];
 
                 if (
-                    option
-                        is Option o
+                    option is Option o
                     && o.IsRequired
-                    && _rootCommandResult!.FindResultFor(o)
-                        is null
+                    && _rootCommandResult!.FindResultFor(o) is null
                 ) {
                     _errors.Add(
                         new ParseError(
@@ -393,8 +391,7 @@ namespace System.CommandLine.Parsing
                     }
 
                     if (
-                        symbolResult
-                            is OptionResult o
+                        symbolResult is OptionResult o
                         && o.Option.Argument.ValueType == typeof(bool)
                         && o.Children.Count == 0
                     ) {

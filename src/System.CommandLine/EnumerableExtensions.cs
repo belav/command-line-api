@@ -38,7 +38,8 @@ namespace System.CommandLine
         internal static IEnumerable<T> RecurseWhileNotNull<T>(this T? source, Func<T, T?> next)
             where T : class
         {
-            if (source is null) yield break;
+            if (source is null)
+                yield break;
 
             yield return source;
 

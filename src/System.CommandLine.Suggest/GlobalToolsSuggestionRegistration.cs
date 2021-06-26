@@ -24,10 +24,11 @@ namespace System.CommandLine.Suggest
 
             _nullableToolsShimPath = directory != null ? Path.Combine(directory, "tools") : null;
 
-            _filesNameWithoutExtensionUnderDotnetProfileTools = filesNameWithoutExtensionUnderDotnetProfileTools
-            ?? FileEnumerator.EnumerateFilesWithoutExtension(
-                new DirectoryInfo(_nullableToolsShimPath)
-            );
+            _filesNameWithoutExtensionUnderDotnetProfileTools =
+                filesNameWithoutExtensionUnderDotnetProfileTools
+                ?? FileEnumerator.EnumerateFilesWithoutExtension(
+                    new DirectoryInfo(_nullableToolsShimPath)
+                );
         }
 
         public void AddSuggestionRegistration(Registration registration) { }

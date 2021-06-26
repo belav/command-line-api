@@ -52,10 +52,13 @@ namespace System.CommandLine.Parsing
 
             RawInput = rawInput;
 
-            _errors = errors
-            ?? (parser.Configuration.RootCommand.TreatUnmatchedTokensAsErrors
-                ? new List<ParseError>(unmatchedTokens.Count)
-                : new List<ParseError>());
+            _errors =
+                errors
+                ?? (
+                    parser.Configuration.RootCommand.TreatUnmatchedTokensAsErrors
+                        ? new List<ParseError>(unmatchedTokens.Count)
+                        : new List<ParseError>()
+                );
 
             if (parser.Configuration.RootCommand.TreatUnmatchedTokensAsErrors)
             {

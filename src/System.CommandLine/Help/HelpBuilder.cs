@@ -288,7 +288,8 @@ namespace System.CommandLine.Help
 
         protected void RenderAsColumns(params HelpItem[] items)
         {
-            if (items.Length == 0) return;
+            if (items.Length == 0)
+                return;
             int windowWidth = MaxWidth;
 
             int firstColumnWidth = items.Select(x => x.Descriptor.Length).Max();
@@ -346,7 +347,8 @@ namespace System.CommandLine.Help
 
         private static IEnumerable<string> WrapItem(string item, int maxWidth)
         {
-            if (string.IsNullOrWhiteSpace(item)) yield break;
+            if (string.IsNullOrWhiteSpace(item))
+                yield break;
             //First handle existing new lines
             var parts = item.Split(new string[] { "\r\n", "\n", }, StringSplitOptions.None);
 
@@ -394,8 +396,7 @@ namespace System.CommandLine.Help
             string descriptor;
             if (
                 Customizations.TryGetValue(symbol, out Customization customization)
-                && customization.GetDescriptor?.Invoke()
-                    is { } setDescriptor
+                && customization.GetDescriptor?.Invoke() is { } setDescriptor
             ) {
                 descriptor = setDescriptor;
             }
@@ -455,7 +456,8 @@ namespace System.CommandLine.Help
                 var defaultArguments = arguments.Where(x => !x.IsHidden && x.HasDefaultValue)
                     .ToArray();
 
-                if (defaultArguments.Length == 0) return "";
+                if (defaultArguments.Length == 0)
+                    return "";
 
                 var isSingleArgument = defaultArguments.Length == 1;
                 var argumentDefaultValues = defaultArguments.Select(
@@ -473,15 +475,13 @@ namespace System.CommandLine.Help
             string? defaultValue;
             if (
                 Customizations.TryGetValue(parent, out Customization customization)
-                && customization.GetDefaultValue?.Invoke()
-                    is { } parentSetDefaultValue
+                && customization.GetDefaultValue?.Invoke() is { } parentSetDefaultValue
             ) {
                 defaultValue = parentSetDefaultValue;
             }
             else if (
                 Customizations.TryGetValue(argument, out customization)
-                && customization.GetDefaultValue?.Invoke()
-                    is { } setDefaultValue
+                && customization.GetDefaultValue?.Invoke() is { } setDefaultValue
             ) {
                 defaultValue = setDefaultValue;
             }
@@ -489,8 +489,7 @@ namespace System.CommandLine.Help
             {
                 object? argumentDefaultValue = argument.GetDefaultValue();
                 if (
-                    argumentDefaultValue
-                        is IEnumerable enumerable
+                    argumentDefaultValue is IEnumerable enumerable
                     && !(argumentDefaultValue is string)
                 ) {
                     defaultValue = string.Join("|", enumerable.OfType<object>().ToArray());
@@ -512,8 +511,7 @@ namespace System.CommandLine.Help
         {
             if (
                 Customizations.TryGetValue(argument, out Customization customization)
-                && customization.GetDescriptor?.Invoke()
-                    is { } setDescriptor
+                && customization.GetDescriptor?.Invoke() is { } setDescriptor
             ) {
                 return setDescriptor;
             }

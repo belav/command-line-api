@@ -456,10 +456,8 @@ namespace System.CommandLine.Tests.Binding
 
         private static Action<T, InvocationContext> CaptureDelegate<T>()
         {
-            return (
-                value,
-                invocationContext
-            ) => invocationContext.InvocationResult = new BoundValueCapturer(value);
+            return (value, invocationContext) =>
+                invocationContext.InvocationResult = new BoundValueCapturer(value);
         }
 
         private class BoundValueCapturer : IInvocationResult
@@ -499,7 +497,8 @@ namespace System.CommandLine.Tests.Binding
                     o.Select(f => f.FullName)
                         .Should()
                         .BeEquivalentTo(
-                            new[] {
+                            new[]
+                            {
                                 Path.Combine(ExistingDirectory(), "file1.txt"),
                                 Path.Combine(ExistingDirectory(), "file2.txt")
                             }

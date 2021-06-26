@@ -88,8 +88,8 @@ namespace System.CommandLine.Hosting.Tests
                 .Build();
 
             var result = await parser.InvokeAsync(
-                    new string[] { "mycommand", "--int-option", "54" }
-                );
+                new string[] { "mycommand", "--int-option", "54" }
+            );
 
             result.Should().Be(54);
 

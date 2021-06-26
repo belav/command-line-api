@@ -29,7 +29,8 @@ namespace System.CommandLine.Benchmarks.CommandLine
         }
 
         public IEnumerable<BdnParam<ParseResult>> GenerateTestParseResults() =>
-            new[] {
+            new[]
+            {
                 "--0123456789",
                 "--01234567x9",
                 "--0x234567y9",

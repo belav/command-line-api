@@ -218,7 +218,8 @@ namespace System.CommandLine.Rendering.Tests.Views
 
             public void Dispose()
             {
-                if (_observer != null) _observers.Remove(_observer);
+                if (_observer != null)
+                    _observers.Remove(_observer);
             }
         }
     }
