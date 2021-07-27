@@ -10,7 +10,8 @@ namespace System.CommandLine.Parsing
             RootCommandNode parent,
             string name,
             string? value
-        ) : base(token, parent) {
+        ) : base(token, parent)
+        {
             if (token.Type != TokenType.Directive)
             {
                 throw new ArgumentException($"Incorrect token type: {token}");

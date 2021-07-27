@@ -40,12 +40,12 @@ namespace System.Diagnostics.CodeAnalysis
 
     [AttributeUsage(
         AttributeTargets.Assembly
-        | AttributeTargets.Class
-        | AttributeTargets.Constructor
-        | AttributeTargets.Event
-        | AttributeTargets.Method
-        | AttributeTargets.Property
-        | AttributeTargets.Struct,
+            | AttributeTargets.Class
+            | AttributeTargets.Constructor
+            | AttributeTargets.Event
+            | AttributeTargets.Method
+            | AttributeTargets.Property
+            | AttributeTargets.Struct,
         Inherited = false,
         AllowMultiple = false
     )]
@@ -55,9 +55,9 @@ namespace System.Diagnostics.CodeAnalysis
 
     [AttributeUsage(
         AttributeTargets.Field
-        | AttributeTargets.Parameter
-        | AttributeTargets.Property
-        | AttributeTargets.ReturnValue,
+            | AttributeTargets.Parameter
+            | AttributeTargets.Property
+            | AttributeTargets.ReturnValue,
         Inherited = false
     )]
     internal sealed class MaybeNullAttribute : Attribute
@@ -77,9 +77,9 @@ namespace System.Diagnostics.CodeAnalysis
 
     [AttributeUsage(
         AttributeTargets.Field
-        | AttributeTargets.Parameter
-        | AttributeTargets.Property
-        | AttributeTargets.ReturnValue,
+            | AttributeTargets.Parameter
+            | AttributeTargets.Property
+            | AttributeTargets.ReturnValue,
         Inherited = false
     )]
     internal sealed class NotNullAttribute : Attribute

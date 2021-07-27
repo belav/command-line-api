@@ -397,7 +397,8 @@ namespace System.CommandLine.Builder
         public static CommandLineBuilder UseHelp<THelpBuilder>(
             this CommandLineBuilder builder,
             Action<THelpBuilder>? configureHelp
-        ) where THelpBuilder : IHelpBuilder {
+        ) where THelpBuilder : IHelpBuilder
+        {
             return builder.UseHelp(new HelpOption(), configureHelp);
         }
 
@@ -405,7 +406,8 @@ namespace System.CommandLine.Builder
             this CommandLineBuilder builder,
             HelpOption helpOption,
             Action<THelpBuilder>? configureHelp
-        ) where THelpBuilder : IHelpBuilder {
+        ) where THelpBuilder : IHelpBuilder
+        {
             if (configureHelp is { })
             {
                 builder.ConfigureHelp = helpBuilder => configureHelp((THelpBuilder)helpBuilder);
@@ -420,7 +422,8 @@ namespace System.CommandLine.Builder
         public static TBuilder UseHelpBuilder<TBuilder>(
             this TBuilder builder,
             Func<BindingContext, IHelpBuilder> getHelpBuilder
-        ) where TBuilder : CommandLineBuilder {
+        ) where TBuilder : CommandLineBuilder
+        {
             if (builder is null)
             {
                 throw new ArgumentNullException(nameof(builder));

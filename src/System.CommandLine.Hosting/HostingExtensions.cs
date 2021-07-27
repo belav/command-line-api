@@ -84,7 +84,8 @@ namespace System.CommandLine.Hosting
 
         public static OptionsBuilder<TOptions> BindCommandLine<TOptions>(
             this OptionsBuilder<TOptions> optionsBuilder
-        ) where TOptions : class {
+        ) where TOptions : class
+        {
             if (optionsBuilder is null)
                 throw new ArgumentNullException(nameof(optionsBuilder));
             return optionsBuilder.Configure<IServiceProvider>(

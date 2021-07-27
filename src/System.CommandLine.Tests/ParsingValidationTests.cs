@@ -377,7 +377,7 @@ namespace System.CommandLine.Tests
                         e =>
                             e.SymbolResult.Symbol == command.Arguments.First()
                             && e.Message
-                            == $"Character not allowed in a file name: {invalidCharacter}"
+                                == $"Character not allowed in a file name: {invalidCharacter}"
                     );
             }
 
@@ -398,7 +398,7 @@ namespace System.CommandLine.Tests
                         e =>
                             e.SymbolResult.Symbol.Name == "x"
                             && e.Message
-                            == $"Character not allowed in a file name: {invalidCharacter}"
+                                == $"Character not allowed in a file name: {invalidCharacter}"
                     );
             }
 

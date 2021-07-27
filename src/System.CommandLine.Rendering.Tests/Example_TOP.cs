@@ -17,7 +17,8 @@ namespace System.CommandLine.Rendering.Tests
 
         #region command line data and sample for "top"
 
-        public static readonly ProcessInfo[] Processes = {
+        public static readonly ProcessInfo[] Processes =
+        {
             new ProcessInfo(
                 5747,
                 "Terminal",

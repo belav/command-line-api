@@ -46,20 +46,20 @@ namespace System.CommandLine
 
         public Option(string alias, Func<T> getDefaultValue, string? description = null)
             : base(
-            new[] { alias },
-            description,
-            new Argument<T>(
-                getDefaultValue ?? throw new ArgumentNullException(nameof(getDefaultValue))
-            )
-        ) { }
+                new[] { alias },
+                description,
+                new Argument<T>(
+                    getDefaultValue ?? throw new ArgumentNullException(nameof(getDefaultValue))
+                )
+            ) { }
 
         public Option(string[] aliases, Func<T> getDefaultValue, string? description = null)
             : base(
-            aliases,
-            description,
-            new Argument<T>(
-                getDefaultValue ?? throw new ArgumentNullException(nameof(getDefaultValue))
-            )
-        ) { }
+                aliases,
+                description,
+                new Argument<T>(
+                    getDefaultValue ?? throw new ArgumentNullException(nameof(getDefaultValue))
+                )
+            ) { }
     }
 }

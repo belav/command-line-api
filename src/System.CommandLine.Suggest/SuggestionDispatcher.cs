@@ -194,7 +194,7 @@ namespace System.CommandLine.Suggest
                         == true
                     ) {
                         yield return "dotnet "
-                        + fileNameWithoutExtension.Substring("dotnet-".Length);
+                            + fileNameWithoutExtension.Substring("dotnet-".Length);
                     }
                 }
             }

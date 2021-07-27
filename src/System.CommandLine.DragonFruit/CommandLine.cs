@@ -137,7 +137,8 @@ namespace System.CommandLine.DragonFruit
             return builder;
         }
 
-        private static readonly string[] _argumentParameterNames = {
+        private static readonly string[] _argumentParameterNames =
+        {
             "arguments",
             "argument",
             "args"

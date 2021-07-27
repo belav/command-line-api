@@ -75,7 +75,8 @@ namespace System.CommandLine
             ParseArgument<T> parse,
             bool isDefault = false,
             string? description = null
-        ) : this() {
+        ) : this()
+        {
             if (!string.IsNullOrWhiteSpace(name))
             {
                 Name = name!;

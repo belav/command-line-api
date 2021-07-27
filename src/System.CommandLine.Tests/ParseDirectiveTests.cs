@@ -43,7 +43,7 @@ namespace System.CommandLine.Tests
                 .Should()
                 .Be(
                     $"[ {RootCommand.ExecutableName} [ subcommand [ -c <34> ] ] ]   ???--> --nonexistent wat"
-                    + Environment.NewLine
+                        + Environment.NewLine
                 );
         }
 
