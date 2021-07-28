@@ -14,7 +14,8 @@ namespace System.CommandLine.Parsing
             IOption option,
             Token? token = null,
             CommandResult? parent = null
-        ) : base(option ?? throw new ArgumentNullException(nameof(option)), parent) {
+        ) : base(option ?? throw new ArgumentNullException(nameof(option)), parent)
+        {
             Option = option;
             Token = token;
         }

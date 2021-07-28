@@ -20,7 +20,7 @@ namespace System.CommandLine.Rendering.Views
             _columns.Add(ColumnDefinition.Star(1));
             _rows.Add(RowDefinition.Star(1));
 
-            ChildLocations = new View[1,1];
+            ChildLocations = new View[1, 1];
         }
 
         //TODO: Consider indexer access to get/set children
@@ -51,7 +51,7 @@ namespace System.CommandLine.Rendering.Views
             }
             _columns.Clear();
             _columns.AddRange(columns);
-            ChildLocations = new View[_columns.Count,_rows.Count];
+            ChildLocations = new View[_columns.Count, _rows.Count];
         }
 
         public void SetRows(params RowDefinition[] rows)
@@ -66,7 +66,7 @@ namespace System.CommandLine.Rendering.Views
             }
             _rows.Clear();
             _rows.AddRange(rows);
-            ChildLocations = new View[_columns.Count,_rows.Count];
+            ChildLocations = new View[_columns.Count, _rows.Count];
         }
 
         public override Size Measure(ConsoleRenderer renderer, Size maxSize)
@@ -134,9 +134,10 @@ namespace System.CommandLine.Rendering.Views
             int availableWidth = maxSize.Width;
             int? totalWidthForStarSizing = null;
 
-            foreach (var (column, columnIndex) in _columns.OrderBy(x => GetProcessOrder(x.SizeMode))
-                .Select((x, i) => (x, i)))
-            {
+            foreach (
+                var (column, columnIndex) in _columns.OrderBy(x => GetProcessOrder(x.SizeMode))
+                    .Select((x, i) => (x, i))
+            ) {
                 int availableHeight = maxSize.Height;
 
                 for (int rowIndex = 0; rowIndex < _rows.Count; rowIndex++)
@@ -215,9 +216,8 @@ namespace System.CommandLine.Rendering.Views
                             }
                             int starWidth =
                                 (int)Math.Round(
-                                    column.Value
-                                    / totalColumnStarSize
-                                    * totalWidthForStarSizing.Value
+                                    column.Value / totalColumnStarSize
+                                        * totalWidthForStarSizing.Value
                                 );
                             if (measuredColumns[columnIndex] < starWidth)
                             {
@@ -253,7 +253,7 @@ namespace System.CommandLine.Rendering.Views
                 availableWidth -= measuredColumns[columnIndex].Value;
             }
 
-            var rv = new Size[_columns.Count,_rows.Count];
+            var rv = new Size[_columns.Count, _rows.Count];
             for (int rowIndex = 0; rowIndex < _rows.Count; rowIndex++)
             {
                 for (int columnIndex = 0; columnIndex < _columns.Count; columnIndex++)

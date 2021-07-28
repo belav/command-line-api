@@ -407,9 +407,9 @@ namespace System.CommandLine.Parsing
             new ParseResult(
                 _parser,
                 _rootCommandResult
-                ?? throw new InvalidOperationException("No root command was found"),
+                    ?? throw new InvalidOperationException("No root command was found"),
                 _innermostCommandResult
-                ?? throw new InvalidOperationException("No command was found"),
+                    ?? throw new InvalidOperationException("No command was found"),
                 _directives,
                 _tokenizeResult,
                 _unparsedTokens,

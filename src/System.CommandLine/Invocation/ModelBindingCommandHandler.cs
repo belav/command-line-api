@@ -37,7 +37,8 @@ namespace System.CommandLine.Invocation
             MethodInfo handlerMethodInfo,
             IMethodDescriptor methodDescriptor,
             object? invocationTarget
-        ) : this(handlerMethodInfo, methodDescriptor) {
+        ) : this(handlerMethodInfo, methodDescriptor)
+        {
             _invocationTarget = invocationTarget;
         }
 
@@ -115,7 +116,7 @@ namespace System.CommandLine.Invocation
             param == null
                 ? null
                 : _methodDescriptor.ParameterDescriptors.FirstOrDefault(
-                        x => x.ValueName == param.Name && x.ValueType == param.ParameterType
-                    );
+                      x => x.ValueName == param.Name && x.ValueType == param.ParameterType
+                  );
     }
 }

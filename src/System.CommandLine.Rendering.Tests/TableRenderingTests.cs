@@ -75,10 +75,10 @@ namespace System.CommandLine.Rendering.Tests
                 .Should()
                 .Be(
                     "Option                     "
-                    + NewLine
-                    + "-s           a short option"
-                    + NewLine
-                    + "--very-long  a long option "
+                        + NewLine
+                        + "-s           a short option"
+                        + NewLine
+                        + "--very-long  a long option "
                 );
         }
 

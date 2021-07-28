@@ -490,7 +490,7 @@ namespace System.CommandLine.Tests.Help
             help.Should()
                 .Contain(
                     $"Arguments:{NewLine}"
-                    + $"  <reused>{_columnPadding}This argument is valid on both outer and inner commands{NewLine}{NewLine}"
+                        + $"  <reused>{_columnPadding}This argument is valid on both outer and inner commands{NewLine}{NewLine}"
                 );
         }
 
@@ -1459,7 +1459,8 @@ namespace System.CommandLine.Tests.Help
             public CustomHelpBuilderThatAddsTextAfterDefaultText(
                 IConsole console,
                 string theTextToAdd
-            ) : base(console) {
+            ) : base(console)
+            {
                 _theTextToAdd = theTextToAdd;
             }
 

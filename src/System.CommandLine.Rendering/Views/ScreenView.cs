@@ -22,7 +22,8 @@ namespace System.CommandLine.Rendering.Views
             _console = console ?? throw new ArgumentNullException(nameof(console));
             _context =
                 synchronizationContext
-                ?? SynchronizationContext.Current ?? new SynchronizationContext();
+                ?? SynchronizationContext.Current
+                ?? new SynchronizationContext();
         }
 
         private ConsoleRenderer Renderer { get; }

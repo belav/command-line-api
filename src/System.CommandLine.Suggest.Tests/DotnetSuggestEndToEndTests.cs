@@ -171,7 +171,8 @@ namespace System.CommandLine.Suggest.Tests
 
             var process = new Diagnostics.Process
             {
-                StartInfo = {
+                StartInfo =
+                {
                     Arguments = args,
                     FileName = command,
                     RedirectStandardError = true,

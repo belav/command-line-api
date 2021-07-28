@@ -44,15 +44,13 @@ namespace System.CommandLine.Rendering
             return formatProvider == null
                 ? CurrentInfo
                 : // Fast path for a null provider
-                    GetProviderNonNull(formatProvider);
+                  GetProviderNonNull(formatProvider);
 
             static ConsoleFormatInfo GetProviderNonNull(IFormatProvider provider)
             {
-                return provider
-                    as ConsoleFormatInfo
+                return provider as ConsoleFormatInfo
                     ?? // Fast path for an CFI
-                    provider.GetFormat(typeof(ConsoleFormatInfo))
-                    as ConsoleFormatInfo
+                    provider.GetFormat(typeof(ConsoleFormatInfo)) as ConsoleFormatInfo
                     ?? CurrentInfo;
             }
         }

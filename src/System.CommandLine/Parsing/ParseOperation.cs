@@ -114,7 +114,8 @@ namespace System.CommandLine.Parsing
 
                 var child =
                     ParseSubcommand(parent)
-                    ?? (SyntaxNode?)ParseOption(parent) ?? ParseCommandArgument(parent);
+                    ?? (SyntaxNode?)ParseOption(parent)
+                    ?? ParseCommandArgument(parent);
 
                 if (child is null)
                 {
@@ -209,8 +210,7 @@ namespace System.CommandLine.Parsing
                             argument,
                             argument.ValueType,
                             CurrentToken.Value
-                        )
-                        is FailedArgumentTypeConversionResult
+                        ) is FailedArgumentTypeConversionResult
                     ) {
                         return;
                     }

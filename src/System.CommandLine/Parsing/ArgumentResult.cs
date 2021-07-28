@@ -131,7 +131,7 @@ namespace System.CommandLine.Parsing
                     return ArgumentConversionResult.Failure(
                         argument,
                         ErrorMessage
-                        ?? $"Invalid: {Parent.Token()} {string.Join(" ", Tokens.Select(t => t.Value))}"
+                            ?? $"Invalid: {Parent.Token()} {string.Join(" ", Tokens.Select(t => t.Value))}"
                     );
                 }
             }
