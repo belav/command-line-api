@@ -343,7 +343,7 @@ namespace System.CommandLine.Parsing
 
             if (
                 argumentResult.GetArgumentConversionResult()
-                    is FailedArgumentConversionResult failed
+                is FailedArgumentConversionResult failed
             ) {
                 _errors.Add(new ParseError(failed.ErrorMessage!, argumentResult));
             }

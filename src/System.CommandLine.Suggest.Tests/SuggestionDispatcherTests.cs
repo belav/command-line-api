@@ -21,11 +21,15 @@ namespace System.CommandLine.Suggest.Tests
 
         private static readonly string _dotnetFormatExeFullPath = RuntimeInformation.IsOSPlatform(
             OSPlatform.Windows
-        ) ? @"C:\Program Files\dotnet-format.exe" : "/bin/dotnet-format";
+        )
+            ? @"C:\Program Files\dotnet-format.exe"
+            : "/bin/dotnet-format";
 
         private static readonly string _netExeFullPath = RuntimeInformation.IsOSPlatform(
             OSPlatform.Windows
-        ) ? @"C:\Windows\System32\net.exe" : "/bin/net";
+        )
+            ? @"C:\Windows\System32\net.exe"
+            : "/bin/net";
 
         private static Registration CurrentExeRegistrationPair() =>
             new Registration(CurrentExeFullPath());

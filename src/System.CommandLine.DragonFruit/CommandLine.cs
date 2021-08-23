@@ -166,7 +166,7 @@ namespace System.CommandLine.DragonFruit
 
             if (
                 method.GetParameters().FirstOrDefault(p => _argumentParameterNames.Contains(p.Name))
-                    is ParameterInfo argsParam
+                is ParameterInfo argsParam
             ) {
                 var argument = new Argument
                 {

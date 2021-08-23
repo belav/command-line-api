@@ -52,7 +52,7 @@ namespace System.CommandLine.Parsing
 
                     if (
                         optionResult?.ConvertIfNeeded(valueDescriptor.ValueType)
-                            is SuccessfulArgumentConversionResult successful
+                        is SuccessfulArgumentConversionResult successful
                     ) {
                         value = successful.Value;
                         return true;
