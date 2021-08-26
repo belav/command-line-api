@@ -293,9 +293,8 @@ namespace System.CommandLine.Builder
                         foreach (var envDirective in directives)
                         {
                             var components = envDirective.Split(new[] { '=' }, count: 2);
-                            var variable = components.Length > 0
-                                ? components[0].Trim()
-                                : string.Empty;
+                            var variable =
+                                components.Length > 0 ? components[0].Trim() : string.Empty;
                             if (string.IsNullOrEmpty(variable) || components.Length < 2)
                             {
                                 continue;

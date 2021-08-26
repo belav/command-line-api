@@ -81,9 +81,10 @@ namespace System.CommandLine.Binding
 
             return type switch
             {
-                Type nonGeneric when nonGeneric == typeof(IList)
-                    || nonGeneric == typeof(ICollection)
-                    || nonGeneric == typeof(IEnumerable)
+                Type nonGeneric
+                    when nonGeneric == typeof(IList)
+                        || nonGeneric == typeof(ICollection)
+                        || nonGeneric == typeof(IEnumerable)
                   => CreateEmptyArray(typeof(object)),
                 _ => type.IsValueType ? Activator.CreateInstance(type) : null
             };

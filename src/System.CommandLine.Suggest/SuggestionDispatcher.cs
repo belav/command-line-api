@@ -167,7 +167,9 @@ namespace System.CommandLine.Suggest
                 .Trim();
 
 #if DEBUG
-            Program.LogDebug($"dotnet-suggest returning: \"{suggestions.Replace("\r", "\\r").Replace("\n", "\\n")}\"");
+            Program.LogDebug(
+                $"dotnet-suggest returning: \"{suggestions.Replace("\r", "\\r").Replace("\n", "\\n")}\""
+            );
 #endif
 
             console.Out.Write(suggestions);

@@ -111,9 +111,8 @@ namespace System.CommandLine.Binding
             IReadOnlyList<string> tokens,
             ArgumentResult? argumentResult = null
         ) {
-            var itemType = type == typeof(string)
-                ? typeof(string)
-                : Binder.GetItemTypeIfEnumerable(type);
+            var itemType =
+                type == typeof(string) ? typeof(string) : Binder.GetItemTypeIfEnumerable(type);
 
             var (values, isArray) = type.IsArray
                 ? (CreateArray(itemType!, tokens.Count), true)
@@ -206,13 +205,13 @@ namespace System.CommandLine.Binding
 
             switch (conversionResult)
             {
-                case SuccessfulArgumentConversionResult successful when !toType.IsInstanceOfType(
-                    successful.Value
-                ):
+                case SuccessfulArgumentConversionResult successful
+                      when !toType.IsInstanceOfType(successful.Value):
                     return ConvertObject(conversionResult.Argument, toType, successful.Value);
-                case SuccessfulArgumentConversionResult successful when toType == typeof(object)
-                    && conversionResult.Argument.Arity.MaximumNumberOfValues > 1
-                    && successful.Value is string:
+                case SuccessfulArgumentConversionResult successful
+                      when toType == typeof(object)
+                          && conversionResult.Argument.Arity.MaximumNumberOfValues > 1
+                          && successful.Value is string:
                     return ConvertObject(
                         conversionResult.Argument,
                         typeof(IEnumerable<string>),
@@ -220,14 +219,14 @@ namespace System.CommandLine.Binding
                     );
                 case NoArgumentConversionResult _ when toType == typeof(bool):
                     return Success(conversionResult.Argument, true);
-                case NoArgumentConversionResult _ when conversionResult.Argument.Arity.MinimumNumberOfValues
-                    > 0:
+                case NoArgumentConversionResult _
+                      when conversionResult.Argument.Arity.MinimumNumberOfValues > 0:
                     return new MissingArgumentConversionResult(
                         conversionResult.Argument,
                         Resources.Instance.RequiredArgumentMissing(symbolResult)
                     );
-                case NoArgumentConversionResult _ when conversionResult.Argument.Arity.MaximumNumberOfValues
-                    > 1:
+                case NoArgumentConversionResult _
+                      when conversionResult.Argument.Arity.MaximumNumberOfValues > 1:
                     return Success(conversionResult.Argument, Array.Empty<string>());
                 default:
                     return conversionResult;

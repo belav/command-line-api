@@ -153,10 +153,9 @@ namespace System.CommandLine.Rendering.Views
                                 );
                                 break;
                             case SizeMode.Star:
-                                measuredRows[rowIndex] =
-                                    (int)Math.Round(
-                                        _rows[rowIndex].Value / totalRowStarSize * maxSize.Height
-                                    );
+                                measuredRows[rowIndex] = (int)Math.Round(
+                                    _rows[rowIndex].Value / totalRowStarSize * maxSize.Height
+                                );
                                 break;
                             case SizeMode.SizeToContent:
                                 break;
@@ -214,11 +213,9 @@ namespace System.CommandLine.Rendering.Views
                             {
                                 totalWidthForStarSizing = availableWidth;
                             }
-                            int starWidth =
-                                (int)Math.Round(
-                                    column.Value / totalColumnStarSize
-                                        * totalWidthForStarSizing.Value
-                                );
+                            int starWidth = (int)Math.Round(
+                                column.Value / totalColumnStarSize * totalWidthForStarSizing.Value
+                            );
                             if (measuredColumns[columnIndex] < starWidth)
                             {
                                 starWidth = measuredColumns[columnIndex].Value;
