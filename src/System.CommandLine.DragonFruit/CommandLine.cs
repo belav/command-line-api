@@ -32,7 +32,8 @@ namespace System.CommandLine.DragonFruit
             string entryPointFullTypeName,
             string xmlDocsFilePath = null,
             IConsole console = null
-        ) {
+        )
+        {
             if (entryAssembly == null)
             {
                 throw new ArgumentNullException(nameof(entryAssembly));
@@ -65,7 +66,8 @@ namespace System.CommandLine.DragonFruit
             string entryPointFullTypeName,
             string xmlDocsFilePath = null,
             IConsole console = null
-        ) {
+        )
+        {
             if (entryAssembly == null)
             {
                 throw new ArgumentNullException(nameof(entryAssembly));
@@ -89,7 +91,8 @@ namespace System.CommandLine.DragonFruit
             string xmlDocsFilePath = null,
             object target = null,
             IConsole console = null
-        ) {
+        )
+        {
             Parser parser = BuildParser(method, xmlDocsFilePath, target);
 
             return await parser.InvokeAsync(args, console);
@@ -101,7 +104,8 @@ namespace System.CommandLine.DragonFruit
             string xmlDocsFilePath = null,
             object target = null,
             IConsole console = null
-        ) {
+        )
+        {
             Parser parser = BuildParser(method, xmlDocsFilePath, target);
 
             return parser.Invoke(args, console);
@@ -109,7 +113,8 @@ namespace System.CommandLine.DragonFruit
 
         private static Parser BuildParser(MethodInfo method, string xmlDocsFilePath, object target)
         {
-            var builder = new CommandLineBuilder().ConfigureRootCommandFromMethod(method, target)
+            var builder = new CommandLineBuilder()
+                .ConfigureRootCommandFromMethod(method, target)
                 .ConfigureHelpFromXmlComments(method, xmlDocsFilePath)
                 .UseDefaults()
                 .UseAnsiTerminalWhenAvailable();
@@ -121,7 +126,8 @@ namespace System.CommandLine.DragonFruit
             this CommandLineBuilder builder,
             MethodInfo method,
             object target = null
-        ) {
+        )
+        {
             if (builder == null)
             {
                 throw new ArgumentNullException(nameof(builder));
@@ -148,7 +154,8 @@ namespace System.CommandLine.DragonFruit
             this Command command,
             MethodInfo method,
             object target = null
-        ) {
+        )
+        {
             if (command == null)
             {
                 throw new ArgumentNullException(nameof(command));
@@ -167,7 +174,8 @@ namespace System.CommandLine.DragonFruit
             if (
                 method.GetParameters().FirstOrDefault(p => _argumentParameterNames.Contains(p.Name))
                 is ParameterInfo argsParam
-            ) {
+            )
+            {
                 var argument = new Argument
                 {
                     ArgumentType = argsParam.ParameterType,
@@ -196,7 +204,8 @@ namespace System.CommandLine.DragonFruit
             this CommandLineBuilder builder,
             MethodInfo method,
             string xmlDocsFilePath
-        ) {
+        )
+        {
             if (builder == null)
             {
                 throw new ArgumentNullException(nameof(builder));
@@ -212,11 +221,13 @@ namespace System.CommandLine.DragonFruit
                     xmlDocsFilePath ?? GetDefaultXmlDocsFileLocation(method.DeclaringType.Assembly),
                     out var xmlDocs
                 )
-            ) {
+            )
+            {
                 if (
                     xmlDocs.TryGetMethodDescription(method, out CommandHelpMetadata metadata)
                     && metadata.Description != null
-                ) {
+                )
+                {
                     builder.Command.Description = metadata.Description;
                     var options = builder.Options.ToArray();
 
@@ -243,7 +254,8 @@ namespace System.CommandLine.DragonFruit
                                         kebabCasedParameterName,
                                         StringComparison.OrdinalIgnoreCase
                                     )
-                                ) {
+                                )
+                                {
                                     argument.Description = parameterDescription.Value;
                                 }
                             }
@@ -278,8 +290,8 @@ namespace System.CommandLine.DragonFruit
             }
 
             return parameterName.Length > 1
-                ? $"--{parameterName.ToKebabCase()}"
-                : $"-{parameterName.ToLowerInvariant()}";
+              ? $"--{parameterName.ToKebabCase()}"
+              : $"-{parameterName.ToLowerInvariant()}";
         }
 
         public static IEnumerable<Option> BuildOptions(this MethodInfo method)
@@ -296,12 +308,12 @@ namespace System.CommandLine.DragonFruit
             };
 
             foreach (
-                var option in descriptor.ParameterDescriptors.Where(
-                        d => !omittedTypes.Contains(d.ValueType)
-                    )
+                var option in descriptor.ParameterDescriptors
+                    .Where(d => !omittedTypes.Contains(d.ValueType))
                     .Where(d => !_argumentParameterNames.Contains(d.ValueName))
                     .Select(p => p.BuildOption())
-            ) {
+            )
+            {
                 yield return option;
             }
         }

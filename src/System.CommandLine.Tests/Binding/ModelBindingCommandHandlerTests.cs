@@ -26,7 +26,8 @@ namespace System.CommandLine.Tests.Binding
             Type type,
             string commandLine,
             object expectedValue
-        ) {
+        )
+        {
             var targetType = typeof(ClassWithMethodHavingParameter<>).MakeGenericType(type);
 
             var handlerMethod = targetType.GetMethod(
@@ -53,7 +54,8 @@ namespace System.CommandLine.Tests.Binding
             Type type,
             string commandLine,
             object expectedValue
-        ) {
+        )
+        {
             var complexParameterType = typeof(ClassWithSetter<>).MakeGenericType(type);
 
             var handlerType = typeof(ClassWithMethodHavingParameter<>).MakeGenericType(
@@ -82,7 +84,8 @@ namespace System.CommandLine.Tests.Binding
             Type type,
             string commandLine,
             object expectedValue
-        ) {
+        )
+        {
             var complexParameterType = typeof(ClassWithCtorParameter<>).MakeGenericType(type);
 
             var handlerType = typeof(ClassWithMethodHavingParameter<>).MakeGenericType(
@@ -99,7 +102,8 @@ namespace System.CommandLine.Tests.Binding
 
             await handler.InvokeAsync(new InvocationContext(command.Parse(commandLine), console));
 
-            console.Out.ToString()
+            console.Out
+                .ToString()
                 .Should()
                 .Be($"ClassWithCtorParameter<{type.Name}>: {expectedValue}");
         }
@@ -111,7 +115,8 @@ namespace System.CommandLine.Tests.Binding
             Type type,
             string commandLine,
             object expectedValue
-        ) {
+        )
+        {
             var targetType = typeof(ClassWithMethodHavingParameter<>).MakeGenericType(type);
 
             var handlerMethod = targetType.GetMethod(
@@ -140,7 +145,8 @@ namespace System.CommandLine.Tests.Binding
         public async Task Unspecified_option_arguments_with_no_default_value_are_bound_to_type_default(
             Type parameterType,
             object expectedValue
-        ) {
+        )
+        {
             var captureMethod = GetType()
                 .GetMethod(nameof(CaptureMethod), BindingFlags.NonPublic | BindingFlags.Static)
                 .MakeGenericMethod(parameterType);
@@ -240,7 +246,8 @@ namespace System.CommandLine.Tests.Binding
             Type type,
             bool useDelegate,
             string variation = null
-        ) {
+        )
+        {
             var testCase = BindingCases[(type, variation)];
 
             ICommandHandler handler;
@@ -323,7 +330,8 @@ namespace System.CommandLine.Tests.Binding
         [InlineData(typeof(List<int>))]
         public async Task Handler_method_receives_command_arguments_bound_to_the_specified_type(
             Type type
-        ) {
+        )
+        {
             var c = BindingCases[type];
 
             var captureMethod = GetType()
@@ -366,7 +374,8 @@ namespace System.CommandLine.Tests.Binding
         [InlineData(typeof(List<int>))]
         public async Task Handler_method_receives_command_arguments_explicitly_bound_to_the_specified_type(
             Type type
-        ) {
+        )
+        {
             var c = BindingCases[type];
 
             var captureMethod = GetType()
@@ -415,7 +424,8 @@ namespace System.CommandLine.Tests.Binding
         [InlineData(typeof(List<int>))]
         public async Task Handler_method_receive_option_arguments_explicitly_bound_to_the_specified_type(
             Type type
-        ) {
+        )
+        {
             var c = BindingCases[type];
 
             var captureMethod = GetType()

@@ -31,7 +31,8 @@ namespace System.CommandLine.Rendering.Tests
         [InlineData(OutputMode.NonAnsi)]
         public void A_row_is_written_for_each_item_and_a_header_for_each_column(
             OutputMode outputMode
-        ) {
+        )
+        {
             var options = new[]
             {
                 new Option("-s", "a short option"),
@@ -44,7 +45,8 @@ namespace System.CommandLine.Rendering.Tests
 
             var lines = _terminal.RenderOperations();
 
-            lines.Should()
+            lines
+                .Should()
                 .BeEquivalentSequenceTo(
                     Cell("Option       ", 0, 0),
                     Cell("              ", 13, 0),
@@ -71,7 +73,8 @@ namespace System.CommandLine.Rendering.Tests
                 new Region(0, 0, 30, 3)
             );
 
-            _terminal.Out.ToString()
+            _terminal.Out
+                .ToString()
                 .Should()
                 .Be(
                     "Option                     "

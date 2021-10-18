@@ -24,7 +24,8 @@ namespace System.CommandLine.Rendering.Tests
 
             var output = _terminal.RenderOperations();
 
-            output.Should()
+            output
+                .Should()
                 .BeEquivalentTo(@case.ExpectedOutput, options => options.WithStrictOrdering());
         }
 
@@ -39,7 +40,8 @@ namespace System.CommandLine.Rendering.Tests
             int top,
             int width,
             int height
-        ) {
+        )
+        {
             var terminalWithoutAnsiCodes = new TestTerminal();
             var rendererWithoutAnsiCodes = new ConsoleRenderer(
                 terminalWithoutAnsiCodes,

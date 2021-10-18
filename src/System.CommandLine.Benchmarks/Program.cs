@@ -13,7 +13,8 @@ namespace System.CommandLine.Benchmarks
     {
         static int Main(string[] args)
         {
-            var result = BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly)
+            var result = BenchmarkSwitcher
+                .FromAssembly(typeof(Program).Assembly)
 #if DEBUG
                 .Run(args, new DebugInProcessConfig());
             Console.ReadLine();

@@ -21,7 +21,8 @@ namespace RenderingPlayground
 
             var tableView = new TableView<FileSystemInfo>();
 
-            tableView.Items = directory.EnumerateFileSystemInfos()
+            tableView.Items = directory
+                .EnumerateFileSystemInfos()
                 .OrderByDescending(f => f is DirectoryInfo)
                 .ToList();
 

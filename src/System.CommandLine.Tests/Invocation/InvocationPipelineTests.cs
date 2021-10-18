@@ -24,7 +24,8 @@ namespace System.CommandLine.Tests.Invocation
         {
             var wasCalled = false;
 
-            var parser = new CommandLineBuilder().AddCommand(new Command("command"))
+            var parser = new CommandLineBuilder()
+                .AddCommand(new Command("command"))
                 .UseMiddleware(_ => wasCalled = true)
                 .Build();
 
@@ -76,7 +77,8 @@ namespace System.CommandLine.Tests.Invocation
         [Fact]
         public void When_middleware_throws_then_InvokeAsync_does_not_handle_the_exception()
         {
-            var parser = new CommandLineBuilder().AddCommand(new Command("the-command"))
+            var parser = new CommandLineBuilder()
+                .AddCommand(new Command("the-command"))
                 .UseMiddleware(_ => throw new Exception("oops!"))
                 .Build();
 
@@ -88,7 +90,8 @@ namespace System.CommandLine.Tests.Invocation
         [Fact]
         public void When_middleware_throws_then_Invoke_does_not_handle_the_exception()
         {
-            var parser = new CommandLineBuilder().AddCommand(new Command("the-command"))
+            var parser = new CommandLineBuilder()
+                .AddCommand(new Command("the-command"))
                 .UseMiddleware(_ => throw new Exception("oops!"))
                 .Build();
 
@@ -116,7 +119,8 @@ namespace System.CommandLine.Tests.Invocation
 
             Func<Task> invoke = async () => await parser.InvokeAsync("the-command", _console);
 
-            invoke.Should()
+            invoke
+                .Should()
                 .Throw<TargetInvocationException>()
                 .Which.InnerException.Message.Should()
                 .Be("oops!");
@@ -141,7 +145,8 @@ namespace System.CommandLine.Tests.Invocation
 
             Func<int> invoke = () => parser.Invoke("the-command", _console);
 
-            invoke.Should()
+            invoke
+                .Should()
                 .Throw<TargetInvocationException>()
                 .Which.InnerException.Message.Should()
                 .Be("oops!");
@@ -162,10 +167,12 @@ namespace System.CommandLine.Tests.Invocation
                 }
             );
 
-            var parser = new CommandLineBuilder().UseMiddleware(
+            var parser = new CommandLineBuilder()
+                .UseMiddleware(
                     async (context, next) =>
                     {
-                        var tokens = context.ParseResult.Tokens.Select(t => t.Value)
+                        var tokens = context.ParseResult.Tokens
+                            .Select(t => t.Value)
                             .Concat(new[] { "implicit-inner-command" })
                             .ToArray();
 
@@ -196,7 +203,8 @@ namespace System.CommandLine.Tests.Invocation
                 }
             );
 
-            var parser = new CommandLineBuilder().UseMiddleware(
+            var parser = new CommandLineBuilder()
+                .UseMiddleware(
                     async (context, next) =>
                     {
                         middlewareWasCalled = true;
@@ -227,7 +235,8 @@ namespace System.CommandLine.Tests.Invocation
                 }
             );
 
-            var parser = new CommandLineBuilder().UseMiddleware(
+            var parser = new CommandLineBuilder()
+                .UseMiddleware(
                     async (context, next) =>
                     {
                         middlewareWasCalled = true;
@@ -288,7 +297,8 @@ namespace System.CommandLine.Tests.Invocation
                 }
             );
 
-            var parser = new CommandLineBuilder().UseHelpBuilder(helpBuilderFactory)
+            var parser = new CommandLineBuilder()
+                .UseHelpBuilder(helpBuilderFactory)
                 .AddCommand(command)
                 .Build();
 

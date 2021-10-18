@@ -29,7 +29,9 @@ namespace System.CommandLine.Hosting.Tests
 
             var parser = new CommandLineBuilder(
                 new RootCommand { Handler = CommandHandler.Create<IHost>(Execute) }
-            ).UseHost().Build();
+            )
+                .UseHost()
+                .Build();
 
             parser.InvokeAsync(Array.Empty<string>()).GetAwaiter().GetResult();
 
@@ -41,7 +43,8 @@ namespace System.CommandLine.Hosting.Tests
         {
             InvocationContext invocationContext = null;
 
-            var parser = new CommandLineBuilder().UseHost(
+            var parser = new CommandLineBuilder()
+                .UseHost(
                     host =>
                     {
                         if (host.Properties.TryGetValue(typeof(InvocationContext), out var ctx))
@@ -74,7 +77,9 @@ namespace System.CommandLine.Hosting.Tests
 
             var parser = new CommandLineBuilder(
                 new RootCommand { Handler = CommandHandler.Create<IHost>(Execute) }
-            ).UseHost().Build();
+            )
+                .UseHost()
+                .Build();
 
             parser.InvokeAsync(Array.Empty<string>()).GetAwaiter().GetResult();
 
@@ -101,7 +106,8 @@ namespace System.CommandLine.Hosting.Tests
 
             var parser = new CommandLineBuilder(
                 new RootCommand { Handler = CommandHandler.Create<IHost>(Execute), }
-            ).UseHost(
+            )
+                .UseHost(
                     host =>
                     {
                         var invocation = (InvocationContext)host.Properties[
@@ -140,7 +146,8 @@ namespace System.CommandLine.Hosting.Tests
 
             var parser = new CommandLineBuilder(
                 new RootCommand { Handler = CommandHandler.Create<IHost>(Execute), }
-            ).UseHost(
+            )
+                .UseHost(
                     args =>
                     {
                         var host = new HostBuilder();
@@ -179,7 +186,9 @@ namespace System.CommandLine.Hosting.Tests
 
             var parser = new CommandLineBuilder(
                 new RootCommand { Handler = CommandHandler.Create<IHost>(Execute) }
-            ).UseHost().Build();
+            )
+                .UseHost()
+                .Build();
 
             parser.InvokeAsync(commandLine).GetAwaiter().GetResult();
 
@@ -202,7 +211,8 @@ namespace System.CommandLine.Hosting.Tests
                 }
             );
 
-            int result = new CommandLineBuilder(rootCmd).UseHost(
+            int result = new CommandLineBuilder(rootCmd)
+                .UseHost(
                     host =>
                     {
                         host.ConfigureServices(
@@ -255,7 +265,8 @@ namespace System.CommandLine.Hosting.Tests
         public static void GetInvocationContext_returns_non_null_instance()
         {
             bool ctxAsserted = false;
-            var parser = new CommandLineBuilder().UseHost(
+            var parser = new CommandLineBuilder()
+                .UseHost(
                     hostBuilder =>
                     {
                         InvocationContext ctx = hostBuilder.GetInvocationContext();
@@ -273,7 +284,8 @@ namespace System.CommandLine.Hosting.Tests
         public static void GetInvocationContext_in_ConfigureServices_returns_non_null_instance()
         {
             bool ctxAsserted = false;
-            var parser = new CommandLineBuilder().UseHost(
+            var parser = new CommandLineBuilder()
+                .UseHost(
                     hostBuilder =>
                     {
                         hostBuilder.ConfigureServices(
@@ -298,7 +310,8 @@ namespace System.CommandLine.Hosting.Tests
             InvocationContext ctxCustom = null;
             InvocationContext ctxHosting = null;
 
-            var parser = new CommandLineBuilder().UseMiddleware(
+            var parser = new CommandLineBuilder()
+                .UseMiddleware(
                     (context, next) =>
                     {
                         ctxCustom = context;
@@ -324,7 +337,8 @@ namespace System.CommandLine.Hosting.Tests
             InvocationContext ctxCustom = null;
             InvocationContext ctxConfigureServices = null;
 
-            var parser = new CommandLineBuilder().UseMiddleware(
+            var parser = new CommandLineBuilder()
+                .UseMiddleware(
                     (context, next) =>
                     {
                         ctxCustom = context;
@@ -353,7 +367,8 @@ namespace System.CommandLine.Hosting.Tests
         public static void GetInvocationContext_throws_if_not_within_invocation()
         {
             var hostBuilder = new HostBuilder();
-            hostBuilder.Invoking(
+            hostBuilder
+                .Invoking(
                     b =>
                     {
                         _ = b.GetInvocationContext();
@@ -366,7 +381,8 @@ namespace System.CommandLine.Hosting.Tests
         [Fact]
         public static void GetInvocationContext_in_ConfigureServices_throws_if_not_within_invocation()
         {
-            new HostBuilder().Invoking(
+            new HostBuilder()
+                .Invoking(
                     b =>
                     {
                         b.ConfigureServices(
@@ -386,7 +402,8 @@ namespace System.CommandLine.Hosting.Tests
         public static void GetHost_returns_non_null_instance_in_subsequent_middleware()
         {
             bool hostAsserted = false;
-            var parser = new CommandLineBuilder().UseHost()
+            var parser = new CommandLineBuilder()
+                .UseHost()
                 .UseMiddleware(
                     (invCtx, next) =>
                     {
@@ -408,7 +425,8 @@ namespace System.CommandLine.Hosting.Tests
         public static void GetHost_returns_null_when_no_host_in_invocation()
         {
             bool hostAsserted = false;
-            var parser = new CommandLineBuilder().UseMiddleware(
+            var parser = new CommandLineBuilder()
+                .UseMiddleware(
                     (invCtx, next) =>
                     {
                         IHost host = invCtx.GetHost();

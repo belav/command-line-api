@@ -110,7 +110,8 @@ namespace System.CommandLine.Tests.Help
             int minArity,
             int maxArity,
             string expectedDescriptor
-        ) {
+        )
+        {
             var argument = new Argument
             {
                 Name = "the-args",
@@ -143,7 +144,8 @@ namespace System.CommandLine.Tests.Help
             int minArityForArg2,
             int maxArityForArg2,
             string expectedDescriptor
-        ) {
+        )
+        {
             var arg1 = new Argument
             {
                 Name = "arg1",
@@ -711,7 +713,8 @@ namespace System.CommandLine.Tests.Help
 
             helpBuilder.Write(command);
 
-            _console.Out.ToString()
+            _console.Out
+                .ToString()
                 .Should()
                 .Contain($"--opt <Read|ReadWrite|Write>{_columnPadding}{description}");
         }
@@ -900,7 +903,8 @@ namespace System.CommandLine.Tests.Help
             var optionA = lines.Last(line => line.Contains("-a"));
             var optionB = lines.Last(line => line.Contains("-b"));
 
-            optionA.IndexOf("An option", StringComparison.Ordinal)
+            optionA
+                .IndexOf("An option", StringComparison.Ordinal)
                 .Should()
                 .Be(optionB.IndexOf("An option", StringComparison.Ordinal));
         }
@@ -1076,7 +1080,8 @@ namespace System.CommandLine.Tests.Help
             };
 
             _helpBuilder.Write(command);
-            var help = _console.Out.ToString()
+            var help = _console.Out
+                .ToString()
                 .Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(l => l.Trim());
 
@@ -1368,7 +1373,8 @@ namespace System.CommandLine.Tests.Help
         [Fact]
         public void Help_text_can_be_added_after_default_text_by_inheriting_HelpBuilder()
         {
-            var parser = new CommandLineBuilder().UseDefaults()
+            var parser = new CommandLineBuilder()
+                .UseDefaults()
                 .UseHelpBuilder(
                     context =>
                         new CustomHelpBuilderThatAddsTextAfterDefaultText(

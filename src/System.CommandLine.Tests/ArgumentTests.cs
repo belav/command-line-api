@@ -47,7 +47,8 @@ namespace System.CommandLine.Tests
         {
             var argument = new Argument<string>("the-arg");
 
-            argument.Invoking(a => a.GetDefaultValue())
+            argument
+                .Invoking(a => a.GetDefaultValue())
                 .Should()
                 .Throw<InvalidOperationException>()
                 .Which.Message.Should()
@@ -131,7 +132,8 @@ namespace System.CommandLine.Tests
                     }
                 );
 
-                argument.Parse("x")
+                argument
+                    .Parse("x")
                     .Errors.Should()
                     .ContainSingle(e => e.SymbolResult.Symbol == argument)
                     .Which.Message.Should()
@@ -150,7 +152,8 @@ namespace System.CommandLine.Tests
                     true
                 );
 
-                argument.Parse("")
+                argument
+                    .Parse("")
                     .Errors.Should()
                     .ContainSingle(e => e.SymbolResult.Symbol == argument)
                     .Which.Message.Should()
@@ -188,7 +191,8 @@ namespace System.CommandLine.Tests
                     result => result.Tokens.Single().Value.Split(',').Select(int.Parse)
                 );
 
-                argument.Parse("1,2,3")
+                argument
+                    .Parse("1,2,3")
                     .ValueForArgument(argument)
                     .Should()
                     .BeEquivalentTo(new[] { 1, 2, 3 });
@@ -204,7 +208,8 @@ namespace System.CommandLine.Tests
                     }
                 );
 
-                argument.Parse("1 2 3")
+                argument
+                    .Parse("1 2 3")
                     .ValueForArgument(argument)
                     .Should()
                     .BeEquivalentTo(new[] { 1, 2, 3 });
@@ -273,7 +278,8 @@ namespace System.CommandLine.Tests
             [InlineData("-y value-y -x value-x")]
             public void Symbol_can_be_found_without_explicitly_traversing_result_tree(
                 string commandLine
-            ) {
+            )
+            {
                 SymbolResult resultForOptionX = null;
                 var optionX = new Option<string>("-x", parseArgument: _ => string.Empty);
 
@@ -290,7 +296,8 @@ namespace System.CommandLine.Tests
 
                 command.Parse(commandLine);
 
-                resultForOptionX.Should()
+                resultForOptionX
+                    .Should()
                     .BeOfType<OptionResult>()
                     .Which.Option.Should()
                     .BeSameAs(optionX);
@@ -426,7 +433,8 @@ namespace System.CommandLine.Tests
                                     argumentResult.Tokens.Select(t => t.Value).Single(),
                                     out var value
                                 )
-                            ) {
+                            )
+                            {
                                 return value;
                             }
 
@@ -442,7 +450,8 @@ namespace System.CommandLine.Tests
 
                 Action getValue = () => result.ValueForOption("-o");
 
-                getValue.Should()
+                getValue
+                    .Should()
                     .Throw<InvalidOperationException>()
                     .Which.Message.Should()
                     .Be("'not-an-int' is not an integer");
@@ -489,12 +498,14 @@ namespace System.CommandLine.Tests
 
                 var parseResult = command.Parse("1 2 3 4 5 6 7 8");
 
-                parseResult.FindResultFor(argument1)
+                parseResult
+                    .FindResultFor(argument1)
                     .GetValueOrDefault()
                     .Should()
                     .BeEquivalentTo(new[] { 1, 2, 3 }, options => options.WithStrictOrdering());
 
-                parseResult.FindResultFor(argument2)
+                parseResult
+                    .FindResultFor(argument2)
                     .GetValueOrDefault()
                     .Should()
                     .BeEquivalentTo(
@@ -525,7 +536,8 @@ namespace System.CommandLine.Tests
 
                 var parseResult = command.Parse("1 2 3 4 5 6 7 8");
 
-                parseResult.UnparsedTokens.Should()
+                parseResult.UnparsedTokens
+                    .Should()
                     .BeEquivalentTo(
                         new[] { "4", "5", "6", "7", "8" },
                         options => options.WithStrictOrdering()
@@ -557,7 +569,8 @@ namespace System.CommandLine.Tests
 
                 var parseResult = command.Parse("1 2 3 4 5 6 7 8");
 
-                parseResult.FindResultFor(argument1)
+                parseResult
+                    .FindResultFor(argument1)
                     .Tokens.Select(t => t.Value)
                     .Should()
                     .BeEquivalentTo(
@@ -565,7 +578,8 @@ namespace System.CommandLine.Tests
                         options => options.WithStrictOrdering()
                     );
 
-                parseResult.FindResultFor(argument2)
+                parseResult
+                    .FindResultFor(argument2)
                     .Tokens.Select(t => t.Value)
                     .Should()
                     .BeEquivalentTo(
@@ -587,7 +601,8 @@ namespace System.CommandLine.Tests
                     }
                 );
 
-                argument.Invoking(a => a.Parse("1 2 3"))
+                argument
+                    .Invoking(a => a.Parse("1 2 3"))
                     .Should()
                     .Throw<ArgumentOutOfRangeException>()
                     .Which.Message.Should()
@@ -608,7 +623,8 @@ namespace System.CommandLine.Tests
                     }
                 );
 
-                argument.Invoking(a => a.Parse("1 2 3"))
+                argument
+                    .Invoking(a => a.Parse("1 2 3"))
                     .Should()
                     .Throw<InvalidOperationException>()
                     .Which.Message.Should()

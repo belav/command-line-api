@@ -28,7 +28,8 @@ namespace System.CommandLine.Tests.Invocation
             const int CancelledExitCode = 42;
 
             Func<string[], Task<int>> childProgram = (string[] args) =>
-                new CommandLineBuilder().AddCommand(
+                new CommandLineBuilder()
+                    .AddCommand(
                         new Command("the-command")
                         {
                             Handler = CommandHandler.Create<CancellationToken>(
@@ -68,7 +69,8 @@ namespace System.CommandLine.Tests.Invocation
                     childProgram,
                     psi: new ProcessStartInfo { RedirectStandardOutput = true }
                 )
-            ) {
+            )
+            {
                 System.Diagnostics.Process process = program.Process;
 
                 // Wait for the child to be in the command handler.

@@ -18,7 +18,8 @@ namespace System.CommandLine.Benchmarks.CommandLine
         private Parser _testParser;
 
         private IEnumerable<Option> GenerateTestOptions(int count, IArgumentArity arity) =>
-            Enumerable.Range(0, count)
+            Enumerable
+                .Range(0, count)
                 .Select(
                     i =>
                         new Option($"-option{i}", arity: arity)
@@ -34,12 +35,15 @@ namespace System.CommandLine.Benchmarks.CommandLine
         private string GenerateTestOptionsWithArgumentsAsStringExpr(
             int optionsCount,
             int argumentsCount
-        ) {
-            var arguments = Enumerable.Range(0, argumentsCount)
+        )
+        {
+            var arguments = Enumerable
+                .Range(0, argumentsCount)
                 .Select(i => $"arg{i}")
                 .Aggregate("", (ac, next) => ac + " " + next);
 
-            return Enumerable.Range(0, optionsCount)
+            return Enumerable
+                .Range(0, optionsCount)
                 .Select(i => $"-option{i} {arguments} ")
                 .Aggregate("", (ac, next) => ac + " " + next);
         }

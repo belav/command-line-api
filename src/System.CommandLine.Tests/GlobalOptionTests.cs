@@ -16,7 +16,8 @@ namespace System.CommandLine.Tests
         {
             var command = new Command("the-command") { new Option("--same") };
 
-            command.Invoking(c => c.AddGlobalOption(new Option("--same")))
+            command
+                .Invoking(c => c.AddGlobalOption(new Option("--same")))
                 .Should()
                 .NotThrow<ArgumentException>();
         }
@@ -28,7 +29,8 @@ namespace System.CommandLine.Tests
 
             command.AddGlobalOption(new Option("--same"));
 
-            command.Invoking(c => c.AddGlobalOption(new Option("--same")))
+            command
+                .Invoking(c => c.AddGlobalOption(new Option("--same")))
                 .Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
@@ -42,7 +44,8 @@ namespace System.CommandLine.Tests
 
             command.AddGlobalOption(new Option("--same"));
 
-            command.Invoking(c => c.Add(new Option("--same")))
+            command
+                .Invoking(c => c.Add(new Option("--same")))
                 .Should()
                 .Throw<ArgumentException>()
                 .And.Message.Should()

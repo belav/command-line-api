@@ -97,7 +97,8 @@ namespace RenderingPlayground
                     {
                         var table = new TableView<Process>
                         {
-                            Items = Process.GetProcesses()
+                            Items = Process
+                                .GetProcesses()
                                 .Where(x => !string.IsNullOrEmpty(x.MainWindowTitle))
                                 .OrderBy(p => p.ProcessName)
                                 .ToList()

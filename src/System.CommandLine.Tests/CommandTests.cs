@@ -60,7 +60,8 @@ namespace System.CommandLine.Tests
         {
             var result = _parser.Parse("outer inner --option argument1");
 
-            result.CommandResult.Children.ElementAt(0)
+            result.CommandResult.Children
+                .ElementAt(0)
                 .Tokens.Select(t => t.Value)
                 .Should()
                 .BeEquivalentTo("argument1");
@@ -80,7 +81,8 @@ namespace System.CommandLine.Tests
 
             result.CommandResult.Parent.Tokens.Select(t => t.Value).Should().BeEquivalentTo("arg1");
 
-            result.CommandResult.Tokens.Select(t => t.Value)
+            result.CommandResult.Tokens
+                .Select(t => t.Value)
                 .Should()
                 .BeEquivalentTo("arg2", "arg3");
         }
@@ -102,10 +104,12 @@ namespace System.CommandLine.Tests
         [InlineData("aa aa")]
         public void When_a_command_is_created_with_an_alias_that_contains_whitespace_then_an_informative_error_is_returned(
             string alias
-        ) {
+        )
+        {
             Action create = () => new Command(alias);
 
-            create.Should()
+            create
+                .Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
                 .Contain($"Command alias cannot contain whitespace: \"{alias}\"");
@@ -117,12 +121,14 @@ namespace System.CommandLine.Tests
         [InlineData("aa aa")]
         public void When_a_command_alias_is_added_and_contains_whitespace_then_an_informative_error_is_returned(
             string alias
-        ) {
+        )
+        {
             var command = new Command("-x");
 
             Action addAlias = () => command.AddAlias(alias);
 
-            addAlias.Should()
+            addAlias
+                .Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
                 .Contain($"Command alias cannot contain whitespace: \"{alias}\"");
@@ -142,7 +148,8 @@ namespace System.CommandLine.Tests
         public void ParseResult_Command_identifies_innermost_command(
             string input,
             string expectedCommand
-        ) {
+        )
+        {
             var outer = new Command("outer")
             {
                 new Command("inner") { new Command("inner-er") },
@@ -212,7 +219,8 @@ namespace System.CommandLine.Tests
         {
             var command = new Command("the-command") { new Argument<string> { Name = "same" } };
 
-            command.Invoking(c => c.Add(new Argument<string> { Name = "same" }))
+            command
+                .Invoking(c => c.Add(new Argument<string> { Name = "same" }))
                 .Should()
                 .Throw<ArgumentException>()
                 .And.Message.Should()
@@ -224,7 +232,8 @@ namespace System.CommandLine.Tests
         {
             var command = new Command("the-command") { new Option("--same") };
 
-            command.Invoking(c => c.Add(new Option("--same")))
+            command
+                .Invoking(c => c.Add(new Option("--same")))
                 .Should()
                 .Throw<ArgumentException>()
                 .And.Message.Should()

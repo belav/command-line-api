@@ -52,7 +52,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         public void Measure_requires_renderer()
         {
             var contentView = new ContentView("Four");
-            contentView.Invoking(x => x.Measure(null, new Size(0, 0)))
+            contentView
+                .Invoking(x => x.Measure(null, new Size(0, 0)))
                 .Should()
                 .Throw<ArgumentNullException>();
         }
@@ -61,7 +62,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         public void Measure_requires_maxSize()
         {
             var contentView = new ContentView("Four");
-            contentView.Invoking(x => x.Measure(_renderer, null))
+            contentView
+                .Invoking(x => x.Measure(_renderer, null))
                 .Should()
                 .Throw<ArgumentNullException>();
         }
@@ -90,7 +92,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         public void Render_requires_renderer()
         {
             var contentView = new ContentView("Four");
-            contentView.Invoking(x => x.Render(null, new Region(0, 0, 4, 1)))
+            contentView
+                .Invoking(x => x.Render(null, new Region(0, 0, 4, 1)))
                 .Should()
                 .Throw<ArgumentNullException>();
         }
@@ -99,7 +102,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         public void Render_requires_region()
         {
             var contentView = new ContentView("Four");
-            contentView.Invoking(x => x.Render(_renderer, null))
+            contentView
+                .Invoking(x => x.Render(_renderer, null))
                 .Should()
                 .Throw<ArgumentNullException>();
         }
@@ -111,7 +115,8 @@ namespace System.CommandLine.Rendering.Tests.Views
 
             contentView.Render(_renderer, new Region(0, 0, 4, 1));
 
-            _terminal.Events.Should()
+            _terminal.Events
+                .Should()
                 .BeEquivalentSequenceTo(
                     new CursorPositionChanged(new Point(0, 0)),
                     new ContentWritten("Four")
@@ -158,7 +163,8 @@ namespace System.CommandLine.Rendering.Tests.Views
 
             view.Render(_renderer, new Region(0, 0, 6, 2));
 
-            _terminal.Events.Should()
+            _terminal.Events
+                .Should()
                 .BeEquivalentSequenceTo(
                     new CursorPositionChanged(new Point(0, 0)),
                     new ContentWritten("   One"),

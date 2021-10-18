@@ -42,14 +42,12 @@ namespace System.CommandLine.Suggest.Tests
 
             var currentDirectory = Path.Combine(Directory.GetCurrentDirectory(), "TestAssets");
 
-            _endToEndTestApp = new DirectoryInfo(currentDirectory).GetFiles(
-                    "EndToEndTestApp".ExecutableName()
-                )
+            _endToEndTestApp = new DirectoryInfo(currentDirectory)
+                .GetFiles("EndToEndTestApp".ExecutableName())
                 .SingleOrDefault();
 
-            _dotnetSuggest = new DirectoryInfo(currentDirectory).GetFiles(
-                    "dotnet-suggest".ExecutableName()
-                )
+            _dotnetSuggest = new DirectoryInfo(currentDirectory)
+                .GetFiles("dotnet-suggest".ExecutableName())
                 .SingleOrDefault();
 
             PrepareTestHomeDirectoryToAvoidPolluteBuildMachineHome();
@@ -153,7 +151,8 @@ namespace System.CommandLine.Suggest.Tests
 
             stdErr.ToString().Should().BeEmpty();
 
-            stdOut.ToString()
+            stdOut
+                .ToString()
                 .Should()
                 .Be(
                     $"--apple{NewLine}--banana{NewLine}--cherry{NewLine}--durian{NewLine}--help{NewLine}--version{NewLine}-?{NewLine}-h{NewLine}/?{NewLine}/h{NewLine}"
@@ -166,7 +165,8 @@ namespace System.CommandLine.Suggest.Tests
             Action<string> stdOut = null,
             Action<string> stdErr = null,
             params (string key, string value)[] environmentVariables
-        ) {
+        )
+        {
             args ??= "";
 
             var process = new Diagnostics.Process

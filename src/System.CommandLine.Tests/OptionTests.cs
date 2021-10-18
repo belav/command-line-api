@@ -121,7 +121,8 @@ namespace System.CommandLine.Tests
         {
             Action create = () => new Option(Array.Empty<string>());
 
-            create.Should()
+            create
+                .Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
                 .Contain("An option must have at least one alias");
@@ -132,7 +133,8 @@ namespace System.CommandLine.Tests
         {
             Action create = () => new Option(new[] { "" });
 
-            create.Should()
+            create
+                .Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
                 .Be("An alias cannot be null, empty, or consist entirely of whitespace.");
@@ -143,7 +145,8 @@ namespace System.CommandLine.Tests
         {
             Action create = () => new Option(new[] { "  \t" });
 
-            create.Should()
+            create
+                .Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
                 .Be("An alias cannot be null, empty, or consist entirely of whitespace.");
@@ -163,10 +166,12 @@ namespace System.CommandLine.Tests
         [InlineData("--aa aa")]
         public void When_an_option_is_created_with_an_alias_that_contains_whitespace_then_an_informative_error_is_returned(
             string alias
-        ) {
+        )
+        {
             Action create = () => new Option(alias);
 
-            create.Should()
+            create
+                .Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
                 .Contain($"Option alias cannot contain whitespace: \"{alias}\"");
@@ -178,12 +183,14 @@ namespace System.CommandLine.Tests
         [InlineData("--aa aa")]
         public void When_an_option_alias_is_added_and_contains_whitespace_then_an_informative_error_is_returned(
             string alias
-        ) {
+        )
+        {
             var option = new Option("-x");
 
             Action addAlias = () => option.AddAlias(alias);
 
-            addAlias.Should()
+            addAlias
+                .Should()
                 .Throw<ArgumentException>()
                 .Which.Message.Should()
                 .Contain($"Option alias cannot contain whitespace: \"{alias}\"");
@@ -242,7 +249,8 @@ namespace System.CommandLine.Tests
         {
             var option = new Option<int>("-x", parseArgument: parsed => 123, isDefault: true);
 
-            var result = option.Parse("")
+            var result = option
+                .Parse("")
                 .FindResultFor(option)
                 .GetValueOrDefault()
                 .Should()
@@ -255,13 +263,15 @@ namespace System.CommandLine.Tests
             var option = new Option<int>("-x", () => 123);
             option.AddValidator(
                 symbol =>
-                    symbol.Tokens.Select(t => t.Value)
+                    symbol.Tokens
+                        .Select(t => t.Value)
                         .Where(v => v == "123")
                         .Select(x => "ERR")
                         .FirstOrDefault()
             );
 
-            option.Parse("-x 123")
+            option
+                .Parse("-x 123")
                 .Errors.Select(e => e.Message)
                 .Should()
                 .BeEquivalentTo(new[] { "ERR" });

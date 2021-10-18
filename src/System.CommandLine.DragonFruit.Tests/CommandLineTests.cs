@@ -63,7 +63,8 @@ namespace System.CommandLine.DragonFruit.Tests
             var stdOut = _terminal.Out.ToString();
 
             stdOut.Should().Contain("<args>  These are arguments").And.Contain("Arguments:");
-            stdOut.Should()
+            stdOut
+                .Should()
                 .ContainAll("--name <name>", "Specifies the name option")
                 .And.Contain("Options:");
             stdOut.Should().Contain("Help for the test program");
@@ -85,7 +86,8 @@ namespace System.CommandLine.DragonFruit.Tests
             var stdOut = _terminal.Out.ToString();
 
             stdOut.Should().Contain("<args>  These are arguments").And.Contain("Arguments:");
-            stdOut.Should()
+            stdOut
+                .Should()
                 .ContainAll("--name <name>", "Specifies the name option")
                 .And.Contain("Options:");
             stdOut.Should().Contain("Help for the test program");

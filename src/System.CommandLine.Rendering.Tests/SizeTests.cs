@@ -12,7 +12,8 @@ namespace System.CommandLine.Rendering.Tests
         public void Width_cannot_be_negative()
         {
             Action createSize = () => new Size(-1, 0);
-            createSize.Should()
+            createSize
+                .Should()
                 .Throw<ArgumentOutOfRangeException>()
                 .Where(exception => exception.ParamName == "width");
         }
@@ -21,7 +22,8 @@ namespace System.CommandLine.Rendering.Tests
         public void Height_cannot_be_negative()
         {
             Action createSize = () => new Size(0, -1);
-            createSize.Should()
+            createSize
+                .Should()
                 .Throw<ArgumentOutOfRangeException>()
                 .Where(exception => exception.ParamName == "height");
         }

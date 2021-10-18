@@ -74,7 +74,8 @@ namespace System.CommandLine.Rendering.Tests.Views
             var renderer = new ConsoleRenderer(terminal, outputMode);
             grid.Render(renderer, new Region(0, 0, 10, 4));
 
-            terminal.Events.Should()
+            terminal.Events
+                .Should()
                 .BeEquivalentSequenceTo(
                     new TestTerminal.CursorPositionChanged(new Point(0, 0)),
                     new TestTerminal.ContentWritten("The  "),
@@ -112,7 +113,8 @@ namespace System.CommandLine.Rendering.Tests.Views
             var renderer = new ConsoleRenderer(terminal, outputMode);
             grid.Render(renderer, new Region(0, 0, 10, 4));
 
-            terminal.Events.Should()
+            terminal.Events
+                .Should()
                 .BeEquivalentSequenceTo(
                     new TestTerminal.CursorPositionChanged(new Point(0, 0)),
                     new TestTerminal.ContentWritten("The   "),
@@ -134,7 +136,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         [InlineData(OutputMode.NonAnsi)]
         public void Size_to_content_grid_with_wide_region_adjusts_to_content_size(
             OutputMode outputMode
-        ) {
+        )
+        {
             var grid = new GridView();
             grid.SetColumns(ColumnDefinition.SizeToContent(), ColumnDefinition.SizeToContent());
             grid.SetRows(RowDefinition.SizeToContent(), RowDefinition.SizeToContent());
@@ -147,7 +150,8 @@ namespace System.CommandLine.Rendering.Tests.Views
             var renderer = new ConsoleRenderer(terminal, outputMode);
             grid.Render(renderer, new Region(0, 0, 25, 3));
 
-            terminal.Events.Should()
+            terminal.Events
+                .Should()
                 .BeEquivalentSequenceTo(
                     new TestTerminal.CursorPositionChanged(new Point(0, 0)),
                     new TestTerminal.ContentWritten("The quick    "),
@@ -165,7 +169,8 @@ namespace System.CommandLine.Rendering.Tests.Views
         [InlineData(OutputMode.NonAnsi)]
         public void Size_to_content_grid_with_narrow_region_increases_row_height(
             OutputMode outputMode
-        ) {
+        )
+        {
             var grid = new GridView();
             grid.SetColumns(ColumnDefinition.SizeToContent(), ColumnDefinition.SizeToContent());
             grid.SetRows(RowDefinition.SizeToContent(), RowDefinition.SizeToContent());
@@ -178,7 +183,8 @@ namespace System.CommandLine.Rendering.Tests.Views
             var renderer = new ConsoleRenderer(terminal, outputMode);
             grid.Render(renderer, new Region(0, 0, 18, 3));
 
-            terminal.Events.Should()
+            terminal.Events
+                .Should()
                 .BeEquivalentSequenceTo(
                     new TestTerminal.CursorPositionChanged(new Point(0, 0)),
                     new TestTerminal.ContentWritten("The quick    "),

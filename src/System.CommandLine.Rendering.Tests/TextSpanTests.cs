@@ -119,7 +119,8 @@ namespace System.CommandLine.Rendering.Tests
 
             writer.Write(span.ToString(OutputMode.Ansi));
 
-            writer.ToString()
+            writer
+                .ToString()
                 .Should()
                 .Be(
                     $"{Ansi.Color.Foreground.LightGray.EscapeSequence}hello{Ansi.Text.AttributesOff.EscapeSequence}"

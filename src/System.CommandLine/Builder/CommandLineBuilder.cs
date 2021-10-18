@@ -42,7 +42,8 @@ namespace System.CommandLine.Builder
                     enableDirectives: EnableDirectives,
                     validationMessages: ValidationMessages,
                     responseFileHandling: ResponseFileHandling,
-                    middlewarePipeline: _middlewareList.OrderBy(m => m.order)
+                    middlewarePipeline: _middlewareList
+                        .OrderBy(m => m.order)
                         .Select(m => m.middleware)
                         .ToArray(),
                     helpBuilderFactory: HelpBuilderFactory,

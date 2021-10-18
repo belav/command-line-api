@@ -41,7 +41,8 @@ namespace System.CommandLine
             IReadOnlyCollection<InvocationMiddleware>? middlewarePipeline = null,
             Func<BindingContext, IHelpBuilder>? helpBuilderFactory = null,
             Action<IHelpBuilder>? configureHelp = null
-        ) {
+        )
+        {
             if (symbols is null)
             {
                 throw new ArgumentNullException(nameof(symbols));
@@ -59,7 +60,8 @@ namespace System.CommandLine
             else
             {
                 // Reuse existing auto-generated root command, if one is present, to prevent repeated mutations
-                RootCommand? parentRootCommand = symbols.SelectMany(s => s.Parents)
+                RootCommand? parentRootCommand = symbols
+                    .SelectMany(s => s.Parents)
                     .OfType<RootCommand>()
                     .FirstOrDefault();
 
@@ -124,7 +126,8 @@ namespace System.CommandLine
                         var globalOptionIndex = 0;
                         globalOptionIndex < globalOptions.Count;
                         globalOptionIndex++
-                    ) {
+                    )
+                    {
                         childCommand.TryAddGlobalOption(globalOptions[globalOptionIndex]);
                     }
 

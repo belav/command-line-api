@@ -13,7 +13,8 @@ namespace System.CommandLine.Suggest
 
         public CombineSuggestionRegistration(
             params ISuggestionRegistration[] suggestionRegistration
-        ) {
+        )
+        {
             _suggestionRegistrations =
                 suggestionRegistration
                 ?? throw new ArgumentNullException(nameof(suggestionRegistration));
@@ -29,7 +30,8 @@ namespace System.CommandLine.Suggest
 
         public Registration FindRegistration(FileInfo soughtExecutable)
         {
-            return _suggestionRegistrations.Select(s => s.FindRegistration(soughtExecutable))
+            return _suggestionRegistrations
+                .Select(s => s.FindRegistration(soughtExecutable))
                 .FirstOrDefault(s => s != null);
         }
 

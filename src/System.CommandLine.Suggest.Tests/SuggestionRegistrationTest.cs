@@ -23,7 +23,8 @@ namespace System.CommandLine.Suggest.Tests
             suggestionProvider.AddSuggestionRegistration(suggestion2);
 
             var allRegistrations = suggestionProvider.FindAllRegistrations();
-            allRegistrations.Should()
+            allRegistrations
+                .Should()
                 .HaveCount(2)
                 .And.Contain(x => x.ExecutablePath == suggestion1.ExecutablePath)
                 .And.Contain(x => x.ExecutablePath == suggestion2.ExecutablePath);
@@ -47,7 +48,6 @@ namespace System.CommandLine.Suggest.Tests
 
                 foundRegistration.Should().BeNull();
             }
-
             finally
             {
                 Directory.Delete(path, true);
@@ -73,7 +73,6 @@ namespace System.CommandLine.Suggest.Tests
 
                 foundRegistration.Should().NotBeNull();
             }
-
             finally
             {
                 Directory.Delete(path, true);

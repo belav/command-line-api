@@ -71,7 +71,8 @@ namespace System.CommandLine.Tests
         [InlineData("[suggest:6] \"eat --\"")]
         public async Task It_writes_suggestions_for_option_aliases_under_subcommand(
             string commandLine
-        ) {
+        )
+        {
             var rootCommand = new RootCommand { _eatCommand };
 
             var parser = new CommandLineBuilder(rootCommand).UseSuggestDirective().Build();
@@ -140,7 +141,8 @@ namespace System.CommandLine.Tests
         [Fact]
         public async Task It_writes_suggestions_for_partial_subcommand_aliases_under_root_command()
         {
-            var parser = new CommandLineBuilder().AddCommand(_eatCommand)
+            var parser = new CommandLineBuilder()
+                .AddCommand(_eatCommand)
                 .AddCommand(new Command("wash-dishes"))
                 .UseSuggestDirective()
                 .Build();
@@ -157,7 +159,8 @@ namespace System.CommandLine.Tests
         [Fact]
         public async Task It_writes_suggestions_for_partial_option_and_subcommand_aliases_under_root_command()
         {
-            var parser = new CommandLineBuilder().AddCommand(_eatCommand)
+            var parser = new CommandLineBuilder()
+                .AddCommand(_eatCommand)
                 .AddCommand(new Command("wash-dishes"))
                 .UseDefaults()
                 .Build();

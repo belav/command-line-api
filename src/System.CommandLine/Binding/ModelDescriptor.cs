@@ -25,12 +25,14 @@ namespace System.CommandLine.Binding
         }
 
         public IReadOnlyList<ConstructorDescriptor> ConstructorDescriptors =>
-            _constructorDescriptors ??= ModelType.GetConstructors(CommonBindingFlags)
+            _constructorDescriptors ??= ModelType
+                .GetConstructors(CommonBindingFlags)
                 .Select(i => new ConstructorDescriptor(i, this))
                 .ToList();
 
         public IReadOnlyList<IValueDescriptor> PropertyDescriptors =>
-            _propertyDescriptors ??= ModelType.GetProperties(CommonBindingFlags)
+            _propertyDescriptors ??= ModelType
+                .GetProperties(CommonBindingFlags)
                 .Where(p => p.CanWrite && p.SetMethod.IsPublic)
                 .Select(i => new PropertyDescriptor(i, this))
                 .ToList();
