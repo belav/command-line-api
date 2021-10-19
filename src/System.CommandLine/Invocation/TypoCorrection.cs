@@ -43,19 +43,22 @@ namespace System.CommandLine.Invocation
 
         private IEnumerable<string> GetPossibleTokens(ISymbol targetSymbol, string token)
         {
-            IEnumerable<string> possibleMatches = targetSymbol.Children.Where(x => !x.IsHidden)
+            IEnumerable<string> possibleMatches = targetSymbol.Children
+                .Where(x => !x.IsHidden)
                 .OfType<IIdentifierSymbol>()
                 .Where(x => x.Aliases.Count > 0)
                 .Select(
                     symbol =>
-                        symbol.Aliases.Union(symbol.Aliases)
+                        symbol.Aliases
+                            .Union(symbol.Aliases)
                             .OrderBy(x => GetDistance(token, x))
                             .ThenByDescending(x => GetStartsWithDistance(token, x))
                             .First()
                 );
 
             int? bestDistance = null;
-            return possibleMatches.Select(
+            return possibleMatches
+                .Select(
                     possibleMatch => (possibleMatch, distance: GetDistance(token, possibleMatch))
                 )
                 .Where(tuple => tuple.distance <= _maxLevenshteinDistance)

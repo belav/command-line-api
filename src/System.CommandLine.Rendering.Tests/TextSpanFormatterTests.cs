@@ -34,7 +34,8 @@ namespace System.CommandLine.Rendering.Tests
 
             var containerSpan = span.Should().BeOfType<ContainerSpan>().Subject;
 
-            containerSpan.Should()
+            containerSpan
+                .Should()
                 .BeEquivalentTo(
                     new ContainerSpan(
                         new ContentSpan("some "),
@@ -59,7 +60,8 @@ namespace System.CommandLine.Rendering.Tests
 
             var containerSpan = span.Should().BeOfType<ContainerSpan>().Subject;
 
-            containerSpan.Should()
+            containerSpan
+                .Should()
                 .BeEquivalentTo(
                     new ContainerSpan(
                         TextSpan.Empty(),
@@ -76,7 +78,8 @@ namespace System.CommandLine.Rendering.Tests
         public void FormattableString_parsing_handles_escapes(
             FormattableString fs,
             int expectedCount
-        ) {
+        )
+        {
             var formatter = new TextSpanFormatter();
 
             var span = formatter.ParseToSpan(fs);
@@ -111,7 +114,8 @@ namespace System.CommandLine.Rendering.Tests
         public void FormattableString_parsing_handles_format_strings(
             FormattableString fs,
             int expectedCount
-        ) {
+        )
+        {
             var formatter = new TextSpanFormatter();
 
             var span = formatter.ParseToSpan(fs);

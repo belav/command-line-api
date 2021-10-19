@@ -42,7 +42,8 @@ namespace System.CommandLine.DragonFruit.Tests
             var reader = new StringReader(xml);
             XmlDocReader.TryLoad(reader, out var docReader).Should().BeTrue();
 
-            docReader.TryGetMethodDescription(action.Method, out var helpMetadata)
+            docReader
+                .TryGetMethodDescription(action.Method, out var helpMetadata)
                 .Should()
                 .BeTrue();
             helpMetadata.Description.Should().Be("Hello");

@@ -64,7 +64,8 @@ namespace System.CommandLine.Tests
 
             var diagram = result.Diagram();
 
-            diagram.Should()
+            diagram
+                .Should()
                 .Be(
                     $"[ {RootCommand.ExecutableName} [ -w <9000> ] *[ --height <10> ] *[ --color <Cyan> ] ]"
                 );
@@ -82,7 +83,8 @@ namespace System.CommandLine.Tests
 
             var result = command.Parse("one two three four five");
 
-            result.Diagram()
+            result
+                .Diagram()
                 .Should()
                 .Be(
                     "[ the-command [ first <one> ] [ second <two> ] [ third <three> <four> <five> ] ]"
@@ -101,7 +103,8 @@ namespace System.CommandLine.Tests
 
             var result = command.Parse("one two three four five");
 
-            result.Diagram()
+            result
+                .Diagram()
                 .Should()
                 .Be(
                     "[ the-command [ first <one> ] [ second <two> ] [ third <three> <four> <five> ] ]"

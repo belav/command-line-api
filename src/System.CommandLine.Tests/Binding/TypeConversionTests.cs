@@ -60,7 +60,8 @@ namespace System.CommandLine.Tests.Binding
             var file2 = new FileInfo(Path.Combine(new DirectoryInfo("temp").FullName, "file2.txt"));
             var result = option.Parse($"--file {file1.FullName} --file {file2.FullName}");
 
-            result.ValueForOption(option)
+            result
+                .ValueForOption(option)
                 .Select(fi => fi.Name)
                 .Should()
                 .BeEquivalentTo("file1.txt", "file2.txt");
@@ -144,7 +145,8 @@ namespace System.CommandLine.Tests.Binding
         [InlineData("the-command -x=true")]
         public void Bool_does_not_parse_as_the_default_value_when_the_option_has_been_applied(
             string commandLine
-        ) {
+        )
+        {
             var option = new Option<bool>("-x");
 
             var command = new Command("the-command") { option };
@@ -190,7 +192,8 @@ namespace System.CommandLine.Tests.Binding
 
             Action getValue = () => result.ValueForOption("-x");
 
-            getValue.Should()
+            getValue
+                .Should()
                 .Throw<InvalidOperationException>()
                 .Which.Message.Should()
                 .Be("Required argument missing for option: -x");
@@ -206,7 +209,8 @@ namespace System.CommandLine.Tests.Binding
 
             var result = command.Parse("the-command -x");
 
-            result.ValueForOption("-x")
+            result
+                .ValueForOption("-x")
                 .Should()
                 .BeAssignableTo<IReadOnlyCollection<string>>()
                 .Which.Should()
@@ -226,7 +230,8 @@ namespace System.CommandLine.Tests.Binding
 
             var result = command.Parse("the-command");
 
-            result.ValueForOption("-x")
+            result
+                .ValueForOption("-x")
                 .Should()
                 .BeAssignableTo<IReadOnlyCollection<string>>()
                 .Which.Should()
@@ -245,7 +250,8 @@ namespace System.CommandLine.Tests.Binding
 
             Action getValue = () => result.ValueForOption("-x");
 
-            getValue.Should()
+            getValue
+                .Should()
                 .Throw<InvalidOperationException>()
                 .Which.Message.Should()
                 .Be("Required argument missing for option: -x");
@@ -259,7 +265,8 @@ namespace System.CommandLine.Tests.Binding
                 new Option("-x", arity: ArgumentArity.ZeroOrMore)
             };
 
-            command.Parse("the-command -x arg1 -x arg2")
+            command
+                .Parse("the-command -x arg1 -x arg2")
                 .ValueForOption("-x")
                 .Should()
                 .BeEquivalentTo(new[] { "arg1", "arg2" });
@@ -273,7 +280,8 @@ namespace System.CommandLine.Tests.Binding
                 new Option("-x", arity: ArgumentArity.ZeroOrMore)
             };
 
-            command.Parse("the-command -x arg1")
+            command
+                .Parse("the-command -x arg1")
                 .ValueForOption("-x")
                 .Should()
                 .BeEquivalentTo(new[] { "arg1" });
@@ -285,7 +293,8 @@ namespace System.CommandLine.Tests.Binding
         [InlineData("c c c")]
         public void When_command_argument_has_arity_greater_than_one_it_captures_arguments_before_and_after_option(
             string commandLine
-        ) {
+        )
+        {
             var command = new Command("the-command")
             {
                 new Option<string>("-a"),
@@ -511,7 +520,8 @@ namespace System.CommandLine.Tests.Binding
             int minArity,
             int maxArity,
             Type argumentType
-        ) {
+        )
+        {
             var option = new Option(
                 "--items",
                 argumentType: argumentType,
@@ -565,7 +575,8 @@ namespace System.CommandLine.Tests.Binding
 
             var value = option.Parse("-x Notaday");
 
-            value.Errors.Select(e => e.Message)
+            value.Errors
+                .Select(e => e.Message)
                 .Should()
                 .Contain(
                     "Cannot parse argument 'Notaday' for option '-x' as expected type System.DayOfWeek."
@@ -581,7 +592,8 @@ namespace System.CommandLine.Tests.Binding
 
             Action getValue = () => result.ValueForOption<int>("-x");
 
-            getValue.Should()
+            getValue
+                .Should()
                 .Throw<InvalidOperationException>()
                 .Which.Message.Should()
                 .Be(
@@ -598,7 +610,8 @@ namespace System.CommandLine.Tests.Binding
 
             Action getValue = () => result.ValueForOption<int[]>("-x");
 
-            getValue.Should()
+            getValue
+                .Should()
                 .Throw<InvalidOperationException>()
                 .Which.Message.Should()
                 .Be("Option '-x' expects a single argument but 2 were provided.");

@@ -67,7 +67,8 @@ namespace System.CommandLine.Tests
             [InlineData("one two three four five --verbose true")]
             public void When_multiple_arguments_are_present_then_their_order_relative_to_sibling_options_is_not_significant(
                 string commandLine
-            ) {
+            )
+            {
                 var command = new Command("the-command")
                 {
                     new Argument<string> { Name = "first" },
@@ -82,7 +83,8 @@ namespace System.CommandLine.Tests
 
                 parseResult.ValueForArgument<string>("second").Should().Be("two");
 
-                parseResult.ValueForArgument<string[]>("third")
+                parseResult
+                    .ValueForArgument<string[]>("third")
                     .Should()
                     .BeEquivalentSequenceTo("three", "four", "five");
 
@@ -118,11 +120,13 @@ namespace System.CommandLine.Tests
 
                 var _ = new AssertionScope();
 
-                result.ValueForArgument(ints)
+                result
+                    .ValueForArgument(ints)
                     .Should()
                     .BeEquivalentTo(new[] { 1, 2, 3 }, options => options.WithStrictOrdering());
 
-                result.ValueForArgument(strings)
+                result
+                    .ValueForArgument(strings)
                     .Should()
                     .BeEquivalentTo(
                         new[] { "one", "two" },
@@ -142,7 +146,8 @@ namespace System.CommandLine.Tests
 
                 var _ = new AssertionScope();
 
-                result.ValueForArgument(ints)
+                result
+                    .ValueForArgument(ints)
                     .Should()
                     .BeEquivalentTo(new[] { 1, 2, 3 }, options => options.WithStrictOrdering());
 
@@ -161,7 +166,8 @@ namespace System.CommandLine.Tests
 
                 var result = command.Parse("-i 1 2 3 four");
 
-                result.FindResultFor(option)
+                result
+                    .FindResultFor(option)
                     .GetValueOrDefault()
                     .Should()
                     .BeEquivalentTo(new[] { 1, 2, 3 }, options => options.WithStrictOrdering());

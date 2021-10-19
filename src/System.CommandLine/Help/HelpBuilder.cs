@@ -54,7 +54,8 @@ namespace System.CommandLine.Help
             ISymbol symbol,
             Func<string?>? descriptor = null,
             Func<string?>? defaultValue = null
-        ) {
+        )
+        {
             if (symbol is null)
             {
                 throw new ArgumentNullException(nameof(symbol));
@@ -82,9 +83,8 @@ namespace System.CommandLine.Help
 
             IEnumerable<string> GetUsageParts()
             {
-                IEnumerable<ICommand> parentCommands = command.RecurseWhileNotNull(
-                        c => c.Parents.FirstOrDefaultOfType<ICommand>()
-                    )
+                IEnumerable<ICommand> parentCommands = command
+                    .RecurseWhileNotNull(c => c.Parents.FirstOrDefaultOfType<ICommand>())
                     .Reverse();
 
                 var displayOptionTitle = command.Options.Any(x => !x.IsHidden);
@@ -131,7 +131,8 @@ namespace System.CommandLine.Help
         protected IEnumerable<HelpItem> GetCommandArguments(ICommand command)
         {
             //TODO: This shows all parent arguments not just the first level
-            return command.RecurseWhileNotNull(c => c.Parents.FirstOrDefaultOfType<ICommand>())
+            return command
+                .RecurseWhileNotNull(c => c.Parents.FirstOrDefaultOfType<ICommand>())
                 .Reverse()
                 .SelectMany(GetArguments)
                 .Distinct();
@@ -273,7 +274,6 @@ namespace System.CommandLine.Help
 
                 return sb.ToString();
             }
-
             finally
             {
                 StringBuilderPool.Default.ReturnToPool(sb);
@@ -300,7 +300,8 @@ namespace System.CommandLine.Help
                 int firstColumnMaxWidth = windowWidth / 2 - Indent.Length;
                 if (firstColumnWidth > firstColumnMaxWidth)
                 {
-                    firstColumnWidth = items.SelectMany(
+                    firstColumnWidth = items
+                        .SelectMany(
                             x => WrapItem(x.Descriptor, firstColumnMaxWidth).Select(x => x.Length)
                         )
                         .Max();
@@ -333,7 +334,8 @@ namespace System.CommandLine.Help
             static IEnumerable<(string, string)> ZipWithEmpty(
                 IEnumerable<string> first,
                 IEnumerable<string> second
-            ) {
+            )
+            {
                 using var enum1 = first.GetEnumerator();
                 using var enum2 = second.GetEnumerator();
                 bool hasFirst = false,
@@ -397,12 +399,14 @@ namespace System.CommandLine.Help
             if (
                 Customizations.TryGetValue(symbol, out Customization customization)
                 && customization.GetDescriptor?.Invoke() is { } setDescriptor
-            ) {
+            )
+            {
                 descriptor = setDescriptor;
             }
             else
             {
-                var rawAliases = symbol.Aliases.Select(r => r.SplitPrefix())
+                var rawAliases = symbol.Aliases
+                    .Select(r => r.SplitPrefix())
                     .OrderBy(r => r.Prefix, StringComparer.OrdinalIgnoreCase)
                     .ThenBy(r => r.Alias, StringComparer.OrdinalIgnoreCase)
                     .GroupBy(t => t.Alias)
@@ -453,7 +457,8 @@ namespace System.CommandLine.Help
             string GetArgumentsDescription(IIdentifierSymbol symbol)
             {
                 IEnumerable<IArgument> arguments = symbol.Arguments();
-                var defaultArguments = arguments.Where(x => !x.IsHidden && x.HasDefaultValue)
+                var defaultArguments = arguments
+                    .Where(x => !x.IsHidden && x.HasDefaultValue)
                     .ToArray();
 
                 if (defaultArguments.Length == 0)
@@ -471,18 +476,21 @@ namespace System.CommandLine.Help
             IIdentifierSymbol parent,
             IArgument argument,
             bool displayArgumentName
-        ) {
+        )
+        {
             string? defaultValue;
             if (
                 Customizations.TryGetValue(parent, out Customization customization)
                 && customization.GetDefaultValue?.Invoke() is { } parentSetDefaultValue
-            ) {
+            )
+            {
                 defaultValue = parentSetDefaultValue;
             }
             else if (
                 Customizations.TryGetValue(argument, out customization)
                 && customization.GetDefaultValue?.Invoke() is { } setDefaultValue
-            ) {
+            )
+            {
                 defaultValue = setDefaultValue;
             }
             else
@@ -491,7 +499,8 @@ namespace System.CommandLine.Help
                 if (
                     argumentDefaultValue is IEnumerable enumerable
                     && !(argumentDefaultValue is string)
-                ) {
+                )
+                {
                     defaultValue = string.Join("|", enumerable.OfType<object>().ToArray());
                 }
                 else
@@ -512,7 +521,8 @@ namespace System.CommandLine.Help
             if (
                 Customizations.TryGetValue(argument, out Customization customization)
                 && customization.GetDescriptor?.Invoke() is { } setDescriptor
-            ) {
+            )
+            {
                 return setDescriptor;
             }
 

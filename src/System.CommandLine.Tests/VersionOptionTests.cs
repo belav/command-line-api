@@ -81,7 +81,8 @@ namespace System.CommandLine.Tests
 
             console.Out.ToString().Should().NotContain(version);
 
-            console.Error.ToString()
+            console.Error
+                .ToString()
                 .Should()
                 .Contain("--version option cannot be combined with other arguments.");
 
@@ -97,7 +98,8 @@ namespace System.CommandLine.Tests
                 new Option("-x")
             };
 
-            var parser = new CommandLineBuilder(rootCommand).UseVersionOption(errorExitCode: 42)
+            var parser = new CommandLineBuilder(rootCommand)
+                .UseVersionOption(errorExitCode: 42)
                 .Build();
 
             int result = parser.Invoke("--version -x");
@@ -116,7 +118,8 @@ namespace System.CommandLine.Tests
 
             var parser = new CommandLineBuilder(rootCommand).UseVersionOption().Build();
 
-            parser.Configuration.RootCommand.Children.GetByAlias("subcommand")
+            parser.Configuration.RootCommand.Children
+                .GetByAlias("subcommand")
                 .As<Command>()
                 .Options.Should()
                 .BeEmpty();

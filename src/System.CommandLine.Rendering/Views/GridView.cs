@@ -111,7 +111,8 @@ namespace System.CommandLine.Rendering.Views
                         ChildLocations[column, row] is View child
                         && sizes[column, row].Width > 0
                         && sizes[column, row].Height > 0
-                    ) {
+                    )
+                    {
                         child.Render(renderer, new Region(left, top, sizes[column, row]));
                     }
                     left += sizes[column, row].Width;
@@ -123,9 +124,11 @@ namespace System.CommandLine.Rendering.Views
 
         private Size[,] GetGridSizes(ConsoleRenderer renderer, Size maxSize)
         {
-            double totalColumnStarSize = _columns.Where(x => x.SizeMode == SizeMode.Star)
+            double totalColumnStarSize = _columns
+                .Where(x => x.SizeMode == SizeMode.Star)
                 .Sum(x => x.Value);
-            double totalRowStarSize = _rows.Where(x => x.SizeMode == SizeMode.Star)
+            double totalRowStarSize = _rows
+                .Where(x => x.SizeMode == SizeMode.Star)
                 .Sum(x => x.Value);
 
             int?[] measuredColumns = new int?[_columns.Count];
@@ -135,9 +138,11 @@ namespace System.CommandLine.Rendering.Views
             int? totalWidthForStarSizing = null;
 
             foreach (
-                var (column, columnIndex) in _columns.OrderBy(x => GetProcessOrder(x.SizeMode))
+                var (column, columnIndex) in _columns
+                    .OrderBy(x => GetProcessOrder(x.SizeMode))
                     .Select((x, i) => (x, i))
-            ) {
+            )
+            {
                 int availableHeight = maxSize.Height;
 
                 for (int rowIndex = 0; rowIndex < _rows.Count; rowIndex++)
@@ -233,7 +238,8 @@ namespace System.CommandLine.Rendering.Views
                     {
                         if (
                             childSize == null && ChildLocations[columnIndex, rowIndex] is View child
-                        ) {
+                        )
+                        {
                             childSize = child.Measure(
                                 renderer,
                                 new Size(availableWidth, availableHeight)

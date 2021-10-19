@@ -34,7 +34,8 @@ namespace System.CommandLine.Rendering.Tests
                 )
             };
 
-            var parser = new CommandLineBuilder(command).UseMiddleware(
+            var parser = new CommandLineBuilder(command)
+                .UseMiddleware(
                     c =>
                     {
                         c.BindingContext.AddService(
@@ -60,7 +61,8 @@ namespace System.CommandLine.Rendering.Tests
 
             _terminal.Append(view, outputMode);
 
-            _terminal.RenderOperations()
+            _terminal
+                .RenderOperations()
                 .Should()
                 .BeEquivalentSequenceTo(
                     new TextRendered("1", new Point(0, 0)),
@@ -74,14 +76,16 @@ namespace System.CommandLine.Rendering.Tests
         [InlineData(OutputMode.Ansi)]
         public void ConsoleView_keeps_track_of_position_so_that_multiple_WriteLine_statements_do_not_overwrite_the_target_region(
             OutputMode outputMode
-        ) {
+        )
+        {
             var renderer = new ConsoleRenderer(_terminal, outputMode);
 
             var view = new StringsView(new[] { "1", "2", "3" });
 
             view.Render(renderer, new Region(3, 5, 1, 3));
 
-            _terminal.RenderOperations()
+            _terminal
+                .RenderOperations()
                 .Should()
                 .BeEquivalentSequenceTo(
                     new TextRendered("1", new Point(3, 5)),

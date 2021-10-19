@@ -35,7 +35,8 @@ namespace System.CommandLine.Tests
 
             var result = parser.Parse("-x none-of-those");
 
-            result.Errors.Select(e => e.Message)
+            result.Errors
+                .Select(e => e.Message)
                 .Single()
                 .Should()
                 .Contain(
@@ -55,7 +56,8 @@ namespace System.CommandLine.Tests
 
             var result = parser.Parse("-x something_else");
 
-            result.Errors.Where(e => e.SymbolResult != null)
+            result.Errors
+                .Where(e => e.SymbolResult != null)
                 .Should()
                 .Contain(e => e.SymbolResult.Symbol.Name == option.Name);
         }
@@ -67,7 +69,8 @@ namespace System.CommandLine.Tests
 
             var result = parser.Parse("-x");
 
-            result.Errors.Should()
+            result.Errors
+                .Should()
                 .Contain(e => e.Message == "Required argument missing for option: -x");
         }
 
@@ -78,7 +81,8 @@ namespace System.CommandLine.Tests
 
             var result = command.Parse("");
 
-            result.Errors.Should()
+            result.Errors
+                .Should()
                 .ContainSingle(e => e.SymbolResult.Symbol == command)
                 .Which.Message.Should()
                 .Be("Option '-x' is required.");
@@ -89,7 +93,8 @@ namespace System.CommandLine.Tests
         [InlineData("-x arg subcommand")]
         public void When_a_required_option_is_allowed_at_more_than_one_position_it_only_needs_to_be_satisfied_in_one(
             string commandLine
-        ) {
+        )
+        {
             var option = new Option<string>("-x") { IsRequired = true };
 
             var command = new RootCommand { option, new Command("subcommand") { option } };
@@ -121,7 +126,8 @@ namespace System.CommandLine.Tests
 
             _output.WriteLine(result.ToString());
 
-            result.Errors.Select(e => e.Message)
+            result.Errors
+                .Select(e => e.Message)
                 .Should()
                 .ContainSingle(e => e == "Unrecognized command or argument 'some-arg'");
         }
@@ -137,7 +143,8 @@ namespace System.CommandLine.Tests
                     if (
                         commandResult.Children.Contains("--one")
                         && commandResult.Children.Contains("--two")
-                    ) {
+                    )
+                    {
                         return "Options '--one' and '--two' cannot be used together.";
                     }
 
@@ -147,7 +154,8 @@ namespace System.CommandLine.Tests
 
             var result = command.Parse("the-command --one --two");
 
-            result.Errors.Select(e => e.Message)
+            result.Errors
+                .Select(e => e.Message)
                 .Should()
                 .ContainSingle("Options '--one' and '--two' cannot be used together.");
         }
@@ -170,7 +178,8 @@ namespace System.CommandLine.Tests
 
             var result = command.Parse("-x 123");
 
-            result.Errors.Should()
+            result.Errors
+                .Should()
                 .ContainSingle(e => e.SymbolResult.Symbol == option)
                 .Which.Message.Should()
                 .Be("Option -x cannot be set to 123");
@@ -194,7 +203,8 @@ namespace System.CommandLine.Tests
 
             var result = command.Parse("123");
 
-            result.Errors.Should()
+            result.Errors
+                .Should()
                 .ContainSingle(e => e.SymbolResult.Symbol == argument)
                 .Which.Message.Should()
                 .Be("Argument x cannot be set to 123");
@@ -205,7 +215,8 @@ namespace System.CommandLine.Tests
         [InlineData("subcommand --file \"Foo\"")]
         public void Validators_on_global_options_are_executed_when_invoking_a_subcommand(
             string commandLine
-        ) {
+        )
+        {
             var option = new Option<FileInfo>("--file");
             option.AddValidator(
                 r =>
@@ -220,7 +231,8 @@ namespace System.CommandLine.Tests
 
             var result = rootCommand.Parse(commandLine);
 
-            result.Errors.Should()
+            result.Errors
+                .Should()
                 .ContainSingle(e => e.SymbolResult.Symbol == option)
                 .Which.Message.Should()
                 .Be("Invoked validator");
@@ -287,7 +299,8 @@ namespace System.CommandLine.Tests
 
                 var result = command.Parse($"the-command {invalidCharacter}");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .Contain(
                         e =>
                             e.SymbolResult.Symbol == command.Arguments.First()
@@ -307,7 +320,8 @@ namespace System.CommandLine.Tests
 
                 var result = command.Parse($"the-command -x {invalidCharacter}");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .Contain(
                         e =>
                             e.SymbolResult.Symbol.Name == "x"
@@ -372,7 +386,8 @@ namespace System.CommandLine.Tests
 
                 var result = command.Parse($"the-command {invalidCharacter}");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .Contain(
                         e =>
                             e.SymbolResult.Symbol == command.Arguments.First()
@@ -393,7 +408,8 @@ namespace System.CommandLine.Tests
 
                 var result = command.Parse($"the-command -x {invalidCharacter}");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .Contain(
                         e =>
                             e.SymbolResult.Symbol.Name == "x"
@@ -449,7 +465,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -466,7 +483,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move --to ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -486,7 +504,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -506,7 +525,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move --to ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -523,7 +543,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($"move \"{path}\"");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -543,7 +564,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move --to ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -563,7 +585,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -583,7 +606,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move --to ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -603,7 +627,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -623,7 +648,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move --to ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -647,7 +673,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .Contain(
                         e =>
                             e.SymbolResult.Symbol.Name == "to"
@@ -666,7 +693,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move --to ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .Contain(
                         e =>
                             e.SymbolResult.Symbol.Name == "to"
@@ -685,7 +713,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -705,7 +734,8 @@ namespace System.CommandLine.Tests
                 var path = NonexistentPath();
                 var result = command.Parse($@"move --to ""{path}""");
 
-                result.Errors.Should()
+                result.Errors
+                    .Should()
                     .HaveCount(1)
                     .And.Contain(
                         e =>
@@ -788,7 +818,8 @@ namespace System.CommandLine.Tests
 
             var result = outer.Parse("outer inner arg");
 
-            result.Errors.Should()
+            result.Errors
+                .Should()
                 .ContainSingle(
                     e =>
                         e.Message.Equals(Resources.Instance.RequiredCommandWasNotProvided())
@@ -805,7 +836,8 @@ namespace System.CommandLine.Tests
 
             var result = rootCommand.Parse("");
 
-            result.Errors.Should()
+            result.Errors
+                .Should()
                 .ContainSingle(
                     e =>
                         e.Message.Equals(Resources.Instance.RequiredCommandWasNotProvided())
@@ -835,7 +867,8 @@ namespace System.CommandLine.Tests
 
             var result = parser.Parse("-x 1 -x 2");
 
-            result.Errors.Select(e => e.Message)
+            result.Errors
+                .Select(e => e.Message)
                 .Should()
                 .Contain("Option '-x' expects a single argument but 2 were provided.");
         }
@@ -847,7 +880,8 @@ namespace System.CommandLine.Tests
 
             var result = parser.Parse("-x 1 -x 2");
 
-            result.Errors.Select(e => e.Message)
+            result.Errors
+                .Select(e => e.Message)
                 .Should()
                 .Contain("Option '-x' expects a single argument but 2 were provided.");
         }
@@ -859,7 +893,8 @@ namespace System.CommandLine.Tests
 
             var result = parser.Parse("-x");
 
-            result.Errors.Select(e => e.Message)
+            result.Errors
+                .Select(e => e.Message)
                 .Should()
                 .Contain("Required argument missing for option: -x");
         }

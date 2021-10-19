@@ -22,7 +22,8 @@ namespace System.CommandLine.Binding
         public ModelDescriptor Parent { get; }
 
         public IReadOnlyList<ParameterDescriptor> ParameterDescriptors =>
-            _parameterDescriptors ??= _constructorInfo.GetParameters()
+            _parameterDescriptors ??= _constructorInfo
+                .GetParameters()
                 .Select(p => new ParameterDescriptor(p, this))
                 .ToList();
 

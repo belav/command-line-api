@@ -55,7 +55,8 @@ namespace System.CommandLine.Suggest.Tests
 
             var registrationPairs = suggestionRegistration.FindAllRegistrations();
 
-            registrationPairs.Should()
+            registrationPairs
+                .Should()
                 .BeEquivalentTo(
                     new Registration(
                         Path.Combine(dotnetProfileDirectory, "tools", "dotnet-suggest")

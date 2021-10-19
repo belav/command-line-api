@@ -217,12 +217,14 @@ namespace System.CommandLine
         public override IEnumerable<string?> GetSuggestions(
             ParseResult? parseResult = null,
             string? textToMatch = null
-        ) {
+        )
+        {
             var dynamicSuggestions = Suggestions.SelectMany(
                 source => source.GetSuggestions(parseResult, textToMatch)
             );
 
-            return dynamicSuggestions.Distinct()
+            return dynamicSuggestions
+                .Distinct()
                 .OrderBy(c => c, StringComparer.OrdinalIgnoreCase)
                 .Containing(textToMatch ?? "");
         }

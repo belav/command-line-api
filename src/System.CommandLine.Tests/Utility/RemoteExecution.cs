@@ -17,7 +17,8 @@ namespace System.CommandLine.Tests.Utility
             string className,
             string methodName,
             string exceptionFile
-        ) {
+        )
+        {
             Process = process;
             ClassName = className;
             MethodName = methodName;
@@ -57,7 +58,6 @@ namespace System.CommandLine.Tests.Utility
                         throw new RemoteExecutionException(File.ReadAllText(_exceptionFile));
                     }
                 }
-
                 finally
                 {
                     if (File.Exists(_exceptionFile))

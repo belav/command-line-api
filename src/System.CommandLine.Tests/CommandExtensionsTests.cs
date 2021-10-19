@@ -33,7 +33,8 @@ namespace System.CommandLine.Tests
         {
             var command = new RootCommand();
 
-            new CommandLineBuilder(command).UseMiddleware(
+            new CommandLineBuilder(command)
+                .UseMiddleware(
                     context =>
                     {
                         context.Console.Out.Write("hello!");

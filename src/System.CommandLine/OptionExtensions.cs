@@ -40,7 +40,8 @@ namespace System.CommandLine
         {
             option.Argument.AddValidator(
                 a =>
-                    a.Tokens.Select(t => t.Value)
+                    a.Tokens
+                        .Select(t => t.Value)
                         .Where(filePath => !File.Exists(filePath))
                         .Select(a.ValidationMessages.FileDoesNotExist)
                         .FirstOrDefault()
@@ -53,7 +54,8 @@ namespace System.CommandLine
         {
             option.Argument.AddValidator(
                 a =>
-                    a.Tokens.Select(t => t.Value)
+                    a.Tokens
+                        .Select(t => t.Value)
                         .Where(filePath => !Directory.Exists(filePath))
                         .Select(a.ValidationMessages.DirectoryDoesNotExist)
                         .FirstOrDefault()
@@ -66,7 +68,8 @@ namespace System.CommandLine
         {
             option.Argument.AddValidator(
                 a =>
-                    a.Tokens.Select(t => t.Value)
+                    a.Tokens
+                        .Select(t => t.Value)
                         .Where(filePath => !Directory.Exists(filePath) && !File.Exists(filePath))
                         .Select(a.ValidationMessages.FileOrDirectoryDoesNotExist)
                         .FirstOrDefault()

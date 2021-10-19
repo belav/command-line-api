@@ -49,7 +49,8 @@ namespace System.CommandLine.DragonFruit
         public bool TryGetMethodDescription(
             MethodInfo info,
             out CommandHelpMetadata commandHelpMetadata
-        ) {
+        )
+        {
             commandHelpMetadata = null;
 
             var sb = new StringBuilder();
@@ -77,7 +78,8 @@ namespace System.CommandLine.DragonFruit
 
             string name = sb.ToString();
 
-            XElement member = _members.Elements("member")
+            XElement member = _members
+                .Elements("member")
                 .FirstOrDefault(m => string.Equals(m.Attribute("name")?.Value, name));
 
             if (member == null)

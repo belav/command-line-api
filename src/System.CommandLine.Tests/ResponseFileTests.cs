@@ -70,7 +70,8 @@ namespace System.CommandLine.Tests
 
             var result = new RootCommand { new Argument<string[]>() }.Parse($"@{responseFile}");
 
-            result.CommandResult.Tokens.Select(t => t.Value)
+            result.CommandResult.Tokens
+                .Select(t => t.Value)
                 .Should()
                 .BeEquivalentSequenceTo("one", "two", "three");
         }
@@ -85,7 +86,8 @@ namespace System.CommandLine.Tests
                 new Command("subcommand") { new Argument<string[]>() }
             }.Parse($"subcommand @{responseFile}");
 
-            result.CommandResult.Tokens.Select(t => t.Value)
+            result.CommandResult.Tokens
+                .Select(t => t.Value)
                 .Should()
                 .BeEquivalentSequenceTo("one", "two", "three");
         }
@@ -100,7 +102,8 @@ namespace System.CommandLine.Tests
                 new Command("subcommand") { new Argument<string[]>() }
             }.Parse($"@{responseFile} one two three");
 
-            result.CommandResult.Tokens.Select(t => t.Value)
+            result.CommandResult.Tokens
+                .Select(t => t.Value)
                 .Should()
                 .BeEquivalentSequenceTo("one", "two", "three");
         }
@@ -115,7 +118,8 @@ namespace System.CommandLine.Tests
                 new Command("subcommand") { new Argument<string[]>() }
             }.Parse($"subcommand @{responseFile}");
 
-            result.CommandResult.Tokens.Select(t => t.Value)
+            result.CommandResult.Tokens
+                .Select(t => t.Value)
                 .Should()
                 .BeEquivalentSequenceTo("one", "two", "three");
         }
@@ -125,7 +129,8 @@ namespace System.CommandLine.Tests
         {
             var responseFile = ResponseFile("--flag", "", "123");
 
-            var result = new CommandLineBuilder().AddOption(new Option<int>("--flag"))
+            var result = new CommandLineBuilder()
+                .AddOption(new Option<int>("--flag"))
                 .Build()
                 .Parse($"@{responseFile}");
 
@@ -192,7 +197,8 @@ namespace System.CommandLine.Tests
                 result.HasOption("--flag").Should().BeFalse();
                 result.HasOption("--flag2").Should().BeFalse();
                 result.Errors.Should().HaveCount(1);
-                result.Errors.Single()
+                result.Errors
+                    .Single()
                     .Message.Should()
                     .StartWith($"Error reading response file '{nonexistent}'");
             }
@@ -204,7 +210,8 @@ namespace System.CommandLine.Tests
         [InlineData("--flag=\"first value\" --flag2=123")]
         public void When_response_file_parse_as_space_separated_returns_expected_values(
             string input
-        ) {
+        )
+        {
             var responseFile = ResponseFile(input);
 
             var rootCommand = new RootCommand
@@ -212,9 +219,8 @@ namespace System.CommandLine.Tests
                 new Option<string>("--flag"),
                 new Option<int>("--flag2")
             };
-            var parser = new CommandLineBuilder(rootCommand).ParseResponseFileAs(
-                    ResponseFileHandling.ParseArgsAsSpaceSeparated
-                )
+            var parser = new CommandLineBuilder(rootCommand)
+                .ParseResponseFileAs(ResponseFileHandling.ParseArgsAsSpaceSeparated)
                 .Build();
 
             var result = parser.Parse($"@{responseFile}");
@@ -235,7 +241,8 @@ namespace System.CommandLine.Tests
 
             var result = parser.Parse("@file.rsp");
 
-            result.Tokens.Should()
+            result.Tokens
+                .Should()
                 .Contain(t => t.Value == "@file.rsp" && t.Type == TokenType.Argument);
             result.Errors.Should().HaveCount(0);
         }

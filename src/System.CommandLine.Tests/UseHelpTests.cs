@@ -30,7 +30,8 @@ namespace System.CommandLine.Tests
 
             await result.InvokeAsync(_console);
 
-            _console.Out.ToString()
+            _console.Out
+                .ToString()
                 .Should()
                 .Contain($"{RootCommand.ExecutableName} [options] command subcommand");
         }
@@ -58,7 +59,8 @@ namespace System.CommandLine.Tests
         [InlineData("/?")]
         public async Task UseHelp_accepts_default_values(string value)
         {
-            var parser = new CommandLineBuilder().AddCommand(new Command("command"))
+            var parser = new CommandLineBuilder()
+                .AddCommand(new Command("command"))
                 .UseHelp()
                 .Build();
 
@@ -131,7 +133,8 @@ namespace System.CommandLine.Tests
         [InlineData("inner -h")]
         public void UseHelp_can_be_called_more_than_once_on_the_same_CommandLineBuilder(
             string commandline
-        ) {
+        )
+        {
             var root = new RootCommand { new Command("inner") };
 
             var parser = new CommandLineBuilder(root).UseHelp().UseHelp().Build();
@@ -146,7 +149,8 @@ namespace System.CommandLine.Tests
         [InlineData("inner -h")]
         public void UseHelp_can_be_called_more_than_once_on_the_same_command_with_different_CommandLineBuilders(
             string commandline
-        ) {
+        )
+        {
             var root = new RootCommand { new Command("inner") };
 
             var parser = new CommandLineBuilder(root).UseHelp().Build();
@@ -173,7 +177,8 @@ namespace System.CommandLine.Tests
 
             var console = new TestConsole();
 
-            new CommandLineBuilder(command).UseHelp<HelpBuilder>(
+            new CommandLineBuilder(command)
+                .UseHelp<HelpBuilder>(
                     builder =>
                     {
                         builder.Customize(option, descriptor: "-x (eXtreme)");
@@ -194,7 +199,8 @@ namespace System.CommandLine.Tests
 
             var console = new TestConsole();
 
-            new CommandLineBuilder(command).UseHelp<HelpBuilder>(
+            new CommandLineBuilder(command)
+                .UseHelp<HelpBuilder>(
                     builder =>
                     {
                         builder.Customize(option, descriptor: "-x (eXtreme)");
@@ -215,7 +221,8 @@ namespace System.CommandLine.Tests
             var command = new RootCommand { option };
 
             var console = new TestConsole();
-            var parser = new CommandLineBuilder(command).UseHelp<HelpBuilder>(
+            var parser = new CommandLineBuilder(command)
+                .UseHelp<HelpBuilder>(
                     builder =>
                     {
                         builder.Customize(option, descriptor: "-x (eXtreme)");

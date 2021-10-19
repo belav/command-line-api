@@ -13,7 +13,8 @@ namespace System.CommandLine.Rendering.Tests
         {
             var input = "The quick brown\tfox\t jumps over    the lazy dog.";
 
-            input.SplitForWrapping()
+            input
+                .SplitForWrapping()
                 .Should()
                 .BeEquivalentTo(
                     new[]
@@ -37,7 +38,8 @@ namespace System.CommandLine.Rendering.Tests
         {
             var input = "words and then space     ";
 
-            input.SplitForWrapping()
+            input
+                .SplitForWrapping()
                 .Should()
                 .BeEquivalentTo(
                     new[] { "words ", "and ", "then ", "space     ", },
@@ -50,7 +52,8 @@ namespace System.CommandLine.Rendering.Tests
         {
             var input = "    space and then words";
 
-            input.SplitForWrapping()
+            input
+                .SplitForWrapping()
                 .Should()
                 .BeEquivalentTo(
                     new[] { "    ", "space ", "and ", "then ", "words", },
@@ -65,7 +68,8 @@ namespace System.CommandLine.Rendering.Tests
         {
             var input = $"{newline}{newline}one two{newline}three{newline}";
 
-            input.SplitForWrapping()
+            input
+                .SplitForWrapping()
                 .Should()
                 .BeEquivalentTo(
                     new[] { newline, newline, "one ", "two", newline, "three", newline, },

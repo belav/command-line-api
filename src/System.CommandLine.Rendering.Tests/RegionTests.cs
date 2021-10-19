@@ -13,7 +13,8 @@ namespace System.CommandLine.Rendering.Tests
         {
             Action ctorCall = () => new Region(-1, 10, 10, 10);
 
-            ctorCall.Should()
+            ctorCall
+                .Should()
                 .Throw<ArgumentOutOfRangeException>()
                 .Which.Message.Should()
                 .Contain("left");
@@ -24,7 +25,8 @@ namespace System.CommandLine.Rendering.Tests
         {
             Action ctorCall = () => new Region(10, -1, 10, 10);
 
-            ctorCall.Should()
+            ctorCall
+                .Should()
                 .Throw<ArgumentOutOfRangeException>()
                 .Which.Message.Should()
                 .Contain("top");
@@ -35,7 +37,8 @@ namespace System.CommandLine.Rendering.Tests
         {
             Action ctorCall = () => new Region(10, 10, -1, 10);
 
-            ctorCall.Should()
+            ctorCall
+                .Should()
                 .Throw<ArgumentOutOfRangeException>()
                 .Which.Message.Should()
                 .Contain("width");
@@ -46,7 +49,8 @@ namespace System.CommandLine.Rendering.Tests
         {
             Action ctorCall = () => new Region(10, 10, 10, -1);
 
-            ctorCall.Should()
+            ctorCall
+                .Should()
                 .Throw<ArgumentOutOfRangeException>()
                 .Which.Message.Should()
                 .Contain("height");

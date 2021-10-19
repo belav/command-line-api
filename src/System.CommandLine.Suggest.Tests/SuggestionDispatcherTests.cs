@@ -41,9 +41,8 @@ namespace System.CommandLine.Suggest.Tests
         {
             string receivedTargetExeName = null;
 
-            string[] args = CommandLineStringSplitter.Instance.Split(
-                    $@"get -p 12 -e ""{CurrentExeFullPath()}"" -- ""{_currentExeName} add"""
-                )
+            string[] args = CommandLineStringSplitter.Instance
+                .Split($@"get -p 12 -e ""{CurrentExeFullPath()}"" -- ""{_currentExeName} add""")
                 .ToArray();
 
             await InvokeAsync(
@@ -99,7 +98,8 @@ namespace System.CommandLine.Suggest.Tests
             string scriptSendsCommand,
             int scriptSendsPosition,
             string expectToReceive
-        ) {
+        )
+        {
             string receivedTargetExeArgs = null;
 
             var args = PrepareArgs(
@@ -149,9 +149,8 @@ namespace System.CommandLine.Suggest.Tests
             dispatcher.Timeout = TimeSpan.FromMilliseconds(1);
             var testConsole = new TestConsole();
 
-            var args = CommandLineStringSplitter.Instance.Split(
-                    $@"get -p 0 -e ""{_currentExeName}"" -- {_currentExeName} add"
-                )
+            var args = CommandLineStringSplitter.Instance
+                .Split($@"get -p 0 -e ""{_currentExeName}"" -- {_currentExeName} add")
                 .ToArray();
 
             await dispatcher.InvokeAsync(args, testConsole);
@@ -176,7 +175,8 @@ namespace System.CommandLine.Suggest.Tests
 
             await dispatcher.InvokeAsync(new[] { "list" }, testConsole);
 
-            testConsole.Out.ToString()
+            testConsole.Out
+                .ToString()
                 .Should()
                 .Be(
                     $"dotnet-format{Environment.NewLine}dotnet format{Environment.NewLine}kiwi-fruit{Environment.NewLine}"
@@ -189,7 +189,8 @@ namespace System.CommandLine.Suggest.Tests
             var provider = new TestSuggestionRegistration();
             var dispatcher = new SuggestionDispatcher(provider);
 
-            var args = CommandLineStringSplitter.Instance.Split(
+            var args = CommandLineStringSplitter.Instance
+                .Split(
                     $"register --command-path \"{_netExeFullPath}\" --suggestion-command \"net-suggestions complete\""
                 )
                 .ToArray();
@@ -206,7 +207,8 @@ namespace System.CommandLine.Suggest.Tests
             var provider = new TestSuggestionRegistration();
             var dispatcher = new SuggestionDispatcher(provider);
 
-            var args = CommandLineStringSplitter.Instance.Split(
+            var args = CommandLineStringSplitter.Instance
+                .Split(
                     $"register --command-path \"{_netExeFullPath}\" --suggestion-command \"net-suggestions complete\""
                 )
                 .ToArray();
@@ -221,7 +223,8 @@ namespace System.CommandLine.Suggest.Tests
             string[] args,
             ISuggestionRegistration suggestionProvider,
             ISuggestionStore suggestionStore = null
-        ) {
+        )
+        {
             var dispatcher = new SuggestionDispatcher(
                 suggestionProvider,
                 suggestionStore ?? new TestSuggestionStore()
@@ -237,7 +240,8 @@ namespace System.CommandLine.Suggest.Tests
                 string exeFileName,
                 string suggestionTargetArguments,
                 TimeSpan timeout
-            ) {
+            )
+            {
                 if (timeout <= TimeSpan.FromMilliseconds(100))
                 {
                     return "";
@@ -270,7 +274,8 @@ namespace System.CommandLine.Suggest.Tests
                 string exeFileName,
                 string suggestionTargetArguments,
                 TimeSpan timeout
-            ) {
+            )
+            {
                 return _getSuggestions(exeFileName, suggestionTargetArguments, timeout);
             }
         }

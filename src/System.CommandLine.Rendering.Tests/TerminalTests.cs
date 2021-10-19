@@ -20,7 +20,8 @@ namespace System.CommandLine.Rendering.Tests
                 return;
             }
 
-            console.Invoking(c => c.CursorLeft = -1)
+            console
+                .Invoking(c => c.CursorLeft = -1)
                 .Should()
                 .Throw<ArgumentOutOfRangeException>()
                 .WithMessage(
@@ -38,7 +39,8 @@ namespace System.CommandLine.Rendering.Tests
                 return;
             }
 
-            console.Invoking(c => c.CursorTop = -1)
+            console
+                .Invoking(c => c.CursorTop = -1)
                 .Should()
                 .Throw<ArgumentOutOfRangeException>()
                 .WithMessage(

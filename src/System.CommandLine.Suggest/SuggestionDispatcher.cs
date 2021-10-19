@@ -20,7 +20,8 @@ namespace System.CommandLine.Suggest
         public SuggestionDispatcher(
             ISuggestionRegistration suggestionRegistration,
             ISuggestionStore suggestionStore = null
-        ) {
+        )
+        {
             _suggestionRegistration =
                 suggestionRegistration
                 ?? throw new ArgumentNullException(nameof(suggestionRegistration));
@@ -74,7 +75,8 @@ namespace System.CommandLine.Suggest
                 CompleteScriptCommand
             };
 
-            Parser = new CommandLineBuilder(root).UseVersionOption()
+            Parser = new CommandLineBuilder(root)
+                .UseVersionOption()
                 .UseHelp()
                 .UseParseDirective()
                 .UseDebugDirective()
@@ -163,7 +165,8 @@ namespace System.CommandLine.Suggest
             Program.LogDebug($"dotnet-suggest sending: {targetArgs}");
 #endif
 
-            string suggestions = _suggestionStore.GetSuggestions(targetExePath, targetArgs, Timeout)
+            string suggestions = _suggestionStore
+                .GetSuggestions(targetExePath, targetArgs, Timeout)
                 .Trim();
 
 #if DEBUG
@@ -194,7 +197,8 @@ namespace System.CommandLine.Suggest
                     if (
                         fileNameWithoutExtension?.StartsWith("dotnet-", StringComparison.Ordinal)
                         == true
-                    ) {
+                    )
+                    {
                         yield return "dotnet "
                             + fileNameWithoutExtension.Substring("dotnet-".Length);
                     }
@@ -206,7 +210,8 @@ namespace System.CommandLine.Suggest
             ParseResult parseResult,
             int position,
             string targetExeName
-        ) {
+        )
+        {
             var tokens = parseResult.UnparsedTokens;
 
             var commandLine = tokens.FirstOrDefault() ?? "";

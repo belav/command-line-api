@@ -19,7 +19,8 @@ namespace System.CommandLine.Benchmarks.CommandLine
         private Parser _testParser;
 
         private IEnumerable<Option> GenerateTestOptions(int count, IArgumentArity arity) =>
-            Enumerable.Range(0, count)
+            Enumerable
+                .Range(0, count)
                 .Select(
                     i =>
                         new Option($"-option{i}", arity: arity)
@@ -34,7 +35,8 @@ namespace System.CommandLine.Benchmarks.CommandLine
         /// count=20 : cmd-root -option0 -option1 ... -option19
         /// </remarks>
         private string GenerateTestOptionsAsStringExpr(int count) =>
-            Enumerable.Range(0, count)
+            Enumerable
+                .Range(0, count)
                 .Select(i => $"-option{i}")
                 .Aggregate("", (ac, next) => ac + " " + next);
 

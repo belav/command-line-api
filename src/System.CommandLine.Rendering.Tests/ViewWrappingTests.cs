@@ -29,7 +29,8 @@ namespace System.CommandLine.Rendering.Tests
 
             view.Render(consoleRenderer, new Region(0, 0, 5, 2));
 
-            _terminal.RenderOperations()
+            _terminal
+                .RenderOperations()
                 .Select(l => l.Text)
                 .Should()
                 .BeEquivalentTo(
