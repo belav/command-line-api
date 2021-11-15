@@ -128,4 +128,3 @@ namespace System.CommandLine.Rendering.Views
         }
     }
 }
-
