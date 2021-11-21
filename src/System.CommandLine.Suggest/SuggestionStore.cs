@@ -79,4 +79,3 @@ namespace System.CommandLine.Suggest
         }
     }
 }
-

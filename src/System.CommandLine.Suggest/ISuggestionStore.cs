@@ -13,4 +13,3 @@ namespace System.CommandLine.Suggest
         );
     }
 }
-
