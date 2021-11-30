@@ -97,7 +97,11 @@ namespace System.CommandLine.Tests
         {
             var option = new Option<string>("-x") { IsRequired = true };
 
-            var command = new RootCommand { option, new Command("subcommand") { option } };
+            var command = new RootCommand
+            {
+                option,
+                new Command("subcommand") { option }
+            };
 
             var result = command.Parse(commandLine);
 
@@ -109,7 +113,11 @@ namespace System.CommandLine.Tests
         {
             var child = new Command("child");
 
-            var parent = new RootCommand { new Option<string>("-x") { IsRequired = true }, child };
+            var parent = new RootCommand
+            {
+                new Option<string>("-x") { IsRequired = true },
+                child
+            };
             parent.Name = "parent";
 
             var result = parent.Parse("child");

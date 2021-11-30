@@ -842,7 +842,11 @@ namespace System.CommandLine.Tests
             var outerOption = new Option<string>("-x");
             var innerOption = new Option<string>("-x");
 
-            var outer = new Command("outer") { new Command("inner") { innerOption }, outerOption };
+            var outer = new Command("outer")
+            {
+                new Command("inner") { innerOption },
+                outerOption
+            };
 
             var result = outer.Parse("outer inner -x one -x two");
 
