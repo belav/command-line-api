@@ -46,7 +46,7 @@ namespace System.CommandLine
         /// <returns>A <see cref="StringBuilderPool"/>.</returns>
         public StringBuilder Rent()
         {
-            for (var i = _pool.Length; --i >= 0;)
+            for (var i = _pool.Length; --i >= 0; )
             {
                 if (
                     Interlocked.Exchange(ref _pool[i], null) is { } builderReference
@@ -69,7 +69,7 @@ namespace System.CommandLine
         {
             var reference = new WeakReference<StringBuilder>(stringBuilder);
 
-            for (var i = _pool.Length; --i >= 0;)
+            for (var i = _pool.Length; --i >= 0; )
             {
                 if (Interlocked.CompareExchange(ref _pool[i], reference, null) == null)
                 {

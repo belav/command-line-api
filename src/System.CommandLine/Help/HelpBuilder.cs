@@ -363,7 +363,7 @@ namespace System.CommandLine.Help
                 else
                 {
                     //Long item, wrap it based on the width
-                    for (int i = 0; i < part.Length;)
+                    for (int i = 0; i < part.Length; )
                     {
                         if (part.Length - i < maxWidth)
                         {
