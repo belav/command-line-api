@@ -112,8 +112,8 @@ namespace System.CommandLine.Binding
             }
 
             var enumerableInterface = type.IsEnumerable()
-                ? type
-                : type.GetInterfaces().FirstOrDefault(IsEnumerable);
+              ? type
+              : type.GetInterfaces().FirstOrDefault(IsEnumerable);
 
             return enumerableInterface?.GenericTypeArguments switch
             {
