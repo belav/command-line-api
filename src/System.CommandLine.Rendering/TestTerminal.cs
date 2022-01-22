@@ -252,9 +252,7 @@ namespace System.CommandLine.Rendering
             RecordEvent(new CursorShown());
         }
 
-        public abstract class ConsoleEvent
-        {
-        }
+        public abstract class ConsoleEvent { }
 
         public class AnsiControlCodeWritten : ConsoleEvent
         {
@@ -276,13 +274,9 @@ namespace System.CommandLine.Rendering
             public ConsoleColor BackgroundColor { get; }
         }
 
-        public class Cleared : ConsoleEvent
-        {
-        }
+        public class Cleared : ConsoleEvent { }
 
-        public class ColorReset : ConsoleEvent
-        {
-        }
+        public class ColorReset : ConsoleEvent { }
 
         public class CursorPositionChanged : ConsoleEvent
         {
@@ -314,13 +308,9 @@ namespace System.CommandLine.Rendering
             public ConsoleColor ForegroundColor { get; }
         }
 
-        public class CursorHidden : ConsoleEvent
-        {
-        }
+        public class CursorHidden : ConsoleEvent { }
 
-        public class CursorShown : ConsoleEvent
-        {
-        }
+        public class CursorShown : ConsoleEvent { }
     }
 
     public class TextRendered

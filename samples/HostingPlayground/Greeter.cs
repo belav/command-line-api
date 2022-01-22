@@ -1,6 +1,4 @@
 namespace HostingPlayground
 {
-    public class Greeter : IGreeter
-    {
-    }
+    public class Greeter : IGreeter { }
 }

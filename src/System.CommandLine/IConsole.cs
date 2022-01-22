@@ -5,7 +5,5 @@ using System.CommandLine.IO;
 
 namespace System.CommandLine
 {
-    public interface IConsole : IStandardOut, IStandardError, IStandardIn
-    {
-    }
+    public interface IConsole : IStandardOut, IStandardError, IStandardIn { }
 }

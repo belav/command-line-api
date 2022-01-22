@@ -10,22 +10,16 @@ namespace System.Diagnostics.CodeAnalysis
         AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Property,
         Inherited = false
     )]
-    internal sealed class AllowNullAttribute : Attribute
-    {
-    }
+    internal sealed class AllowNullAttribute : Attribute { }
 
     [AttributeUsage(
         AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Property,
         Inherited = false
     )]
-    internal sealed class DisallowNullAttribute : Attribute
-    {
-    }
+    internal sealed class DisallowNullAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Method, Inherited = false)]
-    internal sealed class DoesNotReturnAttribute : Attribute
-    {
-    }
+    internal sealed class DoesNotReturnAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Parameter)]
     internal sealed class DoesNotReturnIfAttribute : Attribute
@@ -49,9 +43,7 @@ namespace System.Diagnostics.CodeAnalysis
         Inherited = false,
         AllowMultiple = false
     )]
-    internal sealed class ExcludeFromCodeCoverageAttribute : Attribute
-    {
-    }
+    internal sealed class ExcludeFromCodeCoverageAttribute : Attribute { }
 
     [AttributeUsage(
         AttributeTargets.Field
@@ -60,9 +52,7 @@ namespace System.Diagnostics.CodeAnalysis
             | AttributeTargets.ReturnValue,
         Inherited = false
     )]
-    internal sealed class MaybeNullAttribute : Attribute
-    {
-    }
+    internal sealed class MaybeNullAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Parameter)]
     internal sealed class MaybeNullWhenAttribute : Attribute
@@ -82,9 +72,7 @@ namespace System.Diagnostics.CodeAnalysis
             | AttributeTargets.ReturnValue,
         Inherited = false
     )]
-    internal sealed class NotNullAttribute : Attribute
-    {
-    }
+    internal sealed class NotNullAttribute : Attribute { }
 
     [AttributeUsage(
         AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.ReturnValue,
