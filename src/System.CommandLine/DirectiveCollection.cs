@@ -10,10 +10,8 @@ namespace System.CommandLine
 {
     internal class DirectiveCollection : IDirectiveCollection
     {
-        private readonly Dictionary<string, List<string>> _directives = new Dictionary<
-            string,
-            List<string>
-        >();
+        private readonly Dictionary<string, List<string>> _directives =
+            new Dictionary<string, List<string>>();
 
         public void Add(string name, string? value)
         {
