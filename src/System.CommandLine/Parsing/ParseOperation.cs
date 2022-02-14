@@ -11,10 +11,8 @@ namespace System.CommandLine.Parsing
         private readonly TokenizeResult _tokenizeResult;
         private readonly CommandLineConfiguration _configuration;
         private int _index;
-        private readonly Dictionary<IArgument, int> _argumentCounts = new Dictionary<
-            IArgument,
-            int
-        >();
+        private readonly Dictionary<IArgument, int> _argumentCounts =
+            new Dictionary<IArgument, int>();
 
         public ParseOperation(TokenizeResult tokenizeResult, CommandLineConfiguration configuration)
         {
