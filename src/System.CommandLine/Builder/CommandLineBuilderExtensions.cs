@@ -185,8 +185,9 @@ namespace System.CommandLine.Builder
 
                             try
                             {
-                                var currentProcessFullPath =
-                                    Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                                var currentProcessFullPath = Diagnostics.Process
+                                    .GetCurrentProcess()
+                                    .MainModule.FileName;
                                 var currentProcessFileNameWithoutExtension =
                                     Path.GetFileNameWithoutExtension(currentProcessFullPath);
 
