@@ -19,22 +19,20 @@ namespace System.CommandLine.Builder
 {
     public static class CommandLineBuilderExtensions
     {
-        private static readonly Lazy<string> _assemblyVersion = new Lazy<string>(
-            () =>
+        private static readonly Lazy<string> _assemblyVersion = new Lazy<string>(() =>
+        {
+            var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            var assemblyVersionAttribute =
+                assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+            if (assemblyVersionAttribute is null)
             {
-                var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-                var assemblyVersionAttribute =
-                    assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
-                if (assemblyVersionAttribute is null)
-                {
-                    return assembly.GetName().Version.ToString();
-                }
-                else
-                {
-                    return assemblyVersionAttribute.InformationalVersion;
-                }
+                return assembly.GetName().Version.ToString();
             }
-        );
+            else
+            {
+                return assemblyVersionAttribute.InformationalVersion;
+            }
+        });
 
         public static TBuilder AddArgument<TBuilder>(this TBuilder builder, Argument argument)
             where TBuilder : CommandBuilder
@@ -177,42 +175,40 @@ namespace System.CommandLine.Builder
                 {
                     var feature = new FeatureRegistration("dotnet-suggest-registration");
 
-                    await feature.EnsureRegistered(
-                        async () =>
+                    await feature.EnsureRegistered(async () =>
+                    {
+                        var stdOut = StringBuilderPool.Default.Rent();
+                        var stdErr = StringBuilderPool.Default.Rent();
+
+                        try
                         {
-                            var stdOut = StringBuilderPool.Default.Rent();
-                            var stdErr = StringBuilderPool.Default.Rent();
+                            var currentProcessFullPath = Diagnostics.Process
+                                .GetCurrentProcess()
+                                .MainModule.FileName;
+                            var currentProcessFileNameWithoutExtension =
+                                Path.GetFileNameWithoutExtension(currentProcessFullPath);
 
-                            try
-                            {
-                                var currentProcessFullPath = Diagnostics.Process
-                                    .GetCurrentProcess()
-                                    .MainModule.FileName;
-                                var currentProcessFileNameWithoutExtension =
-                                    Path.GetFileNameWithoutExtension(currentProcessFullPath);
+                            var dotnetSuggestProcess = Process.StartProcess(
+                                command: "dotnet-suggest",
+                                args: $"register --command-path \"{currentProcessFullPath}\" --suggestion-command \"{currentProcessFileNameWithoutExtension}\"",
+                                stdOut: value => stdOut.Append(value),
+                                stdErr: value => stdOut.Append(value)
+                            );
 
-                                var dotnetSuggestProcess = Process.StartProcess(
-                                    command: "dotnet-suggest",
-                                    args: $"register --command-path \"{currentProcessFullPath}\" --suggestion-command \"{currentProcessFileNameWithoutExtension}\"",
-                                    stdOut: value => stdOut.Append(value),
-                                    stdErr: value => stdOut.Append(value)
-                                );
+                            await dotnetSuggestProcess.CompleteAsync();
 
-                                await dotnetSuggestProcess.CompleteAsync();
-
-                                return $"{dotnetSuggestProcess.StartInfo.FileName} exited with code {dotnetSuggestProcess.ExitCode}{NewLine}OUT:{NewLine}{stdOut}{NewLine}ERR:{NewLine}{stdErr}";
-                            }
-                            catch (Exception exception)
-                            {
-                                return $"Exception during registration:{NewLine}{exception}";
-                            }
-                            finally
-                            {
-                                StringBuilderPool.Default.ReturnToPool(stdOut);
-                                StringBuilderPool.Default.ReturnToPool(stdErr);
-                            }
+                            return $"{dotnetSuggestProcess.StartInfo.FileName} exited with code {dotnetSuggestProcess.ExitCode}{NewLine}OUT:{NewLine}{stdOut}{NewLine}ERR:{NewLine}{stdErr}";
                         }
-                    );
+                        catch (Exception exception)
+                        {
+                            return $"Exception during registration:{NewLine}{exception}";
+                        }
+                        finally
+                        {
+                            StringBuilderPool.Default.ReturnToPool(stdOut);
+                            StringBuilderPool.Default.ReturnToPool(stdErr);
+                        }
+                    });
 
                     await next(context);
                 },

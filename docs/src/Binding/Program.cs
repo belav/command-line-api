@@ -27,9 +27,9 @@ namespace Binding
                 "Enumerables" => await HandlerBindingSample.Enumerables(),
                 "DependencyInjection" => await HandlerBindingSample.DependencyInjection(),
                 _
-                  => throw new ArgumentException(
-                      $"There's no case in Program.Main for {nameof(region)} '{region}'"
-                  )
+                    => throw new ArgumentException(
+                        $"There's no case in Program.Main for {nameof(region)} '{region}'"
+                    )
             };
         }
     }
