@@ -22,29 +22,25 @@ namespace System.CommandLine
         /// <param name="description">The description of the command, shown in help.</param>
         public RootCommand(string description = "") : base(ExecutableName, description) { }
 
-        private static readonly Lazy<string> _executablePath = new Lazy<string>(
-            () =>
-            {
-                return GetAssembly().Location;
-            }
-        );
+        private static readonly Lazy<string> _executablePath = new Lazy<string>(() =>
+        {
+            return GetAssembly().Location;
+        });
 
-        private static readonly Lazy<string> _executableName = new Lazy<string>(
-            () =>
+        private static readonly Lazy<string> _executableName = new Lazy<string>(() =>
+        {
+            var location = _executablePath.Value;
+            if (string.IsNullOrEmpty(location))
             {
-                var location = _executablePath.Value;
-                if (string.IsNullOrEmpty(location))
+                var commandLineArgs = Environment.GetCommandLineArgs();
+
+                if (commandLineArgs.Length > 0)
                 {
-                    var commandLineArgs = Environment.GetCommandLineArgs();
-
-                    if (commandLineArgs.Length > 0)
-                    {
-                        location = commandLineArgs[0];
-                    }
+                    location = commandLineArgs[0];
                 }
-                return Path.GetFileNameWithoutExtension(location).Replace(" ", "");
             }
-        );
+            return Path.GetFileNameWithoutExtension(location).Replace(" ", "");
+        });
 
         private static Assembly GetAssembly() =>
             Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();

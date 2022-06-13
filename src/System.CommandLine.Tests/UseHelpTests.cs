@@ -178,12 +178,10 @@ namespace System.CommandLine.Tests
             var console = new TestConsole();
 
             new CommandLineBuilder(command)
-                .UseHelp<HelpBuilder>(
-                    builder =>
-                    {
-                        builder.Customize(option, descriptor: "-x (eXtreme)");
-                    }
-                )
+                .UseHelp<HelpBuilder>(builder =>
+                {
+                    builder.Customize(option, descriptor: "-x (eXtreme)");
+                })
                 .Build()
                 .Invoke("-h", console);
 
@@ -200,12 +198,10 @@ namespace System.CommandLine.Tests
             var console = new TestConsole();
 
             new CommandLineBuilder(command)
-                .UseHelp<HelpBuilder>(
-                    builder =>
-                    {
-                        builder.Customize(option, descriptor: "-x (eXtreme)");
-                    }
-                )
+                .UseHelp<HelpBuilder>(builder =>
+                {
+                    builder.Customize(option, descriptor: "-x (eXtreme)");
+                })
                 .UseHelp<HelpBuilder>(null)
                 .Build()
                 .Invoke("-h", console);
@@ -222,12 +218,10 @@ namespace System.CommandLine.Tests
 
             var console = new TestConsole();
             var parser = new CommandLineBuilder(command)
-                .UseHelp<HelpBuilder>(
-                    builder =>
-                    {
-                        builder.Customize(option, descriptor: "-x (eXtreme)");
-                    }
-                )
+                .UseHelp<HelpBuilder>(builder =>
+                {
+                    builder.Customize(option, descriptor: "-x (eXtreme)");
+                })
                 .UseHelpBuilder(context => new CustomHelpBuilder())
                 .Build();
 

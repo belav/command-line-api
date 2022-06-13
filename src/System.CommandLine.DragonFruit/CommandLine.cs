@@ -290,8 +290,8 @@ namespace System.CommandLine.DragonFruit
             }
 
             return parameterName.Length > 1
-              ? $"--{parameterName.ToKebabCase()}"
-              : $"-{parameterName.ToLowerInvariant()}";
+                ? $"--{parameterName.ToKebabCase()}"
+                : $"-{parameterName.ToLowerInvariant()}";
         }
 
         public static IEnumerable<Option> BuildOptions(this MethodInfo method)

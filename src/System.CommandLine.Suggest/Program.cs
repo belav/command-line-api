@@ -24,6 +24,7 @@ namespace System.CommandLine.Suggest
             var dispatcher = new SuggestionDispatcher(provider);
             return await dispatcher.InvokeAsync(args);
         }
+
 #if DEBUG
         internal static void LogDebug(params string[] args)
         {

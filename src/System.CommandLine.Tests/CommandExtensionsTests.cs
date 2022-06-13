@@ -34,12 +34,10 @@ namespace System.CommandLine.Tests
             var command = new RootCommand();
 
             new CommandLineBuilder(command)
-                .UseMiddleware(
-                    context =>
-                    {
-                        context.Console.Out.Write("hello!");
-                    }
-                )
+                .UseMiddleware(context =>
+                {
+                    context.Console.Out.Write("hello!");
+                })
                 .Build();
 
             var console = new TestConsole();

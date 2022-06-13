@@ -118,7 +118,7 @@ namespace System.CommandLine.Invocation
             param == null
                 ? null
                 : _methodDescriptor.ParameterDescriptors.FirstOrDefault(
-                      x => x.ValueName == param.Name && x.ValueType == param.ParameterType
-                  );
+                    x => x.ValueName == param.Name && x.ValueType == param.ParameterType
+                );
     }
 }

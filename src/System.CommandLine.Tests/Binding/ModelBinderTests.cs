@@ -108,9 +108,8 @@ namespace System.CommandLine.Tests.Binding
             var parser = new Parser(command);
             var bindingContext = new BindingContext(parser.Parse(""));
 
-            var instance = (ClassWithMultiLetterCtorParameters)binder.CreateInstance(
-                bindingContext
-            );
+            var instance = (ClassWithMultiLetterCtorParameters)
+                binder.CreateInstance(bindingContext);
 
             instance.StringOption.Should().Be("the default");
         }
@@ -217,10 +216,8 @@ namespace System.CommandLine.Tests.Binding
             var parser = new Parser(command);
             var bindingContext = new BindingContext(parser.Parse(""));
 
-            var instance =
-                (ClassWithSettersAndCtorParametersWithDifferentNames)binder.CreateInstance(
-                    bindingContext
-                );
+            var instance = (ClassWithSettersAndCtorParametersWithDifferentNames)
+                binder.CreateInstance(bindingContext);
 
             instance.StringOption.Should().Be("the default");
         }
@@ -609,16 +606,14 @@ namespace System.CommandLine.Tests.Binding
             );
 
             var parser = new CommandLineBuilder(rootCommand)
-                .UseMiddleware(
-                    context =>
-                    {
-                        var binder = new ModelBinder<ClassWithSetter<int>>();
+                .UseMiddleware(context =>
+                {
+                    var binder = new ModelBinder<ClassWithSetter<int>>();
 
-                        binder.BindMemberFromValue(instance => instance.Value, _ => 456);
+                    binder.BindMemberFromValue(instance => instance.Value, _ => 456);
 
-                        context.BindingContext.AddModelBinder(binder);
-                    }
-                )
+                    context.BindingContext.AddModelBinder(binder);
+                })
                 .Build();
 
             parser.Invoke("--value 123");
@@ -638,16 +633,14 @@ namespace System.CommandLine.Tests.Binding
             );
 
             var parser = new CommandLineBuilder(rootCommand)
-                .UseMiddleware(
-                    context =>
-                    {
-                        var binder = new ModelBinder<ClassWithSetter<int>>();
+                .UseMiddleware(context =>
+                {
+                    var binder = new ModelBinder<ClassWithSetter<int>>();
 
-                        binder.BindMemberFromValue(instance => instance.Value, _ => 456);
+                    binder.BindMemberFromValue(instance => instance.Value, _ => 456);
 
-                        context.BindingContext.AddModelBinder(binder);
-                    }
-                )
+                    context.BindingContext.AddModelBinder(binder);
+                })
                 .Build();
 
             parser.Invoke("123");

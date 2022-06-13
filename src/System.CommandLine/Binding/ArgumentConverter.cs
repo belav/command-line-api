@@ -166,10 +166,11 @@ namespace System.CommandLine.Binding
                 }
                 else
                 {
-                    return (IList)Activator.CreateInstance(
-                        typeof(List<>).MakeGenericType(itemType),
-                        capacity
-                    );
+                    return (IList)
+                        Activator.CreateInstance(
+                            typeof(List<>).MakeGenericType(itemType),
+                            capacity
+                        );
                 }
             }
 
@@ -213,12 +214,12 @@ namespace System.CommandLine.Binding
             switch (conversionResult)
             {
                 case SuccessfulArgumentConversionResult successful
-                      when !toType.IsInstanceOfType(successful.Value):
+                    when !toType.IsInstanceOfType(successful.Value):
                     return ConvertObject(conversionResult.Argument, toType, successful.Value);
                 case SuccessfulArgumentConversionResult successful
-                      when toType == typeof(object)
-                          && conversionResult.Argument.Arity.MaximumNumberOfValues > 1
-                          && successful.Value is string:
+                    when toType == typeof(object)
+                        && conversionResult.Argument.Arity.MaximumNumberOfValues > 1
+                        && successful.Value is string:
                     return ConvertObject(
                         conversionResult.Argument,
                         typeof(IEnumerable<string>),
@@ -227,13 +228,13 @@ namespace System.CommandLine.Binding
                 case NoArgumentConversionResult _ when toType == typeof(bool):
                     return Success(conversionResult.Argument, true);
                 case NoArgumentConversionResult _
-                      when conversionResult.Argument.Arity.MinimumNumberOfValues > 0:
+                    when conversionResult.Argument.Arity.MinimumNumberOfValues > 0:
                     return new MissingArgumentConversionResult(
                         conversionResult.Argument,
                         Resources.Instance.RequiredArgumentMissing(symbolResult)
                     );
                 case NoArgumentConversionResult _
-                      when conversionResult.Argument.Arity.MaximumNumberOfValues > 1:
+                    when conversionResult.Argument.Arity.MaximumNumberOfValues > 1:
                     return Success(conversionResult.Argument, Array.Empty<string>());
                 default:
                     return conversionResult;
@@ -247,7 +248,7 @@ namespace System.CommandLine.Binding
             {
                 SuccessfulArgumentConversionResult successful => (T)successful.Value!,
                 FailedArgumentConversionResult failed
-                  => throw new InvalidOperationException(failed.ErrorMessage),
+                    => throw new InvalidOperationException(failed.ErrorMessage),
                 NoArgumentConversionResult _ => default!,
                 _ => default!,
             };
