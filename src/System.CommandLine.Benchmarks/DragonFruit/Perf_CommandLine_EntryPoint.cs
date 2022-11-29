@@ -112,7 +112,10 @@ namespace System.CommandLine.Benchmarks.DragonFruit
             );
         }
 
-        public IEnumerable<(int classesCount, int methodsPerClassCount)> ValuesForTestAssemblySize =>
+        public IEnumerable<(
+            int classesCount,
+            int methodsPerClassCount
+        )> ValuesForTestAssemblySize =>
             new[]
             {
                 (classesCount: 1, methodsPerClassCount: 1),

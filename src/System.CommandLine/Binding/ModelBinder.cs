@@ -157,7 +157,11 @@ namespace System.CommandLine.Binding
                 : (false, (object?)null, false);
         }
 
-        private (bool success, object? newInstance, bool anyNonDefaults) InstanceFromSpecificConstructor(
+        private (
+            bool success,
+            object? newInstance,
+            bool anyNonDefaults
+        ) InstanceFromSpecificConstructor(
             BindingContext bindingContext,
             ConstructorDescriptor constructor,
             IReadOnlyList<BoundValue>? boundValues,
